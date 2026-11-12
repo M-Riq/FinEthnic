@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
 > **Statut :** Phase 0 — cadrage, en attente de validation par le responsable du projet.
-> **Version :** 0.1 — 2026-11-12
+> **Version :** 0.2 — 2026-11-12 (v0.1 revérifiée et complétée : §3.6, Q8 élargie, Q13)
 > **Règle :** aucun développement de l'extension avant validation de ce document et de `ROADMAP.md`.
 
 ---
@@ -104,6 +104,35 @@ Une analyse automatique (casse, espaces et ponctuation finale normalisés) confi
 - **Traductions disponibles** : **aucune n'est validée aujourd'hui.** Sans validation linguistique en parallèle, l'extension fonctionnera mais n'affichera aucun texte en Éton. C'est le **risque n° 1** du projet.
 - **Licence du dictionnaire** (CLÉ 2022) : il faut la vérifier avant de redistribuer des formes lexicales dans le dépôt public ou dans le livrable.
 
+### 3.6 Compléments de la revue v0.2
+Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (300 ID ; 62 occurrences ; 53 libellés uniques ; 19 correspondances exactes). Les points suivants n'étaient pas couverts :
+
+1. **Libellés de page ↔ gabarits du corpus.** Le corpus modélise souvent « libellé : {valeur} » en **une seule chaîne**, alors que la page affiche probablement le libellé et la valeur dans **deux nœuds séparés** (à confirmer avec Q2). Correspondances concernées :
+
+   | Page | Gabarit corpus |
+   |---|---|
+   | P1-005 « Numéro de compte : » | MSG-003 « Numéro de compte : {numéro_compte} » |
+   | P2-001 « Frais de transfert » | MSG-013 « Frais de transfert : {frais} {devise} » |
+   | P2-009 « Total à débiter » | MSG-014 « Total à débiter : {total} {devise} » |
+   | P4-004 / P5-005 « Frais » | MSG-037 « Frais : {frais} {devise} » |
+   | P4-005 / P5-006 « Total débité » | MSG-038 « Total débité : {total} {devise} » |
+   | P4-006 / P5-007 « Bénéficiaire » | MSG-039 « Bénéficiaire : {nom_bénéficiaire} » |
+   | P4-008 / P5-003 « Référence » | MSG-040 « Référence : {référence} » |
+
+   **Conséquences :**
+   - le matcher doit gérer les deux formes : libellé seul dans son nœud, ou libellé et valeur dans le même nœud ;
+   - le libellé isolé et la partie libellé du gabarit doivent recevoir la **même traduction**. Une divergence est **signalée** dans le rapport de qualité, mais ne bloque pas le build, car la grammaire de l'Éton peut l'exiger ;
+   - « Total à débiter » et « Total débité » restent des entrées de page (`P*`), reliées aux gabarits par `templateRefs`.
+2. **Phrase incluse dans un paragraphe.** La 2ᵉ phrase de P2-002 (« Les frais sont calculés automatiquement. ») est identique à MSG-017. Ce cas concret alimente Q7, qui porte sur la traduction tout ou rien par nœud.
+3. **Noms de marque.** « Safinum » et « Safinum Pay » apparaissent dans P1-017 et P2-004. D5 §4.3 les classe hors traduction. Ils doivent donc devenir des **jetons protégés**, au même titre que `FCFA`. P2-004 devient le gabarit « Compte {marque} ».
+4. **Attributs d'accessibilité.** D3 exige la compatibilité avec les lecteurs d'écran. Si un texte visible est traduit mais que son `aria-label` ou son `title` reste en français, le lecteur d'écran lit une version différente de l'écran. La question Q8 est élargie à ce cas. Dans tous les cas, `value`, `name`, `id` et `href` ne sont jamais touchés.
+5. **Lecture de l'Éton écrit.** Le public visé maîtrise mal le français, mais il ne lit pas forcément l'orthographe tonale du dictionnaire. C'est un risque pour le critère « Accessibilité » et pour la pertinence du projet (R12). Pistes **post-MVP** :
+   - mode bilingue ;
+   - **enregistrements audio** de phrases validées, réalisés par les locutrices et embarqués localement, **sans synthèse vocale distante**.
+
+   Voir la question Q13.
+6. **Q2, nouvel essai le 12/11/2026** : `safinum.cm` et `www.safinum.cm` ne sont toujours pas résolus (DNS) depuis mon environnement. L'origine exacte reste à confirmer de ton côté.
+
 ---
 
 ## 4. Architecture proposée
@@ -205,7 +234,7 @@ Désactivation → restauration exacte de tous les nœuds depuis la WeakMap.
 Une entrée n'est affichée que si `target` est non nul **ET** `linguisticStatus = VALIDATED_OBALA` **ET** `financialMeaningStatus = VALIDATED` **ET** les variables de la cible sont identiques à celles de la source. `build-lexicon` exclut tout le reste, donc une entrée non validée ne peut pas être livrée dans l'extension.
 
 ### 4.5 Schéma d'entrée unifié (proposition — résout C3)
-`id`, `kind` (`term` | `action` | `security` | `message` | `template`), `category`, `subcategory`, `source` (FR exact), `sourceVariants[]` (variantes FR **approuvées**), `target` (Éton | null), `targetVariants[]`, `variables[]`, `context`, `example`, `sensitivity` (`critical` | `high` | `standard`), `linguisticStatus` (statuts D5), `financialMeaningStatus` (`PENDING` | `VALIDATED` | `REJECTED`), `dictionaryForm`, `sourceReference`, `reviewer`, `reviewDate`, `notes`, `corpusRef` / `pageRefs[]` (traçabilité A↔B), `duplicateOf` / `relatedTo[]` (sans fusion automatique).
+`id`, `kind` (`term` | `action` | `security` | `message` | `template`), `category`, `subcategory`, `source` (FR exact), `sourceVariants[]` (variantes FR **approuvées**), `target` (Éton | null), `targetVariants[]`, `variables[]`, `context`, `example`, `sensitivity` (`critical` | `high` | `standard`), `linguisticStatus` (statuts D5), `financialMeaningStatus` (`PENDING` | `VALIDATED` | `REJECTED`), `dictionaryForm`, `sourceReference`, `reviewer`, `reviewDate`, `notes`, `corpusRef` / `pageRefs[]` (traçabilité A↔B), `templateRefs[]` (lien libellé seul ↔ gabarit « libellé : {valeur} », §3.6-1), `duplicateOf` / `relatedTo[]` (sans fusion automatique).
 
 ### 4.6 Choix techniques proposés
 | Sujet | Proposition | Raison |
@@ -231,8 +260,13 @@ Une entrée n'est affichée que si `target` est non nul **ET** `linguisticStatus
 **Importantes, peuvent être tranchées en phase 2–4**
 - **Q6 — Barème de référence** : D2 ou D3 (conflit C1) ? Il faut peut-être confirmer auprès des organisateurs.
 - **Q7 — Paragraphes multi-phrases** (ex. P2-002, P3-003) : si une seule phrase est validée, traduit-on partiellement (texte mixte FR/Éton) ou laisse-t-on tout en français ? **Recommandation : tout ou rien par nœud texte.**
-- **Q8 — `select`/`option` et `placeholder`** : P3-007 « Paiement de services » est probablement une option de liste. On ne touche à rien par défaut, mais faut-il traduire les **libellés** d'options (`option.text` uniquement, jamais `value`) ?
+- **Q8 — `select`/`option`, `placeholder` et attributs d'accessibilité** : P3-007 « Paiement de services » est probablement une option de liste. Par défaut, on ne touche à rien. Faut-il traduire :
+  - les **libellés** d'options (`option.text` uniquement, jamais `value`) ?
+  - les attributs `placeholder`, `aria-label`, `title` et `alt` lorsqu'ils correspondent à une entrée validée (§3.6-4) ?
+
+  **Recommandation : oui pour `aria-label` et `title`**, afin que le lecteur d'écran lise la même chose que l'écran. Les options et le `placeholder` peuvent attendre une phase ultérieure.
 - **Q9 — Statuts intermédiaires** : pour la démo, une entrée `REVIEW_PENDING` peut-elle s'afficher avec un marqueur « à valider » ? **Recommandation : non.**
 - **Q10 — Nommage (conflit C2)** : la description du dépôt présente **FinEthnic** comme une plateforme multilingue (bibliothèques, moteur, extensions, API, SDK). Hypothèse proposée : **FinEthnic** = plateforme et dépôt, **SAFINUM Éton** = module ou livrable Éton de la présélection, et « EtonFin » est un ancien nom à remplacer dans D5. Peux-tu confirmer ?
 - **Q11 — Versionner D2–D5** dans `docs/sources/` ? Le dépôt est actuellement **privé**. Si on le rend public pour la soumission, la licence du dictionnaire permet-elle d'y publier des formes lexicales ?
 - **Q12 — Calendrier linguistique** : combien de locutrices d'Obala sont disponibles, et à quel rythme ? Cela fixe le nombre réaliste de libellés validés pour la démo. **Priorité suggérée : les ~53 libellés uniques des 5 pages (62 occurrences), puis les actions critiques et les alertes SEC.**
+- **Q13 — Public qui ne lit pas l'Éton (§3.6-5)** : les locutrices peuvent-elles enregistrer l'audio des phrases critiques en même temps que leur validation ? Si oui, l'option « écouter » pourra être ajoutée **après** le MVP, avec des fichiers locaux et sans service distant. Ce n'est pas bloquant pour P1–P7.
