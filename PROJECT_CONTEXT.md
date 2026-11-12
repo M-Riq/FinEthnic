@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
-> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q3, Q4, Q5 et Q10 sont tranchées. Q1 et Q2 restent ouvertes, ainsi que les nouvelles questions bloquantes Q14, Q16 et Q19.
-> **Version :** 0.4 — 2026-11-12 (v0.3 alignée sur `TEAM_WORKFLOW.md` (D6) : §2.3, §3.7, §4 et §5 ; contrat proposé dans `INTEGRATION_CONTRACT.md`)
+> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
+> **Version :** 0.5 — 2026-11-12 (v0.4 + décisions Q2, Q14, Q16, Q19 ; conséquences de l'application monopage, §3.8 ; nouvelle question Q20)
 > **Règle :** aucun développement (extension, bibliothèque ou moteur) avant la validation de S1 : architecture, format JSON (§4.5), contrat d'intégration et répartition des tâches.
 
 ---
@@ -28,7 +28,7 @@
 Les services financiers numériques camerounais sont présentés en français ou en anglais. Les personnes qui maîtrisent mal ces langues comprennent mal les soldes, les frais, les confirmations et les alertes de sécurité. Cette incompréhension crée un risque d'exclusion et un risque de fraude ou d'erreur.
 
 ### 2.2 Solution envisagée
-Une **couche linguistique indépendante** affiche en **Éton (variété d'Obala)** les libellés d'une interface financière existante, sans modifier le code de cette interface. Pour la présélection, cette couche prend la forme d'une **extension Chrome MV3** testée sur l'environnement commun « SAFINUM Pay ».
+Une **couche linguistique indépendante** affiche en **Éton (variété d'Obala)** les libellés d'une interface financière existante, sans modifier le code de cette interface. Pour la présélection, cette couche prend la forme d'une **extension Chrome MV3** testée sur l'environnement commun « SAFINUM Pay » : `https://safinum.cm/hackathon-test`, une **application monopage** (Q2).
 
 ### 2.3 Les trois composantes (TEAM_WORKFLOW §1) et leurs responsables
 
@@ -56,7 +56,7 @@ Les sous-composantes **A** et **B** gardent leur nom dans le reste du document (
 - Le jury peut injecter du contenu inédit pendant la démonstration.
 - Livrables annexes : description, vidéo ≤ 3 min, note technique (architecture, intégration, dépendances, limites), langue prise en charge et **méthode de validation linguistique**.
 - Composants tiers et outils d'IA utilisés pendant le développement : à déclarer.
-- Date limite de soumission : **non communiquée dans les documents** (Q1).
+- Date limite de soumission : **à confirmer par les organisateurs** (Q1). Une date au **14/11/2026** a été évoquée, sans confirmation. Si elle est confirmée, le plan court de la ROADMAP (§0.1.1) s'applique.
 
 ---
 
@@ -114,7 +114,7 @@ Une analyse automatique (casse, espaces et ponctuation finale normalisés) confi
 ### 3.6 Compléments de la revue v0.2
 Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (300 ID ; 62 occurrences ; 53 libellés uniques ; 19 correspondances exactes). Les points suivants n'étaient pas couverts :
 
-1. **Libellés de page ↔ gabarits du corpus.** Le corpus modélise souvent « libellé : {valeur} » en **une seule chaîne**, alors que la page affiche probablement le libellé et la valeur dans **deux nœuds séparés** (à confirmer avec Q2). Correspondances concernées :
+1. **Libellés de page ↔ gabarits du corpus.** Le corpus modélise souvent « libellé : {valeur} » en **une seule chaîne**, alors que la page affiche probablement le libellé et la valeur dans **deux nœuds séparés** (à confirmer avec Q20). Correspondances concernées :
 
    | Page | Gabarit corpus |
    |---|---|
@@ -138,7 +138,7 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
    - **enregistrements audio** de phrases validées, réalisés par les locutrices et embarqués localement, **sans synthèse vocale distante**.
 
    Voir la question Q13.
-6. **Q2, nouvel essai le 12/11/2026** : `safinum.cm` et `www.safinum.cm` ne sont toujours pas résolus (DNS) depuis mon environnement. L'origine exacte reste à confirmer de ton côté.
+6. **Q2, nouvel essai le 12/11/2026** : `safinum.cm` et `www.safinum.cm` ne sont toujours pas résolus (DNS) depuis mon environnement. L'origine exacte reste à confirmer de ton côté. *(v0.5 : URL confirmée, voir §3.8. Nouvel essai sur `https://safinum.cm/hackathon-test` : le domaine n'est toujours pas résolu depuis l'environnement de Copilot. Les tests sur l'environnement réel se font donc sur les postes de l'équipe.)*
 
 ### 3.7 Analyse de `TEAM_WORKFLOW.md` (D6) — v0.4
 
@@ -170,8 +170,8 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
 |---|---|---|
 | C6 | En v0.3, « moteur » désigne aussi l'écriture dans le DOM (P5). Dans D6, le moteur est **pur** : il apparie et renvoie un statut. | Le moteur (`src/language/`) n'écrit jamais dans la page. P5 devient « Remplacement, restauration et branchement du moteur » (Yvan). Le renderer passe dans `src/content/renderer.*`. |
 | C7 | Le principe 4 de la v0.3 (« le lexique ne contient que les entrées affichables ») empêche de distinguer `KNOWN_UNTRANSLATED`, `PENDING_VALIDATION` et `NO_MATCH`. | Le lexique contient toutes les sources connues (FR/EN), leur statut et leurs variables. Il contient la **cible seulement si elle est approuvée** (invariant I6). Une proposition non approuvée **ne quitte jamais** `data/`. |
-| C8 | Les motifs protégés (montants, téléphones, références) servent à la fois au moteur (gabarits) et à l'extension (intégrité). Risque de deux implémentations divergentes (R14). | **Q14** : un module pur unique, injecté dans le moteur. |
-| C9 | D6 exige des sources FR et EN, mais **aucune entrée EN** n'existe, et SAFINUM est en français. | Le schéma prévoit `source.en` dès BM1. La saisie EN est la phase BM6, d'ampleur à fixer (**Q15**). Mode `'auto'` à confirmer (**Q16**). |
+| C8 | Les motifs protégés (montants, téléphones, références) servent à la fois au moteur (gabarits) et à l'extension (intégrité). Risque de deux implémentations divergentes (R14). | **Q14** ✅ : un module pur unique (`src/protection/patterns.ts`, Yvan), injecté dans le moteur. |
+| C9 | D6 exige des sources FR et EN, mais **aucune entrée EN** n'existe, et SAFINUM est en français. | Le schéma prévoit `source.en` dès BM1. La saisie EN est la phase BM6, d'ampleur à fixer (**Q15**). Mode `'auto'` retenu (**Q16** ✅). |
 | C10 | Arborescences différentes (`data/schema` vs `data/schemas`, `docs/reports` vs `data/exports`, `tests/unit` vs `tests/language` et `tests/extension`). | Adopter **D6** (§4.2). |
 | C11 | D5 mentionne 3 membres dans l'équipe, D6 en compte 2. | D6 fait foi pour la répartition. À vérifier pour la fiche d'inscription (faible priorité). |
 | C12 | Les portes séquentielles de la v0.3 contredisent le principe de parallélisme de D6. | Les portes restent **par piste**. S1–S5 sont des points de rendez-vous, **pas** des blocages (D6 §7). |
@@ -219,6 +219,18 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
    Le choix d'une forme se fait **par entrée et en contexte**, par les locutrices. Le moteur ne choisit jamais entre deux formes du dictionnaire.
 9. **Volume réaliste à valider pour la démo** : ~53 libellés uniques des pages, plus environ 50 messages probables du jury (MSG/SEC critiques). Cela confirme la priorité de Q12.
 
+### 3.8 Réponses du 12/11/2026 et conséquences (v0.5)
+
+1. **Q2 — Environnement de test.** L'URL est `https://safinum.cm/hackathon-test`. C'est une **application monopage** (SPA) : l'URL ne change pas entre les 5 étapes (1. Solde et tableau de bord, 2. Frais de transfert, 3. Bénéficiaire, 4. Récapitulatif, 5. Confirmation). Les textes des 5 étapes sont ceux de D5 (P1–P5). Conséquences :
+   - **Manifest** : `content_scripts.matches: ["https://safinum.cm/hackathon-test*"]`, aucune autre origine. Aucune `host_permissions` supplémentaire n'est nécessaire, car l'extension n'émet aucune requête réseau. L'URL doit être ouverte **directement** : si la SPA était chargée depuis une autre adresse puis routée côté client, le script de contenu ne serait pas injecté.
+   - **Changement d'étape = mutation du DOM**, sans rechargement ni changement d'URL. Le `MutationObserver` est donc le **seul** signal de changement d'étape. Le premier scan doit aussi tolérer un rendu tardif, après `document_idle`.
+   - **`context.step`** ne peut pas être déduit de l'URL. L'extension peut le déduire d'un repère visible, comme le titre de l'étape. Sinon, elle l'omet. Le moteur ne l'utilise que pour départager des candidats (contrat §6).
+   - **Restauration** : l'état (activation, textes originaux en `WeakMap`) dure tant que la page n'est pas rechargée. Les nœuds retirés par la SPA sont libérés automatiquement par la `WeakMap`. L'effet d'un rechargement (retour à l'étape 1 ?) est à vérifier (Q20).
+   - **Fixtures** : elles sont reconstruites à partir des textes de D5, avec des données fictives (P2). Leur **structure DOM** (balises, paires libellé/valeur) reste une hypothèse tant que la page réelle n'a pas été inspectée (Q20).
+2. **Accès depuis l'environnement de Copilot** : toujours impossible (échec DNS). L'équipe fait elle-même les vérifications sur l'environnement réel (Q20, P6, S4), sur ses propres postes.
+3. **Q14, Q16 et Q19 sont acceptées** telles que recommandées. Voir §5 et le contrat (§3, §5.3, §6, §8, §10). Le compte GitHub d'Yvan est **`@ivan-14-dev`**. Il n'est pas encore collaborateur du dépôt privé : il faut l'**inviter avec les droits d'écriture**, faute de quoi il ne peut ni relire la PR #1 ni figurer dans `CODEOWNERS`.
+4. **Q1** : la date limite est à confirmer par les organisateurs. Le 14/11/2026 a été évoqué. Si cette date est confirmée, il reste environ deux jours : le plan court s'applique (ROADMAP §0.1.1). S1 ne doit pas attendre la réponse des organisateurs (D6 §7 : pas de blocage inutile).
+
 ---
 
 ## 4. Architecture proposée
@@ -228,18 +240,19 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
 2. **Défense en profondeur** : liste blanche, puis contexte DOM, puis motifs de données protégées, puis contrôle d'intégrité avant et après chaque modification.
 3. **Modification minimale** : on remplace seulement `Text.data`, sans `innerHTML`, sans création ni suppression de nœuds et sans attribut fonctionnel. L'original est mémorisé dans une `WeakMap` pour une restauration exacte.
 4. **Séparation données / moteur / extension** : la bibliothèque (`data/`) est compilée en un **lexique d'exécution** (`lexicon.json`). Il contient toutes les sources connues (FR/EN) avec leur statut, mais une cible Éton **seulement si elle est approuvée** (C7, contrat I6). Le moteur pur l'interroge. L'extension ne consomme que le résultat du moteur, via `INTEGRATION_CONTRACT.md`.
-5. **Moindre privilège** : permission `storage` seulement, et hôtes limités à l'origine exacte du test. Pas de service worker sauf besoin avéré.
+5. **Moindre privilège** : permission `storage` seulement. Le script de contenu est limité à `https://safinum.cm/hackathon-test*` (Q2). Pas de `host_permissions` supplémentaire, pas de service worker sauf besoin avéré.
 6. **Développement parallèle** : l'extension est développée et testée avec un **faux moteur** conforme au contrat. La bibliothèque et le moteur sont développés et testés **sans Chrome** (Node + Vitest). Le remplacement du faux moteur par le vrai ne touche qu'**un seul fichier** (`src/content/engine-provider.ts`).
 
 ### 4.2 Arborescence cible (v0.4, alignée sur D6 — à valider en S1)
 Responsables : **[R]** responsable du projet, **[Y]** Yvan, **[R+Y]** copropriété (toute modification passe par une PR relue par l'autre membre).
 ```text
 FinEthnic/
-├── manifest.json                 # [Y] MV3 production : origine SAFINUM uniquement
+├── manifest.json                 # [Y] MV3 production : script de contenu sur https://safinum.cm/hackathon-test* uniquement (Q2)
 ├── manifest.dev.json             # [Y] MV3 développement : + localhost pour les fixtures
 ├── build.mjs                     # [R+Y] esbuild → dist/ ; échoue si le faux moteur est dans le build de prod
 ├── package.json, tsconfig.json   # [R+Y] créés une seule fois en P1.1 par Yvan (Q19), modifiés ensuite par PR
 ├── .gitignore                    # [R+Y] exclut dist/, node_modules/, data/language-resources/raw/
+├── .github/CODEOWNERS            # [R+Y] créé en P1.1 (Q19) : @M-Riq pour [R], @ivan-14-dev pour [Y], les deux pour [R+Y]
 ├── README.md                     # [Y] installation de l'extension ; [R] section bibliothèque et moteur
 ├── PROJECT_CONTEXT.md, ROADMAP.md, TEAM_WORKFLOW.md   # [R]
 ├── INTEGRATION_CONTRACT.md       # [R] rédige, [Y] relit obligatoirement (procédure contrat §10)
@@ -402,7 +415,7 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 | Langage | **TypeScript** compilé par **esbuild** en un seul script de contenu | Typage du schéma ; les scripts de contenu MV3 ne sont pas des modules ES, donc un bundle est nécessaire |
 | Tests unitaires | **Vitest + jsdom** | Rapide, compatible TS |
 | Tests E2E | **Playwright** (Chromium, extension chargée via contexte persistant) sur des **fixtures locales** et, si l'accès le permet, sur l'environnement réel | Reproductible hors ligne |
-| Permissions | `storage` + `host_permissions` limités à l'origine exacte | Moindre privilège |
+| Permissions | `storage` ; script de contenu limité à `https://safinum.cm/hackathon-test*` (Q2) | Moindre privilège |
 | Réseau | Aucun appel ; CSP MV3 par défaut ; aucune dépendance d'exécution tierce | Règles D2/D3 |
 | Police | Police libre (licence OFL) embarquée seulement si le rendu des diacritiques l'exige | Lisibilité de l'Éton |
 | Moteur et scripts | TypeScript exécuté sous **Node** (Vitest) ; aucune dépendance au navigateur | Bibliothèque et moteur testables **sans Chrome** (D6 §3) |
@@ -413,17 +426,29 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 ## 5. Questions ouvertes (à trancher avant ou pendant le développement)
 
 **Bloquantes pour la Synchronisation 1** (en plus de la validation du contrat, du format JSON §4.5 et de l'arborescence §4.2)
-- **Q1 — Calendrier** : quelle est la date limite de soumission et de démonstration ? Elle conditionne le découpage de la roadmap.
-- **Q2 — Origine exacte de l'environnement de test** : `safinum.cm` est inaccessible depuis mon environnement (échec DNS avec `curl`, `ERR_BLOCKED_BY_CLIENT` dans le navigateur). Je ne peux donc pas vérifier moi-même l'origine. Quelle est l'URL de « Ouvrir l'environnement de test » (domaine, sous-domaine, chemin) ? Y a-t-il des redirections ou des iframes vers une autre origine ? Les 5 étapes sont-elles sur une seule URL (SPA) ou sur plusieurs ? Peux-tu enregistrer le HTML de chaque étape (Ctrl+S, avec des données fictives) pour construire des fixtures de test ?
+- **Q1 — Calendrier** — ⏳ **En attente des organisateurs (2026-11-12). Ne bloque plus S1.** Le 14/11/2026 a été évoqué sans confirmation. Hypothèse de travail : ~10 jours ouvrés (ROADMAP §0.1). Si le 14/11 est confirmé, on bascule sur le **plan court** (ROADMAP §0.1.1).
+- **Q2 — Origine exacte de l'environnement de test** — ✅ **Tranchée (2026-11-12) : `https://safinum.cm/hackathon-test`, application monopage** dont l'URL ne change pas entre les étapes. Les textes des 5 étapes sont ceux de D5. Pas de pages HTML enregistrées : les fixtures sont reconstruites depuis D5 (§3.8-1). La structure réelle du DOM reste à vérifier (Q20).
 - **Q3 — Mode d'affichage** — ✅ **Tranchée (2026-11-12) : option (a).** L'Éton remplace le français, et le français reste accessible au survol ou au focus. Le popup propose une bascule vers le mode bilingue (b).
 - **Q4 — Stack** — ✅ **Tranchée (2026-11-12) : TypeScript + esbuild** (un seul bundle), tests **Vitest** (unitaires) et **Playwright** (e2e).
 - **Q5 — Source de vérité linguistique** — ✅ **Tranchée (2026-11-12) : JSON dans `data/`.** Les Markdown et CSV de relecture destinés aux locutrices sont **générés** à partir de ce JSON et ne sont jamais édités à la main. Les documents Markdown D4 et D5 ne servent qu'à l'import initial. *(Confirmée par D6 §5 ; exports dans `data/exports/`.)*
-- **Q14 — Propriété des motifs protégés (C8)** : qui définit les motifs (montant, devise, téléphone, numéro de compte, référence, date, marque) utilisés **à la fois** par le moteur et par l'extension ? **Recommandation :** un module pur et sans DOM, `src/protection/patterns.ts`, propriété d'Yvan, injecté dans le moteur (`createEngine({ detectProtected })`), avec une suite de tests commune tirée de D5 §4. Le contrat (§8) en dépend.
-- **Q16 — Langue source `'auto'`** : l'extension peut-elle envoyer `sourceLang: 'auto'` quand elle ne connaît pas la langue d'un texte (ex. message anglais injecté par le jury dans la page française) ? **Recommandation : oui**, avec la règle de départage du contrat §5.3 (`AMBIGUOUS` en cas de conflit). Cela modifie le type `TranslationRequest`.
-- **Q19 — Organisation Git** :
-  - adopte-t-on une branche `develop` (D6 §6) ? **Recommandation : non** pour un projet de ~2 semaines : branches courtes vers `main` via PR ;
-  - quel est le compte GitHub d'Yvan, pour la relecture obligatoire des PR `contract:` (fichier `CODEOWNERS`) ?
-  - qui crée les fichiers partagés (`package.json`, `tsconfig.json`, `build.mjs`, `.gitignore`) ? **Recommandation : Yvan en P1.1**, puis toute modification par PR.
+- **Q14 — Propriété des motifs protégés (C8)** — ✅ **Tranchée (2026-11-12) : recommandation acceptée.** Les motifs (montant, devise, téléphone, numéro de compte, référence, date, marque) sont définis dans un module pur sans DOM, `src/protection/patterns.ts`, propriété d'Yvan. Ce module est injecté dans le moteur (`createEngine({ detectProtected })`). Une suite de tests commune est tirée de D5 §4 (contrat §8).
+- **Q16 — Langue source `'auto'`** — ✅ **Tranchée (2026-11-12) : oui.** L'extension peut envoyer `sourceLang: 'auto'`. La règle de départage est celle du contrat §5.3 (`AMBIGUOUS` en cas de conflit).
+- **Q19 — Organisation Git** — ✅ **Tranchée (2026-11-12) : recommandations acceptées.**
+  - **Pas de branche `develop`** : des branches courtes vers `main`, via PR.
+  - **Yvan crée les fichiers partagés en P1.1** (`package.json`, `tsconfig.json`, `build.mjs`, `.gitignore`, `CODEOWNERS`). Toute modification ultérieure passe par une PR.
+  - Le compte GitHub d'Yvan est **`@ivan-14-dev`**. Il doit être invité comme collaborateur avec les **droits d'écriture**, condition pour figurer dans `CODEOWNERS`. Il est **relecteur obligatoire** des PR `contract:`.
+  - Si l'offre GitHub du compte ne permet pas d'appliquer `CODEOWNERS` sur un dépôt privé, la revue est demandée **manuellement** : c'est la règle d'équipe D6 §6 qui fait foi.
+
+**Nouvelle question v0.5, non bloquante pour S1 (à traiter par Yvan au début de P2)**
+- **Q20 — Structure réelle du DOM de la SPA** : sur son poste, avec des données fictives, Yvan vérifie dans les DevTools :
+  1. la présence d'`iframe` ou de *shadow DOM* (qui conditionnent `all_frames` et la traversée) ;
+  2. le balisage des paires libellé/valeur (P3, règle 3.3) ;
+  3. la valeur de `<html lang>` ;
+  4. une éventuelle redirection vers `www.safinum.cm` ;
+  5. le comportement au rechargement ;
+  6. le repère visible de chaque étape (pour `context.step`).
+
+  Les fixtures sont ensuite ajustées, par exemple à partir du `outerHTML` du conteneur de chaque étape, après suppression de toute donnée réelle.
 
 **Importantes, peuvent être tranchées en phase 2–4**
 - **Q6 — Barème de référence** : D2 ou D3 (conflit C1) ? Il faut peut-être confirmer auprès des organisateurs.

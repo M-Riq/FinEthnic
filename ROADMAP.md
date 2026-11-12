@@ -1,13 +1,15 @@
 # ROADMAP — SAFINUM Éton (projet FinEthnic, présélection SAFINUM Innovate 2026)
 
-> **Statut :** v0.4 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
+> **Statut :** v0.5 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
 > - pistes parallèles et synchronisations S1–S5 ;
 > - piste **BM** (bibliothèque et moteur), qui remplace la phase 4 ;
 > - phase 5 recentrée sur le remplacement et la restauration ;
 > - contrat d'intégration.
 >
-> Q3, Q4, Q5 et Q10 sont tranchées (§12).
-> **Références :** `PROJECT_CONTEXT.md` (documents D1–D7, conflits C1–C14, questions Q1–Q19) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
+> La v0.5 enregistre les décisions Q2 (`https://safinum.cm/hackathon-test`, application monopage), Q14, Q16 et Q19 (Yvan : `@ivan-14-dev`). Elle ajoute un **plan court** (§0.1.1) au cas où la date limite (Q1, en attente des organisateurs) serait le 14/11/2026.
+>
+> Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées (§12).
+> **Références :** `PROJECT_CONTEXT.md` (documents D1–D7, conflits C1–C14, questions Q1–Q20) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
 > **Règle de passage :** une phase ne démarre que si la **porte** de la phase précédente **de la même piste** est franchie. Les pistes avancent en parallèle et se retrouvent aux synchronisations S1–S5 (§0.3). Ce sont des rendez-vous, pas des blocages (D6 §7). Seul le responsable du projet peut lever une porte.
 
 ---
@@ -37,7 +39,7 @@ S1 Cadrage (J0)
 1. **EXT** : P2 → P3 → P5 (écriture sûre dans la page).
 2. **BM** : BM1 → BM2 → BM5. Le vrai moteur doit être conforme au contrat avant S3.
 3. **L** : L2 doit être terminée pour afficher de l'Éton **validé** en S4.
-4. L'accès à l'environnement réel (Q2) est nécessaire avant P6.
+4. L'URL de l'environnement réel est connue (Q2). Il reste à inspecter son DOM sur le poste d'Yvan au début de P2 (Q20), puis à le tester avant P6. L'environnement de Copilot n'y a pas accès (échec DNS).
 5. Le dictionnaire (D7) **n'est pas** sur le chemin critique : il n'alimente que BM3, c'est-à-dire la justification des propositions.
 
 **Pourquoi trois pistes :**
@@ -46,7 +48,7 @@ S1 Cadrage (J0)
 - La piste L ne génère aucun code : elle produit des **données validées**.
 
 ### 0.1 Calendrier indicatif (à recaler après Q1)
-La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/11/2026. Hypothèse de travail : **~10 jours ouvrés** à partir de S1 (J0).
+La date limite de soumission est **à confirmer par les organisateurs**. Le 14/11/2026 a été évoqué sans confirmation. L'événement a lieu du 26 au 28/11/2026. Hypothèse de travail : **~10 jours ouvrés** à partir de S1 (J0). Si le 14/11 est confirmé, c'est le plan court (§0.1.1) qui s'applique.
 
 | Jour | EXT (Yvan) | BM (responsable) | L (responsable + locutrices) | Synchro |
 |---|---|---|---|---|
@@ -60,6 +62,19 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 | J7 | P6 Parcours des 5 pages (commun) | P6 (commun) : correspondances, inconnus | Import | **S4** |
 | J8 | P7 Contenu inédit (commun) | P7 (commun) | L4 Double relecture critique | |
 | J9–J10 | P8 Stabilisation, README, note technique, vidéo | P8 Méthode de validation, exports finaux | Méthode de validation (livrable) | **S5** |
+
+#### 0.1.1 Plan court (si la date limite du 14/11/2026 est confirmée)
+Il resterait environ deux jours après S1. Le périmètre est réduit à ce qui démontre les 5 capacités minimales (D2), **sans jamais afficher d'Éton non validé**.
+
+| Créneau | EXT (Yvan) | BM (responsable) | L (responsable + locutrices) |
+|---|---|---|---|
+| 13/11 matin | S1 express (contrat accepté tel quel) ; P1 ; Q20 sur son poste | S1 express ; BM1 réduit (`contract.ts`, `tests/contract/`, `validate-data`) | Envoi des libellés des 5 étapes, en commençant par les boutons et les libellés de montants |
+| 13/11 après-midi | P2 (scanner, observer, faux moteur) ; P3 (motifs, `dom-guard`, intégrité) | BM2 limité à D5 (53 libellés + `GUARD`) ; BM5 réduit : exact, normalisé, « libellé + valeur protégée » ; `build-lexicon` | L2 : validation des libellés prioritaires |
+| 14/11 matin | P5 (remplacement, restauration) ; branchement du vrai moteur (S3) | Saisie des validations dans le JSON, contrôlée par `validate-data` et relue en PR ; BM7 | Fin de L2 ; dérogation tracée si une seule locutrice (Q18) |
+| 14/11 après-midi | P6 sur l'environnement réel (S4) ; README ; vidéo ≤ 3 min | Note technique ; méthode de validation | — |
+
+- **Reporté :** mode bilingue ; sources EN (BM6 : schéma prêt seulement) ; dictionnaire (BM3) ; aller-retour CSV complet (BM4, remplacé par la saisie contrôlée) ; gabarits du corpus hors « libellé + valeur » ; surlignage du diagnostic ; P7 limitée aux messages déjà validés.
+- **Jamais sacrifié :** protection des valeurs (P3), contrôle d'intégrité, restauration exacte, règle « `APPROVED` seulement » et absence de réseau.
 
 ### 0.2 Périmètre minimal de démonstration (« MVP ») vs options
 | Doit être présent (MVP) | Si le temps le permet |
@@ -75,10 +90,10 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 ### 0.3 Points de synchronisation (D6 §7)
 | Synchro | Quand | Contenu (D6) | Prérequis | Sortie |
 |---|---|---|---|---|
-| **S1 Cadrage** | J0 | Architecture, format JSON, contrat d'intégration, répartition des tâches | PROJECT_CONTEXT v0.4, ROADMAP v0.4, `INTEGRATION_CONTRACT.md` v0.1.0-draft ; réponses à Q1, Q2, Q14, Q16 et Q19 | Contrat **v0.1.0** validé ; PROJECT_CONTEXT §4.2 et §4.5 validés ; portes P1 et BM1 ouvertes |
+| **S1 Cadrage** | J0 | Architecture, format JSON, contrat d'intégration, répartition des tâches | PROJECT_CONTEXT v0.5, ROADMAP v0.5, `INTEGRATION_CONTRACT.md` v0.1.0-draft ; Q2, Q14, Q16 et Q19 ✅ ; Yvan (`@ivan-14-dev`) invité au dépôt et relecteur de la PR #1. Q1 n'est pas attendue (§0.1.1). | Contrat **v0.1.0** validé ; PROJECT_CONTEXT §4.2 et §4.5 validés ; portes P1 et BM1 ouvertes |
 | **S2 Premiers modules** | ≈ J3 | Scanner DOM, schéma JSON, matcher initial, compatibilité des interfaces | P2 (avec le faux moteur), BM1, BM2, prototype du matcher | `tests/contract/` vert sur le faux moteur ; ajustements éventuels du contrat (procédure §10 du contrat) |
 | **S3 Première intégration** | ≈ J6 | Chargement de la bibliothèque, remplacement du faux moteur, correspondances, statuts, protection | P5 sur le faux moteur, BM5 vert | `engine-provider.ts` branché sur le vrai moteur ; conformité verte sur les deux moteurs (BM7) |
-| **S4 Tests SAFINUM** | ≈ J7 | Parcours des 5 pages, contenus dynamiques, montants et références, textes inconnus, corrections communes | S3, imports L2, Q2 | Rapport de test P6 |
+| **S4 Tests SAFINUM** | ≈ J7 | Parcours des 5 pages, contenus dynamiques, montants et références, textes inconnus, corrections communes | S3, imports L2, Q20 vérifiée sur l'environnement réel | Rapport de test P6 |
 | **S5 Préparation finale** | J9–J10 | Stabilisation, non-régression, documentation, démonstration | P7 | Dossier de soumission (P8) |
 
 ### 0.4 Répartition (TEAM_WORKFLOW §2)
@@ -88,7 +103,9 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 | BM1 à BM7 (piste BM) | Responsable du projet | Yvan, pour `contract.ts`, `tests/contract/` et `engine-provider.ts` |
 | L1 à L4 (piste L) | Responsable du projet, avec les locutrices | Double relecture des entrées critiques (Q18) |
 | P6, P7, P8 | Commun | — |
-| `INTEGRATION_CONTRACT.md`, `tests/contract/`, `package.json`, `tsconfig.json`, `build.mjs`, `.gitignore` | Copropriété | Pull Request relue par l'autre membre (D6 §6) |
+| `INTEGRATION_CONTRACT.md`, `tests/contract/`, `package.json`, `tsconfig.json`, `build.mjs`, `.gitignore`, `.github/CODEOWNERS` | Copropriété | Pull Request relue par l'autre membre (D6 §6) |
+
+Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`**. Pas de branche `develop` : des branches courtes vers `main`, via PR.
 
 ---
 
@@ -101,7 +118,7 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 | **Tâches réalisées** | **v0.1 :** lecture de D1–D5 ; vérification automatique du corpus (300 ID uniques, 2 doublons stricts) ; couverture pages ↔ corpus (53 libellés uniques, 19 dans le corpus, 34 propres aux pages) ; tentative de vérification de l'origine du test (inaccessible depuis mon environnement) ; conflits C1–C5 ; questions Q1–Q12. **v0.2 :** revérification manuelle des chiffres (confirmés) ; 7 correspondances entre libellés de page et gabarits du corpus ; jetons de marque ; attributs d'accessibilité ; risque de lecture de l'Éton écrit (Q13) ; nouvel essai d'accès (toujours un échec DNS). **v0.3 :** Q3, Q4 et Q5 tranchées. **v0.4 :** analyse de `TEAM_WORKFLOW.md` (D6) : PROJECT_CONTEXT §3.7, conflits C6–C14, Q10 tranchée, questions Q14–Q19. Arborescence D6 avec responsables. Schéma à trois niveaux. Contrat d'intégration proposé. Piste BM. |
 | **Fichiers** | `PROJECT_CONTEXT.md`, `ROADMAP.md`, `TEAM_WORKFLOW.md`, `INTEGRATION_CONTRACT.md` |
 | **Livrables** | Synthèse, exigences (§11), risques (§10), questions, architecture, contrat (proposition), roadmap |
-| **Porte → S1** | ✔ Validation de la compréhension et de l'architecture v0.4. **À valider en S1 :** <br>• le contrat (`INTEGRATION_CONTRACT.md` → v0.1.0) ;<br>• le format JSON (PROJECT_CONTEXT §4.5) ;<br>• l'arborescence (PROJECT_CONTEXT §4.2) ;<br>• la répartition (§0.4).<br>**Réponses attendues :**<br>• **Q1** (délai ; à défaut, hypothèse de ~10 jours ouvrés, §0.1) ;<br>• **Q2** (origine ; à défaut, fixtures reconstruites) ;<br>• **Q14** (motifs protégés), **Q16** (`'auto'`), **Q19** (Git).<br>Q3, Q4, Q5 et Q10 sont tranchées. Le dictionnaire (D7) **n'est pas** requis pour S1. |
+| **Porte → S1** | ✔ Validation de la compréhension et de l'architecture v0.4. **À valider en S1 :** <br>• le contrat (`INTEGRATION_CONTRACT.md` → v0.1.0) ;<br>• le format JSON (PROJECT_CONTEXT §4.5) ;<br>• l'arborescence (PROJECT_CONTEXT §4.2) ;<br>• la répartition (§0.4).<br>**Réponses reçues (v0.5) :**<br>• **Q2** ✅ `https://safinum.cm/hackathon-test` (SPA) ; fixtures reconstruites depuis D5 ;<br>• **Q14** ✅, **Q16** ✅, **Q19** ✅ (Yvan : `@ivan-14-dev`) ;<br>• **Q1** ⏳ en attente des organisateurs, non bloquante (hypothèse §0.1, plan court §0.1.1).<br>**Reste avant S1 :** inviter Yvan dans le dépôt et obtenir sa relecture de la PR #1.<br>Q3, Q4, Q5 et Q10 sont tranchées. Le dictionnaire (D7) **n'est pas** requis pour S1. |
 
 ---
 
@@ -111,12 +128,12 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 |---|---|
 | **Responsable** | Yvan (piste EXT) |
 | **Objectifs** | Obtenir une extension MV3 minimale, installable en mode développeur, avec un popup accessible et un interrupteur Activer/Désactiver persistant. **Aucune lecture ni modification de la page à ce stade.** |
-| **Tâches** | 1.1 Initialiser `package.json`, TypeScript, esbuild, Vitest et ESLint (Q4). Ce sont des **fichiers partagés** : ils sont créés une seule fois, puis modifiés par PR (Q19). Ajouter un `.gitignore` qui exclut `dist/`, `node_modules/` et `data/language-resources/raw/`. Prévoir les dossiers de tests `tests/language`, `tests/extension` et `tests/contract`. 1.2 Écrire `manifest.json` MV3 : `permissions: ["storage"]`, `host_permissions` et `content_scripts.matches` limités à l'**origine confirmée en Q2** ; `run_at: document_idle` ; `all_frames` selon Q2. 1.3 Prévoir un **manifest de développement** séparé qui ajoute `http://localhost/*` pour les fixtures ; le manifest de production n'en contient pas. 1.4 Créer le popup : interrupteur (`role="switch"`, `aria-checked`), état lisible, navigation au clavier, contraste ≥ 4,5:1. 1.5 Créer `shared/settings` : `{ enabled, displayMode, diagnostic }` dans `chrome.storage.local`. 1.6 Ajouter un script de contenu « vide » qui écoute `storage.onChanged` et le journal d'événements (sans aucun contenu de page). 1.7 Écrire les icônes, `README` (installation) et `THIRD_PARTY.md` (outils, dont GitHub Copilot). |
-| **Fichiers** | `manifest.json`, `manifest.dev.json`, `package.json`, `tsconfig.json`, `build.mjs`, `.gitignore`, `src/popup/*`, `src/shared/settings.*`, `src/shared/logger.*`, `src/content/index.*`, `icons/*`, `README.md`, `THIRD_PARTY.md` |
-| **Dépendances** | S1, Q2 (origine), Q19 (fichiers partagés) |
-| **Critères d'acceptation** | L'extension se charge sans erreur via `chrome://extensions` → « Charger l'extension non empaquetée ». Le popup s'ouvre et se manipule au clavier. L'état survit à la fermeture du popup et au redémarrage du navigateur. Les permissions affichées par Chrome se limitent à « Lire et modifier vos données sur [origine du test] ». Aucune requête réseau n'est émise par l'extension. |
+| **Tâches** | 1.1 Initialiser `package.json`, TypeScript, esbuild, Vitest et ESLint (Q4). Ce sont des **fichiers partagés** : ils sont créés une seule fois, puis modifiés par PR (Q19). Créer aussi `.github/CODEOWNERS` : `@M-Riq` pour les dossiers [R], `@ivan-14-dev` pour les dossiers [Y], les deux pour les fichiers [R+Y] (PROJECT_CONTEXT §4.2). Ajouter un `.gitignore` qui exclut `dist/`, `node_modules/` et `data/language-resources/raw/`. Prévoir les dossiers de tests `tests/language`, `tests/extension` et `tests/contract`. 1.2 Écrire `manifest.json` MV3 : `permissions: ["storage"]`, aucune `host_permissions` (aucune requête réseau) et `content_scripts.matches: ["https://safinum.cm/hackathon-test*"]` (Q2) ; `run_at: document_idle` ; `all_frames: false` sauf si Q20 révèle une iframe. 1.3 Prévoir un **manifest de développement** séparé qui ajoute `http://localhost/*` pour les fixtures ; le manifest de production n'en contient pas. 1.4 Créer le popup : interrupteur (`role="switch"`, `aria-checked`), état lisible, navigation au clavier, contraste ≥ 4,5:1. 1.5 Créer `shared/settings` : `{ enabled, displayMode, diagnostic }` dans `chrome.storage.local`. 1.6 Ajouter un script de contenu « vide » qui écoute `storage.onChanged` et le journal d'événements (sans aucun contenu de page). 1.7 Écrire les icônes, `README` (installation) et `THIRD_PARTY.md` (outils, dont GitHub Copilot). |
+| **Fichiers** | `manifest.json`, `manifest.dev.json`, `package.json`, `tsconfig.json`, `build.mjs`, `.gitignore`, `.github/CODEOWNERS`, `src/popup/*`, `src/shared/settings.*`, `src/shared/logger.*`, `src/content/index.*`, `icons/*`, `README.md`, `THIRD_PARTY.md` |
+| **Dépendances** | S1 ; Q2 ✅ (URL) ; Q19 ✅ (fichiers partagés, `CODEOWNERS`) |
+| **Critères d'acceptation** | L'extension se charge sans erreur via `chrome://extensions` → « Charger l'extension non empaquetée ». Le popup s'ouvre et se manipule au clavier. L'état survit à la fermeture du popup et au redémarrage du navigateur. Les permissions affichées par Chrome se limitent à « Lire et modifier vos données sur safinum.cm ». Aucune requête réseau n'est émise par l'extension. |
 | **Tests** | T-INS-01 à 05. Test unitaire du module `settings` (`tests/extension/`). Test d'instantané du manifest (il échoue si une permission est ajoutée). |
-| **Risques** | Origine inconnue (Q2) : on peut ouvrir temporairement sur `localhost` seulement, jamais sur `<all_urls>`. |
+| **Risques** | L'URL est connue (Q2). Risque résiduel : une redirection vers `www.safinum.cm` ou un chargement par une autre adresse, vérifiés en Q20. Le motif `matches` est alors ajusté par PR, mais **jamais** élargi à `<all_urls>`. |
 | **Livrable** | Extension minimale installable, documentée dans le README. |
 | **Porte → P2** | Tests T-INS au vert, vérifiés **sur ta machine**. |
 
@@ -128,12 +145,12 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 |---|---|
 | **Responsable** | Yvan (piste EXT) |
 | **Objectifs** | Détecter et classer tous les textes visibles, au chargement et après injection, **sans rien modifier**. Interroger un **faux moteur** conforme au contrat, sans attendre la bibliothèque (D6 §3). |
-| **Tâches** | 2.1 Construire `scanner` : `TreeWalker(SHOW_TEXT)` en ignorant les nœuds vides et les éléments `script`, `style`, `noscript`, `template`, `code`, `pre`, `svg`, `[aria-hidden]`, `[hidden]`. 2.2 Ajouter un premier filtre `dom-guard` minimal : exclure `input`, `textarea`, `select` (sauf décision Q8), `[contenteditable]` et leurs descendants. 2.3 Classer chaque nœud : `excluded`, `candidate` (non encore apparié), `numeric-like`. 2.4 Écrire `observer` : `MutationObserver` (`childList`, `characterData`, `subtree`) avec regroupement par `requestAnimationFrame`, dédoublonnage des nœuds et budget de traitement par lot. 2.5 Gérer les pages SPA : le changement d'étape est vu comme une mutation et ne demande pas de rechargement. 2.6 Afficher le diagnostic : compteurs dans le popup (via `chrome.tabs.sendMessage`, sans permission `tabs`). Surlignage par **CSS Custom Highlight API** (`CSS.highlights`) : **aucune modification du DOM du site**. 2.7 Respecter la règle du journal : on ne journalise que des compteurs et des types, **jamais le texte**. 2.8 **Faux moteur** (`src/content/fake-engine.ts`), conforme au contrat §9 : sorties `⟦FAKE⟧`, les 6 statuts couverts à partir de textes fictifs FR et EN. Il est obtenu via `src/content/engine-provider.ts`, seul fichier qui choisit le moteur. Le scanner calcule le contexte (`role`, `step`, `live`, `pageLang`) et le diagnostic compte les candidats **par statut**. 2.9 Exécuter `tests/contract/` (BM1) sur le faux moteur. |
+| **Tâches** | 2.0 **Inspecter le DOM réel (Q20)** sur `https://safinum.cm/hackathon-test`, avec des données fictives : iframes, *shadow DOM*, balisage des paires libellé/valeur, `<html lang>`, redirection éventuelle vers `www`, comportement au rechargement, repère visible de chaque étape. Consigner le résultat dans `docs/architecture.md`, sans aucune donnée réelle. 2.1 Construire `scanner` : `TreeWalker(SHOW_TEXT)` en ignorant les nœuds vides et les éléments `script`, `style`, `noscript`, `template`, `code`, `pre`, `svg`, `[aria-hidden]`, `[hidden]`. 2.2 Ajouter un premier filtre `dom-guard` minimal : exclure `input`, `textarea`, `select` (sauf décision Q8), `[contenteditable]` et leurs descendants. 2.3 Classer chaque nœud : `excluded`, `candidate` (non encore apparié), `numeric-like`. 2.4 Écrire `observer` : `MutationObserver` (`childList`, `characterData`, `subtree`) avec regroupement par `requestAnimationFrame`, dédoublonnage des nœuds et budget de traitement par lot. 2.5 Gérer l'application monopage (Q2 : l'URL ne change pas entre les étapes) : le changement d'étape n'est visible que par mutation, sans rechargement. Le premier scan tolère un rendu tardif. `context.step` est déduit d'un repère visible de l'étape, sinon omis (contrat §6). 2.6 Afficher le diagnostic : compteurs dans le popup (via `chrome.tabs.sendMessage`, sans permission `tabs`). Surlignage par **CSS Custom Highlight API** (`CSS.highlights`) : **aucune modification du DOM du site**. 2.7 Respecter la règle du journal : on ne journalise que des compteurs et des types, **jamais le texte**. 2.8 **Faux moteur** (`src/content/fake-engine.ts`), conforme au contrat §9 : sorties `⟦FAKE⟧`, les 6 statuts couverts à partir de textes fictifs FR et EN. Il est obtenu via `src/content/engine-provider.ts`, seul fichier qui choisit le moteur. Le scanner calcule le contexte (`role`, `step`, `live`, `pageLang`) et le diagnostic compte les candidats **par statut**. 2.9 Exécuter `tests/contract/` (BM1) sur le faux moteur. |
 | **Fichiers** | `src/content/scanner.*`, `src/content/observer.*`, `src/protection/dom-guard.*` (version initiale), `src/content/diagnostic.*`, `src/content/fake-engine.ts`, `src/content/engine-provider.ts`, `tests/extension/scanner.test.*`, `tests/extension/observer.test.*`, `tests/fixtures/*.html` |
-| **Dépendances** | P1 ; contrat validé en S1 (faux moteur) ; squelette `tests/contract/` (BM1). Fixtures locales des 5 étapes : à partir des pages HTML que tu auras enregistrées (Q2), ou à défaut reconstruites depuis D5 avec des données fictives. |
+| **Dépendances** | P1 ; contrat validé en S1 (faux moteur) ; squelette `tests/contract/` (BM1). Fixtures locales des 5 étapes : reconstruites depuis les textes de D5 avec des données fictives (Q2), puis ajustées à la structure réelle relevée en 2.0 (Q20). |
 | **Critères d'acceptation** | 100 % des libellés D5 de chaque fixture sont détectés comme `candidate`. 0 nœud détecté dans un champ de saisie. Une injection après chargement est détectée en moins de 100 ms. 50 nœuds injectés d'un coup sont traités en un seul lot. **L'empreinte du DOM est identique avant et après le scan** (test automatisé). |
 | **Tests** | T-DET-01 à 06, T-PRO-12, T-CON-01 à 05 (faux moteur). |
-| **Risques** | *Shadow DOM* ou iframes dans l'environnement réel (à vérifier en Q2). Performance sur de gros DOM : atténuée par le regroupement et un budget par trame. |
+| **Risques** | *Shadow DOM* ou iframes dans l'environnement réel (vérifiés en 2.0, Q20). Performance sur de gros DOM : atténuée par le regroupement et un budget par trame. |
 | **Livrable** | Scanner et observateur en lecture seule, avec diagnostic visuel. |
 | **Porte → P3** | Diagnostic validé sur au moins une étape réelle ou sa fixture, avec la preuve que le DOM n'est pas modifié. Scanner et faux moteur présentés en **S2**. |
 
@@ -230,9 +247,9 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 |---|---|
 | **Responsable** | Responsable du projet |
 | **Objectifs** | Implémenter `TranslationEngine` conformément au contrat : pur, déterministe, sans DOM, avec les 6 statuts. |
-| **Tâches** | BM5.1 **Normaliseur** (comparaison uniquement) : NFC ; espaces, U+00A0 et U+202F réduits à une espace ; apostrophes `’` et `'` unifiées ; ponctuation finale (`:` `.`) détachée puis **réattachée telle quelle**. **Jamais** de suppression d'accents ; casse respectée, sauf variante approuvée. BM5.2 **Matcher**, dans l'ordre du contrat §5.3 :<br>• exact ;<br>• normalisé ;<br>• variantes approuvées ;<br>• gabarits à **variables typées** (`{montant}` doit satisfaire le motif « montant », `{devise}` ∈ {FCFA, XAF}, `{référence}` le motif « référence », etc.) ;<br>• « libellé connu + séparateur + valeur protégée » (`Frais : 0 FCFA`).<br>**Pas de similarité floue.** BM5.3 Départage par `context.role` et `context.step`, sinon `AMBIGUOUS`. Mode `'auto'` si Q16 = oui. BM5.4 Détection des valeurs protégées par **injection** de `detectProtected` (Q14). En attendant `src/protection/patterns.ts`, une implémentation de test est utilisée. BM5.5 Conversion des statuts de la bibliothèque en statuts du contrat (§5.2). L'unité de traduction est canonique (`corpusRef`). BM5.6 **`build-lexicon`** : `data/` → `src/language/lexicon.json`. Le lexique contient toutes les sources connues et leur statut, mais une **cible seulement si elle est approuvée** (C7, I6). Le build échoue en cas de contradiction (§8.4), de variables incohérentes ou de cible `⟦TEST⟧` en production. BM5.7 `createEngine()`, `info()`, `translateMany()` et cache borné (I11). |
+| **Tâches** | BM5.1 **Normaliseur** (comparaison uniquement) : NFC ; espaces, U+00A0 et U+202F réduits à une espace ; apostrophes `’` et `'` unifiées ; ponctuation finale (`:` `.`) détachée puis **réattachée telle quelle**. **Jamais** de suppression d'accents ; casse respectée, sauf variante approuvée. BM5.2 **Matcher**, dans l'ordre du contrat §5.3 :<br>• exact ;<br>• normalisé ;<br>• variantes approuvées ;<br>• gabarits à **variables typées** (`{montant}` doit satisfaire le motif « montant », `{devise}` ∈ {FCFA, XAF}, `{référence}` le motif « référence », etc.) ;<br>• « libellé connu + séparateur + valeur protégée » (`Frais : 0 FCFA`).<br>**Pas de similarité floue.** BM5.3 Départage par `context.role` et `context.step`, sinon `AMBIGUOUS`. Mode `'auto'` (Q16 ✅). BM5.4 Détection des valeurs protégées par **injection** de `detectProtected` (Q14). En attendant `src/protection/patterns.ts`, une implémentation de test est utilisée. BM5.5 Conversion des statuts de la bibliothèque en statuts du contrat (§5.2). L'unité de traduction est canonique (`corpusRef`). BM5.6 **`build-lexicon`** : `data/` → `src/language/lexicon.json`. Le lexique contient toutes les sources connues et leur statut, mais une **cible seulement si elle est approuvée** (C7, I6). Le build échoue en cas de contradiction (§8.4), de variables incohérentes ou de cible `⟦TEST⟧` en production. BM5.7 `createEngine()`, `info()`, `translateMany()` et cache borné (I11). |
 | **Fichiers** | `src/language/*.ts`, `scripts/build-lexicon.*`, `tests/language/normalizer.test.*`, `tests/language/matcher.test.*`, `tests/language/lexicon-build.test.*`, `tests/contract/*` |
-| **Dépendances** | BM1, BM2 ; Q14 et Q16 tranchées en S1. Les motifs d'Yvan (P3) sont nécessaires pour l'intégration finale, pas pour le développement. |
+| **Dépendances** | BM1, BM2 ; Q14 et Q16 ✅ (2026-11-12). Les motifs d'Yvan (P3) sont nécessaires pour l'intégration finale, pas pour le développement. |
 | **Critères d'acceptation** | Suite de conformité **verte** sur le vrai moteur. Invariants I1 à I11 testés. Le lexique d'exécution réel ne contient **aucune** cible tant qu'aucune entrée n'est approuvée, ce qui est normal. |
 | **Tests** | T-ENG-01 à 09, T-LIB-04 à 08, T-LIB-10, T-CON-01 à 05 |
 | **Risques** | R13, R14, R18 |
@@ -295,7 +312,7 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 | **Objectifs** | Valider le comportement sur l'environnement réel, étape par étape, puis sur le parcours complet. |
 | **Tâches** | 6.1 Étape 1 : solde, numéro de compte, transactions (signes, dates). 6.2 Étape 2 : changer le type et le montant, puis vérifier que les frais, le total et le solde après opération restent **identiques** avec et sans l'extension. 6.3 Étape 3 : saisir des données fictives (dont une note contenant un mot du lexique, ex. « Facture ») et vérifier qu'aucune saisie n'est traduite. 6.4 Étape 4 : **point de contrôle d'intégrité**. Comparer chaque valeur avec les étapes 1 à 3 ; la case à cocher et le bouton « Confirmer le transfert » restent fonctionnels. 6.5 Étape 5 : reçu identique ; un message de succès n'est affiché que si la page affiche un succès. 6.6 Parcours complet, extension activée puis désactivée en cours de route. 6.7 Contrôle visuel : troncature, débordement, contraste, focus. 6.8 Tests e2e Playwright sur les fixtures ; sur le site réel si les conditions d'utilisation le permettent. |
 | **Fichiers** | `tests/e2e/journey.spec.*`, `tests/fixtures/*`, `docs/test-report.md` |
-| **Dépendances** | S3 (vrai moteur branché), accès à l'environnement réel (Q2), traductions L2 importées. |
+| **Dépendances** | S3 (vrai moteur branché), environnement réel `https://safinum.cm/hackathon-test` (Q2 ✅), testé sur les postes de l'équipe, traductions L2 importées. |
 | **Critères d'acceptation** | Les 5 étapes passent. **0 valeur protégée altérée** (comparaison automatique avant/après). Aucune régression fonctionnelle ou visuelle bloquante. |
 | **Tests** | T-NAV-01 à 06, T-PRO-01 à 11 en conditions réelles. |
 | **Risques** | Le site réel diffère des captures (libellés non relevés) : ajouter les entrées dans `data/` (BM2), **sans inventer** de traduction. |
@@ -473,7 +490,7 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | ID | Risque | Probabilité | Impact | Atténuation |
 |---|---|---|---|---|
 | R1 | **Aucune traduction validée à temps** | Élevée | Critique | Piste L dès J0, priorisation ①②, périmètre honnête dans la démo |
-| R2 | Origine du test inconnue ou inaccessible | Moyenne | Élevé | Q2. Fixtures locales enregistrées par toi |
+| R2 | Structure DOM réelle inconnue (iframes, *shadow DOM*, balisage libellé/valeur) ; environnement inaccessible depuis Copilot | Moyenne | Élevé | URL connue (Q2 ✅). Inspection par Yvan au début de P2 (Q20). Fixtures reconstruites depuis D5 puis ajustées |
 | R3 | Altération d'une valeur (défaut majeur, exclusion possible) | Faible | Critique | Liste blanche, contexte DOM, intégrité avec retour arrière, tests T-PRO |
 | R4 | Faux positif sur une donnée saisie identique à un libellé | Moyenne | Élevé | Règle libellé/valeur (3.3), test T-PRO-11 |
 | R5 | Conflit avec le framework de la page (React/Vue) | Moyenne | Élevé | `Text.data` uniquement, réévaluation, T-TRA-08 |
@@ -482,7 +499,7 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | R8 | Texte réparti sur plusieurs nœuds non traduit | Élevée | Faible | Laissé en FR (sûr), amélioration optionnelle |
 | R9 | Barème ambigu (C1) | — | Faible | Couvrir l'union des deux barèmes |
 | R10 | Licence du dictionnaire | Moyenne | Moyen | Fichier brut hors Git, formes citées avec référence seulement (Q17) ; vérifier avant publication (Q11) |
-| R11 | Délai inconnu (Q1) | — | Élevé | Périmètre MVP strict (§0.2) |
+| R11 | Délai inconnu (Q1) ; le 14/11/2026 a été évoqué | Moyenne | Critique | Périmètre MVP strict (§0.2) ; plan court prêt (§0.1.1) ; S1 tenue sans attendre la confirmation |
 | R12 | Public cible ne lisant pas l'Éton écrit (tons) — v0.2 | Moyenne | Moyen | Mode bilingue ; audio local enregistré par les locutrices après le MVP (Q13) ; argument à présenter au jury |
 | R13 | Divergence entre le faux et le vrai moteur — v0.4 | Moyenne | Élevé | Suite `tests/contract/` commune, livrée en BM1 avant les deux moteurs ; procédure de changement du contrat (§10) |
 | R14 | Logique de protection dupliquée entre moteur et extension | Moyenne | Élevé | Q14 : un module unique injecté dans le moteur ; cas communs tirés de D5 §4 |
@@ -490,7 +507,7 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | R16 | Aucun corpus EN disponible | Certaine | Moyen | Q15 ; schéma prêt dès BM1 ; BM6 limitée aux libellés des pages et aux SEC critiques |
 | R17 | CSV de relecture corrompus (tableur, encodage, séparateur) | Moyenne | Élevé | UTF-8 avec BOM, séparateur fixé, réimport contrôlé avec diff, T-REV |
 | R18 | Cible non approuvée transmise à l'extension | Faible | Critique | `build-lexicon` retire les cibles non approuvées (I6) ; T-LIB-10, T-CON-02 ; faux moteur absent de la production (T-CON-06) |
-| R19 | Conflits sur les fichiers partagés (`package.json`, build) | Moyenne | Faible | Q19 : création unique en P1.1, PR relue, `CODEOWNERS` ; dossiers séparés par périmètre (D6 §3) |
+| R19 | Conflits sur les fichiers partagés (`package.json`, build) | Moyenne | Faible | Q19 ✅ : création unique en P1.1 par Yvan, PR relue, `CODEOWNERS` (`@M-Riq`, `@ivan-14-dev`) ; dossiers séparés par périmètre (D6 §3) |
 
 ---
 
@@ -536,3 +553,9 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | 2026-11-12 | Revérification automatique sur les fichiers téléversés : 300 ID (VOC 100 / ACT 60 / SEC 60 / MSG 80), 2 doublons stricts, 62 occurrences, 53 libellés uniques, 19 correspondances. Les chiffres v0.1/v0.2 sont confirmés. | Constat |
 | 2026-11-12 | **Q10** : FinEthnic = le projet ; SAFINUM Éton = son premier prototype | ✅ Tranché par D6 |
 | 2026-11-12 | Roadmap v0.4 : alignement sur `TEAM_WORKFLOW.md` (D6). Pistes EXT/BM/L et S1–S5 ; la piste BM (BM1–BM7) remplace P4 ; P5 renommée ; arborescence D6 ; contrat d'intégration v0.1.0-draft ; tests T-CON, T-ENG, T-DIC, T-REV, T-LIB-10/11 ; risques R13–R19 ; questions Q14–Q19 | En attente de S1 |
+| 2026-11-12 | **Q2** : environnement de test `https://safinum.cm/hackathon-test`, application monopage (URL constante) ; textes des 5 étapes = D5 ; fixtures reconstruites depuis D5. Manifest limité à `https://safinum.cm/hackathon-test*`. Nouvelle question **Q20** (structure réelle du DOM, tâche P2.0) | ✅ Décidé par le responsable |
+| 2026-11-12 | **Q14** : `src/protection/patterns.ts` (Yvan), injecté dans le moteur via `createEngine({ detectProtected })` | ✅ Décidé par le responsable (relecture du contrat par Yvan en S1) |
+| 2026-11-12 | **Q16** : `sourceLang: 'auto'` accepté, règle du contrat §5.3 | ✅ Décidé par le responsable (relecture du contrat par Yvan en S1) |
+| 2026-11-12 | **Q19** : pas de branche `develop` ; fichiers partagés et `CODEOWNERS` créés par Yvan en P1.1 ; Yvan = `@ivan-14-dev`, relecteur obligatoire des PR `contract:` | ✅ Décidé par le responsable |
+| 2026-11-12 | **Q1** : date limite à confirmer par les organisateurs (14/11/2026 évoqué). Non bloquante pour S1 ; plan court §0.1.1 ajouté | ⏳ En attente des organisateurs |
+| 2026-11-12 | Roadmap v0.5 : enregistrement des décisions ci-dessus ; R2, R11 et R19 mis à jour | En attente de S1 |

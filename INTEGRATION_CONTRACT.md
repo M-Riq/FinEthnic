@@ -1,6 +1,6 @@
 # INTEGRATION_CONTRACT — Moteur linguistique ⇄ Extension Chrome
 
-> **Statut :** 🟡 **PROPOSITION v0.1.0-draft — non validée.** Le contrat sera validé en **Synchronisation 1** (TEAM_WORKFLOW §7). Avant cette validation, rien n'est figé.
+> **Statut :** 🟡 **PROPOSITION v0.1.0-draft — non validée.** Le contrat sera validé en **Synchronisation 1** (TEAM_WORKFLOW §7). Avant cette validation, rien n'est figé. Le responsable a accepté Q14 (§8) et Q16 (§5.3) le 2026-11-12. Il reste la relecture d'Yvan (`@ivan-14-dev`).
 > **Propriétaire :** responsable du projet (bibliothèque et moteur). **Consommateur :** Yvan (extension).
 > **Références :** `TEAM_WORKFLOW.md` §4, §8 et §9 ; `PROJECT_CONTEXT.md` §3.7, §4.4 et §4.5 ; glossaire D5 (statuts et protection).
 > **Règle :** une fois validé, le contrat ne change qu'en suivant le §10 (prévenir, documenter, migrer).
@@ -31,7 +31,7 @@ Le contrat permet de développer les deux composantes **en parallèle**. Avant l
 |---|---|---|
 | Langue cible | `eto` | ISO 639-3 (Éton). Remplace `"eton"` utilisé dans l'exemple JSON de D5 §7.1. |
 | Variété | `obala` | Champ séparé (`EngineInfo.variety`), pas de sous-étiquette BCP 47. |
-| Langues sources | `fr`, `en` | Valeur `'auto'` **proposée** (Q16, §4). |
+| Langues sources | `fr`, `en` | Valeur `'auto'` **retenue** (Q16, §5.3). |
 
 ## 4. Interface (TypeScript)
 
@@ -52,7 +52,7 @@ export interface TranslationContext {
   role?: TextRole;
   /** Valeur brute de <html lang> (ex. "fr", "fr-CM"), utilisée seulement pour départager les langues. */
   pageLang?: string;
-  /** Étape SAFINUM si l'extension la connaît ; sinon absent. */
+  /** Étape SAFINUM si l'extension la connaît ; sinon absent. SPA à URL constante : jamais déduite de l'URL (§6). */
   step?: 1 | 2 | 3 | 4 | 5;
   /** Vrai si le texte est dans une région aria-live, une alerte ou une boîte de dialogue. */
   live?: boolean;
@@ -61,7 +61,7 @@ export interface TranslationContext {
 export interface TranslationRequest {
   /** Texte EXACT du nœud : non normalisé, espaces de début et de fin compris. */
   text: string;
-  /** 'auto' : proposition Q16, voir §5.3. */
+  /** 'auto' : retenu (Q16), voir §5.3. */
   sourceLang: SourceLang | 'auto';
   targetLang: TargetLang;
   context?: TranslationContext;
@@ -158,13 +158,14 @@ La bibliothèque utilise trois niveaux (PROJECT_CONTEXT §4.5) : la **dispositio
 4. Plusieurs entrées : départage par `context.role` et `context.step`. S'il en reste plusieurs → `AMBIGUOUS`.
 5. Une seule entrée : statut selon §5.2.
 
-**Proposition `'auto'` (Q16) :** le moteur cherche en `fr` et en `en`. Si une seule langue trouve une entrée, cette entrée est retenue. Si les deux trouvent **la même** entrée, elle est retenue. Si elles trouvent des entrées **différentes**, `context.pageLang` départage ; à défaut, le résultat est `AMBIGUOUS` (`multiple-languages`). Cela couvre le cas d'un message anglais injecté par le jury dans la page française.
+**Règle `'auto'` (Q16, acceptée le 2026-11-12) :** le moteur cherche en `fr` et en `en`. Si une seule langue trouve une entrée, cette entrée est retenue. Si les deux trouvent **la même** entrée, elle est retenue. Si elles trouvent des entrées **différentes**, `context.pageLang` départage ; à défaut, le résultat est `AMBIGUOUS` (`multiple-languages`). Cela couvre le cas d'un message anglais injecté par le jury dans la page française.
 
 ## 6. Contexte : champs autorisés
 
 - **Autorisé :** énumérations et booléens décrivant la **nature** du texte (`role`, `step`, `live`, `pageLang`).
 - **Interdit :** tout contenu de la page autre que `text` (textes voisins, valeurs, noms, URL, sélecteurs CSS, identifiants DOM).
 - Un contexte absent ou incomplet ne doit **jamais** conduire à une traduction devinée. Il peut seulement conduire à `AMBIGUOUS`.
+- **`step` et SPA** : l'environnement de test (`https://safinum.cm/hackathon-test`) est une application monopage dont l'URL ne change pas. L'extension ne peut donc déduire `step` que d'un repère visible, comme le titre de l'étape (PROJECT_CONTEXT Q20). Dans le doute, elle l'omet. Le moteur ne se sert de `step` que pour départager des candidats ; une étape absente ou erronée ne peut jamais rendre une entrée `APPROVED`.
 
 ## 7. Garanties du moteur (invariants testés)
 
@@ -190,12 +191,12 @@ La bibliothèque utilise trois niveaux (PROJECT_CONTEXT §4.5) : la **dispositio
 | Contexte (`role`, `step`, `live`, `pageLang`) | Utilise | ✅ Calcule |
 | Correspondance, statut, ambiguïté | ✅ | Ne réimplémente rien |
 | Valeurs protégées dans un texte | ✅ Les renvoie dans `protectedSegments` | ✅ **Revérifie** l'intégrité avant chaque écriture (défense en profondeur) |
-| Définition des motifs protégés (montant, devise, téléphone, référence…) | **Module partagé unique : Q14** | **Module partagé unique : Q14** |
+| Définition des motifs protégés (montant, devise, téléphone, référence…) | Reçoit `detectProtected` par injection (Q14) | ✅ `src/protection/patterns.ts` (Q14) |
 | Écriture, restauration, anti-boucle, affichage du français au survol | — | ✅ |
 | Contenu et versions de la bibliothèque | ✅ | — |
 | Compteurs du popup | Fournit `status` et `entryId` | ✅ Agrège, sans texte |
 
-**Proposition Q14 :** les motifs protégés sont définis **une seule fois**, dans un module pur sans DOM (ex. `src/protection/patterns.ts`, propriétaire Yvan). Le moteur le reçoit par **injection**, par exemple `createEngine({ detectProtected })`. Tant que le module n'existe pas, le moteur est testé avec une implémentation de test. Une suite commune, construite sur les exemples de D5 §4, vérifie les deux côtés.
+**Décision Q14 (acceptée le 2026-11-12) :** les motifs protégés sont définis **une seule fois**, dans le module pur sans DOM `src/protection/patterns.ts`, propriété d'Yvan. Le moteur le reçoit par **injection**, par exemple `createEngine({ detectProtected })`, et ne contient aucun motif propre. Tant que le module n'existe pas, le moteur est testé avec une implémentation de test. Une suite commune, construite sur les exemples de D5 §4, vérifie les deux côtés.
 
 ## 9. Faux moteur (exigences)
 
@@ -216,7 +217,7 @@ Le faux moteur d'Yvan doit :
 - `libraryVersion` évolue avec le contenu de `data/` **sans** changer le contrat.
 - **Procédure** (TEAM_WORKFLOW §4 et §8) :
   1. Pull Request dédiée avec le préfixe `contract:` ;
-  2. revue par Yvan **obligatoire** ;
+  2. revue par Yvan (`@ivan-14-dev`) **obligatoire**, demandée via `CODEOWNERS` ou, à défaut, manuellement (Q19) ;
   3. entrée dans l'historique (§13) avec les conséquences ;
   4. procédure de migration si la version est majeure ;
   5. suite de conformité mise à jour **dans la même PR**.
@@ -251,10 +252,12 @@ Les sorties ci-dessous utilisent des **marqueurs de test**. Ce ne sont pas des t
 | Version | Date | Changement | Conséquences pour l'extension |
 |---|---|---|---|
 | 0.1.0-draft | 2026-11-12 | Proposition initiale pour la Synchronisation 1 | Base du faux moteur |
+| 0.1.0-draft (rév. 2) | 2026-11-12 | Q14 et Q16 acceptées par le responsable ; précision sur `step` dans une SPA (§6) ; relecteur `@ivan-14-dev` (§10) | Aucune : les types étaient déjà rédigés ainsi. `step` reste optionnel. |
 
 ## 14. Points ouverts (voir PROJECT_CONTEXT §5)
 
-- **Q14** : propriété et emplacement du module de motifs protégés (§8).
+- ~~**Q14**~~ ✅ Tranchée le 2026-11-12 : `src/protection/patterns.ts` (Yvan), injecté dans le moteur (§8).
 - **Q15** : périmètre de l'anglais pour la présélection.
-- **Q16** : acceptation de `sourceLang: 'auto'` (§5.3).
+- ~~**Q16**~~ ✅ Tranchée le 2026-11-12 : `sourceLang: 'auto'` accepté (§5.3).
 - **Q18** : double relecture obligatoire avant `APPROVED` pour les entrées critiques.
+- **Q20** : structure réelle du DOM (repère d'étape pour `step`, `<html lang>` pour `pageLang`) — sans effet sur les types.
