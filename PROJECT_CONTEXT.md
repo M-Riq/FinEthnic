@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
-> **Statut :** Phase 0 — cadrage, en attente de validation par le responsable du projet.
-> **Version :** 0.2 — 2026-11-12 (v0.1 revérifiée et complétée : §3.6, Q8 élargie, Q13)
+> **Statut :** Phase 0 — cadrage, en attente de validation par le responsable du projet. Q3, Q4 et Q5 sont tranchées ; Q1 et Q2 restent ouvertes.
+> **Version :** 0.3 — 2026-11-12 (v0.2 + décisions Q3/Q4/Q5 ; chiffres revérifiés automatiquement sur les fichiers téléversés)
 > **Règle :** aucun développement de l'extension avant validation de ce document et de `ROADMAP.md`.
 
 ---
@@ -253,9 +253,9 @@ Une entrée n'est affichée que si `target` est non nul **ET** `linguisticStatus
 **Bloquantes avant la phase 1**
 - **Q1 — Calendrier** : quelle est la date limite de soumission et de démonstration ? Elle conditionne le découpage de la roadmap.
 - **Q2 — Origine exacte de l'environnement de test** : `safinum.cm` est inaccessible depuis mon environnement (échec DNS avec `curl`, `ERR_BLOCKED_BY_CLIENT` dans le navigateur). Je ne peux donc pas vérifier moi-même l'origine. Quelle est l'URL de « Ouvrir l'environnement de test » (domaine, sous-domaine, chemin) ? Y a-t-il des redirections ou des iframes vers une autre origine ? Les 5 étapes sont-elles sur une seule URL (SPA) ou sur plusieurs ? Peux-tu enregistrer le HTML de chaque étape (Ctrl+S, avec des données fictives) pour construire des fixtures de test ?
-- **Q3 — Mode d'affichage** : (a) remplacement par l'Éton avec le français au survol ou au focus ; (b) bilingue, Éton puis français en petit ; (c) Éton seul. **Recommandation : (a) par défaut, avec bascule vers (b) dans le popup.**
-- **Q4 — Stack** : TypeScript + esbuild (recommandé) ou JavaScript pur sans étape de build ?
-- **Q5 — Source de vérité linguistique** : JSON dans `data/` comme référence, avec génération de Markdown et CSV pour la relecture (recommandé) ? Ou bien le Markdown comme référence, importé automatiquement ?
+- **Q3 — Mode d'affichage** — ✅ **Tranchée (2026-11-12) : option (a).** L'Éton remplace le français, et le français reste accessible au survol ou au focus. Le popup propose une bascule vers le mode bilingue (b).
+- **Q4 — Stack** — ✅ **Tranchée (2026-11-12) : TypeScript + esbuild** (un seul bundle), tests **Vitest** (unitaires) et **Playwright** (e2e).
+- **Q5 — Source de vérité linguistique** — ✅ **Tranchée (2026-11-12) : JSON dans `data/`.** Les Markdown et CSV de relecture destinés aux locutrices sont **générés** à partir de ce JSON et ne sont jamais édités à la main. Les documents Markdown D4 et D5 ne servent qu'à l'import initial.
 
 **Importantes, peuvent être tranchées en phase 2–4**
 - **Q6 — Barème de référence** : D2 ou D3 (conflit C1) ? Il faut peut-être confirmer auprès des organisateurs.

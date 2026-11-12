@@ -1,6 +1,6 @@
 # ROADMAP — SAFINUM Éton (extension Chrome, présélection SAFINUM Innovate 2026)
 
-> **Statut :** v0.2 — proposition de la Phase 0, **en attente de validation** (v0.1 revérifiée ; compléments marqués « v0.2 »).
+> **Statut :** v0.3 — proposition de la Phase 0, **en attente de validation**. Les compléments de la v0.2 sont marqués « v0.2 ». Q3, Q4 et Q5 sont tranchées (§12).
 > **Référence fonctionnelle :** `PROJECT_CONTEXT.md` (documents D1–D5, conflits C1–C5, questions Q1–Q13).
 > **Règle de passage :** une phase ne démarre que si la **porte** de la phase précédente est franchie. Seul le responsable du projet peut lever une porte.
 
@@ -60,7 +60,7 @@ La date limite de soumission n'est pas connue. L'événement a lieu du 26 au 28/
 | **Tâches réalisées** | Lecture de D1–D5. Vérification automatique du corpus (300 ID uniques, 2 doublons stricts). Couverture pages ↔ corpus (53 libellés uniques, 19 dans le corpus, 34 propres aux pages). Tentative de vérification de l'origine du test (inaccessible depuis mon environnement). Conflits C1–C5. Questions Q1–Q12. **v0.2 :** revérification manuelle des chiffres (confirmés) ; 7 correspondances entre libellés de page et gabarits du corpus ; jetons de marque ; attributs d'accessibilité ; risque de lecture de l'Éton écrit (Q13) ; nouvel essai d'accès à l'environnement de test (toujours un échec DNS). |
 | **Fichiers** | `PROJECT_CONTEXT.md`, `ROADMAP.md` |
 | **Livrables** | Synthèse, exigences (§11), risques (§10), questions, architecture, roadmap |
-| **Porte → P1** | ✔ Validation de la compréhension et de l'architecture. ✔ Réponses à **Q2, Q3, Q4, Q5** (bloquantes). Les autres questions peuvent attendre leur phase. |
+| **Porte → P1** | ✔ Validation de la compréhension et de l'architecture. ✔ Réponses aux questions bloquantes **Q1 à Q5**. **Q3, Q4 et Q5 sont tranchées (2026-11-12).** Restent **Q1** (délai ; à défaut, on retient l'hypothèse de ~10 jours ouvrés du §0.1) et **Q2** (origine). Les autres questions peuvent attendre leur phase. |
 
 ---
 
@@ -334,3 +334,7 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 |---|---|---|
 | 2026-11-12 | Roadmap v0.1 proposée | En attente de validation |
 | 2026-11-12 | Roadmap v0.2 : revérification, compléments PROJECT_CONTEXT §3.6, Q8 élargie, Q13, T-PRO-14, T-LIB-09, R12 | En attente de validation |
+| 2026-11-12 | **Q3** : mode (a) Éton à la place du français, français au survol ou au focus, bascule bilingue dans le popup | ✅ Décidé par le responsable |
+| 2026-11-12 | **Q4** : TypeScript + esbuild, Vitest, Playwright | ✅ Décidé par le responsable |
+| 2026-11-12 | **Q5** : JSON `data/` = source de vérité ; Markdown/CSV de relecture générés | ✅ Décidé par le responsable |
+| 2026-11-12 | Revérification automatique sur les fichiers téléversés : 300 ID (VOC 100 / ACT 60 / SEC 60 / MSG 80), 2 doublons stricts, 62 occurrences, 53 libellés uniques, 19 correspondances. Les chiffres v0.1/v0.2 sont confirmés. | Constat |
