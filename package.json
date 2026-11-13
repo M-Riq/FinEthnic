@@ -10,7 +10,10 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "validate-data": "tsx scripts/validate-data.ts"
+    "validate-data": "tsx scripts/validate-data.ts",
+    "import-sources": "tsx scripts/import-sources.ts",
+    "check-duplicates": "tsx scripts/check-duplicates.ts",
+    "export-l1": "tsx scripts/export-l1.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",

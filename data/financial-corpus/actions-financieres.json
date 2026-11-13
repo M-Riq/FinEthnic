@@ -1,0 +1,2906 @@
+[
+  {
+    "id": "ACT-001",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Envoyer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "faire partir de l'argent",
+            "expédier"
+          ],
+          "definition": "Faire partir de l'argent vers une autre personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-002",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Recevoir",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prendre",
+            "avoir de l'argent",
+            "toucher"
+          ],
+          "definition": "Avoir l'argent que quelqu'un a envoyé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-003",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Transférer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "envoyer",
+            "déplacer l'argent",
+            "faire passer"
+          ],
+          "definition": "Faire passer de l'argent d'un compte à un autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-7"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-004",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Payer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "donner l'argent",
+            "régler"
+          ],
+          "definition": "Donner de l'argent pour avoir quelque chose."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-005",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Retirer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sortir l'argent",
+            "prendre l'argent"
+          ],
+          "definition": "Sortir de l'argent du compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-006",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Déposer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mettre l'argent",
+            "ajouter de l'argent"
+          ],
+          "definition": "Mettre de l'argent dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-007",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Rembourser",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "rendre l'argent",
+            "redonner"
+          ],
+          "definition": "Rendre l'argent qu'on a pris ou payé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-008",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Recharger",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "remettre de l'argent",
+            "remplir",
+            "ajouter du crédit"
+          ],
+          "definition": "Remettre de l'argent ou du crédit sur un compte ou une carte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-009",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Acheter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prendre contre de l'argent",
+            "payer pour avoir"
+          ],
+          "definition": "Avoir quelque chose en donnant de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-010",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Débiter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "enlever l'argent",
+            "prendre l'argent du compte"
+          ],
+          "definition": "Prendre de l'argent dans un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-011",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Créditer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "ajouter l'argent",
+            "mettre l'argent dans le compte"
+          ],
+          "definition": "Mettre de l'argent dans un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-012",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Échanger des devises",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "changer l'argent",
+            "changer de monnaie"
+          ],
+          "definition": "Changer une monnaie contre une autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-013",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Programmer un transfert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prévoir un envoi",
+            "envoyer plus tard"
+          ],
+          "definition": "Choisir un jour plus tard pour envoyer l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-014",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Reporter un paiement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "payer plus tard",
+            "repousser le paiement"
+          ],
+          "definition": "Payer plus tard, un autre jour."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-015",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Actions d'argent",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Épargner",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "garder l'argent",
+            "mettre de côté"
+          ],
+          "definition": "Garder de l'argent pour plus tard."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-016",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Confirmer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dire oui",
+            "dire d'accord pour de bon"
+          ],
+          "definition": "Dire « oui » pour de bon : l'opération va se faire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-12"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-017",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Annuler",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "arrêter",
+            "ne pas faire",
+            "stopper"
+          ],
+          "definition": "Arrêter l'opération avant qu'elle se fasse."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-018",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Valider",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dire que c'est bon",
+            "accepter"
+          ],
+          "definition": "Dire que c'est bon et accepter."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-019",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Refuser",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dire non",
+            "ne pas accepter"
+          ],
+          "definition": "Dire « non »."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-020",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Autoriser",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "permettre",
+            "donner la permission"
+          ],
+          "definition": "Dire « oui, tu peux le faire »."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-021",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Approuver",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "être d'accord",
+            "dire oui"
+          ],
+          "definition": "Être d'accord avec la demande."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-022",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Rejeter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mettre de côté",
+            "refuser"
+          ],
+          "definition": "Ne pas accepter une demande."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-023",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Accepter les conditions",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "être d'accord avec les règles"
+          ],
+          "definition": "Dire « oui » aux règles du service après les avoir lues."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-024",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Cocher la confirmation",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mettre une croix",
+            "cocher la case"
+          ],
+          "definition": "Mettre une marque dans la case pour dire que c'est correct."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-025",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Contester",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dire qu'on n'est pas d'accord"
+          ],
+          "definition": "Dire qu'on n'est pas d'accord avec une opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-026",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Signaler",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dire",
+            "prévenir",
+            "avertir"
+          ],
+          "definition": "Dire au service qu'il y a un problème."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-027",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Résilier",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "arrêter le contrat",
+            "mettre fin"
+          ],
+          "definition": "Arrêter un service ou un contrat."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-028",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Souscrire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "s'inscrire",
+            "entrer dans un service"
+          ],
+          "definition": "Entrer dans un service, un prêt ou une assurance."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-029",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Renouveler",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "recommencer",
+            "continuer encore",
+            "refaire"
+          ],
+          "definition": "Continuer un service pour un nouveau temps."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-030",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Décisions et confirmations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Emprunter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prendre de l'argent à rendre",
+            "demander un prêt"
+          ],
+          "definition": "Prendre de l'argent qu'on devra rendre plus tard."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-031",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Ouvrir un compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "créer un compte",
+            "commencer un compte"
+          ],
+          "definition": "Faire un nouveau compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-032",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Fermer un compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "arrêter le compte",
+            "finir le compte"
+          ],
+          "definition": "Arrêter un compte pour toujours."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-033",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Bloquer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "arrêter l'usage",
+            "fermer l'accès",
+            "verrouiller"
+          ],
+          "definition": "Empêcher d'utiliser un compte ou une carte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-034",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Débloquer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "rouvrir",
+            "rendre utilisable",
+            "déverrouiller"
+          ],
+          "definition": "Permettre encore d'utiliser un compte ou une carte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-035",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Ajouter un bénéficiaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "noter une personne",
+            "ajouter celui qui reçoit"
+          ],
+          "definition": "Noter une nouvelle personne à qui envoyer de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-036",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Supprimer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "effacer",
+            "enlever"
+          ],
+          "definition": "Effacer quelque chose."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-037",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Modifier",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "changer",
+            "corriger"
+          ],
+          "definition": "Changer ce qu'on a écrit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-11"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-038",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Enregistrer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "garder",
+            "noter",
+            "sauvegarder"
+          ],
+          "definition": "Garder une information pour la retrouver."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-039",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Réinitialiser",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "remettre à zéro",
+            "recommencer à neuf"
+          ],
+          "definition": "Remettre comme au début (mot de passe, code secret)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-040",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Changer le code PIN",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "changer le code secret"
+          ],
+          "definition": "Mettre un nouveau code secret."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Critique"
+  },
+  {
+    "id": "ACT-041",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Se connecter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "entrer",
+            "ouvrir son compte"
+          ],
+          "definition": "Entrer dans son compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-042",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Se déconnecter",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sortir",
+            "quitter son compte"
+          ],
+          "definition": "Sortir de son compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-043",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Demander un code de vérification",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "demander un code",
+            "demander un code temporaire"
+          ],
+          "definition": "Demander un code envoyé pour montrer que c'est bien toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-044",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Partager le reçu",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "envoyer le reçu",
+            "donner le reçu"
+          ],
+          "definition": "Envoyer le reçu à une autre personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  },
+  {
+    "id": "ACT-045",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Gestion du compte et des bénéficiaires",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Consulter le solde",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "voir l'argent du compte",
+            "regarder le solde"
+          ],
+          "definition": "Regarder combien d'argent il y a dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-3"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-046",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Vérifier",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "regarder",
+            "contrôler",
+            "s'assurer"
+          ],
+          "definition": "Regarder si c'est juste."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-047",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Choisir",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prendre",
+            "sélectionner"
+          ],
+          "definition": "Prendre une chose parmi d'autres."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-048",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Saisir",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "écrire",
+            "taper"
+          ],
+          "definition": "Écrire une information."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-049",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Sélectionner",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "choisir",
+            "toucher",
+            "marquer"
+          ],
+          "definition": "Choisir un élément dans une liste."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-050",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Continuer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "aller plus loin",
+            "avancer",
+            "suite"
+          ],
+          "definition": "Aller à l'étape d'après."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-13"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-051",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Retourner",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "revenir",
+            "aller en arrière"
+          ],
+          "definition": "Revenir à l'écran d'avant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-12"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-052",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Suivant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "après",
+            "étape d'après"
+          ],
+          "definition": "Bouton pour aller à l'étape d'après."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-053",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Précédent",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "avant",
+            "étape d'avant"
+          ],
+          "definition": "Bouton pour revenir à l'étape d'avant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-054",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Terminer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "finir",
+            "arrêter"
+          ],
+          "definition": "Finir ce qu'on est en train de faire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-055",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Télécharger le reçu",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "garder le reçu",
+            "prendre le reçu"
+          ],
+          "definition": "Mettre le reçu dans son téléphone."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": [],
+      "mergedFrom": [
+        "MSG-056"
+      ]
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard Même texte que MSG-056 (fusionné)."
+  },
+  {
+    "id": "ACT-056",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Imprimer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sortir sur papier",
+            "mettre sur papier"
+          ],
+          "definition": "Sortir un document sur papier."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-057",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Copier la référence",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "recopier le code",
+            "prendre le code"
+          ],
+          "definition": "Copier le code de l'opération pour le garder."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-058",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Réessayer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "essayer encore",
+            "refaire"
+          ],
+          "definition": "Faire encore une fois ce qui n'a pas marché."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-059",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "standard",
+    "source": {
+      "fr": {
+        "text": "Fermer la fenêtre",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "faire disparaître",
+            "cacher"
+          ],
+          "definition": "Faire partir la petite fenêtre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Standard"
+  },
+  {
+    "id": "ACT-060",
+    "kind": "action",
+    "category": "Actions financières",
+    "subcategory": "Navigation et saisie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "high",
+    "source": {
+      "fr": {
+        "text": "Entrer le code de vérification",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "taper le code",
+            "écrire le code reçu"
+          ],
+          "definition": "Taper le code reçu par SMS."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Sensibilité : Élevée"
+  }
+]

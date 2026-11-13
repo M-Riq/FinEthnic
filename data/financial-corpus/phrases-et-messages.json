@@ -1,0 +1,3797 @@
+[
+  {
+    "id": "MSG-001",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bienvenue, {nom}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Bonjour, {nom}.",
+            "Content de te voir, {nom}."
+          ],
+          "definition": "Un mot gentil quand on arrive."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "nom",
+        "type": "name"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {nom}"
+  },
+  {
+    "id": "MSG-002",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre solde disponible est de {montant} {devise}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu peux utiliser {montant} {devise}."
+          ],
+          "definition": "Dit combien d'argent tu peux utiliser."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {montant} {devise}"
+  },
+  {
+    "id": "MSG-003",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Numéro de compte : {numéro_compte}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Les chiffres de ton compte : {numéro_compte}"
+          ],
+          "definition": "Montre le numéro de ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "numéro_compte",
+        "type": "account-number"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {numéro_compte}"
+  },
+  {
+    "id": "MSG-004",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transactions récentes",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dernières opérations",
+            "derniers envois"
+          ],
+          "definition": "Titre de la liste de ce qui a été fait il y a peu de temps."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-9"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-005",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Aucune transaction récente.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Rien fait ces derniers temps.",
+            "Pas d'opération."
+          ],
+          "definition": "La liste est vide : il n'y a pas d'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-006",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Dernière connexion : {date} à {heure}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu es entré la dernière fois le {date} à {heure}."
+          ],
+          "definition": "Dit quand tu es entré dans ton compte la dernière fois."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "date",
+        "type": "date"
+      },
+      {
+        "name": "heure",
+        "type": "time"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {date} {heure}"
+  },
+  {
+    "id": "MSG-007",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Masquer le solde",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "cacher l'argent",
+            "cacher le solde"
+          ],
+          "definition": "Bouton pour cacher le montant de ton argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-008",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde mis à jour le {date}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Argent changé le {date}.",
+            "Le solde est à jour depuis le {date}."
+          ],
+          "definition": "Dit quand le solde a été mis à jour."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "date",
+        "type": "date"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {date}"
+  },
+  {
+    "id": "MSG-009",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Voir toutes les transactions",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "voir toutes les opérations",
+            "tout regarder"
+          ],
+          "definition": "Lien pour voir toute la liste."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-010",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 1 - Solde et tableau de bord",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre compte est actif.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ton compte marche.",
+            "Ton compte est ouvert."
+          ],
+          "definition": "Ton compte peut être utilisé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-011",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Choisissez le type d'opération.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Prends la sorte d'opération."
+          ],
+          "definition": "Demande de choisir ce qu'on veut faire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-2"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-012",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Saisissez le montant à envoyer.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Écris combien d'argent tu veux envoyer."
+          ],
+          "definition": "Demande d'écrire le montant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-013",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais de transfert : {frais} {devise}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Prix de l'envoi : {frais} {devise}"
+          ],
+          "definition": "Montre les frais de l'envoi."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "frais",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {frais} {devise}"
+  },
+  {
+    "id": "MSG-014",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Total à débiter : {total} {devise}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tout l'argent qui va sortir : {total} {devise}"
+          ],
+          "definition": "Montre tout ce qui sera pris dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "total",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-10"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {total} {devise}"
+  },
+  {
+    "id": "MSG-015",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le montant minimum est de {montant} {devise}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le plus petit montant est {montant} {devise}."
+          ],
+          "definition": "On ne peut pas envoyer moins que ce montant."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {montant} {devise}"
+  },
+  {
+    "id": "MSG-016",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le montant maximum par opération est de {montant} {devise}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le plus grand montant pour une fois est {montant} {devise}."
+          ],
+          "definition": "On ne peut pas envoyer plus que ce montant en une fois."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {montant} {devise}"
+  },
+  {
+    "id": "MSG-017",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Les frais sont calculés automatiquement.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Les frais sont comptés tout seuls."
+          ],
+          "definition": "Le service calcule les frais pour toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-018",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le montant saisi dépasse votre solde disponible.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le montant écrit est plus grand que ton argent."
+          ],
+          "definition": "Tu n'as pas assez d'argent pour ce montant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-019",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Veuillez saisir un montant valide.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Écris un montant correct."
+          ],
+          "definition": "Le montant écrit n'est pas bon. Écris-en un autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-020",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le montant doit être supérieur à zéro.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le montant doit être plus grand que zéro."
+          ],
+          "definition": "Il faut écrire plus que zéro."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-021",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ce service est gratuit.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ce service ne coûte rien.",
+            "Pas de frais."
+          ],
+          "definition": "Tu ne payes rien pour ce service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-022",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 2 - Frais de transfert",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vous avez atteint votre limite journalière.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu as fini ce que tu peux envoyer aujourd'hui."
+          ],
+          "definition": "Tu ne peux plus rien envoyer aujourd'hui."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-023",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Nom du bénéficiaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "nom de celui qui reçoit"
+          ],
+          "definition": "Case où l'on écrit le nom de celui qui reçoit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-5"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-024",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Numéro de téléphone du bénéficiaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "numéro de celui qui reçoit"
+          ],
+          "definition": "Case pour le numéro de celui qui reçoit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-026",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Note (facultative)",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "petit mot (pas obligatoire)"
+          ],
+          "definition": "Case pour écrire un petit mot si on veut."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-9"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-027",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Veuillez renseigner le nom du bénéficiaire.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Écris le nom de celui qui reçoit."
+          ],
+          "definition": "Le nom est vide. Il faut l'écrire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-028",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le numéro de téléphone saisi n'est pas valide.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le numéro écrit n'est pas bon."
+          ],
+          "definition": "Le numéro de téléphone est faux."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-029",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ce champ est obligatoire.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Il faut remplir cette case."
+          ],
+          "definition": "On ne peut pas laisser cette case vide."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-030",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Choisissez un motif dans la liste.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Prends une raison dans la liste."
+          ],
+          "definition": "Il faut choisir la raison de l'envoi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-031",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vous pouvez ajouter un message pour le bénéficiaire.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu peux écrire un petit mot pour celui qui reçoit."
+          ],
+          "definition": "Tu peux envoyer un mot avec l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-032",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bénéficiaire introuvable.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Nous ne trouvons pas cette personne."
+          ],
+          "definition": "Cette personne n'est pas trouvée."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-033",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez les informations du bénéficiaire.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Regarde bien les informations de celui qui reçoit."
+          ],
+          "definition": "Regarde si le nom et le numéro sont justes."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-034",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 3 - Bénéficiaire",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Enregistrer ce bénéficiaire pour plus tard",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "garder cette personne pour une autre fois"
+          ],
+          "definition": "Option pour garder cette personne et la retrouver vite."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-035",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Récapitulatif de l'opération",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "résumé de l'opération"
+          ],
+          "definition": "Titre du résumé de ce qu'on va faire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-036",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant envoyé : {montant} {devise}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Argent envoyé : {montant} {devise}"
+          ],
+          "definition": "Montre combien d'argent est envoyé."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {montant} {devise}"
+  },
+  {
+    "id": "MSG-037",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais : {frais} {devise}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Prix du service : {frais} {devise}"
+          ],
+          "definition": "Montre les frais."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "frais",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {frais} {devise}"
+  },
+  {
+    "id": "MSG-038",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Total débité : {total} {devise}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tout l'argent pris : {total} {devise}"
+          ],
+          "definition": "Montre tout ce qui a été pris dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "total",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-5",
+        "P5-6"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {total} {devise}"
+  },
+  {
+    "id": "MSG-039",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bénéficiaire : {nom_bénéficiaire}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Celui qui reçoit : {nom_bénéficiaire}"
+          ],
+          "definition": "Montre qui reçoit l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "nom_bénéficiaire",
+        "type": "name"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {nom_bénéficiaire}"
+  },
+  {
+    "id": "MSG-040",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Référence : {référence}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Code : {référence}"
+          ],
+          "definition": "Montre le code de l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "référence",
+        "type": "reference"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {référence}"
+  },
+  {
+    "id": "MSG-041",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Je confirme que les informations ci-dessus sont exactes.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Je dis que tout ce qui est écrit est juste."
+          ],
+          "definition": "Case à cocher pour dire que tout est correct."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-10"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-042",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Veuillez cocher la case de confirmation pour continuer.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Mets une croix dans la case pour continuer."
+          ],
+          "definition": "Il faut cocher la case avant d'aller plus loin."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-043",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez attentivement avant de confirmer.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Regarde bien avant de dire oui."
+          ],
+          "definition": "Prends ton temps pour bien regarder avant de dire oui."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-2"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-044",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Modifier les informations",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "changer les informations"
+          ],
+          "definition": "Bouton pour changer ce qu'on a écrit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-045",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Voulez-vous vraiment annuler cette opération ?",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu veux vraiment arrêter cette opération ?"
+          ],
+          "definition": "Question pour être sûr qu'on veut arrêter."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-046",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 4 - Récapitulatif",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Date de l'opération : {date}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Jour de l'opération : {date}"
+          ],
+          "definition": "Montre le jour de l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "date",
+        "type": "date"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {date}"
+  },
+  {
+    "id": "MSG-047",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transfert effectué avec succès.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "L'envoi est fait.",
+            "L'argent est bien parti."
+          ],
+          "definition": "L'argent est bien envoyé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P5-1",
+        "P5-2"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-048",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre transfert de {montant} {devise} vers {nom_bénéficiaire} a été effectué.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu as envoyé {montant} {devise} à {nom_bénéficiaire}."
+          ],
+          "definition": "Dit que l'argent est bien parti vers cette personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      },
+      {
+        "name": "nom_bénéficiaire",
+        "type": "name"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {montant} {devise} {nom_bénéficiaire}"
+  },
+  {
+    "id": "MSG-049",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Reçu de transaction",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier de preuve de l'opération"
+          ],
+          "definition": "Titre du papier qui prouve l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-050",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Numéro de référence : {référence}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Code de l'opération : {référence}"
+          ],
+          "definition": "Montre le code pour retrouver l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "référence",
+        "type": "reference"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {référence}"
+  },
+  {
+    "id": "MSG-051",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Date et heure : {date} {heure}",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Jour et moment : {date} {heure}"
+          ],
+          "definition": "Montre quand l'opération a été faite."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "date",
+        "type": "date"
+      },
+      {
+        "name": "heure",
+        "type": "time"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {date} {heure}"
+  },
+  {
+    "id": "MSG-052",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Statut : Réussi",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "État : fini",
+            "ça a marché"
+          ],
+          "definition": "L'opération s'est bien passée."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-053",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transaction en attente de traitement.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "L'opération attend encore.",
+            "Il faut patienter."
+          ],
+          "definition": "L'opération n'est pas encore finie."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-054",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transaction échouée. Aucun montant n'a été débité.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "L'opération n'a pas marché. Aucun argent n'a été pris."
+          ],
+          "definition": "L'opération a raté et ton argent n'a pas bougé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-055",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Conservez ce reçu comme preuve de paiement.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Garde ce papier pour prouver que tu as payé."
+          ],
+          "definition": "Garde le reçu : il prouve ton paiement."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-057",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Un reçu a été envoyé au {numéro}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Un reçu est envoyé sur le {numéro}."
+          ],
+          "definition": "Le reçu est envoyé sur ce numéro."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "numéro",
+        "type": "phone"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {numéro}"
+  },
+  {
+    "id": "MSG-058",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Étape 5 - Reçu",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Nouveau transfert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "nouvel envoi",
+            "envoyer encore"
+          ],
+          "definition": "Bouton pour envoyer de l'argent une autre fois."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P5-10"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-059",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Une erreur est survenue. Veuillez réessayer.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Il y a eu un problème. Essaie encore."
+          ],
+          "definition": "Quelque chose n'a pas marché. Recommence."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-060",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Service temporairement indisponible.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le service ne marche pas pour le moment."
+          ],
+          "definition": "Le service est arrêté pour un petit temps."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-061",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Connexion internet perdue.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Plus d'internet."
+          ],
+          "definition": "Ton téléphone n'a plus internet."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-062",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Chargement en cours...",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Un instant...",
+            "Ça vient..."
+          ],
+          "definition": "La page est en train de venir."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-063",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Veuillez patienter.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Attends un peu."
+          ],
+          "definition": "Il faut attendre un petit moment."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-064",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre session a expiré. Veuillez vous reconnecter.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu es sorti de ton compte. Entre encore."
+          ],
+          "definition": "Le temps est fini. Il faut entrer de nouveau."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-065",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Opération impossible pour le moment.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "On ne peut pas le faire maintenant."
+          ],
+          "definition": "L'opération ne peut pas se faire maintenant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-066",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde insuffisant pour effectuer cette opération.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Pas assez d'argent pour faire cette opération."
+          ],
+          "definition": "Ton compte n'a pas assez d'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-067",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Cette opération a déjà été traitée.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Cette opération est déjà faite."
+          ],
+          "definition": "On a déjà fait cette opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-068",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Les informations saisies sont incorrectes.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ce qui est écrit n'est pas juste."
+          ],
+          "definition": "Ce que tu as écrit est faux."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-069",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Accès refusé.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu ne peux pas entrer."
+          ],
+          "definition": "On ne te laisse pas entrer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-070",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Page introuvable.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Cette page n'est pas là."
+          ],
+          "definition": "La page n'existe pas ou n'est pas trouvée."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-071",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Contactez le service client pour obtenir de l'aide.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Appelle les personnes d'aide."
+          ],
+          "definition": "Appelle le service client si tu as besoin d'aide."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-072",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Erreurs et messages système",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Nous traitons votre demande.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Nous sommes en train de faire ce que tu as demandé."
+          ],
+          "definition": "Ta demande est en cours."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-073",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Besoin d'aide ?",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu veux de l'aide ?"
+          ],
+          "definition": "Question pour proposer de l'aide."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-074",
+    "kind": "template",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Service client disponible de {heure} à {heure}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Les personnes d'aide sont là de {heure} à {heure}."
+          ],
+          "definition": "Dit à quelle heure on peut appeler."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "heure",
+        "type": "time"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Variables à ne pas traduire : {heure} {heure}"
+  },
+  {
+    "id": "MSG-075",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Merci d'avoir utilisé nos services.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Merci d'être venu."
+          ],
+          "definition": "Un mot de remerciement à la fin."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-076",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Langue",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "façon de parler",
+            "langue du texte"
+          ],
+          "definition": "Choisir la langue des mots à l'écran."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-077",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Paramètres",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "choix",
+            "réglages"
+          ],
+          "definition": "Endroit où l'on change les choix de l'application."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-078",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Notifications",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "messages d'alerte",
+            "petits messages"
+          ],
+          "definition": "Petits messages qui préviennent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-079",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Aide et assistance",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "aide"
+          ],
+          "definition": "Endroit où on trouve de l'aide."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "MSG-080",
+    "kind": "message",
+    "category": "Phrases et messages",
+    "subcategory": "Assistance et navigation",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Politique de confidentialité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "règles du secret",
+            "règles pour garder tes informations"
+          ],
+          "definition": "Texte qui dit comment tes informations sont gardées."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  }
+]

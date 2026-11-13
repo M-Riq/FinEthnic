@@ -1,0 +1,4791 @@
+[
+  {
+    "id": "VOC-001",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "espace d'argent",
+            "case d'argent",
+            "coffre d'argent"
+          ],
+          "definition": "Un endroit où ton argent est gardé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-1"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-002",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte courant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte de tous les jours",
+            "compte pour dépenser"
+          ],
+          "definition": "Compte qu'on utilise chaque jour pour payer et recevoir de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-6"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-003",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte d'épargne",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte pour garder l'argent",
+            "argent mis de côté"
+          ],
+          "definition": "Compte où l'on garde de l'argent pour plus tard."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-004",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Portefeuille électronique",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "porte-monnaie du téléphone",
+            "argent du téléphone"
+          ],
+          "definition": "Argent gardé dans ton téléphone."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-005",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Numéro de compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "numéro de ton compte",
+            "chiffres du compte"
+          ],
+          "definition": "Les chiffres qui montrent que c'est ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-5"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-006",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Titulaire du compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "propriétaire du compte",
+            "personne du compte"
+          ],
+          "definition": "La personne à qui le compte appartient."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-007",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent qui reste",
+            "argent dans le compte"
+          ],
+          "definition": "L'argent qu'il y a dans le compte maintenant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-008",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde disponible",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent utilisable",
+            "argent que tu peux utiliser"
+          ],
+          "definition": "L'argent que tu peux utiliser tout de suite."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-4"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-009",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde insuffisant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "pas assez d'argent",
+            "argent trop petit"
+          ],
+          "definition": "Il n'y a pas assez d'argent dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-010",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Relevé de compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "liste de l'argent entré et sorti",
+            "papier du compte"
+          ],
+          "definition": "Une liste de l'argent qui est entré et sorti du compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-011",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Historique des transactions",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "liste des envois",
+            "anciennes opérations",
+            "ce qui a été fait"
+          ],
+          "definition": "La liste de ce que tu as déjà fait avec ton argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-012",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Tableau de bord",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "page d'accueil",
+            "page principale",
+            "écran de départ"
+          ],
+          "definition": "La première page qui montre ton argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-013",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Plafond",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "maximum",
+            "limite haute",
+            "montant le plus grand"
+          ],
+          "definition": "Le plus grand montant que tu peux utiliser."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-014",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Limite journalière",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "maximum par jour",
+            "limite d'un jour"
+          ],
+          "definition": "Le plus grand montant que tu peux envoyer en un jour."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-015",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Comptes et soldes",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte bloqué",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte fermé pour un temps",
+            "compte arrêté"
+          ],
+          "definition": "Compte que tu ne peux pas utiliser pour le moment."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-016",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Argent",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sous",
+            "monnaie",
+            "richesse"
+          ],
+          "definition": "Ce qu'on donne pour acheter ou payer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-017",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Monnaie",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent du pays",
+            "sorte d'argent"
+          ],
+          "definition": "L'argent qu'on utilise dans un pays."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-018",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Devise",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "nom de l'argent",
+            "sorte de monnaie"
+          ],
+          "definition": "Le nom de l'argent utilisé (FCFA, euro)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-019",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Franc CFA (FCFA)",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "FCFA",
+            "argent du Cameroun",
+            "francs"
+          ],
+          "definition": "L'argent utilisé au Cameroun et dans d'autres pays d'Afrique."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": [
+        "GUARD-003"
+      ]
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-020",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Espèces",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent en main",
+            "argent liquide",
+            "pièces et billets"
+          ],
+          "definition": "L'argent qu'on tient dans la main (pièces et billets)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-021",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Pièce",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "petite monnaie",
+            "argent en métal"
+          ],
+          "definition": "Petit morceau d'argent en métal."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-022",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Billet",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent en papier",
+            "papier d'argent"
+          ],
+          "definition": "Argent en papier."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-023",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "somme",
+            "quantité d'argent",
+            "prix"
+          ],
+          "definition": "Combien d'argent il y a."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-3",
+        "P4-3",
+        "P5-4"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-024",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Somme",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "montant",
+            "quantité d'argent"
+          ],
+          "definition": "Combien d'argent (même sens que montant)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-025",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Taux de change",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix d'une monnaie",
+            "valeur d'une monnaie"
+          ],
+          "definition": "Le prix d'une monnaie quand on l'achète avec une autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-026",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Équivalent",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "même valeur",
+            "valeur pareille"
+          ],
+          "definition": "La même valeur, dite avec une autre monnaie."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-027",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Argent et monnaie",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Arrondi",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "chiffre simplifié",
+            "chiffre rond",
+            "nombre plus facile"
+          ],
+          "definition": "Un chiffre changé un peu pour être plus facile (1 249 devient 1 250)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-028",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix en plus",
+            "coût",
+            "argent du service"
+          ],
+          "definition": "L'argent qu'on paye en plus pour utiliser un service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-8",
+        "P4-4",
+        "P5-5"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-029",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais de transfert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix d'envoi",
+            "coût de l'envoi"
+          ],
+          "definition": "L'argent qu'on paye en plus pour envoyer de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-1"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-030",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais de retrait",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix pour sortir l'argent",
+            "coût du retrait"
+          ],
+          "definition": "L'argent qu'on paye en plus pour sortir de l'argent du compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-031",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais de service",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix du service",
+            "coût du service"
+          ],
+          "definition": "L'argent qu'on paye pour avoir un service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-032",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Commission",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "part de l'agent",
+            "petit gain de l'agent"
+          ],
+          "definition": "Une petite part d'argent gardée par celui qui fait l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-033",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Taxe",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "impôt",
+            "argent pour l'État",
+            "droit à payer"
+          ],
+          "definition": "Argent qu'on donne à l'État."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-034",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Total",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "tout",
+            "somme finale",
+            "tout ensemble"
+          ],
+          "definition": "Tout l'argent à payer : le montant plus les frais."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-035",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Sous-total",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "petite somme",
+            "somme avant frais",
+            "une partie du total"
+          ],
+          "definition": "Une partie du total, avant d'ajouter les frais."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-036",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant net",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent reçu",
+            "argent qui reste",
+            "somme après frais"
+          ],
+          "definition": "L'argent qui reste après avoir enlevé les frais."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-037",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant brut",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "somme avant frais",
+            "argent complet"
+          ],
+          "definition": "Tout l'argent, avant d'enlever les frais."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-038",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Gratuit",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sans payer",
+            "pour rien",
+            "offert",
+            "sans frais"
+          ],
+          "definition": "On ne paye rien."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-9"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-039",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Frais et coûts",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Tarif",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prix",
+            "prix du service",
+            "coût"
+          ],
+          "definition": "Le prix d'un service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-040",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transaction",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "opération",
+            "mouvement d'argent",
+            "envoi ou paiement"
+          ],
+          "definition": "Quand de l'argent passe d'une personne à une autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-041",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Opération",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "action avec l'argent",
+            "chose faite avec l'argent",
+            "transaction"
+          ],
+          "definition": "Une chose qu'on fait avec l'argent : envoyer, payer, retirer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-9"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-042",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transfert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "envoi d'argent",
+            "envoyer de l'argent",
+            "passage d'argent"
+          ],
+          "definition": "Envoyer de l'argent à une personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-043",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Virement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "envoi de banque",
+            "envoi entre comptes"
+          ],
+          "definition": "Envoyer de l'argent d'un compte de banque à un autre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-044",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Paiement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "payer",
+            "donner l'argent",
+            "règlement"
+          ],
+          "definition": "Donner de l'argent pour avoir quelque chose."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-045",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Dépôt",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mettre de l'argent",
+            "argent mis dans le compte"
+          ],
+          "definition": "Mettre de l'argent dans un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-046",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Retrait",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sortir l'argent",
+            "prendre l'argent"
+          ],
+          "definition": "Sortir de l'argent d'un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-047",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Remboursement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "rendre l'argent",
+            "retour de l'argent"
+          ],
+          "definition": "Rendre l'argent qu'on a pris ou payé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-048",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Crédit",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent ajouté",
+            "argent qui entre"
+          ],
+          "definition": "De l'argent mis en plus dans un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-049",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Débit",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent enlevé",
+            "argent qui sort"
+          ],
+          "definition": "De l'argent pris dans un compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-050",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Reçu",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier de preuve",
+            "preuve de paiement",
+            "ticket"
+          ],
+          "definition": "Un papier qui montre qu'on a bien payé ou envoyé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-051",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Récapitulatif",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "résumé",
+            "petite liste",
+            "ce qu'il faut revoir"
+          ],
+          "definition": "Un petit résumé de ce qu'on va faire, à revoir avant de dire oui."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-1"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-052",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Référence",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "code de l'opération",
+            "numéro de l'opération",
+            "code"
+          ],
+          "definition": "Un code pour retrouver une opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-8",
+        "P5-3"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-053",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Statut de la transaction",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "état de l'opération",
+            "où en est l'opération"
+          ],
+          "definition": "Dire si l'opération est finie, en attente ou ratée."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P5-8"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-054",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "En attente",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "pas encore fini",
+            "il faut attendre",
+            "en cours"
+          ],
+          "definition": "L'opération n'est pas encore finie. Il faut attendre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-055",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Réussi",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "fini",
+            "bien passé",
+            "ça a marché",
+            "succès"
+          ],
+          "definition": "L'opération s'est bien terminée."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P5-9"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-056",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Transactions et opérations",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Échoué",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "raté",
+            "pas passé",
+            "ça n'a pas marché"
+          ],
+          "definition": "L'opération n'a pas marché."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-057",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Expéditeur",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "celui qui envoie",
+            "personne qui envoie"
+          ],
+          "definition": "La personne qui envoie l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-058",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bénéficiaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "celui qui reçoit",
+            "personne qui reçoit"
+          ],
+          "definition": "La personne qui reçoit l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-1",
+        "P4-6",
+        "P5-7"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-059",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Destinataire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "celui qui reçoit",
+            "personne qui reçoit"
+          ],
+          "definition": "La personne à qui on envoie l'argent ou un message."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-060",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Client",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "utilisateur",
+            "personne qui utilise le service"
+          ],
+          "definition": "La personne qui utilise le service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-061",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Agent",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "représentant",
+            "aide du service",
+            "personne du service"
+          ],
+          "definition": "Une personne qui fait les opérations d'argent pour les autres."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-062",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Marchand",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "vendeur",
+            "commerçant",
+            "boutiquier"
+          ],
+          "definition": "Une personne qui vend et reçoit de l'argent pour ses produits."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-063",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Opérateur",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "société du service",
+            "entreprise du service"
+          ],
+          "definition": "L'entreprise qui donne le service d'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-064",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Banque",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "maison de l'argent",
+            "endroit où on garde l'argent"
+          ],
+          "definition": "Un endroit qui garde l'argent des gens."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-065",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Établissement financier",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "maison d'argent",
+            "société d'argent"
+          ],
+          "definition": "Une entreprise qui a le droit de s'occuper d'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-066",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Personnes et institutions",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Institution de microfinance",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "petite banque",
+            "caisse du village",
+            "caisse de proximité"
+          ],
+          "definition": "Une petite banque qui donne de petits prêts et garde l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-067",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mobile Money",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent par téléphone",
+            "argent du téléphone"
+          ],
+          "definition": "Envoyer et recevoir de l'argent avec son téléphone."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-068",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Carte bancaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "carte de banque",
+            "carte pour payer"
+          ],
+          "definition": "Une carte pour payer ou sortir de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-069",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Carte prépayée",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "carte chargée d'avance",
+            "carte avec argent dedans"
+          ],
+          "definition": "Une carte où l'on met l'argent avant de l'utiliser."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-070",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Chèque",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier de paiement",
+            "papier qui paye"
+          ],
+          "definition": "Un papier qui dit à la banque de payer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-071",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Code USSD",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "code du téléphone",
+            "code à taper",
+            "code avec étoile et dièse"
+          ],
+          "definition": "Un code qu'on tape sur le téléphone, comme *126#."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-072",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Application mobile",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "application",
+            "appli",
+            "programme du téléphone"
+          ],
+          "definition": "Un programme dans le téléphone pour utiliser un service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-073",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Agence",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "bureau",
+            "point de service",
+            "boutique du service"
+          ],
+          "definition": "Un endroit où l'on va pour faire des opérations."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-074",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Distributeur automatique",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "machine à argent",
+            "machine de retrait",
+            "DAB"
+          ],
+          "definition": "Une machine qui donne de l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-075",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Paiement par QR code",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "payer avec le carré",
+            "payer avec le code carré"
+          ],
+          "definition": "Payer en montrant le téléphone devant un carré à lire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-076",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Facture",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier à payer",
+            "note à payer"
+          ],
+          "definition": "Un papier qui dit combien on doit payer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-077",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Numéro de téléphone",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "numéro",
+            "numéro du portable",
+            "chiffres du téléphone"
+          ],
+          "definition": "Les chiffres pour appeler un téléphone."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-6",
+        "P4-7"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-078",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Moyens de paiement et canaux",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Motif du transfert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "raison de l'envoi",
+            "pourquoi on envoie"
+          ],
+          "definition": "La raison pour laquelle on envoie l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-7"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": [],
+      "mergedFrom": [
+        "MSG-025"
+      ]
+    },
+    "deprecated": false,
+    "notes": "Même texte que MSG-025 (fusionné)."
+  },
+  {
+    "id": "VOC-079",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Épargne",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent gardé",
+            "argent mis de côté",
+            "économies"
+          ],
+          "definition": "L'argent qu'on garde pour plus tard."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-080",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Prêt",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent prêté",
+            "argent à rendre"
+          ],
+          "definition": "De l'argent qu'on te donne et que tu dois rendre."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-081",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Dette",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent qu'on doit",
+            "argent à rendre"
+          ],
+          "definition": "De l'argent qu'on doit à quelqu'un."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-082",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Intérêt",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent en plus",
+            "petit gain",
+            "petit coût en plus"
+          ],
+          "definition": "De l'argent en plus qu'on paye pour un prêt ou qu'on gagne avec l'épargne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-083",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Taux d'intérêt",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "pourcentage en plus",
+            "combien en plus"
+          ],
+          "definition": "Le pourcentage qui dit combien d'argent en plus."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-084",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Échéance",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "date limite",
+            "jour pour payer"
+          ],
+          "definition": "Le jour où il faut payer au plus tard."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-085",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mensualité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "paiement du mois",
+            "somme du mois"
+          ],
+          "definition": "L'argent à payer chaque mois pour rendre un prêt."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-086",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Garantie",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sécurité du prêt",
+            "chose en gage",
+            "promesse"
+          ],
+          "definition": "Une chose ou une promesse qui protège celui qui prête."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-087",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Investissement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent placé",
+            "argent mis pour gagner plus"
+          ],
+          "definition": "De l'argent mis quelque part pour en gagner plus."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-088",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Assurance",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "protection",
+            "contrat de protection"
+          ],
+          "definition": "Tu payes un peu chaque fois pour être aidé si un malheur arrive."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-089",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Tontine",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "cotisation en groupe",
+            "caisse du groupe"
+          ],
+          "definition": "Un groupe où chacun donne de l'argent et un membre reçoit chacun son tour."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-090",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Épargne, crédit et assurance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Découvert",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "dépenser plus que le compte",
+            "argent pris en trop"
+          ],
+          "definition": "Quand on dépense plus d'argent qu'il y en a dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-091",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Pièce d'identité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "carte d'identité",
+            "papier d'identité",
+            "CNI"
+          ],
+          "definition": "Un papier officiel qui montre qui tu es."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-092",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Justificatif",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier de preuve",
+            "preuve"
+          ],
+          "definition": "Un papier qui prouve une chose."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-093",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Date de la transaction",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "jour de l'opération",
+            "jour de l'envoi"
+          ],
+          "definition": "Le jour où l'opération a été faite."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-094",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Heure",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "moment",
+            "temps du jour"
+          ],
+          "definition": "Le moment de la journée où l'opération a été faite."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-095",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Validité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "temps d'utilisation",
+            "durée"
+          ],
+          "definition": "Le temps pendant lequel on peut encore utiliser quelque chose."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-096",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Confidentialité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "secret",
+            "vie privée",
+            "chose gardée secrète"
+          ],
+          "definition": "Garder tes informations secrètes pour que personne ne les voie."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-097",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Conditions générales",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "règles du service",
+            "règles à accepter"
+          ],
+          "definition": "Les règles à accepter pour utiliser le service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-098",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Service client",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "aide",
+            "équipe d'aide",
+            "personnes qui aident"
+          ],
+          "definition": "Les personnes qui répondent quand on a un problème."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-099",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Réclamation",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "plainte",
+            "demande d'aide pour un problème"
+          ],
+          "definition": "Dire qu'il y a un problème ou une erreur."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-100",
+    "kind": "term",
+    "category": "Vocabulaire financier",
+    "subcategory": "Identité, conformité et assistance",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Litige",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "désaccord",
+            "dispute",
+            "problème à régler"
+          ],
+          "definition": "Quand deux personnes ne sont pas d'accord sur une opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  }
+]

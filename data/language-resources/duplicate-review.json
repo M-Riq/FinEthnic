@@ -1,0 +1,34 @@
+{
+  "description": "Listes tenues à la main pour le rapport de doublons (ROADMAP §8.1, PROJECT_CONTEXT §3.3). Après modification, relancer `npm run check-duplicates`. Ces listes ne fusionnent ni ne suppriment rien.",
+  "oppositions": [
+    { "ids": ["VOC-049", "VOC-048"], "label": "Débit / Crédit" },
+    { "ids": ["ACT-010", "ACT-011"], "label": "Débiter / Créditer" },
+    { "ids": ["ACT-001", "ACT-002"], "label": "Envoyer / Recevoir" },
+    { "ids": ["ACT-016", "ACT-017"], "label": "Confirmer / Annuler" },
+    { "ids": ["ACT-033", "ACT-034"], "label": "Bloquer / Débloquer" },
+    { "ids": ["VOC-058", "VOC-057"], "label": "Bénéficiaire / Expéditeur" },
+    { "ids": ["VOC-054", "VOC-055"], "label": "En attente / Réussi" },
+    { "ids": ["VOC-045", "VOC-046"], "label": "Dépôt / Retrait" }
+  ],
+  "oppositionsWithoutEntry": [
+    { "label": "Montant envoyé / Montant reçu", "reason": "seul le gabarit MSG-036 « Montant envoyé : {montant} {devise} » existe dans D8" },
+    { "label": "Solde disponible / Solde comptable", "reason": "« Solde comptable » n'est pas dans D8" },
+    { "label": "Refusé / Annulé", "reason": "ni « Refusé » ni « Annulé » ne sont des entrées de D8" }
+  ],
+  "distinct": [
+    { "ids": ["VOC-023", "VOC-024"], "label": "Montant / Somme" },
+    { "ids": ["VOC-058", "VOC-059"], "label": "Bénéficiaire / Destinataire" },
+    { "ids": ["VOC-042", "VOC-043"], "label": "Transfert / Virement" },
+    { "ids": ["VOC-049", "ACT-010"], "label": "Débit / Débiter (nom et verbe)" },
+    { "ids": ["ACT-016", "ACT-018", "ACT-021"], "label": "Confirmer / Valider / Approuver" },
+    { "ids": ["ACT-050", "ACT-052"], "label": "Continuer / Suivant" },
+    { "ids": ["SEC-028", "SEC-030"], "label": "Blocage temporaire / Verrouillage du compte" },
+    { "ids": ["VOC-096", "SEC-011"], "label": "Confidentialité / Vie privée" }
+  ],
+  "overlaps": [
+    { "ids": ["VOC-009", "MSG-066"], "label": "Solde insuffisant (terme et phrase)" },
+    { "ids": ["VOC-054", "MSG-053"], "label": "En attente (terme et phrase)" },
+    { "ids": ["MSG-060", "MSG-065"], "label": "Service indisponible / Opération impossible pour le moment" },
+    { "ids": ["SEC-053", "MSG-068"], "label": "Code incorrect / Informations incorrectes" }
+  ]
+}

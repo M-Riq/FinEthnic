@@ -1,0 +1,586 @@
+[
+  {
+    "id": "P4-1",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Récapitulatif",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-051",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-2",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez les informations avant de confirmer le transfert",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "MSG-043",
+        "type": "meaning"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-3",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-023",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": "P2-3",
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-4",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Frais",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-028",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [
+        "MSG-037"
+      ],
+      "duplicateOf": "P2-8",
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-5",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Total débité",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "MSG-038",
+        "type": "meaning"
+      },
+      "pageRefs": [],
+      "templateRefs": [
+        "MSG-038"
+      ],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-6",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bénéficiaire",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-058",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [
+        "MSG-039"
+      ],
+      "duplicateOf": "P3-1",
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-7",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Téléphone",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-077",
+        "type": "meaning"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-8",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Référence",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-052",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [
+        "MSG-040"
+      ],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-9",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Opération",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-041",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-10",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Je confirme que les informations ci-dessus sont correctes",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "MSG-041",
+        "type": "meaning"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-11",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Modifier",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "ACT-037",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-12",
+    "kind": "page",
+    "category": null,
+    "subcategory": "Page 4",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Confirmer le transfert",
+        "variants": [],
+        "origin": "D8"
+      },
+      "en": null
+    },
+    "variables": [],
+    "contextHints": {
+      "steps": [
+        4
+      ]
+    },
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "ACT-016",
+        "type": "meaning"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  }
+]

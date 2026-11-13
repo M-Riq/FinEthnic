@@ -11,10 +11,10 @@ Les fichiers **JSON** de ce dossier sont la **source de vérité** de la bibliot
 | Dossier | Contenu | État |
 |---|---|---|
 | `schemas/` | Schémas JSON (draft 2020-12) : `entry` (une entrée), `lexicon` (lexique d'exécution lu par le moteur), `review-import` (lignes de relecture) | BM1, à valider en S1 |
-| `financial-corpus/` | Entrées du corpus financier (composante A de D8) | BM2 |
-| `safinum-test-pages/` | Textes exacts des 5 étapes SAFINUM (composante B de D8) | BM2 |
-| `language-resources/` | Dictionnaire Éton–Français (D7) et règles de phrase ; `raw/` reste hors Git | BM3 |
-| `exports/markdown/`, `exports/csv/` | Exports de relecture générés | BM4 |
+| `financial-corpus/` | Entrées du corpus financier (composante A de D8) : VOC 100, ACT 60, SEC 60, MSG 78, PAG 17, GUARD 4 | BM2 ✅ |
+| `safinum-test-pages/` | Textes exacts des 5 étapes SAFINUM (composante B de D8) : `page-1.json` à `page-5.json`, 60 textes dont 52 uniques | BM2 ✅ |
+| `language-resources/` | `duplicate-review.json` (listes tenues à la main pour le rapport de doublons) ; plus tard, le dictionnaire Éton–Français (D7) et les règles de phrase ; `raw/` reste hors Git | BM2 / BM3 |
+| `exports/markdown/`, `exports/csv/` | Exports générés : `duplicates.md` (BM2.4), `l1-pages.csv` (BM2.5) ; exports complets en BM4 | BM2 / BM4 |
 
 Chaque fichier de `financial-corpus/` et de `safinum-test-pages/` contient un **tableau JSON d'entrées** conforme à `schemas/entry.schema.json` (structure décrite dans PROJECT_CONTEXT §4.5).
 
@@ -35,11 +35,50 @@ Le script ne modifie rien. Il renvoie le code 1 s'il trouve un problème et en a
 - la **cohérence des statuts** : `VALIDATED_OBALA` ⇔ `validation.linguistic = VALIDATED` ; une validation exige une relecture tracée (code relecteur et date) ; `SOURCE_EXTRACTED` et `TRANSLATION_PENDING` sont sans proposition, les autres statuts en ont une ;
 - l'**unicité des ID** entre tous les fichiers et les **liens** (`corpusRef`, `pageRefs`, `templateRefs`, `duplicateOf`, `relatedTo`) vers des ID existants.
 
+## Import de D8 (fait une seule fois)
+
+```sh
+npm run import-sources                    # déjà exécuté : refuse d'écraser data/
+npm run import-sources -- --out <dossier> # essai dans un autre dossier
+```
+
+L'import lit `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (D8), vérifie son empreinte SHA-256 (`docs/sources/README.md`), son résumé (315 lignes, 60 textes) et la forme de ses tableaux, puis valide les entrées **avant** d'écrire. Depuis, **le JSON de `data/` est la source de vérité** : on ne relance pas l'import. `--force` écraserait les fichiers, **y compris les relectures déjà intégrées** ; il ne sert qu'avant la première relecture.
+
+Ce que l'import produit :
+
+- les ID de D8 tels quels ; les fusions de D8 tracées dans `links.mergedFrom` (MSG-025 → VOC-078, MSG-056 → ACT-055) ;
+- `source.fr.simple` : synonymes et définition simples (niveaux 2 et 3 de la cascade, aides pour les locutrices, **jamais** des variantes de recherche : `variants` reste vide) ;
+- les variables `{…}` et leur type ; une entrée avec variables devient un gabarit (`kind: "template"`) ;
+- pour chaque texte de page : `corpusRef` `exact` (même texte, traduction partagée) ou `meaning` (même sens, traduction séparée), `duplicateOf` pour une répétition (vers la première occurrence), `templateRefs` vers le gabarit « Libellé : {…} » du même libellé ;
+- 4 entrées protégées `GUARD` (`Safinum`, `Safinum Pay`, `FCFA`, `XAF`), reliées par `relatedTo` (VOC-019 → GUARD-003 ; PAG-010 et P2-6 → GUARD-001) ;
+- une cible Éton **vide** (`TRANSLATION_PENDING`) pour chaque entrée traduisible.
+
+## Rapport de doublons
+
+```sh
+npm run check-duplicates   # → exports/markdown/duplicates.md
+```
+
+Le rapport ne supprime et ne fusionne rien (ROADMAP §8). Il liste les doublons stricts, normalisés et potentiels, les répétitions des pages, les liens pages ↔ corpus, les paires libellé ↔ gabarit (T-LIB-09), les synonymes égaux au texte d'une autre entrée, ainsi que les paires opposées et les termes distincts. Ces trois dernières listes sont tenues à la main dans `language-resources/duplicate-review.json` : modifier ce fichier, puis relancer le script. Un ID inconnu dans ces listes arrête le script (code 1) ; un « point à arbitrer » (ex. deux opposés avec la même cible) est seulement signalé.
+
+## Fiche L1 pour les locutrices
+
+```sh
+npm run export-l1          # → exports/csv/l1-pages.csv
+```
+
+Une ligne par texte unique des 5 pages (52). Le fichier s'ouvre dans Excel ou LibreOffice (UTF-8 avec BOM, séparateur « ; »). Les colonnes d'aide viennent du JSON (étape, lien avec le corpus, synonymes et définition simples, gabarit lié, mots à garder tels quels, lot ①) ; les colonnes de réponse sont vides (traduction, sens financier, code `LOC-xx`, date, commentaire). Les fiches remplies reviendront dans le JSON par `import-review` (BM4), jamais à la main. Le format définitif suivra D5 §6.5 (Q21).
+
 ## Points à valider en Synchronisation 1
 
 - Valeur `kind: "page"` pour les textes exacts des étapes SAFINUM.
 - Champs ajoutés à PROJECT_CONTEXT §4.5 : `contextHints` (départage par rôle et étape, contrat §5.3) et `links.mergedFrom` (ID fusionnés par D8).
 - Liste des statuts `translationStatus`, à confronter au D5 original (Q21).
+- **Décisions d'import (BM2)** :
+  - une reformulation de phrase est gardée entière, sauf si la phrase source est unique et la reformulation en compte plusieurs : chaque phrase est alors une alternative (ex. MSG-001) ;
+  - `{numéro}` (SEC-052, MSG-057) est typé `phone` ;
+  - aucune entrée `Compte {marque}` : « Compte Safinum » reste un texte de page, « Safinum » est protégé ;
+  - le nom de l'étape 5 est « Reçu », comme dans D8.
 
 ## Sécurité
 

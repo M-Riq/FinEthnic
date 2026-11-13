@@ -6,28 +6,17 @@
  *
  * Code de sortie : 0 si aucun problème, 1 sinon.
  */
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { DEFAULT_DATA_DIRS, listJsonFiles } from './lib/data-files';
 import { validateEntries, type DataFile, type Issue } from './lib/data-validation';
 import { loadSchemaValidators } from './lib/schemas';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const DEFAULT_DIRS = ['data/financial-corpus', 'data/safinum-test-pages'];
-
-function listJsonFiles(dir: string): string[] {
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .sort()
-    .flatMap((name) => {
-      const path = join(dir, name);
-      if (statSync(path).isDirectory()) return listJsonFiles(path);
-      return name.endsWith('.json') ? [path] : [];
-    });
-}
 
 const explicit = process.argv.length > 2;
-const dirs = explicit ? process.argv.slice(2) : DEFAULT_DIRS.map((d) => join(ROOT, d));
+const dirs = explicit ? process.argv.slice(2) : DEFAULT_DATA_DIRS.map((d) => join(ROOT, d));
 const files: DataFile[] = [];
 const issues: Issue[] = [];
 
