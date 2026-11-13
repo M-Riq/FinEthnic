@@ -73,12 +73,8 @@ describe('validate-data', () => {
   it('accepte les lettres spéciales et les tons de la liste blanche, y compris décomposés', () => {
     // Suite de caractères SANS signification, choisie seulement pour couvrir la liste blanche. Ce n'est pas de l'Éton.
     const sample = ['ɛ', 'Ɛ', 'ɔ', 'Ɔ', 'ŋ', 'Ŋ', 'ə', 'Ǝ', 'a\u0300', 'e\u0301', 'o\u0302', 'u\u030C', 'i\u0304', 'ɔ\u0300', 'ɛ\u0301',
-      'ɲ', 'Ɲ', 'a\uA71Ce', 'g\u0361b'].join(' ');
+      'ɲ', 'Ɲ', 'a\uA71Ce', 'g\u0361b', 'a\u030B', '\u0171'].join(' ');
     expect(checkEtonCharacters(`⟦TEST⟧ {montant} « ${sample} » ’ … ?`)).toEqual([]);
-  });
-
-  it('refuse le double aigu (U+030B), en attente de vérification dans D7', () => {
-    expect(checkEtonCharacters('a\u030B')).toEqual([expect.stringContaining('U+030B')]);
   });
 
   it('signale VALIDATED_OBALA sans validation linguistique', () => {

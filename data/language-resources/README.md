@@ -26,8 +26,8 @@ Lit la feuille « Éton → Français » du lexique (une ligne par entrée, avec
 - **Formes** : recopiées telles quelles, sauf le numéro d'homonyme final (« ⟦forme⟧1 » → « ⟦forme⟧ »), qui numérote les entrées du livre. Le tiret entre le préfixe de classe et le thème (« ⟦préfixe⟧-⟦thème⟧ ») est **gardé**, comme dans le livre ; la locutrice décide de la graphie finale (décision du responsable, 2026-11-13). Une forme hors de la liste blanche est écartée et signalée, jamais corrigée.
 - **Catégories** : `nom` → `NOM`, `nom adjectival` et `adjectif` → `ADJ`, `verbe` et `verbe résultatif` → `VERBE`, `quasi-auxiliaire` → `AUX`, `adverbe` → `ADV`, `préposition` → `PREP`, `pronom` → `PRON`, `numéral` → `NUM`, `idéophone` → `IDEO`, `interjection` → `INTERJ`, `subordonnant` → `SUB`, `particule` → `PART` (provisoire, Q23).
 - **Référence** de chaque forme : `D7 p. <page> (lexique n° <N°>)`.
-- **Liste blanche** : ɲ, ꜜ (ton abaissé) et la liaison g͡b y ont été ajoutés à la réception de D7. Le double aigu (U+030B, 5 formes) reste refusé en attendant une vérification dans le PDF.
-- Le rapport donne aussi un **échantillon de 30 entrées** à comparer avec le PDF (BM3.4).
+- **Liste blanche** : ɲ, ꜜ (ton abaissé), la liaison g͡b et le double aigu (U+030B, ton très haut, 5 formes vérifiées dans le livre) y ont été ajoutés à la réception de D7.
+- Le rapport donne aussi un **échantillon de 30 entrées** à comparer avec le livre (BM3.4).
 
 ## Formats (provisoires jusqu'à D7)
 
@@ -43,7 +43,7 @@ Le mini-dictionnaire et les règles **de test** sont dans `tests/language/fixtur
 
 1. ✅ Déposer le fichier brut dans `raw/` (jamais committé).
 2. ✅ `npm run import-dictionary` : extraction vers `raw/dictionary.json` (`kind: "d7"`), en NFC, avec la référence de chaque forme (BM3.3).
-3. 🟡 Contrôler l'extraction : liste blanche des caractères éton (§3.7.4-4) ✅ ; échantillon de 30 formes de `raw/import-report.md` à comparer avec le PDF (BM3.4).
+3. ✅ Contrôler l'extraction : liste blanche des caractères éton (§3.7.4-4) ; échantillon de 30 formes de `raw/import-report.md` et 5 formes à double aigu comparés avec le livre par le responsable le 2026-11-13, tous conformes (BM3.4).
 4. Transcrire les règles de phrase dans `grammar-rules.json`, **une par une avec leur référence** (Q23). Copilot peut écrire la structure, jamais une forme éton.
 5. Lancer `npm run propose-translations -- --dictionary data/language-resources/raw/dictionary.json --report data/language-resources/raw/cascade-report.md` (essai), relire le rapport, puis relancer avec `--write`. Le rapport complet reste dans `raw/` : il cite des centaines de formes de D7, au-delà des seules formes retenues.
 6. Envoyer les propositions aux locutrices (fiches L1/L2). Seule leur validation produit `VALIDATED_OBALA`.

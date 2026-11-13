@@ -30,7 +30,7 @@ Le script ne modifie rien. Il renvoie le code 1 s'il trouve un problème et en a
 
 - le **schéma** de chaque entrée, y compris : entrée `TRANSLATABLE` ⇔ cible Éton présente ;
 - l'**encodage** de tous les textes : normalisation NFC, caractère U+FFFD, mojibake (« Ã© ») ;
-- la **liste blanche de caractères Éton** (texte, variantes, propositions, formes du dictionnaire). Elle signale par exemple ε grec (U+03B5) au lieu de ɛ (U+025B). ɲ, ꜜ et la liaison g͡b y ont été ajoutés à la réception de D7. Cette liste est **provisoire** (Q17) ;
+- la **liste blanche de caractères Éton** (texte, variantes, propositions, formes du dictionnaire). Elle signale par exemple ε grec (U+03B5) au lieu de ɛ (U+025B). ɲ, ꜜ, la liaison g͡b et le double aigu (ton très haut) y ont été ajoutés à la réception de D7. Cette liste est **provisoire** (Q17) ;
 - les **variables** `{nom}` : les mêmes dans la source, ses variantes et la déclaration ; le même multiensemble dans toute cible Éton ;
 - la **cohérence des statuts** : `VALIDATED_OBALA` ⇔ `validation.linguistic = VALIDATED` ; une validation exige une relecture tracée (code relecteur et date) ; `SOURCE_EXTRACTED` et `TRANSLATION_PENDING` sont sans proposition, les autres statuts en ont une ;
 - l'**unicité des ID** entre tous les fichiers et les **liens** (`corpusRef`, `pageRefs`, `templateRefs`, `duplicateOf`, `relatedTo`) vers des ID existants.
