@@ -44,6 +44,6 @@ Le mini-dictionnaire et les règles **de test** sont dans `tests/language/fixtur
 1. ✅ Déposer le fichier brut dans `raw/` (jamais committé).
 2. ✅ `npm run import-dictionary` : extraction vers `raw/dictionary.json` (`kind: "d7"`), en NFC, avec la référence de chaque forme (BM3.3).
 3. ✅ Contrôler l'extraction : liste blanche des caractères éton (§3.7.4-4) ; échantillon de 30 formes de `raw/import-report.md` et 5 formes à double aigu comparés avec le livre par le responsable le 2026-11-13, tous conformes (BM3.4).
-4. Transcrire les règles de phrase dans `grammar-rules.json`, **une par une avec leur référence** (Q23). Copilot peut écrire la structure, jamais une forme éton.
+4. 🟡 Transcrire les règles de phrase dans `grammar-rules.json`, **une par une avec leur référence** (Q23). Copilot peut écrire la structure, jamais une forme éton. Déjà validés par le responsable (2026-11-13) : les articles ignorés et la règle `D7-VERBE-NOM`. La section « Grammaire & phrases » du lexique est un résumé qui renvoie aux p. 18-71 : la page exacte d'une règle est à prendre dans le livre quand c'est possible.
 5. Lancer `npm run propose-translations -- --dictionary data/language-resources/raw/dictionary.json --report data/language-resources/raw/cascade-report.md` (essai), relire le rapport, puis relancer avec `--write`. Le rapport complet reste dans `raw/` : il cite des centaines de formes de D7, au-delà des seules formes retenues.
 6. Envoyer les propositions aux locutrices (fiches L1/L2). Seule leur validation produit `VALIDATED_OBALA`.
