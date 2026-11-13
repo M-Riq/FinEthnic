@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
-> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
-> **Version :** 0.6 — 2026-11-13 (v0.5 + corpus fusionné D8 versionné dans `docs/sources/`, §3.9 ; Q11 en partie tranchée ; nouvelle question Q21)
+> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q10, Q14, Q16, Q19 et Q22 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
+> **Version :** 0.7 — 2026-11-13 (v0.6 + **méthode de traduction en cascade** terme → synonymes → définition simple, §3.10 ; rôle du dictionnaire révisé, §3.7.4-2 ; Q22 tranchée ; nouvelle question Q23)
 > **Règle :** aucun développement (extension, bibliothèque ou moteur) avant la validation de S1 : architecture, format JSON (§4.5), contrat d'intégration et répartition des tâches.
 
 ---
@@ -16,7 +16,7 @@
 | D4 | `corpus_financier_reference_FR.md` | Composante A — corpus général FR | 300 entrées (VOC 100, ACT 60, SEC 60, MSG 80), ID stables, sensibilité des actions, variables `{...}` protégées. **0 traduction.** |
 | D5 | `FinEthnic-glossaire-financier-v0.1.md` (contenu identique à `etonfin-glossaire-financier-v0.1.md` ; seul le titre H1 a été renommé) | Composante B + cadrage linguistique | 62 libellés des 5 pages (P1–P5), statuts normalisés, variété **Obala**, orthographe du *Dictionnaire éton–français* (Van de Velde & Essele Essele, CLÉ 2022), 4 formes lexicales attestées, fiche et procédure de validation, schéma JSON. **0 traduction validée.** |
 | D6 | `TEAM_WORKFLOW.md` (versionné à la racine, v0.4) | Organisation de l'équipe | 2 membres et 2 périmètres (responsable : bibliothèque + moteur ; Yvan : extension), développement **parallèle** avec faux moteur, langues sources **FR et EN**, 6 états de résultat du moteur, contrat `INTEGRATION_CONTRACT.md`, arborescence `data/`, règles Git, 5 synchronisations, définition de terminé |
-| D7 | *Dictionnaire éton–français* (Van de Velde & Essele Essele, CLÉ 2022) | Ressource lexicale | **Pas encore fourni** : il sera téléversé au démarrage de la bibliothèque et du moteur (phase BM3). Format et licence à confirmer (Q17). |
+| D7 | *Dictionnaire éton–français* (Van de Velde & Essele Essele, CLÉ 2022) | **Première ressource de traduction** (cascade §3.10). Selon le responsable, il contient surtout des mots simples, ainsi que des règles de formation des phrases. | **Pas encore fourni** : il sera téléversé au démarrage de la bibliothèque et du moteur (phase BM3). Format et licence à confirmer (Q17). |
 | D8 | `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (versionné le 2026-11-13, empreinte dans `docs/sources/README.md`) | Composantes A + B fusionnées — **source de l'import BM2** | Fusion de D4 et des textes de pages de D5 : 315 entrées (VOC 100, ACT 60, SEC 60, MSG 78, PAG 17) et 60 textes de pages tracés. Ajoute des synonymes et des définitions en français simple. **0 traduction.** Vérifications et écarts avec D5 : §3.9. |
 
 > **D8 est versionné** dans `docs/sources/` (2026-11-13) et remplace D4 et D5 pour l'import. D2, D3 et D5 ne sont pas encore versionnés (Q11, Q21). D7 ne doit **pas** être versionné (§3.7.4-3).
@@ -187,8 +187,8 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
    - BM5 (moteur) ;
    - L1 (lancement de la validation).
 
-   D5 §6.6 prévoit déjà que les locutrices **proposent** d'abord et que le dictionnaire sert de **comparaison**.
-2. **Rôle du dictionnaire.** C'est une ressource de **proposition** et de **justification** (`dictionaryEvidence`). Il n'est **jamais** chargé à l'exécution et ne sert **jamais** à composer une traduction mot à mot : une forme attestée n'est pas une traduction approuvée.
+   D5 §6.6 prévoyait que les locutrices **proposent** d'abord et que le dictionnaire sert de **comparaison**. *(Révisé en v0.7 : le dictionnaire propose d'abord, par la cascade §3.10. Les locutrices valident ou corrigent, et elles proposent elles-mêmes seulement quand la cascade échoue.)*
+2. **Rôle du dictionnaire** *(révisé en v0.7, décision Q22 du 2026-11-13)*. C'est la **première ressource de traduction**. Pendant la préparation de la bibliothèque, il alimente la **cascade** du §3.10 : terme → synonymes simples → définition simple, puis assemblage selon les règles de formation des phrases. Le résultat est une **proposition**, jamais une traduction approuvée. Elle n'est affichée qu'après validation par une locutrice (D6 §9, invariant I6). Le dictionnaire n'est **jamais** chargé dans l'extension ni utilisé pendant la navigation.
 3. **Droit d'auteur (Q17).** Le dictionnaire est une œuvre publiée (Van de Velde & Essele Essele, CLÉ 2022). Proposition :
    - le fichier brut reste **hors Git**, dans `data/language-resources/raw/` (ignoré par `.gitignore`) ;
    - seules les formes **citées** sont versionnées, avec leur référence (page/entrée), comme justification ;
@@ -260,8 +260,53 @@ Le responsable a fourni `corpus_fusionne_SAFINUM_Eton.md` (D8), qui fusionne D4 
    - `meaning` : la traduction est **distincte** et doit être validée séparément.
 
    Cela respecte le §3.2 : aucune fusion n'est automatique.
-2. **Les synonymes et définitions simples aident les locutrices, mais ne servent jamais de clés de recherche.** 12 synonymes sont le terme d'une autre entrée. Exemple : « montant » est un synonyme de VOC-024 « Somme », mais aussi le terme de VOC-023. Si le moteur les utilisait, il créerait de fausses correspondances. Ils sont donc importés comme **notes de relecture** (fiches L1) et restent « à relire avec le dictionnaire Éton », comme l'indique D8.
+2. **Les synonymes et définitions simples servent à _fabriquer_ la traduction, pas à _reconnaître_ le texte de la page.** *(Corrigé en v0.7 sur précision du responsable.)*
+   - **Fabrication** (préparation de la bibliothèque) : ils sont les niveaux 2 et 3 de la **cascade de traduction** (§3.10). Ils figurent aussi sur les fiches des locutrices.
+   - **Reconnaissance** (moteur, pendant la navigation) : ils ne sont **jamais** des clés de recherche. 12 synonymes sont en effet le terme d'une autre entrée. Exemple : « montant » est un synonyme de VOC-024 « Somme », mais aussi le terme de VOC-023. S'en servir pour reconnaître le texte créerait de fausses correspondances.
 3. **Les ID de D8 sont repris tels quels**, y compris le format `P1-1`, pour garder la traçabilité avec le fichier du responsable.
+
+### 3.10 Méthode de traduction en cascade (précision du responsable, 2026-11-13, v0.7)
+
+**Pourquoi.** Le dictionnaire éton–français (D7) contient surtout des **mots simples**. Les termes financiers « poussés » (ex. « Transaction ») n'y figurent souvent pas. C'est pourquoi D8 donne, pour chaque entrée :
+- des **synonymes simples** (pour les phrases : une **reformulation simple**) ;
+- une **définition simple**, écrite avec des mots courants qu'on peut retrouver dans le dictionnaire.
+
+**La cascade.** Pour chaque entrée, on essaie dans l'ordre et on s'arrête au premier niveau qui réussit :
+
+| Niveau | Texte français utilisé | Réussit si… | `method` |
+|---|---|---|---|
+| 1 | Le **terme** (ou la phrase) lui-même | Il figure dans D7, ou tous ses mots y figurent et sa structure est couverte par les règles | `direct` |
+| 2 | Les **synonymes simples** (pour les phrases : la reformulation simple), dans l'ordre de D8 | Même condition, pour au moins un synonyme. Tous ceux qui réussissent sont proposés, le premier en tête | `synonym` |
+| 3 | La **définition simple** | Tous ses mots figurent dans D7 et sa structure est couverte par les règles | `definition` |
+| 4 | — (échec) | — | aucune proposition |
+
+En cas d'échec (niveau 4), l'entrée garde le statut `TRANSLATION_PENDING`. Le rapport liste les **mots manquants**, et l'entrée est confiée aux locutrices, qui partent du terme, des synonymes et de la définition.
+
+**Assemblage (niveaux 1 à 3, textes de plusieurs mots).** Le script :
+1. découpe le texte français en mots ;
+2. cherche chaque mot porteur de sens dans D7 ;
+3. combine les formes éton trouvées selon les **règles de formation des phrases** de D7 (ordre des mots, accords, etc.). Ces règles sont transcrites une par une, avec leur référence (Q23).
+
+Les variables `{montant}`, `{devise}`… et les jetons protégés sont recopiés **à l'identique**.
+
+**Règles de sécurité (décision Q22)**
+1. La cascade tourne **pendant la préparation de la bibliothèque** (`scripts/propose-translations.*`, BM3), **jamais dans Chrome**. L'extension et le contrat d'intégration **ne changent pas** : Yvan n'est pas concerné.
+2. Son résultat est une **proposition** (`target.eto.proposals[]`, §4.5), avec sa traçabilité :
+   - le niveau utilisé (`method`) ;
+   - le synonyme utilisé ;
+   - les formes et pages de D7 (`dictionaryEvidence`) ;
+   - les règles appliquées ;
+   - les mots non trouvés.
+
+   L'entrée passe en `REVIEW_PENDING`. Le moteur renvoie donc `PENDING_VALIDATION`, et **rien n'est affiché**.
+3. Une **locutrice** accepte, corrige ou rejette la proposition (fiche L1/L2, avec la méthode indiquée). Seule son acceptation permet le statut `VALIDATED_OBALA` et l'affichage (D6 §9, I6).
+4. Le script **n'invente aucune forme** : il n'utilise que des formes de D7 et des règles transcrites avec leur référence. Copilot écrit le code, jamais de l'Éton.
+
+**Limites connues**
+- Un assemblage mot à mot peut être **agrammatical** : tons, classes nominales, accords (R20). La validation par une locutrice reste donc indispensable.
+- Une traduction issue d'une **définition** est plus longue que le terme. Sur un bouton court (« Confirmer »), elle peut déborder ou alourdir l'écran (R21). La locutrice peut la raccourcir ; P6 vérifie la mise en page.
+- Un mot de D7 peut avoir **plusieurs sens**. Toutes les formes candidates sont listées dans `dictionaryEvidence`, et la locutrice choisit.
+- Tant que D7 n'est pas téléversé, la cascade est développée et testée avec un **mini-dictionnaire de test** dont les formes sont visiblement fictives (`⟦TEST⟧`), jamais présentées comme de l'Éton.
 
 ---
 
@@ -300,6 +345,7 @@ FinEthnic/
 │   ├── language-resources/
 │   │   ├── README.md             # provenance, licence, procédure d'extraction (Q17)
 │   │   ├── citations/            # formes citées du dictionnaire + référence (versionnées)
+│   │   ├── grammar-rules.json    # règles de formation des phrases transcrites de D7, chacune avec sa référence (§3.10, Q23)
 │   │   └── raw/                  # dictionnaire brut — IGNORÉ PAR GIT
 │   ├── schemas/                  # JSON Schema (entrée, lexique, import de relecture)
 │   └── exports/                  # GÉNÉRÉ, jamais édité à la main
@@ -308,6 +354,7 @@ FinEthnic/
 ├── scripts/                      # [R] Node/TS, exécutables sans Chrome
 │   ├── import-sources.*          # import initial D8 (Markdown) → JSON (une seule fois, §3.9)
 │   ├── import-dictionary.*       # extraction D7 → citations (BM3, après téléversement)
+│   ├── propose-translations.*    # cascade terme → synonymes → définition (§3.10) → proposals[] ; jamais de statut validé
 │   ├── validate-data.*           # schéma, NFC, jeu de caractères, variables, transitions
 │   ├── check-duplicates.*        # doublons stricts / normalisés / potentiels (rapport)
 │   ├── export-review.*           # → data/exports/markdown + csv
@@ -409,7 +456,10 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
   "disposition": "TRANSLATABLE",         // TRANSLATABLE | PROTECTED | OUT_OF_SCOPE
   "sensitivity": "high",                 // critical | high | standard
   "source": {
-    "fr": { "text": "Solde disponible", "variants": [], "origin": "D8" },
+    "fr": {
+      "text": "Solde disponible", "variants": [], "origin": "D8",   // variants = formes reconnues sur la page
+      "simple": { "synonyms": ["…"], "definition": "…" }          // D8 : niveaux 2 et 3 de la cascade (§3.10), jamais des clés de recherche
+    },
     "en": null                           // { text, variants, origin, mappingReview } — BM6 (Q15)
   },
   "variables": [],                       // ex. [{ "name": "montant", "type": "amount" }]
@@ -421,6 +471,7 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
       "variants": [],
       "translationStatus": "TRANSLATION_PENDING",   // statuts D5 (liste reprise à l'identique en BM1)
       "dictionaryEvidence": [],          // [{ form, gloss, ref: "D7 p.…" }] — justification, jamais une traduction
+      "proposals": [],                   // cascade §3.10 : [{ text, method: "direct"|"synonym"|"definition", from, rules, missing, generatedBy }] — jamais affichées
       "validation": {
         "linguistic": "PENDING",         // PENDING | VALIDATED | REJECTED
         "financialMeaning": "PENDING",   // PENDING | VALIDATED | REJECTED
@@ -440,6 +491,7 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 - Les textes sont stockés en **NFC**. L'Éton est contrôlé par la liste blanche de caractères (§3.7.4-4).
 - `translationStatus` reprend les statuts de D5. `validation` porte les deux axes exigés par D1 (C3). Le moteur combine les trois niveaux pour produire les 6 états du contrat (§4.4). `validate-data` vérifie la cohérence : `translationStatus = VALIDATED_OBALA` ⇔ `validation.linguistic = VALIDATED`.
 - Les noms des relecteurs ne figurent jamais dans `data/` : seulement leur code (§3.7.4-6).
+- `proposals[]` n'est **jamais** exporté dans `lexicon.json`. Seul `text`, une fois validé par une locutrice, peut l'être. `propose-translations` n'écrit jamais `text` ni `VALIDATED_OBALA` (§3.10).
 
 ### 4.6 Choix techniques proposés
 | Sujet | Proposition | Raison |
@@ -494,6 +546,8 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 - **Q10 — Nommage (conflit C2)** — ✅ **Tranchée par D6 (2026-11-12) : FinEthnic = le projet, SAFINUM Éton = son premier prototype.** « EtonFin » (D5) est remplacé lors de l'import.
 - **Q11 — Versionner les sources** dans `docs/sources/` ? — 🔶 **En partie tranchée (2026-11-13) : D8 est versionné**, à la demande du responsable, pour un usage à long terme. D8 ne contient **aucune forme en Éton** : sa publication ne pose donc pas de problème de licence. Restent à décider : D2, D3 et D5 (voir Q21). La question de licence ne concerne plus que les formes tirées du dictionnaire (D7, Q17), si le dépôt devient public.
 - **Q21 — Textes de pages : D8 ou D5 ? (§3.9)** D8 liste 60 textes, D5 en listait 62 (« Bonjour, Amina », phrase P1-015, « Safinum Pay »). **Recommandation : D8 fait foi pour l'import, et le relevé du site réel (P2.0, Q20) tranche les écarts.** Le D5 original reste utile pour ce que D8 ne reprend pas : statuts, fiche et procédure de validation, exemples de valeurs protégées. Faut-il aussi le versionner dans `docs/sources/` ?
+- **Q22 — Méthode de traduction** — ✅ **Tranchée (2026-11-13) : cascade terme → synonymes simples → définition simple**, avec assemblage selon les règles de D7 (§3.10). Elle tourne pendant la préparation de la bibliothèque et produit des **propositions**, validées par une locutrice avant tout affichage. Les échecs sont confiés aux locutrices.
+- **Q23 — Règles de formation des phrases de D7** (bloque BM3.6, pas S1) : quand D7 sera téléversé, où se trouvent ces règles dans le dictionnaire et que couvrent-elles (ordre des mots, classes nominales et accords, verbes et temps, négation, possessifs, tons) ? **Recommandation :** transcrire d'abord les quelques règles nécessaires aux définitions des 52 textes de pages, chacune avec sa page de référence, et les faire relire par une locutrice.
 - **Q12 — Calendrier linguistique** : combien de locutrices d'Obala sont disponibles, et à quel rythme ? Cela fixe le nombre réaliste de libellés validés pour la démo. **Priorité suggérée : les ~53 libellés uniques des 5 pages (62 occurrences), puis les actions critiques et les alertes SEC.**
 - **Q13 — Public qui ne lit pas l'Éton (§3.6-5)** : les locutrices peuvent-elles enregistrer l'audio des phrases critiques en même temps que leur validation ? Si oui, l'option « écouter » pourra être ajoutée **après** le MVP, avec des fichiers locaux et sans service distant. Ce n'est pas bloquant pour P1–P7.
 

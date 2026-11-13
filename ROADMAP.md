@@ -1,6 +1,6 @@
 # ROADMAP — SAFINUM Éton (projet FinEthnic, présélection SAFINUM Innovate 2026)
 
-> **Statut :** v0.6 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
+> **Statut :** v0.7 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
 > - pistes parallèles et synchronisations S1–S5 ;
 > - piste **BM** (bibliothèque et moteur), qui remplace la phase 4 ;
 > - phase 5 recentrée sur le remplacement et la restauration ;
@@ -10,8 +10,10 @@
 >
 > La **v0.6** (2026-11-13) enregistre le **corpus fusionné D8**, versionné dans `docs/sources/`. Il devient la source de l'import BM2 : 315 entrées et 60 textes de pages (PROJECT_CONTEXT §3.9).
 >
-> Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées, et Q11 l'est en partie (§12).
-> **Références :** `PROJECT_CONTEXT.md` (documents D1–D8, conflits C1–C14, questions Q1–Q21) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
+> La **v0.7** (2026-11-13) enregistre la **méthode de traduction en cascade** (Q22, PROJECT_CONTEXT §3.10). Le dictionnaire produit des propositions : par le terme, sinon par ses synonymes simples, sinon par sa définition simple. Une locutrice les valide avant tout affichage (BM3).
+>
+> Q2, Q3, Q4, Q5, Q10, Q14, Q16, Q19 et Q22 sont tranchées, et Q11 l'est en partie (§12).
+> **Références :** `PROJECT_CONTEXT.md` (documents D1–D8, conflits C1–C14, questions Q1–Q23) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
 > **Règle de passage :** une phase ne démarre que si la **porte** de la phase précédente **de la même piste** est franchie. Les pistes avancent en parallèle et se retrouvent aux synchronisations S1–S5 (§0.3). Ce sont des rendez-vous, pas des blocages (D6 §7). Seul le responsable du projet peut lever une porte.
 
 ---
@@ -26,7 +28,7 @@ S1 Cadrage (J0)
  │                                                                                             │
  ├─ BM — Bibliothèque et moteur (responsable du projet)                                        │
  │     BM1 Schéma + contrat ─► BM2 Import FR ─► BM4 Outils de relecture ─► BM5 Moteur ─► BM6 EN │
- │     BM3 Dictionnaire (⏸ attend D7 ; ne bloque ni BM4 ni BM5)                                 │
+ │     BM3 Dictionnaire + cascade de propositions (⏸ attend D7 ; ne bloque ni BM4 ni BM5)       │
  │                        ··· S2 Premiers modules (≈ J3) ···                                    ▼
  │                                                     S3 = BM7 Première intégration (vrai moteur)
  │                                                                                             ▼
@@ -42,7 +44,7 @@ S1 Cadrage (J0)
 2. **BM** : BM1 → BM2 → BM5. Le vrai moteur doit être conforme au contrat avant S3.
 3. **L** : L2 doit être terminée pour afficher de l'Éton **validé** en S4.
 4. L'URL de l'environnement réel est connue (Q2). Il reste à inspecter son DOM sur le poste d'Yvan au début de P2 (Q20), puis à le tester avant P6. L'environnement de Copilot n'y a pas accès (échec DNS).
-5. Le dictionnaire (D7) **n'est pas** sur le chemin critique : il n'alimente que BM3, c'est-à-dire la justification des propositions.
+5. Le dictionnaire (D7) **ne bloque pas** le code : il alimente BM3, c'est-à-dire la **cascade de propositions** (Q22, PROJECT_CONTEXT §3.10). Il accélère fortement la piste L, mais l'affichage dépend toujours de la validation par les locutrices, qui reste sur le chemin critique.
 
 **Pourquoi trois pistes :**
 - D6 impose que l'extension n'attende pas la bibliothèque, et réciproquement.
@@ -204,7 +206,7 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 |---|---|
 | **Responsable** | Responsable du projet |
 | **Objectifs** | Importer sans perte les 315 entrées et les 60 textes de pages de D8, relier A ↔ B et produire les rapports de qualité. |
-| **Tâches** | **BM2.1 `import-sources`** (exécuté une seule fois) lit `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (D8) :<br>• section « Corpus fusionné » → `data/financial-corpus/*.json` (VOC, ACT, SEC, MSG, PAG) ;<br>• table « Contrôle des 60 textes » → `data/safinum-test-pages/*.json`, une entrée par texte de page, avec son **texte exact** ;<br>• la section « Ajouts depuis les pages » n'est utilisée que pour un **contrôle de cohérence**, pas pour un second import.<br>L'import conserve les ID de D8 tels quels (y compris `P1-1`), les sections, la sensibilité (lue dans « Remarque ») et les variables. Il garde aussi les synonymes et définitions simples comme **notes de relecture**, jamais comme variantes de recherche (PROJECT_CONTEXT §3.9-2). Il remplace « EtonFin » par FinEthnic (Q10) et utilise le code de langue `eto` (C14).<br>**BM2.2 Liens A ↔ B** :<br>• `corpusRef` typés : 19 `exact` (traduction partagée) et 16 `meaning` (traduction distincte, validée séparément) ;<br>• 17 entrées PAG ;<br>• 7 `templateRefs` (PROJECT_CONTEXT §3.6-1) ;<br>• les fusions de D8 (MSG-025 → VOC-078, MSG-056 → ACT-055) sont tracées.<br>Le gabarit `Compte {marque}` (P2-6) est maintenu. Le gabarit `Bonjour, {prénom}` attend Q20/Q21, car D8 n'a que « Bonjour ».<br>**BM2.3 Entrées protégées `GUARD`** (`disposition = PROTECTED`) : `Safinum`, `Safinum Pay`, `FCFA`, `XAF`.<br>**BM2.4 `check-duplicates`** (§8) → `data/exports/markdown/duplicates.md`. Le rapport couvre les doublons stricts, normalisés et potentiels, les phrases incluses dans un paragraphe et les paires opposées. Il couvre aussi les **12 synonymes égaux au terme d'une autre entrée**.<br>**BM2.5 Export minimal des fiches L1** (CSV), avec synonymes et définitions simples, pour ne pas retarder la piste L. |
+| **Tâches** | **BM2.1 `import-sources`** (exécuté une seule fois) lit `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (D8) :<br>• section « Corpus fusionné » → `data/financial-corpus/*.json` (VOC, ACT, SEC, MSG, PAG) ;<br>• table « Contrôle des 60 textes » → `data/safinum-test-pages/*.json`, une entrée par texte de page, avec son **texte exact** ;<br>• la section « Ajouts depuis les pages » n'est utilisée que pour un **contrôle de cohérence**, pas pour un second import.<br>L'import conserve les ID de D8 tels quels (y compris `P1-1`), les sections, la sensibilité (lue dans « Remarque ») et les variables. Il garde aussi les synonymes et définitions simples (`source.fr.simple`). Ce sont les **niveaux 2 et 3 de la cascade de traduction** (PROJECT_CONTEXT §3.10) et des aides pour les locutrices, mais **jamais des variantes de recherche** (§3.9-2). Il remplace « EtonFin » par FinEthnic (Q10) et utilise le code de langue `eto` (C14).<br>**BM2.2 Liens A ↔ B** :<br>• `corpusRef` typés : 19 `exact` (traduction partagée) et 16 `meaning` (traduction distincte, validée séparément) ;<br>• 17 entrées PAG ;<br>• 7 `templateRefs` (PROJECT_CONTEXT §3.6-1) ;<br>• les fusions de D8 (MSG-025 → VOC-078, MSG-056 → ACT-055) sont tracées.<br>Le gabarit `Compte {marque}` (P2-6) est maintenu. Le gabarit `Bonjour, {prénom}` attend Q20/Q21, car D8 n'a que « Bonjour ».<br>**BM2.3 Entrées protégées `GUARD`** (`disposition = PROTECTED`) : `Safinum`, `Safinum Pay`, `FCFA`, `XAF`.<br>**BM2.4 `check-duplicates`** (§8) → `data/exports/markdown/duplicates.md`. Le rapport couvre les doublons stricts, normalisés et potentiels, les phrases incluses dans un paragraphe et les paires opposées. Il couvre aussi les **12 synonymes égaux au terme d'une autre entrée**.<br>**BM2.5 Export minimal des fiches L1** (CSV), avec synonymes et définitions simples, pour ne pas retarder la piste L. |
 | **Fichiers** | `scripts/import-sources.*`, `scripts/check-duplicates.*`, `data/financial-corpus/*`, `data/safinum-test-pages/*`, `data/exports/markdown/duplicates.md`, `tests/language/import.test.*`, `tests/language/duplicates.test.*` |
 | **Dépendances** | BM1 ; D8 ✅ (versionné dans `docs/sources/` le 2026-11-13). Les statuts et la procédure de validation viennent de D5 (Q21). |
 | **Critères d'acceptation** | Import sans perte : 315 entrées et 60 textes de pages (52 uniques), avec des ID identiques à D8. Rapport de doublons produit **sans aucune suppression ni fusion**. Aucun synonyme n'apparaît dans les clés de recherche du lexique. `validate-data` au vert. Le lexique d'exécution ne contient encore **aucune** cible Éton, ce qui est normal (0 validée). |
@@ -213,20 +215,20 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 | **Livrable** | Bibliothèque FR structurée et rapport de qualité. |
 | **Porte → BM4 / BM5** | Rapport de doublons revu et arbitré par le responsable. |
 
-### BM3 — Ressource dictionnaire (⏸ en attente du téléversement de D7)
+### BM3 — Ressource dictionnaire et cascade de traduction (⏸ D7 attendu ; la cascade peut être codée avant, avec un mini-dictionnaire de test)
 
 | Rubrique | Contenu |
 |---|---|
 | **Responsable** | Responsable du projet |
-| **Objectifs** | Exploiter le dictionnaire éton–français comme **ressource de proposition et de justification**, sans jamais en faire une source de traduction automatique (PROJECT_CONTEXT §3.7.4). |
-| **Tâches** | BM3.1 Recevoir D7 et trancher Q17 (format, licence). BM3.2 `data/language-resources/README.md` (provenance, licence, procédure) ; `raw/` exclu par `.gitignore`. BM3.3 `import-dictionary` : extraction vers un fichier intermédiaire **hors Git**. Contrôles : normalisation NFC, liste blanche de caractères, rejet de U+FFFD et du mojibake. Le script produit un rapport des formes suspectes (ε/ɛ, ɔ, ŋ, tons). BM3.4 Vérification manuelle d'un échantillon d'au moins 30 formes contre l'original. BM3.5 Recherche de formes candidates pour les entrées prioritaires (L1/L2), enregistrées dans `dictionaryEvidence` (forme, glose, référence). Le script **n'écrit jamais** `target.eto.text` ni `translationStatus` : ce choix revient aux locutrices. BM3.6 Citations versionnées dans `data/language-resources/citations/`. |
-| **Fichiers** | `scripts/import-dictionary.*`, `data/language-resources/README.md`, `data/language-resources/citations/*`, `.gitignore`, `tests/language/dictionary.test.*` |
-| **Dépendances** | Téléversement de D7 ; Q17. **Ne bloque ni BM4, ni BM5, ni L1/L2.** D5 §6.6 prévoit que les locutrices proposent d'abord et que le dictionnaire sert de comparaison. |
-| **Critères d'acceptation** | Aucun fichier brut suivi par Git. 100 % des formes citées sont en NFC, conformes à la liste blanche et accompagnées d'une référence. L'échantillon manuel ne montre aucune erreur de ton ou de caractère, ou les erreurs sont documentées. |
-| **Tests** | T-DIC-01 à 05 |
-| **Risques** | R10, R15. Si le PDF est scanné, l'OCR est peu fiable sur les tons : préférer la saisie manuelle des seules formes utiles. |
-| **Livrable** | Justifications lexicales traçables, jointes aux fiches de relecture. |
-| **Porte** | Rapport d'extraction revu par le responsable. |
+| **Objectifs** | Faire du dictionnaire éton–français la **première ressource de traduction**. La cascade terme → synonymes simples → définition simple (Q22, PROJECT_CONTEXT §3.10) produit des **propositions** traçables. Une proposition n'est **jamais** affichée avant la validation d'une locutrice. |
+| **Tâches** | BM3.1 Recevoir D7 et trancher Q17 (format, licence).<br>BM3.2 `data/language-resources/README.md` (provenance, licence, procédure) ; `raw/` exclu par `.gitignore`.<br>BM3.3 `import-dictionary` : extraction vers un fichier intermédiaire **hors Git**. Contrôles : normalisation NFC, liste blanche de caractères, rejet de U+FFFD et du mojibake. Le script produit un rapport des formes suspectes (ε/ɛ, ɔ, ŋ, tons).<br>BM3.4 Vérification manuelle d'un échantillon d'au moins 30 formes contre l'original.<br>BM3.5 Recherche des formes candidates, enregistrées dans `dictionaryEvidence` (forme, glose, référence). En cas de sens multiples, toutes les formes sont listées.<br>BM3.6 **Règles de formation des phrases** (Q23) : transcrire dans `data/language-resources/grammar-rules.json` les règles de D7 utiles aux définitions, une par une, avec leur page de référence. On commence par celles qu'exigent les 52 textes de pages.<br>BM3.7 **`propose-translations`** (la cascade) :<br>• niveau 1 le terme, niveau 2 les synonymes (dans l'ordre de D8), niveau 3 la définition ;<br>• arrêt au premier niveau qui réussit ;<br>• assemblage selon `grammar-rules.json` ;<br>• variables et jetons protégés recopiés à l'identique ;<br>• résultat dans `target.eto.proposals[]`, avec `method`, synonyme utilisé, règles et mots manquants ; l'entrée passe en `REVIEW_PENDING`.<br>Le script **n'écrit jamais** `target.eto.text` ni `VALIDATED_OBALA`. En cas d'échec, l'entrée reste en `TRANSLATION_PENDING`, et ses mots manquants figurent dans `data/exports/markdown/cascade-report.md`. Développement et tests possibles **avant D7**, avec un mini-dictionnaire de test (`⟦TEST⟧`).<br>BM3.8 Citations versionnées dans `data/language-resources/citations/`. |
+| **Fichiers** | `scripts/import-dictionary.*`, `scripts/propose-translations.*`, `data/language-resources/README.md`, `data/language-resources/grammar-rules.json`, `data/language-resources/citations/*`, `data/exports/markdown/cascade-report.md`, `.gitignore`, `tests/language/dictionary.test.*`, `tests/language/cascade.test.*` |
+| **Dépendances** | BM2 (synonymes et définitions importés). Téléversement de D7 ; Q17 ; Q23 (pour BM3.6). **Ne bloque ni BM4, ni BM5, ni L1.** Tant que la cascade ne tourne pas, les locutrices travaillent à partir du terme, des synonymes et de la définition. |
+| **Critères d'acceptation** | Aucun fichier brut suivi par Git. 100 % des formes citées sont en NFC, conformes à la liste blanche et accompagnées d'une référence. L'échantillon manuel ne montre aucune erreur de ton ou de caractère, ou les erreurs sont documentées. **Cascade :**<br>• chaque proposition indique sa méthode et ses sources ;<br>• aucune proposition n'atteint `lexicon.json` ;<br>• aucune variable n'est altérée ;<br>• le rapport donne, par niveau, le nombre d'entrées proposées et les mots manquants. |
+| **Tests** | T-DIC-01 à 11 |
+| **Risques** | R10, R15, **R20** (assemblage agrammatical), **R21** (traductions trop longues). Si le PDF est scanné, l'OCR est peu fiable sur les tons : préférer la saisie manuelle des seules formes utiles. |
+| **Livrable** | Propositions traçables jointes aux fiches de relecture, rapport de la cascade, justifications lexicales. |
+| **Porte** | Rapport d'extraction et rapport de la cascade revus par le responsable. |
 
 ### BM4 — Outils de validation et exports de relecture
 
@@ -358,7 +360,7 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 **Responsable :** responsable du projet, avec les locutrices d'Obala.
 - Les fiches sont générées depuis le JSON : export minimal en BM2, complet en BM4.
 - Les retours sont réintégrés par `import-review` (réimport contrôlé, D6 §5).
-- La piste **n'attend pas** le dictionnaire (D7) : les locutrices proposent d'abord (D5 §6.6), et les justifications de BM3 s'ajoutent quand elles sont prêtes.
+- La piste **n'attend pas** le dictionnaire (D7). Sans proposition, la locutrice part du terme, des synonymes et de la définition simple (D8). Dès que la cascade (BM3.7) tourne, la fiche affiche aussi la **proposition automatique** et sa méthode (terme, synonyme ou définition). La locutrice l'accepte, la corrige ou la rejette (Q22).
 - Les relecteurs sont identifiés par un code (`LOC-xx`) ; aucun nom n'est versionné.
 
 | Étape | Contenu | Sortie | Critère |
@@ -460,7 +462,13 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | T-DIC-02 | Jeu de caractères | ε grec (U+03B5), U+FFFD, `Ã©` | Refusés avec un motif (suggestion : ɛ U+025B) | — | À faire |
 | T-DIC-03 | Fichier brut hors Git | `git ls-files data/language-resources/raw` | Résultat vide ; règle présente dans `.gitignore` | — | À faire |
 | T-DIC-04 | Référence obligatoire | `dictionaryEvidence` sans `ref` | `validate-data` en échec | — | À faire |
-| T-DIC-05 | Pas de cible automatique | Exécution de `import-dictionary` | `target.eto.text` et `translationStatus` inchangés | — | À faire |
+| T-DIC-05 | Pas de cible automatique | Exécution de `import-dictionary` puis de `propose-translations` | `target.eto.text` inchangé ; jamais `VALIDATED_OBALA` ; au plus `REVIEW_PENDING` | — | À faire |
+| T-DIC-06 | Cascade niveau 1 (v0.7) | Mini-dictionnaire de test contenant le terme | Proposition `method: direct` | — | À faire |
+| T-DIC-07 | Cascade niveau 2 (v0.7) | Terme absent ; 2ᵉ synonyme présent | Proposition `method: synonym`, `from` = ce synonyme ; le niveau 3 n'est pas tenté | — | À faire |
+| T-DIC-08 | Cascade niveau 3 (v0.7) | Terme et synonymes absents ; tous les mots de la définition présents, structure couverte par une règle | Proposition `method: definition`, règles appliquées listées | — | À faire |
+| T-DIC-09 | Échec de la cascade (v0.7) | Un mot de la définition absent | Aucune proposition ; `TRANSLATION_PENDING` conservé ; mot manquant listé dans `cascade-report.md` | — | À faire |
+| T-DIC-10 | Proposition jamais affichée (v0.7) | Entrée avec une proposition de la cascade | Absente de `lexicon.json` ; le moteur renvoie `PENDING_VALIDATION`, `output: null` | — | À faire |
+| T-DIC-11 | Variables dans l'assemblage (v0.7) | Reformulation « Tu peux utiliser {montant} {devise}. » | `{montant}` et `{devise}` présents à l'identique dans la proposition | — | À faire |
 | T-REV-01 | Encodage CSV (v0.4) | Export contenant `mɔ̀ní` | UTF-8 avec BOM, diacritiques intacts après ouverture dans un tableur | — | À faire |
 | T-REV-02 | Aller-retour neutre | Export puis import sans modification | Diff vide, aucune écriture | — | À faire |
 | T-REV-03 | Champs immuables | `id` ou source modifiés dans le CSV | Ligne refusée avec un motif | — | À faire |
@@ -511,6 +519,8 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | R17 | CSV de relecture corrompus (tableur, encodage, séparateur) | Moyenne | Élevé | UTF-8 avec BOM, séparateur fixé, réimport contrôlé avec diff, T-REV |
 | R18 | Cible non approuvée transmise à l'extension | Faible | Critique | `build-lexicon` retire les cibles non approuvées (I6) ; T-LIB-10, T-CON-02 ; faux moteur absent de la production (T-CON-06) |
 | R19 | Conflits sur les fichiers partagés (`package.json`, build) | Moyenne | Faible | Q19 ✅ : création unique en P1.1 par Yvan, PR relue, `CODEOWNERS` (`@M-Riq`, `@ivan-14-dev`) ; dossiers séparés par périmètre (D6 §3) |
+| R20 | Proposition assemblée mot à mot agrammaticale ou fausse (tons, classes nominales, accords, sens multiples) | Élevée | Élevé | Q22 : proposition seulement, jamais affichée sans locutrice ; méthode et règles indiquées sur la fiche ; règles transcrites avec référence (Q23) ; T-DIC-10 |
+| R21 | Traduction issue d'une définition trop longue pour l'interface (boutons, titres) | Moyenne | Moyen | Niveaux 1 et 2 prioritaires ; la locutrice peut raccourcir ; vérification de la mise en page en P6 |
 
 ---
 
@@ -564,3 +574,5 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | 2026-11-12 | Roadmap v0.5 : enregistrement des décisions ci-dessus ; R2, R11 et R19 mis à jour | En attente de S1 |
 | 2026-11-13 | **Corpus fusionné D8** (D4 + textes des pages de D5) fourni par le responsable et versionné **tel quel** dans `docs/sources/` (empreinte SHA-256 dans le README). Il devient la source de l'import BM2. Vérification : 315 ID uniques ; 60 textes de pages (52 uniques : 19 exacts, 16 rattachés par le sens, 17 ajoutés) ; 12 synonymes égaux au terme d'une autre entrée | ✅ Décidé par le responsable (Q11 en partie tranchée) |
 | 2026-11-13 | Roadmap v0.6 : BM2 réécrite pour D8 (liens `exact`/`meaning`, synonymes = notes de relecture) ; T-LIB-01 à 03 mis à jour ; T-LIB-12 ajouté ; nouvelle question Q21 (D8 ou D5 pour les textes de pages) | En attente de S1 |
+| 2026-11-13 | **Q22** — méthode de traduction en **cascade** : terme → synonymes simples → définition simple, assemblés avec les mots de D7 et ses règles de formation des phrases (PROJECT_CONTEXT §3.10). Corrige la v0.6 : les synonymes et définitions **servent à traduire**, mais pas à reconnaître le texte de la page. La cascade tourne pendant la préparation de la bibliothèque, **pas dans Chrome**. Ses résultats sont des **propositions**, validées par une locutrice avant tout affichage. Les échecs sont confiés aux locutrices. **Aucun changement du contrat d'intégration.** | ✅ Décidé par le responsable |
+| 2026-11-13 | Roadmap v0.7 : BM3 réécrite (BM3.6 règles, BM3.7 `propose-translations`) ; piste L adaptée ; T-DIC-05 étendu ; T-DIC-06 à 11 ; risques R20 et R21 ; nouvelle question Q23 (règles de D7) | En attente de S1 |
