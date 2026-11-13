@@ -1,6 +1,6 @@
 # ROADMAP — SAFINUM Éton (projet FinEthnic, présélection SAFINUM Innovate 2026)
 
-> **Statut :** v0.5 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
+> **Statut :** v0.6 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
 > - pistes parallèles et synchronisations S1–S5 ;
 > - piste **BM** (bibliothèque et moteur), qui remplace la phase 4 ;
 > - phase 5 recentrée sur le remplacement et la restauration ;
@@ -8,8 +8,10 @@
 >
 > La v0.5 enregistre les décisions Q2 (`https://safinum.cm/hackathon-test`, application monopage), Q14, Q16 et Q19 (Yvan : `@ivan-14-dev`). Elle ajoute un **plan court** (§0.1.1) au cas où la date limite (Q1, en attente des organisateurs) serait le 14/11/2026.
 >
-> Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées (§12).
-> **Références :** `PROJECT_CONTEXT.md` (documents D1–D7, conflits C1–C14, questions Q1–Q20) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
+> La **v0.6** (2026-11-13) enregistre le **corpus fusionné D8**, versionné dans `docs/sources/`. Il devient la source de l'import BM2 : 315 entrées et 60 textes de pages (PROJECT_CONTEXT §3.9).
+>
+> Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées, et Q11 l'est en partie (§12).
+> **Références :** `PROJECT_CONTEXT.md` (documents D1–D8, conflits C1–C14, questions Q1–Q21) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
 > **Règle de passage :** une phase ne démarre que si la **porte** de la phase précédente **de la même piste** est franchie. Les pistes avancent en parallèle et se retrouvent aux synchronisations S1–S5 (§0.3). Ce sont des rendez-vous, pas des blocages (D6 §7). Seul le responsable du projet peut lever une porte.
 
 ---
@@ -69,7 +71,7 @@ Il resterait environ deux jours après S1. Le périmètre est réduit à ce qui 
 | Créneau | EXT (Yvan) | BM (responsable) | L (responsable + locutrices) |
 |---|---|---|---|
 | 13/11 matin | S1 express (contrat accepté tel quel) ; P1 ; Q20 sur son poste | S1 express ; BM1 réduit (`contract.ts`, `tests/contract/`, `validate-data`) | Envoi des libellés des 5 étapes, en commençant par les boutons et les libellés de montants |
-| 13/11 après-midi | P2 (scanner, observer, faux moteur) ; P3 (motifs, `dom-guard`, intégrité) | BM2 limité à D5 (53 libellés + `GUARD`) ; BM5 réduit : exact, normalisé, « libellé + valeur protégée » ; `build-lexicon` | L2 : validation des libellés prioritaires |
+| 13/11 après-midi | P2 (scanner, observer, faux moteur) ; P3 (motifs, `dom-guard`, intégrité) | BM2 limité aux textes de pages de D8 (52 uniques) + `GUARD` ; BM5 réduit : exact, normalisé, « libellé + valeur protégée » ; `build-lexicon` | L2 : validation des libellés prioritaires |
 | 14/11 matin | P5 (remplacement, restauration) ; branchement du vrai moteur (S3) | Saisie des validations dans le JSON, contrôlée par `validate-data` et relue en PR ; BM7 | Fin de L2 ; dérogation tracée si une seule locutrice (Q18) |
 | 14/11 après-midi | P6 sur l'environnement réel (S4) ; README ; vidéo ≤ 3 min | Note technique ; méthode de validation | — |
 
@@ -115,7 +117,7 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 |---|---|
 | **Responsable** | Responsable du projet (avec Copilot) |
 | **Objectifs** | Comprendre les documents D1–D6, extraire les exigences, risques, conflits et questions, puis proposer l'architecture, le contrat d'intégration et la roadmap. |
-| **Tâches réalisées** | **v0.1 :** lecture de D1–D5 ; vérification automatique du corpus (300 ID uniques, 2 doublons stricts) ; couverture pages ↔ corpus (53 libellés uniques, 19 dans le corpus, 34 propres aux pages) ; tentative de vérification de l'origine du test (inaccessible depuis mon environnement) ; conflits C1–C5 ; questions Q1–Q12. **v0.2 :** revérification manuelle des chiffres (confirmés) ; 7 correspondances entre libellés de page et gabarits du corpus ; jetons de marque ; attributs d'accessibilité ; risque de lecture de l'Éton écrit (Q13) ; nouvel essai d'accès (toujours un échec DNS). **v0.3 :** Q3, Q4 et Q5 tranchées. **v0.4 :** analyse de `TEAM_WORKFLOW.md` (D6) : PROJECT_CONTEXT §3.7, conflits C6–C14, Q10 tranchée, questions Q14–Q19. Arborescence D6 avec responsables. Schéma à trois niveaux. Contrat d'intégration proposé. Piste BM. |
+| **Tâches réalisées** | **v0.1 :** lecture de D1–D5 ; vérification automatique du corpus (300 ID uniques, 2 doublons stricts) ; couverture pages ↔ corpus (53 libellés uniques, 19 dans le corpus, 34 propres aux pages) ; tentative de vérification de l'origine du test (inaccessible depuis mon environnement) ; conflits C1–C5 ; questions Q1–Q12. **v0.2 :** revérification manuelle des chiffres (confirmés) ; 7 correspondances entre libellés de page et gabarits du corpus ; jetons de marque ; attributs d'accessibilité ; risque de lecture de l'Éton écrit (Q13) ; nouvel essai d'accès (toujours un échec DNS). **v0.3 :** Q3, Q4 et Q5 tranchées. **v0.4 :** analyse de `TEAM_WORKFLOW.md` (D6) : PROJECT_CONTEXT §3.7, conflits C6–C14, Q10 tranchée, questions Q14–Q19. Arborescence D6 avec responsables. Schéma à trois niveaux. Contrat d'intégration proposé. Piste BM. **v0.5 :** Q2, Q14, Q16 et Q19 enregistrées ; plan court. **v0.6 :** corpus fusionné D8 versionné dans `docs/sources/` et vérifié automatiquement (315 ID uniques ; 60 textes de pages, dont 52 uniques ; 16 rattachements par le sens seulement ; 12 synonymes qui sont le terme d'une autre entrée). Écarts avec D5 relevés (Q21). |
 | **Fichiers** | `PROJECT_CONTEXT.md`, `ROADMAP.md`, `TEAM_WORKFLOW.md`, `INTEGRATION_CONTRACT.md` |
 | **Livrables** | Synthèse, exigences (§11), risques (§10), questions, architecture, contrat (proposition), roadmap |
 | **Porte → S1** | ✔ Validation de la compréhension et de l'architecture v0.4. **À valider en S1 :** <br>• le contrat (`INTEGRATION_CONTRACT.md` → v0.1.0) ;<br>• le format JSON (PROJECT_CONTEXT §4.5) ;<br>• l'arborescence (PROJECT_CONTEXT §4.2) ;<br>• la répartition (§0.4).<br>**Réponses reçues (v0.5) :**<br>• **Q2** ✅ `https://safinum.cm/hackathon-test` (SPA) ; fixtures reconstruites depuis D5 ;<br>• **Q14** ✅, **Q16** ✅, **Q19** ✅ (Yvan : `@ivan-14-dev`) ;<br>• **Q1** ⏳ en attente des organisateurs, non bloquante (hypothèse §0.1, plan court §0.1.1).<br>**Reste avant S1 :** inviter Yvan dans le dépôt et obtenir sa relecture de la PR #1.<br>Q3, Q4, Q5 et Q10 sont tranchées. Le dictionnaire (D7) **n'est pas** requis pour S1. |
@@ -201,13 +203,13 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 | Rubrique | Contenu |
 |---|---|
 | **Responsable** | Responsable du projet |
-| **Objectifs** | Importer les 300 + 62 entrées FR sans perte, relier A ↔ B et produire les rapports de qualité. |
-| **Tâches** | BM2.1 `import-sources` (exécuté une seule fois) : D4 → `data/financial-corpus/*.json`, D5 → `data/safinum-test-pages/*.json`. Il conserve les ID, les sections, la sensibilité et les variables. Il remplace « EtonFin » par FinEthnic (Q10) et utilise le code de langue `eto` (C14). BM2.2 Liens A ↔ B : 19 `corpusRef`, 34 libellés propres aux pages, 7 `templateRefs` (PROJECT_CONTEXT §3.6-1). P1-002 devient le gabarit `Bonjour, {prénom}` et P2-004 le gabarit `Compte {marque}`. BM2.3 Entrées protégées `GUARD` (`disposition = PROTECTED`) : `Safinum`, `Safinum Pay`, `FCFA`, `XAF`. BM2.4 `check-duplicates` (§8) → `data/exports/markdown/duplicates.md`. Le rapport couvre les doublons stricts, normalisés et potentiels, les phrases incluses dans un paragraphe (MSG-017 dans P2-002) et les paires opposées. BM2.5 Export minimal des fiches L1 (CSV), pour ne pas retarder la piste L. |
+| **Objectifs** | Importer sans perte les 315 entrées et les 60 textes de pages de D8, relier A ↔ B et produire les rapports de qualité. |
+| **Tâches** | **BM2.1 `import-sources`** (exécuté une seule fois) lit `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (D8) :<br>• section « Corpus fusionné » → `data/financial-corpus/*.json` (VOC, ACT, SEC, MSG, PAG) ;<br>• table « Contrôle des 60 textes » → `data/safinum-test-pages/*.json`, une entrée par texte de page, avec son **texte exact** ;<br>• la section « Ajouts depuis les pages » n'est utilisée que pour un **contrôle de cohérence**, pas pour un second import.<br>L'import conserve les ID de D8 tels quels (y compris `P1-1`), les sections, la sensibilité (lue dans « Remarque ») et les variables. Il garde aussi les synonymes et définitions simples comme **notes de relecture**, jamais comme variantes de recherche (PROJECT_CONTEXT §3.9-2). Il remplace « EtonFin » par FinEthnic (Q10) et utilise le code de langue `eto` (C14).<br>**BM2.2 Liens A ↔ B** :<br>• `corpusRef` typés : 19 `exact` (traduction partagée) et 16 `meaning` (traduction distincte, validée séparément) ;<br>• 17 entrées PAG ;<br>• 7 `templateRefs` (PROJECT_CONTEXT §3.6-1) ;<br>• les fusions de D8 (MSG-025 → VOC-078, MSG-056 → ACT-055) sont tracées.<br>Le gabarit `Compte {marque}` (P2-6) est maintenu. Le gabarit `Bonjour, {prénom}` attend Q20/Q21, car D8 n'a que « Bonjour ».<br>**BM2.3 Entrées protégées `GUARD`** (`disposition = PROTECTED`) : `Safinum`, `Safinum Pay`, `FCFA`, `XAF`.<br>**BM2.4 `check-duplicates`** (§8) → `data/exports/markdown/duplicates.md`. Le rapport couvre les doublons stricts, normalisés et potentiels, les phrases incluses dans un paragraphe et les paires opposées. Il couvre aussi les **12 synonymes égaux au terme d'une autre entrée**.<br>**BM2.5 Export minimal des fiches L1** (CSV), avec synonymes et définitions simples, pour ne pas retarder la piste L. |
 | **Fichiers** | `scripts/import-sources.*`, `scripts/check-duplicates.*`, `data/financial-corpus/*`, `data/safinum-test-pages/*`, `data/exports/markdown/duplicates.md`, `tests/language/import.test.*`, `tests/language/duplicates.test.*` |
-| **Dépendances** | BM1 ; D4 et D5 (Q11 : versionnés dans `docs/sources/`) |
-| **Critères d'acceptation** | Import sans perte (300 + 62). Rapport de doublons produit **sans aucune suppression ni fusion**. `validate-data` au vert. Le lexique d'exécution ne contient encore **aucune** cible Éton, ce qui est normal (0 validée). |
-| **Tests** | T-LIB-01 à 03, T-LIB-09 |
-| **Risques** | Tableaux Markdown irréguliers (cellules contenant `\|` ou des accolades) : comparer le nombre de lignes par section avec D4 et D5. |
+| **Dépendances** | BM1 ; D8 ✅ (versionné dans `docs/sources/` le 2026-11-13). Les statuts et la procédure de validation viennent de D5 (Q21). |
+| **Critères d'acceptation** | Import sans perte : 315 entrées et 60 textes de pages (52 uniques), avec des ID identiques à D8. Rapport de doublons produit **sans aucune suppression ni fusion**. Aucun synonyme n'apparaît dans les clés de recherche du lexique. `validate-data` au vert. Le lexique d'exécution ne contient encore **aucune** cible Éton, ce qui est normal (0 validée). |
+| **Tests** | T-LIB-01 à 03, T-LIB-09, T-LIB-12 |
+| **Risques** | Tableaux Markdown irréguliers (cellules contenant `\|` ou des accolades) : comparer avec le résumé de D8 (315 lignes, 60 textes) et avec l'empreinte SHA-256 de `docs/sources/README.md`. Écarts de textes entre D8 et le site réel (Q20/Q21). |
 | **Livrable** | Bibliothèque FR structurée et rapport de qualité. |
 | **Porte → BM4 / BM5** | Rapport de doublons revu et arbitré par le responsable. |
 
@@ -361,7 +363,7 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 
 | Étape | Contenu | Sortie | Critère |
 |---|---|---|---|
-| **L1** | Fiches D5 §6.5 pour les **53 libellés uniques** des 5 pages, avec contexte d'écran | Feuille de relecture | Fiches envoyées aux locutrices |
+| **L1** | Fiches D5 §6.5 pour les **52 textes uniques** des 5 pages (D8), avec contexte d'écran, synonymes et définitions simples | Feuille de relecture | Fiches envoyées aux locutrices |
 | **L2** | Validation par ordre de priorité : ① actions critiques (Confirmer le transfert, Continuer, Retour, Modifier, Montant à envoyer, Total à débiter, Total débité) ② avertissements (P1-015, P3-002, P3-003, P4-002, P3-009, P4-010) ③ autres libellés | Entrées `VALIDATED_OBALA` + sens financier validé | Au moins les ①② validés avant S4 (P6) |
 | **L3** | Messages probables du jury : D5 §6.4 (15 phrases), MSG-059 à 072 (erreurs système), SEC-041 à 060 (alertes), MSG-047, 053, 054 (statuts) | Gabarits et phrases validés | Liste arrêtée avec toi |
 | **L4** | Deuxième relecture des phrases critiques (D5 §6.6 point 8) | Validation croisée tracée | Toutes les phrases critiques affichées sont relues deux fois (Q18) |
@@ -426,9 +428,9 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | T-PRO-12 | Lecture seule (P2) | Toutes les fixtures | Empreinte du DOM identique | — | À faire |
 | T-PRO-13 | Refus d'écriture | Cible de test altérant un jeton | Écriture refusée, retour arrière | — | À faire |
 | T-PRO-14 | Marque (v0.2) | `Compte Safinum`, `Safinum Pay — environnement…` | `Safinum` / `Safinum Pay` inchangés | — | À faire |
-| T-LIB-01 | Import sans perte | D4 + D5 | 300 + 62 entrées, ID intacts | — | À faire |
-| T-LIB-02 | Doublons stricts | Corpus | VOC-078/MSG-025 et ACT-055/MSG-056 signalés | — | À faire |
-| T-LIB-03 | Liens A↔B | Pages | 19 `corpusRef` corrects | — | À faire |
+| T-LIB-01 | Import sans perte | D8 | 315 entrées + 60 textes de pages, ID identiques à D8 | — | À faire |
+| T-LIB-02 | Doublons stricts | Corpus D8 | Aucun doublon strict restant ; fusions MSG-025 → VOC-078 et MSG-056 → ACT-055 tracées | — | À faire |
+| T-LIB-03 | Liens A↔B | Pages | 19 `corpusRef` `exact` et 16 `meaning` ; aucune traduction partagée par un lien `meaning` | — | À faire |
 | T-LIB-04 | Contradiction | 2 cibles validées pour une même source | Build en échec | — | À faire |
 | T-LIB-05 | Paires opposées | Confirmer/Annuler avec la même cible | Build en échec | — | À faire |
 | T-LIB-06 | Variables | Cible sans `{montant}` | Build en échec | — | À faire |
@@ -437,6 +439,7 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | T-LIB-09 | Libellé ↔ gabarit (v0.2) | « Total débité » seul vs MSG-038 avec un libellé traduit différemment | Avertissement dans le rapport, build non bloqué | — | À faire |
 | T-LIB-10 | Lexique d'exécution (C7, v0.4) | Entrée `REVIEW_PENDING` avec une proposition | Source présente avec son statut ; **cible absente** de `lexicon.json` | — | À faire |
 | T-LIB-11 | Correspondance FR↔EN (v0.4) | `source.en` dont `mappingReview` n'est pas validé | Source EN non embarquée, donc non appariée | — | À faire |
+| T-LIB-12 | Synonymes ≠ clés de recherche (v0.6) | « monnaie » (synonyme de VOC-016, terme de VOC-017) ; « faire partir de l'argent » (synonyme d'ACT-001 seulement) | « monnaie » → VOC-017 seul, jamais VOC-016 ni `AMBIGUOUS` ; « faire partir de l'argent » → `NO_MATCH` | — | À faire |
 | T-CON-01 | Un cas par statut (v0.4) | Table de conformité `tests/contract/` | Les 6 statuts obtenus, sur le faux puis le vrai moteur | — | À faire |
 | T-CON-02 | Invariant I3 | Tous les cas | `output ≠ null` ⇔ `APPROVED` | — | À faire |
 | T-CON-03 | Totalité (I2, I10) | Chaîne vide, 100 000 caractères, émojis, surrogates isolés | Aucune exception ; statut valide ; `too-long` au-delà de 2 000 caractères | — | À faire |
@@ -559,3 +562,5 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | 2026-11-12 | **Q19** : pas de branche `develop` ; fichiers partagés et `CODEOWNERS` créés par Yvan en P1.1 ; Yvan = `@ivan-14-dev`, relecteur obligatoire des PR `contract:` | ✅ Décidé par le responsable |
 | 2026-11-12 | **Q1** : date limite à confirmer par les organisateurs (14/11/2026 évoqué). Non bloquante pour S1 ; plan court §0.1.1 ajouté | ⏳ En attente des organisateurs |
 | 2026-11-12 | Roadmap v0.5 : enregistrement des décisions ci-dessus ; R2, R11 et R19 mis à jour | En attente de S1 |
+| 2026-11-13 | **Corpus fusionné D8** (D4 + textes des pages de D5) fourni par le responsable et versionné **tel quel** dans `docs/sources/` (empreinte SHA-256 dans le README). Il devient la source de l'import BM2. Vérification : 315 ID uniques ; 60 textes de pages (52 uniques : 19 exacts, 16 rattachés par le sens, 17 ajoutés) ; 12 synonymes égaux au terme d'une autre entrée | ✅ Décidé par le responsable (Q11 en partie tranchée) |
+| 2026-11-13 | Roadmap v0.6 : BM2 réécrite pour D8 (liens `exact`/`meaning`, synonymes = notes de relecture) ; T-LIB-01 à 03 mis à jour ; T-LIB-12 ajouté ; nouvelle question Q21 (D8 ou D5 pour les textes de pages) | En attente de S1 |

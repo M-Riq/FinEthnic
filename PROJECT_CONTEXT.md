@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
 > **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q10, Q14, Q16 et Q19 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
-> **Version :** 0.5 — 2026-11-12 (v0.4 + décisions Q2, Q14, Q16, Q19 ; conséquences de l'application monopage, §3.8 ; nouvelle question Q20)
+> **Version :** 0.6 — 2026-11-13 (v0.5 + corpus fusionné D8 versionné dans `docs/sources/`, §3.9 ; Q11 en partie tranchée ; nouvelle question Q21)
 > **Règle :** aucun développement (extension, bibliothèque ou moteur) avant la validation de S1 : architecture, format JSON (§4.5), contrat d'intégration et répartition des tâches.
 
 ---
@@ -17,8 +17,9 @@
 | D5 | `FinEthnic-glossaire-financier-v0.1.md` (contenu identique à `etonfin-glossaire-financier-v0.1.md` ; seul le titre H1 a été renommé) | Composante B + cadrage linguistique | 62 libellés des 5 pages (P1–P5), statuts normalisés, variété **Obala**, orthographe du *Dictionnaire éton–français* (Van de Velde & Essele Essele, CLÉ 2022), 4 formes lexicales attestées, fiche et procédure de validation, schéma JSON. **0 traduction validée.** |
 | D6 | `TEAM_WORKFLOW.md` (versionné à la racine, v0.4) | Organisation de l'équipe | 2 membres et 2 périmètres (responsable : bibliothèque + moteur ; Yvan : extension), développement **parallèle** avec faux moteur, langues sources **FR et EN**, 6 états de résultat du moteur, contrat `INTEGRATION_CONTRACT.md`, arborescence `data/`, règles Git, 5 synchronisations, définition de terminé |
 | D7 | *Dictionnaire éton–français* (Van de Velde & Essele Essele, CLÉ 2022) | Ressource lexicale | **Pas encore fourni** : il sera téléversé au démarrage de la bibliothèque et du moteur (phase BM3). Format et licence à confirmer (Q17). |
+| D8 | `docs/sources/corpus_fusionne_SAFINUM_Eton.md` (versionné le 2026-11-13, empreinte dans `docs/sources/README.md`) | Composantes A + B fusionnées — **source de l'import BM2** | Fusion de D4 et des textes de pages de D5 : 315 entrées (VOC 100, ACT 60, SEC 60, MSG 78, PAG 17) et 60 textes de pages tracés. Ajoute des synonymes et des définitions en français simple. **0 traduction.** Vérifications et écarts avec D5 : §3.9. |
 
-> Les documents D2–D5 ne sont pas encore versionnés dans le dépôt. Recommandation : les ajouter **tels quels** dans `docs/sources/` (voir question Q11). D7 ne doit **pas** être versionné (§3.7.4-3).
+> **D8 est versionné** dans `docs/sources/` (2026-11-13) et remplace D4 et D5 pour l'import. D2, D3 et D5 ne sont pas encore versionnés (Q11, Q21). D7 ne doit **pas** être versionné (§3.7.4-3).
 
 ---
 
@@ -231,6 +232,37 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
 3. **Q14, Q16 et Q19 sont acceptées** telles que recommandées. Voir §5 et le contrat (§3, §5.3, §6, §8, §10). Le compte GitHub d'Yvan est **`@ivan-14-dev`**. Il n'est pas encore collaborateur du dépôt privé : il faut l'**inviter avec les droits d'écriture**, faute de quoi il ne peut ni relire la PR #1 ni figurer dans `CODEOWNERS`.
 4. **Q1** : la date limite est à confirmer par les organisateurs. Le 14/11/2026 a été évoqué. Si cette date est confirmée, il reste environ deux jours : le plan court s'applique (ROADMAP §0.1.1). S1 ne doit pas attendre la réponse des organisateurs (D6 §7 : pas de blocage inutile).
 
+### 3.9 Corpus fusionné D8 (2026-11-13, v0.6)
+
+Le responsable a fourni `corpus_fusionne_SAFINUM_Eton.md` (D8), qui fusionne D4 et les textes de pages de D5. Il est versionné **tel quel** dans `docs/sources/`. **D8 remplace D4 et D5 comme source de l'import (BM2).**
+
+**Vérification automatique** : les chiffres du résumé de D8 sont confirmés.
+- **315 entrées**, toutes avec un ID unique et 9 colonnes : VOC 100, ACT 60, SEC 60, MSG 78, PAG 17. MSG-025 et MSG-056 ont disparu : ce sont les deux doublons stricts du §3.3, fusionnés dans VOC-078 et ACT-055.
+- **Origine des entrées** : 265 viennent seulement du corpus, 33 du corpus et des pages, 17 des pages.
+- **60 textes de pages** (P1 : 15, P2 : 13, P3 : 10, P4 : 12, P5 : 10), soit **52 textes uniques**. Parmi eux :
+  - **19** sont identiques à une entrée du corpus (même liste qu'au §3.4) ;
+  - **16** sont rattachés au corpus **par le sens seulement**. Exemples : « Succès » → VOC-055 « Réussi », « Confirmer le transfert » → ACT-016 « Confirmer », « Votre compte » → VOC-001 « Compte » ;
+  - **17** sont nouveaux et ont été ajoutés (PAG-001 à PAG-017).
+- La **sensibilité** des 60 ACT figure dans la colonne « Remarque » : 22 « Critique », 19 « Élevée », 19 « Standard ». Les variables `{…}` sont signalées et restent identiques dans les reformulations.
+- La section « Ajouts depuis les pages » répète les 17 entrées PAG. C'est une **vue** : il ne faut pas les importer deux fois.
+
+**Écarts avec D5** (à trancher, voir Q21)
+- **Numérotation** : D8 écrit `P1-1`, D5 écrivait `P1-001`, et les numéros ne coïncident pas. Exemple : « Total à débiter » est P2-009 dans D5 et P2-10 dans D8. Avant la v0.6, les numéros de pages cités dans ce document sont ceux de D5.
+- **Nombre de textes** : D5 comptait 62 occurrences (53 libellés uniques), D8 en compte 60 (52 uniques). Trois éléments de D5 n'apparaissent pas dans D8 :
+  - « Bonjour, Amina », remplacé par « Bonjour » ;
+  - la phrase de sécurité P1-015 ;
+  - la mention « Safinum Pay » (P1-017).
+- **Contenu non repris** : D8 ne contient pas les statuts, la fiche ni la procédure de validation, les 4 formes attestées, ni les exemples de valeurs protégées (D5 §4). Le contrat s'y réfère pourtant (§5, §8).
+
+**Conséquences pour BM2 et le moteur** (proposition, à valider en S1)
+1. **Un rattachement par le sens n'implique pas la même traduction.** Le moteur compare des textes, pas des sens : « Votre compte » ne trouvera jamais « Compte ». Chaque texte de page devient donc une **entrée de page** qui garde son texte exact. Son lien vers le corpus (`corpusRef`) est typé :
+   - `exact` : la traduction est partagée ;
+   - `meaning` : la traduction est **distincte** et doit être validée séparément.
+
+   Cela respecte le §3.2 : aucune fusion n'est automatique.
+2. **Les synonymes et définitions simples aident les locutrices, mais ne servent jamais de clés de recherche.** 12 synonymes sont le terme d'une autre entrée. Exemple : « montant » est un synonyme de VOC-024 « Somme », mais aussi le terme de VOC-023. Si le moteur les utilisait, il créerait de fausses correspondances. Ils sont donc importés comme **notes de relecture** (fiches L1) et restent « à relire avec le dictionnaire Éton », comme l'indique D8.
+3. **Les ID de D8 sont repris tels quels**, y compris le format `P1-1`, pour garder la traçabilité avec le fichier du responsable.
+
 ---
 
 ## 4. Architecture proposée
@@ -258,7 +290,7 @@ FinEthnic/
 ├── INTEGRATION_CONTRACT.md       # [R] rédige, [Y] relit obligatoirement (procédure contrat §10)
 ├── THIRD_PARTY.md                # [R+Y] dépendances, outils et sources (exigence D2/D3, dictionnaire cité)
 ├── docs/
-│   ├── sources/                  # [R] D2–D5 versionnés tels quels (Q11) ; jamais D7
+│   ├── sources/                  # [R] sources versionnées telles quelles + README (empreintes) : D8 (2026-11-13) ; D2, D3, D5 selon Q11/Q21 ; jamais D7
 │   ├── architecture.md, note-technique.md, test-report.md   # [R+Y]
 │   ├── validation-linguistique.md   # [R] protocole de relecture, codes relecteurs (sans noms)
 │   └── demo/                     # [R+Y]
@@ -274,7 +306,7 @@ FinEthnic/
 │       ├── markdown/             # fiches de relecture, rapports doublons/couverture/qualité
 │       └── csv/                  # feuilles de relecture (UTF-8 BOM) → réimport contrôlé
 ├── scripts/                      # [R] Node/TS, exécutables sans Chrome
-│   ├── import-sources.*          # import initial D4/D5 (Markdown) → JSON (une seule fois)
+│   ├── import-sources.*          # import initial D8 (Markdown) → JSON (une seule fois, §3.9)
 │   ├── import-dictionary.*       # extraction D7 → citations (BM3, après téléversement)
 │   ├── validate-data.*           # schéma, NFC, jeu de caractères, variables, transitions
 │   ├── check-duplicates.*        # doublons stricts / normalisés / potentiels (rapport)
@@ -377,7 +409,7 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
   "disposition": "TRANSLATABLE",         // TRANSLATABLE | PROTECTED | OUT_OF_SCOPE
   "sensitivity": "high",                 // critical | high | standard
   "source": {
-    "fr": { "text": "Solde disponible", "variants": [], "origin": "D4" },
+    "fr": { "text": "Solde disponible", "variants": [], "origin": "D8" },
     "en": null                           // { text, variants, origin, mappingReview } — BM6 (Q15)
   },
   "variables": [],                       // ex. [{ "name": "montant", "type": "amount" }]
@@ -427,10 +459,10 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 
 **Bloquantes pour la Synchronisation 1** (en plus de la validation du contrat, du format JSON §4.5 et de l'arborescence §4.2)
 - **Q1 — Calendrier** — ⏳ **En attente des organisateurs (2026-11-12). Ne bloque plus S1.** Le 14/11/2026 a été évoqué sans confirmation. Hypothèse de travail : ~10 jours ouvrés (ROADMAP §0.1). Si le 14/11 est confirmé, on bascule sur le **plan court** (ROADMAP §0.1.1).
-- **Q2 — Origine exacte de l'environnement de test** — ✅ **Tranchée (2026-11-12) : `https://safinum.cm/hackathon-test`, application monopage** dont l'URL ne change pas entre les étapes. Les textes des 5 étapes sont ceux de D5. Pas de pages HTML enregistrées : les fixtures sont reconstruites depuis D5 (§3.8-1). La structure réelle du DOM reste à vérifier (Q20).
+- **Q2 — Origine exacte de l'environnement de test** — ✅ **Tranchée (2026-11-12) : `https://safinum.cm/hackathon-test`, application monopage** dont l'URL ne change pas entre les étapes. Les textes des 5 étapes sont ceux de D5, dont la liste à jour est D8 depuis la v0.6 (§3.9, Q21). : les fixtures sont reconstruites depuis D5 (§3.8-1). La structure réelle du DOM reste à vérifier (Q20).
 - **Q3 — Mode d'affichage** — ✅ **Tranchée (2026-11-12) : option (a).** L'Éton remplace le français, et le français reste accessible au survol ou au focus. Le popup propose une bascule vers le mode bilingue (b).
 - **Q4 — Stack** — ✅ **Tranchée (2026-11-12) : TypeScript + esbuild** (un seul bundle), tests **Vitest** (unitaires) et **Playwright** (e2e).
-- **Q5 — Source de vérité linguistique** — ✅ **Tranchée (2026-11-12) : JSON dans `data/`.** Les Markdown et CSV de relecture destinés aux locutrices sont **générés** à partir de ce JSON et ne sont jamais édités à la main. Les documents Markdown D4 et D5 ne servent qu'à l'import initial. *(Confirmée par D6 §5 ; exports dans `data/exports/`.)*
+- **Q5 — Source de vérité linguistique** — ✅ **Tranchée (2026-11-12) : JSON dans `data/`.** Les Markdown et CSV de relecture destinés aux locutrices sont **générés** à partir de ce JSON et ne sont jamais édités à la main. Les documents Markdown sources ne servent qu'à l'import initial : depuis le 2026-11-13, c'est D8, qui remplace D4 et D5 (§3.9). *(Confirmée par D6 §5 ; exports dans `data/exports/`.)*
 - **Q14 — Propriété des motifs protégés (C8)** — ✅ **Tranchée (2026-11-12) : recommandation acceptée.** Les motifs (montant, devise, téléphone, numéro de compte, référence, date, marque) sont définis dans un module pur sans DOM, `src/protection/patterns.ts`, propriété d'Yvan. Ce module est injecté dans le moteur (`createEngine({ detectProtected })`). Une suite de tests commune est tirée de D5 §4 (contrat §8).
 - **Q16 — Langue source `'auto'`** — ✅ **Tranchée (2026-11-12) : oui.** L'extension peut envoyer `sourceLang: 'auto'`. La règle de départage est celle du contrat §5.3 (`AMBIGUOUS` en cas de conflit).
 - **Q19 — Organisation Git** — ✅ **Tranchée (2026-11-12) : recommandations acceptées.**
@@ -460,7 +492,8 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
   **Recommandation : oui pour `aria-label` et `title`**, afin que le lecteur d'écran lise la même chose que l'écran. Les options et le `placeholder` peuvent attendre une phase ultérieure.
 - **Q9 — Statuts intermédiaires** : pour la démo, une entrée `REVIEW_PENDING` peut-elle s'afficher avec un marqueur « à valider » ? **Recommandation : non.** *(v0.4 : le contrat proposé encode déjà « non » : `output` est `null` pour `PENDING_VALIDATION`, conformément à D6 §9. À confirmer en S1.)*
 - **Q10 — Nommage (conflit C2)** — ✅ **Tranchée par D6 (2026-11-12) : FinEthnic = le projet, SAFINUM Éton = son premier prototype.** « EtonFin » (D5) est remplacé lors de l'import.
-- **Q11 — Versionner D2–D5** dans `docs/sources/` ? Le dépôt est actuellement **privé**. Si on le rend public pour la soumission, la licence du dictionnaire permet-elle d'y publier des formes lexicales ?
+- **Q11 — Versionner les sources** dans `docs/sources/` ? — 🔶 **En partie tranchée (2026-11-13) : D8 est versionné**, à la demande du responsable, pour un usage à long terme. D8 ne contient **aucune forme en Éton** : sa publication ne pose donc pas de problème de licence. Restent à décider : D2, D3 et D5 (voir Q21). La question de licence ne concerne plus que les formes tirées du dictionnaire (D7, Q17), si le dépôt devient public.
+- **Q21 — Textes de pages : D8 ou D5 ? (§3.9)** D8 liste 60 textes, D5 en listait 62 (« Bonjour, Amina », phrase P1-015, « Safinum Pay »). **Recommandation : D8 fait foi pour l'import, et le relevé du site réel (P2.0, Q20) tranche les écarts.** Le D5 original reste utile pour ce que D8 ne reprend pas : statuts, fiche et procédure de validation, exemples de valeurs protégées. Faut-il aussi le versionner dans `docs/sources/` ?
 - **Q12 — Calendrier linguistique** : combien de locutrices d'Obala sont disponibles, et à quel rythme ? Cela fixe le nombre réaliste de libellés validés pour la démo. **Priorité suggérée : les ~53 libellés uniques des 5 pages (62 occurrences), puis les actions critiques et les alertes SEC.**
 - **Q13 — Public qui ne lit pas l'Éton (§3.6-5)** : les locutrices peuvent-elles enregistrer l'audio des phrases critiques en même temps que leur validation ? Si oui, l'option « écouter » pourra être ajoutée **après** le MVP, avec des fichiers locaux et sans service distant. Ce n'est pas bloquant pour P1–P7.
 
