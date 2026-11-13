@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finethnic.example/schemas/review-import.schema.json",
+  "title": "FinEthnic — import d'une relecture",
+  "description": "Lignes d'une feuille de relecture (CSV des locutrices) après lecture, AVANT application à data/ par import-review (BM4). Le schéma vérifie la forme de chaque ligne. Les contrôles qui dépendent de data/ (source inchangée, transitions de statut autorisées, rapport de différences) sont faits par import-review. Version provisoire, précisée en BM4.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sheet",
+    "rows"
+  ],
+  "properties": {
+    "sheet": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Nom du fichier CSV relu (ex. fiches-L1-P2.csv)."
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/row"
+      }
+    }
+  },
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sourceText",
+        "aspect",
+        "decision",
+        "text",
+        "reviewer",
+        "date"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "entry.schema.json#/$defs/entryId"
+        },
+        "sourceText": {
+          "$ref": "entry.schema.json#/$defs/text",
+          "description": "Texte français tel qu'exporté. Une ligne dont la source a changé est refusée (T-REV-03)."
+        },
+        "aspect": {
+          "enum": [
+            "linguistic",
+            "financialMeaning"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "VALIDATED",
+            "CORRECTED",
+            "REJECTED"
+          ]
+        },
+        "text": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "entry.schema.json#/$defs/text"
+            }
+          ],
+          "description": "Texte Éton relu : la proposition acceptée, ou la forme corrigée par la locutrice."
+        },
+        "reviewer": {
+          "$ref": "entry.schema.json#/$defs/reviewerCode"
+        },
+        "date": {
+          "$ref": "entry.schema.json#/$defs/date"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "CORRECTED"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "aspect": {
+                "const": "linguistic"
+              },
+              "decision": {
+                "const": "VALIDATED"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finethnic.example/schemas/lexicon.schema.json",
+  "title": "FinEthnic — lexique d'exécution",
+  "description": "Fichier lu par le moteur (src/language/lexicon.json), généré par build-lexicon (BM5) à partir de data/. Il contient toutes les sources connues avec leur statut, mais une cible Éton SEULEMENT si l'entrée est approuvée (PROJECT_CONTEXT §4.1-4 et §4.4, contrat I6). Aucune date de génération : même contenu de data/ = même fichier (I8).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "libraryVersion",
+    "targetLang",
+    "variety",
+    "entries"
+  ],
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "contractVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "libraryVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetLang": {
+      "const": "eto"
+    },
+    "variety": {
+      "const": "obala"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lexiconEntry"
+      }
+    }
+  },
+  "$defs": {
+    "lexiconSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "variants"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "entry.schema.json#/$defs/text"
+        },
+        "variants": {
+          "$ref": "entry.schema.json#/$defs/textList"
+        }
+      }
+    },
+    "lexiconEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "sources",
+        "variables",
+        "target"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "entry.schema.json#/$defs/entryId"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "pending",
+            "untranslated",
+            "protected",
+            "out-of-scope"
+          ],
+          "description": "approved → APPROVED ; pending → PENDING_VALIDATION ; untranslated → KNOWN_UNTRANSLATED ; protected → PROTECTED (protected-entry) ; out-of-scope → PROTECTED (out-of-scope). Contrat §5.2."
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "description": "Une source EN n'est embarquée que si sa correspondance FR↔EN est validée (T-LIB-11).",
+          "properties": {
+            "fr": {
+              "$ref": "#/$defs/lexiconSource"
+            },
+            "en": {
+              "$ref": "#/$defs/lexiconSource"
+            }
+          }
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "entry.schema.json#/$defs/variable"
+          }
+        },
+        "contextHints": {
+          "$ref": "entry.schema.json#/$defs/contextHints"
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "target": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "type": "object"
+          },
+          "else": {
+            "properties": {
+              "target": {
+                "type": "null"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ]
+    }
+  }
+}
