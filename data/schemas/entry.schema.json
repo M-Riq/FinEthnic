@@ -573,7 +573,7 @@
                   "type": "string",
                   "minLength": 1
                 },
-                "description": "Mots non trouvés dans D7."
+                "description": "Mots non trouvés dans D7 dans les textes essayés AVANT celui-ci (terme, synonymes) : ils expliquent le niveau utilisé. Vide pour method « direct »."
               },
               "generatedBy": {
                 "type": "string",

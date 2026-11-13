@@ -306,6 +306,8 @@ Les variables `{montant}`, `{devise}`… et les jetons protégés sont recopiés
 - Un assemblage mot à mot peut être **agrammatical** : tons, classes nominales, accords (R20). La validation par une locutrice reste donc indispensable.
 - Une traduction issue d'une **définition** est plus longue que le terme. Sur un bouton court (« Confirmer »), elle peut déborder ou alourdir l'écran (R21). La locutrice peut la raccourcir ; P6 vérifie la mise en page.
 - Un mot de D7 peut avoir **plusieurs sens**. Toutes les formes candidates sont listées dans `dictionaryEvidence`, et la locutrice choisit.
+- **Pas de lemmatisation** (BM3, provisoire) : un mot conjugué ou accordé (« envoie », « pris ») n'est pas retrouvé par sa forme de base (« envoyer », « prendre »). Il apparaît dans les mots manquants du rapport. Une table des formes françaises pourra être ajoutée quand D7 sera connu.
+- Les **textes de pages** n'ont ni synonymes ni définition propres : seul le niveau 1 est possible. Un texte identique à une entrée du corpus (`corpusRef` `exact`) partage sa traduction et n'est pas traité séparément. Un texte lié seulement par le sens (16 textes, ex. « Confirmer le transfert ») n'emprunte pas les synonymes de l'entrée liée, car le texte diffère.
 - Tant que D7 n'est pas téléversé, la cascade est développée et testée avec un **mini-dictionnaire de test** dont les formes sont visiblement fictives (`⟦TEST⟧`), jamais présentées comme de l'Éton.
 
 ---

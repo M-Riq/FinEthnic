@@ -1,0 +1,6 @@
+{
+  "description": "Règles de formation des phrases transcrites de D7, une par une avec leur page de référence (BM3.6, PROJECT_CONTEXT §3.10). VIDE tant que D7 n'est pas reçu et que Q23 n'est pas tranchée : sans règle, la cascade ne propose que des textes d'un seul mot ou d'une expression entière du dictionnaire. Après modification, relancer npm run propose-translations.",
+  "source": "D7 (Van de Velde & Essele Essele, CLÉ 2022) — à transcrire (Q23)",
+  "ignoredWords": [],
+  "rules": []
+}

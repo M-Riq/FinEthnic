@@ -13,7 +13,8 @@
     "validate-data": "tsx scripts/validate-data.ts",
     "import-sources": "tsx scripts/import-sources.ts",
     "check-duplicates": "tsx scripts/check-duplicates.ts",
-    "export-l1": "tsx scripts/export-l1.ts"
+    "export-l1": "tsx scripts/export-l1.ts",
+    "propose-translations": "tsx scripts/propose-translations.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",
