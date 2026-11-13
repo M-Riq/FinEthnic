@@ -75,8 +75,8 @@ Une ligne par texte unique des 5 pages (52). Le fichier s'ouvre dans Excel ou Li
 - Champs ajoutés à PROJECT_CONTEXT §4.5 : `contextHints` (départage par rôle et étape, contrat §5.3) et `links.mergedFrom` (ID fusionnés par D8).
 - Liste des statuts `translationStatus`, à confronter au D5 original (Q21).
 - **Décisions d'import (BM2)** :
-  - une reformulation de phrase est gardée entière, sauf si la phrase source est unique et la reformulation en compte plusieurs : chaque phrase est alors une alternative (ex. MSG-001) ;
-  - `{numéro}` (SEC-052, MSG-057) est typé `phone` ;
+  - ✅ *confirmé par le responsable le 2026-11-13* : une reformulation de phrase est gardée entière, sauf si la phrase source est unique et la reformulation en compte plusieurs : chaque phrase est alors une **alternative** (deux façons de dire la même chose ; une seule est traduite). 9 cas : MSG-001, 005, 008, 010, 021, 047, 053, 062 et SEC-045 ;
+  - ✅ *confirmé par le responsable le 2026-11-13* : `{numéro}` (SEC-052, MSG-057) est un numéro de téléphone (`phone`) ;
   - aucune entrée `Compte {marque}` : « Compte Safinum » reste un texte de page, « Safinum » est protégé ;
   - le nom de l'étape 5 est « Reçu », comme dans D8.
 

@@ -110,7 +110,7 @@ export const VARIABLE_TYPES: Readonly<Record<string, VariableType>> = {
   nom_bénéficiaire: 'name',
   numéro_compte: 'account-number',
   référence: 'reference',
-  // SEC-052 et MSG-057 : « envoyé au {numéro} » (code ou reçu envoyé par SMS). À confirmer en S1.
+  // SEC-052 et MSG-057 : « envoyé au {numéro} » (code ou reçu envoyé par SMS). Confirmé par le responsable le 2026-11-13.
   numéro: 'phone',
 };
 
