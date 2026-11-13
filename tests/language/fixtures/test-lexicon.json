@@ -1,6 +1,6 @@
 {
   "description": "Lexique de TEST : hypothèses de bibliothèque du contrat §12. Les cibles sont des marqueurs ⟦TEST:<id>⟧, PAS des traductions Éton. Utilisé par la suite de conformité du vrai moteur (BM5).",
-  "contractVersion": "0.1.0",
+  "contractVersion": "0.2.0",
   "libraryVersion": "0.0.0-test.contract-examples",
   "targetLang": "eto",
   "variety": "obala",
@@ -15,7 +15,8 @@
         }
       },
       "variables": [],
-      "target": "⟦TEST:P2-001⟧"
+      "target": "⟦TEST:P2-001⟧",
+      "unverifiedTarget": null
     },
     {
       "id": "VOC-028",
@@ -27,7 +28,8 @@
         }
       },
       "variables": [],
-      "target": "⟦TEST:VOC-028⟧"
+      "target": "⟦TEST:VOC-028⟧",
+      "unverifiedTarget": null
     },
     {
       "id": "VOC-023",
@@ -39,7 +41,8 @@
         }
       },
       "variables": [],
-      "target": null
+      "target": null,
+      "unverifiedTarget": null
     },
     {
       "id": "P4-012",
@@ -51,7 +54,21 @@
         }
       },
       "variables": [],
-      "target": null
+      "target": null,
+      "unverifiedTarget": "⟦TEST:P4-012⟧"
+    },
+    {
+      "id": "VOC-034",
+      "status": "pending",
+      "sources": {
+        "fr": {
+          "text": "Total",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": "⟦TEST:VOC-034⟧"
     },
     {
       "id": "GUARD-001",
@@ -63,7 +80,8 @@
         }
       },
       "variables": [],
-      "target": null
+      "target": null,
+      "unverifiedTarget": null
     },
     {
       "id": "P5-002",
@@ -75,7 +93,8 @@
         }
       },
       "variables": [],
-      "target": "⟦TEST:P5-002⟧"
+      "target": "⟦TEST:P5-002⟧",
+      "unverifiedTarget": null
     },
     {
       "id": "TST-001",
@@ -92,7 +111,8 @@
           "button"
         ]
       },
-      "target": "⟦TEST:TST-001⟧"
+      "target": "⟦TEST:TST-001⟧",
+      "unverifiedTarget": null
     },
     {
       "id": "TST-002",
@@ -109,7 +129,8 @@
           "link"
         ]
       },
-      "target": "⟦TEST:TST-002⟧"
+      "target": "⟦TEST:TST-002⟧",
+      "unverifiedTarget": null
     },
     {
       "id": "VOC-008",
@@ -125,7 +146,8 @@
         }
       },
       "variables": [],
-      "target": null
+      "target": null,
+      "unverifiedTarget": null
     },
     {
       "id": "TST-003",
@@ -137,7 +159,8 @@
         }
       },
       "variables": [],
-      "target": null
+      "target": null,
+      "unverifiedTarget": null
     }
   ]
 }

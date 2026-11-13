@@ -26,12 +26,44 @@ describe('la suite de conformité détecte les moteurs non conformes', () => {
     expect(failingChecks(engineWith(translateWithTable))).toEqual([]);
   });
 
-  it('T-CON-02 : une proposition non approuvée transmise dans output (I3)', () => {
+  it('T-CON-02 : une traduction non vérifiée transmise dans output au lieu de unverifiedOutput (I3)', () => {
     const leaky = engineWith((req) => {
       const r = translateWithTable(req);
-      return r.status === 'PENDING_VALIDATION' ? { ...r, output: 'proposition' } : r;
+      return r.status === 'PENDING_VALIDATION' ? { ...r, output: r.unverifiedOutput } : r;
     });
     expect(failingChecks(leaky)).toContain('T-CON-02');
+  });
+
+  it('T-CON-02 : PENDING_VALIDATION sans unverifiedOutput (I3)', () => {
+    const silent = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.status === 'PENDING_VALIDATION' ? { ...r, unverifiedOutput: null } : r;
+    });
+    expect(failingChecks(silent)).toContain('T-CON-02');
+  });
+
+  it('T-CON-02 : unverifiedOutput renseigné pour un autre statut (I3)', () => {
+    const guesses = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.status === 'KNOWN_UNTRANSLATED' ? { ...r, unverifiedOutput: 'devinette' } : r;
+    });
+    expect(failingChecks(guesses)).toContain('T-CON-02');
+  });
+
+  it('T-CON-04 : des espaces de bord perdus dans unverifiedOutput (I4)', () => {
+    const trims = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.unverifiedOutput === null ? r : { ...r, unverifiedOutput: r.unverifiedOutput.trim() };
+    });
+    expect(failingChecks(trims)).toEqual(['T-CON-04']);
+  });
+
+  it('T-CON-04 : un montant modifié dans unverifiedOutput (I5)', () => {
+    const changesAmount = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.unverifiedOutput === null ? r : { ...r, unverifiedOutput: r.unverifiedOutput.replace('5 000', '50 000') };
+    });
+    expect(failingChecks(changesAmount)).toEqual(['T-CON-04']);
   });
 
   it('T-CON-03 : une exception sur un surrogate isolé (I2)', () => {
@@ -45,6 +77,24 @@ describe('la suite de conformité détecte les moteurs non conformes', () => {
   it('T-CON-03 : un moteur qui retire les espaces avant de contrôler la longueur (I10)', () => {
     const trims = engineWith((req) => translateWithTable({ ...req, text: req.text.trim() }));
     expect(failingChecks(trims)).toContain('T-CON-03');
+  });
+
+  it('T-CON-04 : une devise modifiée dans unverifiedOutput et retirée de protectedSegments (I5)', () => {
+    const changesCurrency = engineWith((req) => {
+      const r = translateWithTable(req);
+      if (r.unverifiedOutput === null) return r;
+      return {
+        ...r,
+        unverifiedOutput: r.unverifiedOutput.replace('FCFA', 'XAF'),
+        protectedSegments: r.protectedSegments.filter((s) => s !== 'FCFA'),
+      };
+    });
+    expect(failingChecks(changesCurrency)).toEqual(['T-CON-04']);
+  });
+
+  it('T-CON-04 : un cas de bord non vérifié qui n’est pas PENDING_VALIDATION est refusé', () => {
+    const samples = { ...CONTRACT_EXAMPLE_SAMPLES, pendingEdge: CONTRACT_EXAMPLE_SAMPLES.edge };
+    expect(failingChecks(engineWith(translateWithTable), samples)).toEqual(['T-CON-04']);
   });
 
   it('T-CON-04 : des espaces de bord perdus (I4)', () => {

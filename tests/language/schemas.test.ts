@@ -53,10 +53,31 @@ describe('schéma du lexique d’exécution (data/schemas/lexicon.schema.json)',
     expect(valid('lexicon', testLexicon)).toEqual([]);
   });
 
-  it('refuse une cible sur une entrée non approuvée (I6)', () => {
+  it('refuse une cible sur une entrée sans traduction retenue (I6)', () => {
     const lexicon = clone(testLexicon);
-    lexicon.entries.find((e: { id: string }) => e.id === 'P4-012').target = 'proposition';
+    lexicon.entries.find((e: { id: string }) => e.id === 'VOC-023').target = 'proposition';
     expect(valid('lexicon', lexicon)).not.toEqual([]);
+  });
+
+  it('refuse une entrée en attente sans traduction non vérifiée (contrat I3, §5.4)', () => {
+    const lexicon = clone(testLexicon);
+    lexicon.entries.find((e: { id: string }) => e.id === 'P4-012').unverifiedTarget = null;
+    expect(valid('lexicon', lexicon)).not.toEqual([]);
+  });
+
+  it('refuse une traduction non vérifiée placée dans target, qui alimente output (contrat I3, Q9)', () => {
+    const lexicon = clone(testLexicon);
+    const entry = lexicon.entries.find((e: { id: string }) => e.id === 'P4-012');
+    entry.target = entry.unverifiedTarget;
+    expect(valid('lexicon', lexicon)).not.toEqual([]);
+  });
+
+  it('refuse une traduction non vérifiée sur une entrée approuvée ou non traduite', () => {
+    for (const id of ['P2-001', 'VOC-023']) {
+      const lexicon = clone(testLexicon);
+      lexicon.entries.find((e: { id: string }) => e.id === id).unverifiedTarget = 'proposition';
+      expect(valid('lexicon', lexicon)).not.toEqual([]);
+    }
   });
 
   it('refuse une entrée approuvée sans cible', () => {
@@ -67,13 +88,15 @@ describe('schéma du lexique d’exécution (data/schemas/lexicon.schema.json)',
 
   it('n’utilise que des marqueurs ⟦TEST:<id>⟧ comme cibles (contrat §11 : aucune forme Éton réelle)', () => {
     for (const entry of testLexicon.entries) {
-      if (entry.target !== null) expect(entry.target).toBe(`⟦TEST:${entry.id}⟧`);
+      for (const text of [entry.target, entry.unverifiedTarget]) {
+        if (text !== null) expect(text).toBe(`⟦TEST:${entry.id}⟧`);
+      }
     }
   });
 
   it('contient les entrées des exemples du contrat §12', () => {
     const ids = testLexicon.entries.map((e: { id: string }) => e.id);
-    expect(ids).toEqual(expect.arrayContaining(['P2-001', 'VOC-028', 'VOC-023', 'P4-012', 'GUARD-001', 'P5-002', 'TST-001', 'TST-002', 'VOC-008']));
+    expect(ids).toEqual(expect.arrayContaining(['P2-001', 'VOC-028', 'VOC-023', 'P4-012', 'VOC-034', 'GUARD-001', 'P5-002', 'TST-001', 'TST-002', 'VOC-008']));
   });
 });
 

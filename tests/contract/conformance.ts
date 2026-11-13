@@ -5,7 +5,7 @@
  * moteur (BM5). Chaque contrôle renvoie la liste de ses violations ; une liste vide signifie « conforme ».
  *
  * Les contrôles ne dépendent pas du contenu de la bibliothèque : chaque moteur fournit ses propres
- * échantillons (au moins une requête par statut et un cas de bord « libellé + valeurs »).
+ * échantillons (au moins une requête par statut, et deux cas de bord « libellé + valeurs » : approuvé et non vérifié).
  */
 import { isDeepStrictEqual } from 'node:util';
 import {
@@ -53,7 +53,17 @@ export interface ConformanceSamples {
    * Cas de bord APPROVED (T-CON-04) : espaces au début ET à la fin, et valeurs protégées connues
    * dans l'ordre du texte, ex. { request: "  Frais : 0 FCFA ", protectedSegments: ["0", "FCFA"] }.
    */
-  edge: { request: TranslationRequest; protectedSegments: readonly string[] };
+  edge: EdgeSample;
+  /**
+   * Même chose pour une traduction non vérifiée (PENDING_VALIDATION, décision Q9) : I4 et I5 s'appliquent
+   * à unverifiedOutput, ex. { request: "  Total : 5 000 FCFA ", protectedSegments: ["5 000", "FCFA"] }.
+   */
+  pendingEdge: EdgeSample;
+}
+
+export interface EdgeSample {
+  request: TranslationRequest;
+  protectedSegments: readonly string[];
 }
 
 export interface ConformanceTarget {
@@ -128,8 +138,26 @@ function call(engine: TranslationEngine, req: TranslationRequest, violations: st
   }
 }
 
+function checkEdge(engine: TranslationEngine, sample: EdgeSample, status: TranslationStatus, out: string[]): void {
+  const edge = deepFreeze(sample.request);
+  const expected = sample.protectedSegments;
+  if (leading(edge.text) === '' || trailing(edge.text) === '') {
+    out.push(`${label(edge)} : le cas de bord doit commencer ET finir par des espaces`);
+  }
+  if (expected.length === 0) out.push(`${label(edge)} : le cas de bord doit déclarer ses valeurs protégées`);
+  const res = call(engine, edge, out);
+  if (res && res.status !== status) {
+    out.push(`${label(edge)} : le cas de bord doit être ${status}, obtenu ${res.status}`);
+  }
+  // Les segments annoncés par le moteur sont comparés à ceux attendus : sinon une valeur sans chiffre
+  // (ex. la devise) pourrait être modifiée et simplement omise de protectedSegments.
+  if (res && JSON.stringify(res.protectedSegments) !== JSON.stringify(expected)) {
+    out.push(`${label(edge)} : protectedSegments ${JSON.stringify(res.protectedSegments)} au lieu de ${JSON.stringify(expected)} (I5)`);
+  }
+}
+
 function allSamples(samples: ConformanceSamples): TranslationRequest[] {
-  return [...STATUSES.flatMap((s) => samples.byStatus[s] ?? []), samples.edge.request].map(deepFreeze);
+  return [...STATUSES.flatMap((s) => samples.byStatus[s] ?? []), samples.edge.request, samples.pendingEdge.request].map(deepFreeze);
 }
 
 function probes(): TranslationRequest[] {
@@ -151,6 +179,13 @@ export function checkResultShape(req: TranslationRequest, res: unknown): string[
 
   if (r.status === 'APPROVED' ? typeof r.output !== 'string' || r.output.length === 0 : r.output !== null) {
     out.push(`${where} : ${r.status} avec output ${JSON.stringify(r.output)} (I3 : output non nul ⇔ APPROVED)`);
+  }
+  if (
+    r.status === 'PENDING_VALIDATION'
+      ? typeof r.unverifiedOutput !== 'string' || r.unverifiedOutput.length === 0
+      : r.unverifiedOutput !== null
+  ) {
+    out.push(`${where} : ${r.status} avec unverifiedOutput ${JSON.stringify(r.unverifiedOutput)} (I3 : unverifiedOutput non nul ⇔ PENDING_VALIDATION)`);
   }
   if (!Array.isArray(r.candidateIds) || r.candidateIds.some((id) => typeof id !== 'string')) {
     out.push(`${where} : candidateIds doit être un tableau de chaînes`);
@@ -189,15 +224,24 @@ export function checkResultShape(req: TranslationRequest, res: unknown): string[
   return out;
 }
 
-/** Bords et valeurs protégées d'un résultat APPROVED (I4, I5). */
-function checkApprovedIntegrity(req: TranslationRequest, r: TranslationResult): string[] {
-  if (r.status !== 'APPROVED' || typeof r.output !== 'string') return [];
+/** Texte affichable d'un résultat : `output` (APPROVED) ou `unverifiedOutput` (PENDING_VALIDATION, §5.4). */
+function shownText(r: TranslationResult): { field: 'output' | 'unverifiedOutput'; text: string } | null {
+  if (r.status === 'APPROVED' && typeof r.output === 'string') return { field: 'output', text: r.output };
+  if (r.status === 'PENDING_VALIDATION' && typeof r.unverifiedOutput === 'string') return { field: 'unverifiedOutput', text: r.unverifiedOutput };
+  return null;
+}
+
+/** Bords et valeurs protégées du texte affichable (I4, I5), approuvé ou non vérifié. */
+function checkShownIntegrity(req: TranslationRequest, r: TranslationResult): string[] {
+  const shown = shownText(r);
+  if (!shown) return [];
+  const { field, text: shownValue } = shown;
   const where = label(req);
   const out: string[] = [];
-  if (leading(r.output) !== leading(req.text) || trailing(r.output) !== trailing(req.text)) {
-    out.push(`${where} : espaces de bord modifiés dans ${JSON.stringify(r.output)} (I4)`);
+  if (leading(shownValue) !== leading(req.text) || trailing(shownValue) !== trailing(req.text)) {
+    out.push(`${where} : espaces de bord modifiés dans ${field} ${JSON.stringify(shownValue)} (I4)`);
   }
-  const output = r.output.replace(TEST_MARKER, '');
+  const output = shownValue.replace(TEST_MARKER, '');
   const text = req.text.replace(TEST_MARKER, '');
   const segments = Array.isArray(r.protectedSegments) ? r.protectedSegments : [];
   for (const segment of new Set(segments)) {
@@ -205,14 +249,14 @@ function checkApprovedIntegrity(req: TranslationRequest, r: TranslationResult): 
     // Borne basse : chaque segment annoncé est présent. Borne haute : jamais plus de copies que dans text
     // (une égalité stricte échouerait à tort quand un segment est inclus dans un autre, ex. "0" dans "250 000").
     if (count(output, segment) < listed) {
-      out.push(`${where} : segment protégé ${JSON.stringify(segment)} absent de output ou trop peu présent (I5)`);
+      out.push(`${where} : segment protégé ${JSON.stringify(segment)} absent de ${field} ou trop peu présent (I5)`);
     }
     if (count(output, segment) > count(text, segment)) {
-      out.push(`${where} : segment protégé ${JSON.stringify(segment)} plus présent dans output que dans text (I5)`);
+      out.push(`${where} : segment protégé ${JSON.stringify(segment)} plus présent dans ${field} que dans text (I5)`);
     }
   }
   if (digits(output) !== digits(req.text)) {
-    out.push(`${where} : chiffres différents entre text et output ${JSON.stringify(r.output)} (I5)`);
+    out.push(`${where} : chiffres différents entre text et ${field} ${JSON.stringify(shownValue)} (I5)`);
   }
   return out;
 }
@@ -261,7 +305,7 @@ export const CONFORMANCE_CHECKS: readonly ConformanceCheck[] = [
   },
   {
     id: 'T-CON-02',
-    title: 'forme des résultats et I3 (output non nul ⇔ APPROVED)',
+    title: 'forme des résultats et I3 (output ⇔ APPROVED, unverifiedOutput ⇔ PENDING_VALIDATION)',
     run(engine, samples) {
       const out: string[] = [];
       for (const req of [...allSamples(samples), ...probes()]) {
@@ -310,24 +354,11 @@ export const CONFORMANCE_CHECKS: readonly ConformanceCheck[] = [
     title: 'bords et valeurs protégées (I4, I5)',
     run(engine, samples) {
       const out: string[] = [];
-      const edge = deepFreeze(samples.edge.request);
-      const expected = samples.edge.protectedSegments;
-      if (leading(edge.text) === '' || trailing(edge.text) === '') {
-        out.push(`${label(edge)} : le cas de bord doit commencer ET finir par des espaces`);
-      }
-      if (expected.length === 0) out.push(`${label(edge)} : le cas de bord doit déclarer ses valeurs protégées`);
-      const edgeResult = call(engine, edge, out);
-      if (edgeResult && edgeResult.status !== 'APPROVED') {
-        out.push(`${label(edge)} : le cas de bord doit être APPROVED, obtenu ${edgeResult.status}`);
-      }
-      // Les segments annoncés par le moteur sont comparés à ceux attendus : sinon une valeur sans chiffre
-      // (ex. la devise) pourrait être modifiée et simplement omise de protectedSegments.
-      if (edgeResult && JSON.stringify(edgeResult.protectedSegments) !== JSON.stringify(expected)) {
-        out.push(`${label(edge)} : protectedSegments ${JSON.stringify(edgeResult.protectedSegments)} au lieu de ${JSON.stringify(expected)} (I5)`);
-      }
+      checkEdge(engine, samples.edge, 'APPROVED', out);
+      checkEdge(engine, samples.pendingEdge, 'PENDING_VALIDATION', out);
       for (const req of allSamples(samples)) {
         const res = call(engine, req, out);
-        if (res) out.push(...checkApprovedIntegrity(req, res));
+        if (res) out.push(...checkShownIntegrity(req, res));
       }
       return out;
     },

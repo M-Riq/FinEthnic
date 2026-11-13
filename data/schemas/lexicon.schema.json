@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://finethnic.example/schemas/lexicon.schema.json",
   "title": "FinEthnic — lexique d'exécution",
-  "description": "Fichier lu par le moteur (src/language/lexicon.json), généré par build-lexicon (BM5) à partir de data/. Il contient toutes les sources connues avec leur statut, mais une cible Éton SEULEMENT si l'entrée est approuvée (PROJECT_CONTEXT §4.1-4 et §4.4, contrat I6). Aucune date de génération : même contenu de data/ = même fichier (I8).",
+  "description": "Fichier lu par le moteur (src/language/lexicon.json), généré par build-lexicon (BM5) à partir de data/. Il contient toutes les sources connues avec leur statut. Une cible Éton figure dans target seulement si l'entrée est approuvée ; la traduction non vérifiée retenue d'une entrée en attente figure dans un champ séparé, unverifiedTarget (contrat §5.2 et §5.4, décision Q9). Une cible rejetée n'y figure jamais (contrat I6). Aucune date de génération : même contenu de data/ = même fichier (I8).",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -62,7 +62,8 @@
         "status",
         "sources",
         "variables",
-        "target"
+        "target",
+        "unverifiedTarget"
       ],
       "properties": {
         "id": {
@@ -76,7 +77,7 @@
             "protected",
             "out-of-scope"
           ],
-          "description": "approved → APPROVED ; pending → PENDING_VALIDATION ; untranslated → KNOWN_UNTRANSLATED ; protected → PROTECTED (protected-entry) ; out-of-scope → PROTECTED (out-of-scope). Contrat §5.2."
+          "description": "approved → APPROVED (cible dans output) ; pending → PENDING_VALIDATION (cible dans unverifiedOutput, décision Q9) ; untranslated → KNOWN_UNTRANSLATED ; protected → PROTECTED (protected-entry) ; out-of-scope → PROTECTED (out-of-scope). Contrat §5.2."
         },
         "sources": {
           "type": "object",
@@ -105,7 +106,15 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "description": "Traduction approuvée par une locutrice. Non nulle si et seulement si status = approved. Seul ce champ peut alimenter output (contrat I3)."
+        },
+        "unverifiedTarget": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Traduction non vérifiée retenue (contrat §5.2, décision Q9) : target.eto.text, sinon la première proposition de la cascade. Non nulle si et seulement si status = pending. Ce champ n'alimente que unverifiedOutput : il est séparé de target pour qu'une traduction non vérifiée ne puisse jamais sortir dans output."
         }
       },
       "allOf": [
@@ -130,6 +139,33 @@
           "else": {
             "properties": {
               "target": {
+                "type": "null"
+              }
+            },
+            "type": "object"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "pending"
+              }
+            },
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "unverifiedTarget": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "type": "object"
+          },
+          "else": {
+            "properties": {
+              "unverifiedTarget": {
                 "type": "null"
               }
             },

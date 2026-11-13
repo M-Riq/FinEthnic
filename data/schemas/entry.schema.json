@@ -497,7 +497,7 @@
               "$ref": "#/$defs/text"
             }
           ],
-          "description": "Forme proposée par une locutrice ou forme validée. Exportée dans le lexique seulement si elle est approuvée."
+          "description": "Forme proposée par une locutrice ou forme validée. Exportée dans le lexique comme traduction approuvée, ou comme traduction non vérifiée tant qu'elle est en attente (Q9). Jamais exportée si elle est rejetée."
         },
         "variants": {
           "$ref": "#/$defs/textList"
@@ -532,7 +532,7 @@
         },
         "proposals": {
           "type": "array",
-          "description": "Propositions de la cascade (§3.10). Jamais affichées, jamais exportées dans le lexique.",
+          "description": "Propositions de la cascade (§3.10). Si text est vide et que l'entrée n'est pas rejetée, la première est exportée dans le lexique comme traduction non vérifiée et affichée avec un marqueur (Q9, contrat §5.2 et §5.4). Les suivantes ne sont jamais exportées.",
           "items": {
             "type": "object",
             "additionalProperties": false,

@@ -30,4 +30,9 @@ export const CONTRACT_EXAMPLE_SAMPLES: ConformanceSamples = {
     request: { text: '  Frais : 0 FCFA ', sourceLang: 'fr', targetLang: 'eto' },
     protectedSegments: ['0', 'FCFA'],
   },
+  // Traduction non vérifiée avec valeurs protégées et espaces de bord : I4 et I5 s'appliquent à unverifiedOutput.
+  pendingEdge: {
+    request: { text: '  Total : 5 000 FCFA ', sourceLang: 'fr', targetLang: 'eto' },
+    protectedSegments: ['5 000', 'FCFA'],
+  },
 };

@@ -1,7 +1,7 @@
 # PROJECT_CONTEXT — SAFINUM Éton (dépôt FinEthnic)
 
-> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q10, Q14, Q16, Q19 et Q22 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
-> **Version :** 0.7 — 2026-11-13 (v0.6 + **méthode de traduction en cascade** terme → synonymes → définition simple, §3.10 ; rôle du dictionnaire révisé, §3.7.4-2 ; Q22 tranchée ; nouvelle question Q23)
+> **Statut :** Phase 0 — cadrage, en attente de la **Synchronisation 1** (TEAM_WORKFLOW §7). Q2, Q3, Q4, Q5, Q9, Q10, Q14, Q16, Q19 et Q22 sont tranchées. Q1 (date limite) attend la confirmation des organisateurs et **ne bloque plus S1** (plan court prévu, ROADMAP §0.1.1).
+> **Version :** 0.8 — 2026-11-13 (v0.7 + **affichage des traductions non vérifiées**, avec un marqueur, §3.11 ; Q9 tranchée ; contrat 0.2.0 ; nouvelle question Q24)
 > **Règle :** aucun développement (extension, bibliothèque ou moteur) avant la validation de S1 : architecture, format JSON (§4.5), contrat d'intégration et répartition des tâches.
 
 ---
@@ -38,11 +38,11 @@ Une **couche linguistique indépendante** affiche en **Éton (variété d'Obala)
 | **1. Bibliothèque linguistique financière** | **A** : corpus général (VOC/ACT/SEC/MSG). **B** : référentiel des 5 pages (P1–P5). Entrées protégées (`GUARD`). Ressources lexicales (dictionnaire). | Responsable du projet | `data/`, `scripts/` | A : 300 entrées FR ; B : 62 libellés FR ; **0 EN ; 0 Éton validé** |
 | **2. Moteur local de correspondance et de traduction** | Normalisation, correspondance, statuts, ambiguïtés, lexique d'exécution. Pur, sans DOM. | Responsable du projet | `src/language/`, `tests/language/` | À développer |
 | **3. Extension Chrome** | Popup, scanner, MutationObserver, protection DOM, intégrité, remplacement et restauration | Yvan | `src/content/`, `src/popup/`, `src/protection/`, `tests/extension/` | À développer |
-| *Interface 2 ⇄ 3* | `INTEGRATION_CONTRACT.md` | Responsable (revue obligatoire d'Yvan) | `src/language/contract.ts`, `tests/contract/` | Proposition v0.1.0-draft |
+| *Interface 2 ⇄ 3* | `INTEGRATION_CONTRACT.md` | Responsable (revue obligatoire d'Yvan) | `src/language/contract.ts`, `tests/contract/` | Proposition v0.2.0-draft |
 
 Les sous-composantes **A** et **B** gardent leur nom dans le reste du document (traçabilité A ↔ B).
 
-**Principe :** l'extension ne contient aucune connaissance linguistique propre (D6 §4). Elle n'affiche que ce que le moteur déclare `APPROVED`.
+**Principe :** l'extension ne contient aucune connaissance linguistique propre (D6 §4). Elle n'affiche que ce que le moteur déclare `APPROVED`. *(v0.8, Q9 : elle affiche aussi `unverifiedOutput` (`PENDING_VALIDATION`), avec un marqueur, si l'option du popup est active, §3.11.)*
 
 ### 2.4 Exigences de sécurité (synthèse)
 - **Ne jamais altérer** les montants, les frais, les totaux, la devise `FCFA`, les signes `+`/`-`/`−`, les séparateurs, les dates, les heures, les noms, les téléphones, les numéros de compte, les références, les e-mails, les URL ou les valeurs saisies.
@@ -144,7 +144,7 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
 ### 3.7 Analyse de `TEAM_WORKFLOW.md` (D6) — v0.4
 
 #### 3.7.1 Ce que D6 confirme ou tranche
-- **Confirme** les principes v0.3 : liste blanche, aucune traduction non approuvée affichée, valeurs financières intactes, aucun appel réseau, JSON comme source de vérité (Q5).
+- **Confirme** les principes v0.3 : liste blanche, aucune traduction non approuvée affichée, valeurs financières intactes, aucun appel réseau, JSON comme source de vérité (Q5). *(v0.8 : l'affichage des traductions non vérifiées est assoupli par Q9, avec un marqueur, §3.11.)*
 - **Tranche Q10** : **FinEthnic** est le projet, **SAFINUM Éton** son premier prototype. « EtonFin » (D5) est un ancien nom à remplacer lors de l'import.
 - **Apporte** :
   - deux pistes **parallèles**, avec des responsables distincts ;
@@ -170,7 +170,7 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
 | # | Écart | Décision proposée |
 |---|---|---|
 | C6 | En v0.3, « moteur » désigne aussi l'écriture dans le DOM (P5). Dans D6, le moteur est **pur** : il apparie et renvoie un statut. | Le moteur (`src/language/`) n'écrit jamais dans la page. P5 devient « Remplacement, restauration et branchement du moteur » (Yvan). Le renderer passe dans `src/content/renderer.*`. |
-| C7 | Le principe 4 de la v0.3 (« le lexique ne contient que les entrées affichables ») empêche de distinguer `KNOWN_UNTRANSLATED`, `PENDING_VALIDATION` et `NO_MATCH`. | Le lexique contient toutes les sources connues (FR/EN), leur statut et leurs variables. Il contient la **cible seulement si elle est approuvée** (invariant I6). Une proposition non approuvée **ne quitte jamais** `data/`. |
+| C7 | Le principe 4 de la v0.3 (« le lexique ne contient que les entrées affichables ») empêche de distinguer `KNOWN_UNTRANSLATED`, `PENDING_VALIDATION` et `NO_MATCH`. | Le lexique contient toutes les sources connues (FR/EN), leur statut et leurs variables. Il contient la **cible seulement si elle est approuvée** (invariant I6). Une proposition non approuvée **ne quitte jamais** `data/`. *(v0.8, Q9 : il contient aussi la traduction non vérifiée retenue, marquée « en attente », dans un champ séparé, `unverifiedTarget`, §3.11.)* |
 | C8 | Les motifs protégés (montants, téléphones, références) servent à la fois au moteur (gabarits) et à l'extension (intégrité). Risque de deux implémentations divergentes (R14). | **Q14** ✅ : un module pur unique (`src/protection/patterns.ts`, Yvan), injecté dans le moteur. |
 | C9 | D6 exige des sources FR et EN, mais **aucune entrée EN** n'existe, et SAFINUM est en français. | Le schéma prévoit `source.en` dès BM1. La saisie EN est la phase BM6, d'ampleur à fixer (**Q15**). Mode `'auto'` retenu (**Q16** ✅). |
 | C10 | Arborescences différentes (`data/schema` vs `data/schemas`, `docs/reports` vs `data/exports`, `tests/unit` vs `tests/language` et `tests/extension`). | Adopter **D6** (§4.2). |
@@ -188,7 +188,7 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
    - L1 (lancement de la validation).
 
    D5 §6.6 prévoyait que les locutrices **proposent** d'abord et que le dictionnaire sert de **comparaison**. *(Révisé en v0.7 : le dictionnaire propose d'abord, par la cascade §3.10. Les locutrices valident ou corrigent, et elles proposent elles-mêmes seulement quand la cascade échoue.)*
-2. **Rôle du dictionnaire** *(révisé en v0.7, décision Q22 du 2026-11-13)*. C'est la **première ressource de traduction**. Pendant la préparation de la bibliothèque, il alimente la **cascade** du §3.10 : terme → synonymes simples → définition simple, puis assemblage selon les règles de formation des phrases. Le résultat est une **proposition**, jamais une traduction approuvée. Elle n'est affichée qu'après validation par une locutrice (D6 §9, invariant I6). Le dictionnaire n'est **jamais** chargé dans l'extension ni utilisé pendant la navigation.
+2. **Rôle du dictionnaire** *(révisé en v0.7, décision Q22 du 2026-11-13)*. C'est la **première ressource de traduction**. Pendant la préparation de la bibliothèque, il alimente la **cascade** du §3.10 : terme → synonymes simples → définition simple, puis assemblage selon les règles de formation des phrases. Le résultat est une **proposition**, jamais une traduction approuvée. *(v0.8, Q9 : elle est affichée sur la page de test avec un marqueur « non vérifiée », en attendant la validation d'une locutrice, §3.11.)* Le dictionnaire n'est **jamais** chargé dans l'extension ni utilisé pendant la navigation.
 3. **Droit d'auteur (Q17).** Le dictionnaire est une œuvre publiée (Van de Velde & Essele Essele, CLÉ 2022). Proposition :
    - le fichier brut reste **hors Git**, dans `data/language-resources/raw/` (ignoré par `.gitignore`) ;
    - seules les formes **citées** sont versionnées, avec leur référence (page/entrée), comme justification ;
@@ -290,7 +290,7 @@ En cas d'échec (niveau 4), l'entrée garde le statut `TRANSLATION_PENDING`. Le 
 Les variables `{montant}`, `{devise}`… et les jetons protégés sont recopiés **à l'identique**.
 
 **Règles de sécurité (décision Q22)**
-1. La cascade tourne **pendant la préparation de la bibliothèque** (`scripts/propose-translations.*`, BM3), **jamais dans Chrome**. L'extension et le contrat d'intégration **ne changent pas** : Yvan n'est pas concerné.
+1. La cascade tourne **pendant la préparation de la bibliothèque** (`scripts/propose-translations.*`, BM3), **jamais dans Chrome**. Elle-même ne change pas le contrat d'intégration. *(v0.8 : l'affichage de son résultat, décidé par Q9, le change : contrat 0.2.0, §3.11.)*
 2. Son résultat est une **proposition** (`target.eto.proposals[]`, §4.5), avec sa traçabilité :
    - le niveau utilisé (`method`) ;
    - le synonyme utilisé ;
@@ -298,27 +298,45 @@ Les variables `{montant}`, `{devise}`… et les jetons protégés sont recopiés
    - les règles appliquées ;
    - les mots non trouvés.
 
-   L'entrée passe en `REVIEW_PENDING`. Le moteur renvoie donc `PENDING_VALIDATION`, et **rien n'est affiché**.
-3. Une **locutrice** accepte, corrige ou rejette la proposition (fiche L1/L2, avec la méthode indiquée). Seule son acceptation permet le statut `VALIDATED_OBALA` et l'affichage (D6 §9, I6).
+   L'entrée passe en `REVIEW_PENDING`. Le moteur renvoie donc `PENDING_VALIDATION`. *(v0.8, Q9 : la première proposition est alors affichée avec un marqueur « non vérifiée », §3.11.)*
+3. Une **locutrice** accepte, corrige ou rejette la proposition (fiche L1/L2, avec la méthode indiquée). Seule son acceptation permet le statut `VALIDATED_OBALA` et l'affichage **sans marqueur** (`APPROVED`). Un rejet retire la proposition de l'affichage (contrat I6).
 4. Le script **n'invente aucune forme** : il n'utilise que des formes de D7 et des règles transcrites avec leur référence. Copilot écrit le code, jamais de l'Éton.
 
 **Limites connues**
-- Un assemblage mot à mot peut être **agrammatical** : tons, classes nominales, accords (R20). La validation par une locutrice reste donc indispensable.
+- Un assemblage mot à mot peut être **agrammatical** : tons, classes nominales, accords (R20). La validation par une locutrice reste donc indispensable pour retirer le marqueur « non vérifiée » (§3.11).
 - Une traduction issue d'une **définition** est plus longue que le terme. Sur un bouton court (« Confirmer »), elle peut déborder ou alourdir l'écran (R21). La locutrice peut la raccourcir ; P6 vérifie la mise en page.
 - Un mot de D7 peut avoir **plusieurs sens**. Toutes les formes candidates sont listées dans `dictionaryEvidence`, et la locutrice choisit.
 - **Pas de lemmatisation** (BM3, provisoire) : un mot conjugué ou accordé (« envoie », « pris ») n'est pas retrouvé par sa forme de base (« envoyer », « prendre »). Il apparaît dans les mots manquants du rapport. Une table des formes françaises pourra être ajoutée quand D7 sera connu.
 - Les **textes de pages** n'ont ni synonymes ni définition propres : seul le niveau 1 est possible. Un texte identique à une entrée du corpus (`corpusRef` `exact`) partage sa traduction et n'est pas traité séparément. Un texte lié seulement par le sens (16 textes, ex. « Confirmer le transfert ») n'emprunte pas les synonymes de l'entrée liée, car le texte diffère.
 - Tant que D7 n'est pas téléversé, la cascade est développée et testée avec un **mini-dictionnaire de test** dont les formes sont visiblement fictives (`⟦TEST⟧`), jamais présentées comme de l'Éton.
 
+### 3.11 Affichage des traductions non vérifiées (décision Q9 du responsable, 2026-11-13, v0.8)
+
+**Décision.** Les locutrices (`LOC-01`, `LOC-02`…) ne sont pas toujours disponibles. Le responsable a donc décidé de **ne pas attendre leur validation** pour afficher les traductions sur la page de test. Dès que la cascade (§3.10) produit une traduction, l'extension peut l'afficher. Les locutrices vérifient ensuite, en parallèle : leurs corrections sont reportées dans `data/` et améliorent la bibliothèque.
+
+**Garde-fous (validés par le responsable le 2026-11-13)**
+1. **Un champ à part.** La traduction garde le statut `PENDING_VALIDATION` et sort dans `unverifiedOutput`. `output` reste réservé aux traductions approuvées (contrat 0.2.0, §4 et §5.4).
+2. **Un marqueur visible** sur la page, et le **français au survol** et au focus.
+3. **Une option du popup** pour montrer ou cacher ces traductions, activée par défaut.
+4. Les montants, noms, numéros et références ne sont **jamais** modifiés (I5, inchangé).
+5. Une traduction validée par une locutrice devient `APPROVED` et perd le marqueur. Une traduction rejetée n'est plus affichée.
+
+**Ce qui ne change pas**
+- Le script de cascade n'écrit toujours ni `target.eto.text` ni `VALIDATED_OBALA` (§3.10). Seule une locutrice valide.
+- Copilot n'écrit jamais d'Éton. Tant que D7 n'est pas téléversé, il n'y a **aucune traduction réelle** à afficher : seulement des marqueurs de test.
+- **Le sens.** La cascade assemble des mots de D7 selon les règles transcrites (Q23). L'assemblage peut être maladroit ou faux (R20), ou affaiblir une alerte (§2.4). L'affichage sur la page de test sert justement à repérer ces erreurs avant la correction par une locutrice (R22).
+
+**Portée.** Environnement de test uniquement (`https://safinum.cm/hackathon-test`, données fictives). À réexaminer avant tout usage réel (Q24).
+
 ---
 
 ## 4. Architecture proposée
 
 ### 4.1 Principes
-1. **Liste blanche** : seul un texte qui correspond à une entrée ou à un gabarit **validé** peut être modifié. Tout le reste est intact par construction.
+1. **Liste blanche** : seul un texte qui correspond à une entrée ou à un gabarit **validé** peut être modifié. *(v0.8, Q9 : ou à une entrée dont la traduction non vérifiée est affichée avec un marqueur, §3.11.)* Tout le reste est intact par construction.
 2. **Défense en profondeur** : liste blanche, puis contexte DOM, puis motifs de données protégées, puis contrôle d'intégrité avant et après chaque modification.
 3. **Modification minimale** : on remplace seulement `Text.data`, sans `innerHTML`, sans création ni suppression de nœuds et sans attribut fonctionnel. L'original est mémorisé dans une `WeakMap` pour une restauration exacte.
-4. **Séparation données / moteur / extension** : la bibliothèque (`data/`) est compilée en un **lexique d'exécution** (`lexicon.json`). Il contient toutes les sources connues (FR/EN) avec leur statut, mais une cible Éton **seulement si elle est approuvée** (C7, contrat I6). Le moteur pur l'interroge. L'extension ne consomme que le résultat du moteur, via `INTEGRATION_CONTRACT.md`.
+4. **Séparation données / moteur / extension** : la bibliothèque (`data/`) est compilée en un **lexique d'exécution** (`lexicon.json`). Il contient toutes les sources connues (FR/EN) avec leur statut, mais une cible Éton (`target`) **seulement si elle est approuvée**. La traduction non vérifiée d'une entrée en attente est rangée à part, dans `unverifiedTarget` (C7, Q9, contrat I6). Le moteur pur l'interroge. L'extension ne consomme que le résultat du moteur, via `INTEGRATION_CONTRACT.md`.
 5. **Moindre privilège** : permission `storage` seulement. Le script de contenu est limité à `https://safinum.cm/hackathon-test*` (Q2). Pas de `host_permissions` supplémentaire, pas de service worker sauf besoin avéré.
 6. **Développement parallèle** : l'extension est développée et testée avec un **faux moteur** conforme au contrat. La bibliothèque et le moteur sont développés et testés **sans Chrome** (Node + Vitest). Le remplacement du faux moteur par le vrai ne touche qu'**un seul fichier** (`src/content/engine-provider.ts`).
 
@@ -422,23 +440,25 @@ matcher ──► texte = uniquement des valeurs protégées         → PROTECT
                                                                   | KNOWN_UNTRANSLATED | PROTECTED
         ──► aucune entrée                                      → NO_MATCH
    │
-═══════════════ TranslationResult { status, output (≠ null ⇔ APPROVED), entryId, protectedSegments, … } ═══════════════
+═══ TranslationResult { status, output (≠ null ⇔ APPROVED), unverifiedOutput (≠ null ⇔ PENDING_VALIDATION), entryId, protectedSegments, … } ═══
    │                                                                 [extension — Yvan]
    ▼
-si status ≠ APPROVED → rien n'est écrit ; compteur par statut (en mémoire, sans texte)
-si APPROVED → integrity : empreinte des valeurs protégées avant/après ; si écart → retour arrière + alerte
+si APPROVED, ou PENDING_VALIDATION avec l'option « non vérifiées » active (Q9) → integrity : empreinte des valeurs
+   protégées avant/après ; si écart → retour arrière + alerte
+sinon → rien n'est écrit ; compteur par statut (en mémoire, sans texte)
    ▼
-renderer : Text.data ← output ; original dans WeakMap ; lang="eto" si l'élément est entièrement traduit
+renderer : Text.data ← output (ou unverifiedOutput + marqueur, §3.11) ; original dans WeakMap ;
+   lang="eto" si l'élément est entièrement traduit
    ▲
 observer (MutationObserver childList+characterData+subtree, regroupé par micro-tâche/rAF,
           ignore ses propres écritures, réévalue si l'application réécrit un nœud)
 
-popup ⇄ chrome.storage.local { enabled, displayMode, diagnostic } ⇄ content (storage.onChanged)
+popup ⇄ chrome.storage.local { enabled, displayMode, diagnostic, showUnverified } ⇄ content (storage.onChanged)
 Désactivation → restauration exacte de tous les nœuds depuis la WeakMap.
 ```
 
 ### 4.4 Règle d'affichage et statuts renvoyés (v0.4)
-Le moteur renvoie `APPROVED` (seul statut affichable) si et seulement si **toutes** ces conditions sont réunies :
+Le moteur renvoie `APPROVED` (seul statut affiché **sans marqueur**) si et seulement si **toutes** ces conditions sont réunies :
 - `disposition = TRANSLATABLE` ;
 - cible Éton non nulle ;
 - `translationStatus = VALIDATED_OBALA` ;
@@ -446,7 +466,7 @@ Le moteur renvoie `APPROVED` (seul statut affichable) si et seulement si **toute
 - variables de la cible identiques à celles de la source ;
 - pour les entrées `sensitivity = critical`, double relecture si Q18 est adoptée.
 
-Tous les autres cas donnent l'un des cinq statuts non affichables du contrat (`INTEGRATION_CONTRACT.md` §5.2). `build-lexicon` **retire la cible** de toute entrée non approuvée. Une proposition non approuvée ne peut donc pas atteindre l'extension (invariant I6), même par erreur du moteur.
+Tous les autres cas donnent l'un des cinq autres statuts du contrat (`INTEGRATION_CONTRACT.md` §5.2). *(v0.8, Q9.)* Parmi eux, seul `PENDING_VALIDATION` porte un texte : la traduction non vérifiée retenue, dans `unverifiedOutput`, affichée avec un marqueur (§3.11). `build-lexicon` range cette traduction dans un champ séparé du lexique, `unverifiedTarget`. Le champ `target`, seul lu pour remplir `output`, est réservé aux entrées approuvées : le schéma du lexique refuse une traduction non vérifiée dans `target`. Les autres entrées n'ont aucune cible, et une cible rejetée n'est jamais gardée (invariant I6). Une traduction non vérifiée ne sort donc dans `output` que si le moteur lit le mauvais champ ; T-CON-02 et T-LIB-10 le vérifient.
 
 ### 4.5 Schéma d'entrée unifié (v0.4 — résout C3 et C13 ; à valider en S1)
 Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif est livré en BM1, dans `data/schemas/`.
@@ -469,11 +489,11 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
   "target": {
     "eto": {
       "variety": "obala",
-      "text": null,                      // proposition ou forme validée ; jamais exportée si non approuvée
+      "text": null,                      // proposition d'une locutrice ou forme validée ; exportée comme « non vérifiée » tant qu'elle n'est pas approuvée (Q9)
       "variants": [],
       "translationStatus": "TRANSLATION_PENDING",   // statuts D5 (liste reprise à l'identique en BM1)
       "dictionaryEvidence": [],          // [{ form, gloss, ref: "D7 p.…" }] — justification, jamais une traduction
-      "proposals": [],                   // cascade §3.10 : [{ text, method: "direct"|"synonym"|"definition", from, rules, missing, generatedBy }] — jamais affichées
+      "proposals": [],                   // cascade §3.10 : [{ text, method: "direct"|"synonym"|"definition", from, rules, missing, generatedBy }] — la première est affichée comme « non vérifiée » si text est vide (Q9)
       "validation": {
         "linguistic": "PENDING",         // PENDING | VALIDATED | REJECTED
         "financialMeaning": "PENDING",   // PENDING | VALIDATED | REJECTED
@@ -493,7 +513,7 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 - Les textes sont stockés en **NFC**. L'Éton est contrôlé par la liste blanche de caractères (§3.7.4-4).
 - `translationStatus` reprend les statuts de D5. `validation` porte les deux axes exigés par D1 (C3). Le moteur combine les trois niveaux pour produire les 6 états du contrat (§4.4). `validate-data` vérifie la cohérence : `translationStatus = VALIDATED_OBALA` ⇔ `validation.linguistic = VALIDATED`.
 - Les noms des relecteurs ne figurent jamais dans `data/` : seulement leur code (§3.7.4-6).
-- `proposals[]` n'est **jamais** exporté dans `lexicon.json`. Seul `text`, une fois validé par une locutrice, peut l'être. `propose-translations` n'écrit jamais `text` ni `VALIDATED_OBALA` (§3.10).
+- `build-lexicon` exporte **une seule cible** par entrée : `text` s'il est approuvé, dans `target` ; sinon la traduction non vérifiée retenue (`text`, ou à défaut la première proposition), dans `unverifiedTarget` ; jamais une cible rejetée (contrat §5.2, Q9). Le reste de `proposals[]` n'est **jamais** exporté. `propose-translations` n'écrit jamais `text` ni `VALIDATED_OBALA` (§3.10).
 
 ### 4.6 Choix techniques proposés
 | Sujet | Proposition | Raison |
@@ -544,12 +564,13 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
   - les attributs `placeholder`, `aria-label`, `title` et `alt` lorsqu'ils correspondent à une entrée validée (§3.6-4) ?
 
   **Recommandation : oui pour `aria-label` et `title`**, afin que le lecteur d'écran lise la même chose que l'écran. Les options et le `placeholder` peuvent attendre une phase ultérieure.
-- **Q9 — Statuts intermédiaires** : pour la démo, une entrée `REVIEW_PENDING` peut-elle s'afficher avec un marqueur « à valider » ? **Recommandation : non.** *(v0.4 : le contrat proposé encode déjà « non » : `output` est `null` pour `PENDING_VALIDATION`, conformément à D6 §9. À confirmer en S1.)*
+- **Q9 — Statuts intermédiaires** — ✅ **Tranchée (2026-11-13) par le responsable : oui.** Les traductions non vérifiées s'affichent sur la page de test, avec un marqueur visible et le français au survol. Une option du popup permet de les cacher (§3.11, contrat 0.2.0 §5.4). *(Recommandation initiale : non. Raison du choix : les locutrices ne sont pas toujours disponibles, et voir les traductions sur la page de test aide à juger leur sens.)*
 - **Q10 — Nommage (conflit C2)** — ✅ **Tranchée par D6 (2026-11-12) : FinEthnic = le projet, SAFINUM Éton = son premier prototype.** « EtonFin » (D5) est remplacé lors de l'import.
 - **Q11 — Versionner les sources** dans `docs/sources/` ? — 🔶 **En partie tranchée (2026-11-13) : D8 est versionné**, à la demande du responsable, pour un usage à long terme. D8 ne contient **aucune forme en Éton** : sa publication ne pose donc pas de problème de licence. Restent à décider : D2, D3 et D5 (voir Q21). La question de licence ne concerne plus que les formes tirées du dictionnaire (D7, Q17), si le dépôt devient public.
 - **Q21 — Textes de pages : D8 ou D5 ? (§3.9)** D8 liste 60 textes, D5 en listait 62 (« Bonjour, Amina », phrase P1-015, « Safinum Pay »). **Recommandation : D8 fait foi pour l'import, et le relevé du site réel (P2.0, Q20) tranche les écarts.** Le D5 original reste utile pour ce que D8 ne reprend pas : statuts, fiche et procédure de validation, exemples de valeurs protégées. Faut-il aussi le versionner dans `docs/sources/` ?
-- **Q22 — Méthode de traduction** — ✅ **Tranchée (2026-11-13) : cascade terme → synonymes simples → définition simple**, avec assemblage selon les règles de D7 (§3.10). Elle tourne pendant la préparation de la bibliothèque et produit des **propositions**, validées par une locutrice avant tout affichage. Les échecs sont confiés aux locutrices.
+- **Q22 — Méthode de traduction** — ✅ **Tranchée (2026-11-13) : cascade terme → synonymes simples → définition simple**, avec assemblage selon les règles de D7 (§3.10). Elle tourne pendant la préparation de la bibliothèque et produit des **propositions**, vérifiées ensuite par une locutrice *(v0.8, Q9 : affichées avec un marqueur en attendant, §3.11)*. Les échecs sont confiés aux locutrices.
 - **Q23 — Règles de formation des phrases de D7** (bloque BM3.6, pas S1) : quand D7 sera téléversé, où se trouvent ces règles dans le dictionnaire et que couvrent-elles (ordre des mots, classes nominales et accords, verbes et temps, négation, possessifs, tons) ? **Recommandation :** transcrire d'abord les quelques règles nécessaires aux définitions des 52 textes de pages, chacune avec sa page de référence, et les faire relire par une locutrice.
+- **Q24 — Usage réel et entrées critiques** (non bloquante, après la démo) : la décision Q9 vaut pour l'environnement de test, qui n'utilise que des données fictives. Avant tout usage avec de vrais clients, faut-il n'afficher que des traductions **approuvées**, au moins pour les entrées critiques (`sensitivity = critical` : messages SEC, montants, confirmation de transfert) ? **Recommandation : oui.**
 - **Q12 — Calendrier linguistique** : combien de locutrices d'Obala sont disponibles, et à quel rythme ? Cela fixe le nombre réaliste de libellés validés pour la démo. **Priorité suggérée : les ~53 libellés uniques des 5 pages (62 occurrences), puis les actions critiques et les alertes SEC.** *(2026-11-13 : en partie tranché. Au moins 3 locutrices d'Obala, codes `LOC-01`, `LOC-02`… ; disponibilité encore inconnue. D8 donne 52 textes uniques, fiche L1 `data/exports/csv/l1-pages.csv`.)*
 - **Q13 — Public qui ne lit pas l'Éton (§3.6-5)** : les locutrices peuvent-elles enregistrer l'audio des phrases critiques en même temps que leur validation ? Si oui, l'option « écouter » pourra être ajoutée **après** le MVP, avec des fichiers locaux et sans service distant. Ce n'est pas bloquant pour P1–P7.
 

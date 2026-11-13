@@ -10,7 +10,7 @@
  */
 
 // --- Transcription exacte de INTEGRATION_CONTRACT.md §4 ---
-export const CONTRACT_VERSION = '0.1.0';
+export const CONTRACT_VERSION = '0.2.0';
 
 export type SourceLang = 'fr' | 'en';
 export type TargetLang = 'eto';
@@ -42,7 +42,7 @@ export interface TranslationRequest {
 export type TranslationStatus =
   | 'APPROVED'            // traduction disponible et approuvée
   | 'KNOWN_UNTRANSLATED'  // entrée connue, aucune traduction proposée
-  | 'PENDING_VALIDATION'  // une proposition existe mais n'est pas approuvée
+  | 'PENDING_VALIDATION'  // traduction non vérifiée par une locutrice, dans unverifiedOutput (§5.4)
   | 'NO_MATCH'            // aucune correspondance
   | 'AMBIGUOUS'           // plusieurs correspondances, impossible de trancher
   | 'PROTECTED';          // texte qui ne doit pas être traduit
@@ -62,6 +62,11 @@ export interface TranslationResult {
   status: TranslationStatus;
   /** Non nul SI ET SEULEMENT SI status === 'APPROVED'. Texte complet prêt à afficher. */
   output: string | null;
+  /**
+   * Non nul SI ET SEULEMENT SI status === 'PENDING_VALIDATION'. Traduction NON VÉRIFIÉE par une locutrice,
+   * texte complet. Affichée seulement avec le marqueur et le texte original au survol (§5.4).
+   */
+  unverifiedOutput: string | null;
   /** ID stable de l'unité de traduction (ex. "VOC-023", "P4-012", "GUARD-001"), sinon null. */
   entryId: string | null;
   /** AMBIGUOUS uniquement : ID des entrées candidates. Sinon []. */

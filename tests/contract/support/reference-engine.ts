@@ -17,6 +17,7 @@ type Row = Omit<TranslationResult, 'detectedSourceLang'> & { lang: SourceLang | 
 
 const row = (r: Partial<Row> & Pick<Row, 'status'>): Row => ({
   output: null,
+  unverifiedOutput: null,
   entryId: null,
   candidateIds: [],
   matchKind: 'exact',
@@ -32,7 +33,8 @@ const TABLE = new Map<string, Row>([
   ['Votre transfert a été envoyé avec succès.', row({ status: 'APPROVED', output: '⟦TEST:P5-002⟧', entryId: 'P5-002' })],
   ['Montant', row({ status: 'KNOWN_UNTRANSLATED', entryId: 'VOC-023' })],
   ['Available balance', row({ status: 'KNOWN_UNTRANSLATED', entryId: 'VOC-008', lang: 'en' })],
-  ['Confirmer le transfert', row({ status: 'PENDING_VALIDATION', entryId: 'P4-012' })],
+  ['Confirmer le transfert', row({ status: 'PENDING_VALIDATION', unverifiedOutput: '⟦TEST:P4-012⟧', entryId: 'P4-012' })],
+  ['Total : 5 000 FCFA', row({ status: 'PENDING_VALIDATION', unverifiedOutput: '⟦TEST:VOC-034⟧ : 5 000 FCFA', entryId: 'VOC-034', matchKind: 'label-value', protectedSegments: ['5 000', 'FCFA'] })],
   ['Retour', row({ status: 'AMBIGUOUS', candidateIds: ['TST-001', 'TST-002'], reason: 'context-required' })],
   ['250 000 FCFA', row({ status: 'PROTECTED', matchKind: null, protectedSegments: ['250 000', 'FCFA'], reason: 'protected-value', lang: null })],
   ['Safinum Pay', row({ status: 'PROTECTED', entryId: 'GUARD-001', reason: 'protected-entry' })],
@@ -44,6 +46,7 @@ const SOURCE_LANGS: readonly unknown[] = ['fr', 'en', 'auto'];
 const noMatch = (reason: TranslationResult['reason']): TranslationResult => ({
   status: 'NO_MATCH',
   output: null,
+  unverifiedOutput: null,
   entryId: null,
   candidateIds: [],
   matchKind: null,
@@ -64,6 +67,7 @@ export function translateWithTable(req: TranslationRequest): TranslationResult {
   return {
     ...result,
     output: result.output === null ? null : lead + result.output + trail,
+    unverifiedOutput: result.unverifiedOutput === null ? null : lead + result.unverifiedOutput + trail,
     candidateIds: [...result.candidateIds],
     protectedSegments: [...result.protectedSegments],
     detectedSourceLang: lang,
@@ -76,7 +80,7 @@ export const REFERENCE_INFO: EngineInfo = {
   libraryVersion: '0.0.0-reference',
   targetLang: 'eto',
   variety: 'obala',
-  entryCounts: { approved: 3, pending: 1, untranslated: 2, protected: 2 },
+  entryCounts: { approved: 3, pending: 2, untranslated: 2, protected: 2 },
 };
 
 export function createReferenceEngine(): TranslationEngine {

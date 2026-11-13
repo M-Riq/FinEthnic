@@ -425,7 +425,7 @@ export function renderCascadeReport(outcomes: readonly EntryOutcome[], meta: Rep
     '# Rapport de la cascade de traduction',
     '',
     '> Généré par `npm run propose-translations` (BM3.7, PROJECT_CONTEXT §3.10). Ne pas modifier à la main.',
-    '> Les propositions ne sont **jamais affichées** : une locutrice les accepte, les corrige ou les rejette (Q22).',
+    '> Sur la page de test, la première proposition de chaque entrée est affichée avec un marqueur « non vérifiée » (Q9), sauf si une locutrice a déjà donné une forme. Les suivantes ne sont pas affichées. Une locutrice les accepte, les corrige ou les rejette (Q22).',
     '',
     `- Dictionnaire : ${cell(meta.dictionary.source)} (${meta.dictionary.kind}, ${meta.dictionary.entries} formes)`,
     `- Règles : ${cell(meta.grammar.source)} (${meta.grammar.rules} règles)`,
