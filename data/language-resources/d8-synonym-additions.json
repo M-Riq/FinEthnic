@@ -1,5 +1,5 @@
 {
-  "description": "Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7. Le moteur les lit en plus des synonymes de D8, sans modifier D8. Chaque ajout a été testé dans le moteur et validé par le responsable. « removals » : synonymes de D8 que le moteur n'utilise pas, car ils changent le sens financier (décision du responsable).",
+  "description": "Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7. Le moteur les lit en plus des synonymes de D8, sans modifier D8. Chaque ajout a été testé dans le moteur et validé par le responsable ; 5 ajouts retirés à la relecture des synonymes à risque (faux sens). « removals » : synonymes de D8 que le moteur n'utilise pas, car ils changent le sens financier (décision du responsable).",
   "additions": [
     {
       "entryId": "ACT-031",
@@ -155,28 +155,10 @@
       "date": "2026-11-15"
     },
     {
-      "entryId": "ACT-023",
-      "text": "Accepter les conditions",
-      "synonym": "accepter la loi",
-      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter la loi » → mə̀m mbɛ́ní. Mbɛ́ní « loi, interdiction » ; « règles » absent de D7.",
-      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
       "entryId": "ACT-025",
       "text": "Contester",
       "synonym": "refuser l'opération",
       "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « refuser l'opération » → bɛ̀n ì-sàlgà. Contester ≈ refuser.",
-      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
-      "entryId": "ACT-034",
-      "text": "Débloquer",
-      "synonym": "ouvrir le compte",
-      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « ouvrir le compte » → yázî compte. D8 : « rouvrir », « permettre encore d'utiliser un compte ».",
       "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
@@ -276,15 +258,6 @@
       "text": "Prêt",
       "synonym": "dette",
       "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « dette » → ì-kòló. Point de vue de celui qui emprunte.",
-      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
-      "entryId": "VOC-097",
-      "text": "Conditions générales",
-      "synonym": "loi",
-      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « loi » → mbɛ́ní. Mbɛ́ní « loi, interdiction ».",
       "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
@@ -596,15 +569,6 @@
       "date": "2026-11-15"
     },
     {
-      "entryId": "VOC-073",
-      "text": "Agence",
-      "synonym": "boutique",
-      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « boutique » → ì-pàtìlá. ì-pàtìlá « magasin, épicerie, bar, boutique » (D7 p. 135, n° 1001)",
-      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
       "entryId": "MSG-058",
       "text": "Nouveau transfert",
       "synonym": "envoyer",
@@ -659,15 +623,6 @@
       "date": "2026-11-15"
     },
     {
-      "entryId": "VOC-072",
-      "text": "Application mobile",
-      "synonym": "téléphone",
-      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « téléphone » → ŋ̀-kwǎl. ŋ̀-kwǎl « corde, fil ; téléphone ; liane » (D7 p. 214, n° 2326)",
-      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
       "entryId": "VOC-098",
       "text": "Service client",
       "synonym": "aider",
@@ -693,6 +648,24 @@
       "synonym": "richesse",
       "reason": "« richesse » (à-kúmá) veut dire ce qu'on possède, pas « ce qu'on donne pour acheter ou payer » (définition de D8). Avec « qui » sujet (M30), le moteur choisissait « richesse qui reste » → á-kúmá úꜜtə́ ꜜkáŋâ pour « L'argent qui reste » : contresens présenté comme complet.",
       "ref": "ROADMAP.md, M30",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-023",
+      "text": "Montant",
+      "synonym": "prix",
+      "reason": "« prix » → táŋ, le même mot que « Frais » et « Tarif » : l'écran confondait le montant envoyé et les frais. Sans ce synonyme, le moteur prend « quantité d'argent » → ɛ̀-bím ɛ́ mɔ̀ní (D7 p. 107), toujours complet.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, relecture des synonymes à risque",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-059",
+      "text": "Fermer la fenêtre",
+      "synonym": "cacher",
+      "reason": "« cacher » → swàlì ne veut pas dire fermer. Sans ce synonyme, le moteur prend l'original « Fermer la fenêtre » → dìb wúnâ (D7 p. 101 et 272), toujours complet.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, relecture des synonymes à risque",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
     }
