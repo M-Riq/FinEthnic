@@ -6,6 +6,6 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["src/content", "src/popup", "src/shared", "tests/extension", "build.mjs"],
+  "include": ["src/content", "src/popup", "src/shared", "src/protection", "tests/extension", "build.mjs"],
   "exclude": []
 }

@@ -140,6 +140,7 @@ export async function buildExtension({ dev, outDir }) {
   /** @type {Array<[string, string]>} [source relative au dépôt, destination relative à outDir] */
   const copies = [
     [dev ? 'manifest.dev.json' : 'manifest.json', 'manifest.json'],
+    ['src/content/content.css', 'content.css'],
     ['src/popup/popup.html', 'popup/popup.html'],
     ['src/popup/popup.css', 'popup/popup.css'],
     ...(await readdir(path.join(ROOT, 'icons')))
