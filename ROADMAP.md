@@ -1,6 +1,6 @@
 # ROADMAP — SAFINUM Éton (projet FinEthnic, présélection SAFINUM Innovate 2026)
 
-> **Statut :** v0.9 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
+> **Statut :** v1.0 — proposition de la Phase 0, **en attente de la Synchronisation 1**. La v0.4 aligne la roadmap sur `TEAM_WORKFLOW.md` (D6) :
 > - pistes parallèles et synchronisations S1–S5 ;
 > - piste **BM** (bibliothèque et moteur), qui remplace la phase 4 ;
 > - phase 5 recentrée sur le remplacement et la restauration ;
@@ -15,6 +15,8 @@
 > La **v0.8** (2026-11-13) enregistre la décision **Q9** : les traductions **non vérifiées** s'affichent sur la page de test sans attendre les locutrices, avec un **marqueur visible** et le français au survol. Une option du popup permet de les cacher (PROJECT_CONTEXT §3.11, contrat 0.2.0 §5.4). Ce choix remplace la règle « avant tout affichage » de la v0.7.
 >
 > La **v0.9** (2026-11-13) enregistre la **réception de D7** (lexique Markdown, avec une section de grammaire) et la décision **Q17** : D7 reste hors Git, sous CC BY-NC-SA 4.0 ; seules les formes citées sont versionnées. Elle ajoute l'import `import-dictionary` (BM3.3) et deux choix sur les caractères (liste blanche élargie, tiret des préfixes de classe gardé).
+>
+> La **v1.0** (2026-11-14) recentre le projet sur le **moteur de traduction Français → Éton** (piste **MOT**, décisions M1–M10, §12). Le moteur est autonome : sans locutrice, il ne traduit qu'avec D7 et D8 et signale exactement ce qui manque. Ces décisions remplacent, **pour le moteur**, la validation par les locutrices (Q22) et la règle « D7 jamais dans l'extension ». PROJECT_CONTEXT reste à réviser en conséquence.
 >
 > Q2, Q3, Q4, Q5, Q9, Q10, Q14, Q16, Q17, Q19 et Q22 sont tranchées, et Q11 l'est en partie (§12).
 > **Références :** `PROJECT_CONTEXT.md` (documents D1–D8, conflits C1–C14, questions Q1–Q24) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
@@ -295,6 +297,20 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 | **Risques** | R13, R18 |
 | **Livrable** | Extension branchée sur le vrai moteur (S3). |
 | **Porte → P6** | S3 tenue : chargement de la bibliothèque, correspondances, statuts et protection vérifiés ensemble. |
+
+---
+
+## PISTE MOT — Moteur de traduction Français → Éton (v1.0, 2026-11-14)
+
+| Rubrique | Contenu |
+|---|---|
+| **Responsable** | Responsable du projet |
+| **Objectifs** | Traduire un texte français reçu de l'extension en éton compréhensible, **uniquement** avec D7 et D8, sans humain dans la boucle (M1–M10, §12). Le moteur n'invente aucune forme ni règle éton. Il ne présente jamais une traduction partielle comme complète. |
+| **Chaîne** | `classify` (forme, type, négation, question) → `normalize` → `lemmatize` → comparaison D8 → `simplify` (synonymes, puis définitions D8 ; 3 variantes au plus) → `d7-lookup` (choix déterministe, alternatives citées) → `eton-grammar` (règles de classe A seulement, avec leur référence D7) → `select-status` (SUCCESS / PARTIAL / FALLBACK / PENDING, avec la liste exacte des manques). |
+| **Livraison** | Une PR par module, empilées sur la PR #7 : MOT1 `classify` + `normalize` ; MOT2 `lemmatize` (Lefff réduit aux mots de D7/D8) ; MOT3 `simplify` ; MOT4 `d7-lookup` + `eton-grammar` ; MOT5 `select-status` + API HTTP locale ; MOT6 contrat (PR `contract:` séparée, relue par Yvan). |
+| **Fichiers** | `src/engine/*.ts` (pur, sans import Node : embarquable dans l'extension), `tests/engine/*.test.ts` |
+| **Critères d'acceptation** | Chaque module testé sur des textes réels de D8 ; les 10 phrases d'exemple de D7 servent de tests de bout en bout. |
+| **État** | 🟡 MOT1 livré (`classify`, `normalize`) : 1 erreur de forme sur les 379 textes de D8. « Le montant saisi dépasse… » n'a pas de verbe reconnu ; il sera traité par MOT2. |
 
 ---
 
@@ -603,3 +619,14 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | 2026-11-13 | Roadmap v0.9 : en-tête, BM3 (état, dépendances), R10 ; PROJECT_CONTEXT (D7, §3.7.4-3, Q17, Q23) ; `THIRD_PARTY.md` | En attente de la relecture d'Yvan |
 | 2026-11-13 | **BM3.4** : le responsable a comparé avec le livre les 30 formes de l'échantillon et les 5 formes à double aigu ; toutes sont conformes. Le **double aigu** (U+030B, ton très haut) entre donc dans la liste blanche ; il remplace la décision précédente qui le refusait. Nouvel import : 5 754 lignes, aucune forme écartée ; essai de la cascade inchangé (33 / 34 / 0 / 264 / 48) | ✅ Décidé par le responsable |
 | 2026-11-13 | **BM3.6 commencé** : (1) articles « le, la, l', les, des » ignorés par la cascade, car dans les phrases d'exemple de D7 le nom figure seul (p. 71, n° 15 ; esquisse p. 18-71) ; « un » et « une » restent traduits, car ils peuvent signifier « 1 » ; (2) règle `D7-VERBE-NOM` : verbe + complément, ordre conservé (esquisse p. 18-71). Essai sans `--write` : 34 / 42 / 0 / 255 / 48 (+9 propositions). Une règle ne fait que réordonner des mots : avec des règles parfaites, 26 échecs au plus pouvaient aboutir | ✅ Validé règle par règle par le responsable |
+| 2026-11-14 | **M1** : D7 complet poussé sur la branche orpheline `private/d7-raw`, jamais fusionnée, pour que le moteur puisse être développé et testé avec le vrai D7 | ✅ Décidé par le responsable |
+| 2026-11-14 | **M2** : SUCCESS seulement si tous les mots sont trouvés **et** si chaque trait grammatical (temps, négation, possession, question) est rendu par une règle de classe A. Sinon PARTIAL, avec la liste exacte des manques | ✅ Décidé par le responsable |
+| 2026-11-14 | **M3** : mode hybride. Un seul moteur TypeScript pur, intégré à l'extension (index D7 construit sur la machine, jamais dans Git), et aussi exposé par une API HTTP locale pour les tests et pour Yvan. La licence CC BY-NC-SA reste à traiter pour l'archive remise au jury | ✅ Décidé par le responsable |
+| 2026-11-14 | **M4** : un texte absent de D8 n'est simplifié que par substitution D8 (synonymes et définitions des mots reconnus). Sinon PENDING, et le texte est journalisé pour enrichir D8 plus tard. Aucune génération | ✅ Décidé par le responsable |
+| 2026-11-14 | **M5** : analyse du français en TypeScript pur, avec des règles et un lemmatiseur fondé sur Lefff (LGPL-LR) réduit aux mots de D7/D8. Licence à vérifier avant import | ✅ Décidé par le responsable |
+| 2026-11-14 | **M6** : quand D7 propose plusieurs formes, choix déterministe : catégorie D7 égale à la catégorie française, puis forme la plus courte. Les autres formes sont renvoyées avec leur référence D7. Le statut n'est pas dégradé | ✅ Décidé par le responsable |
+| 2026-11-14 | **M7** : un résultat PARTIAL s'affiche avec le marqueur « traduction incomplète » et le français à côté. Exception : si une négation ou une entrée critique (montant, frais, confirmation) n'est pas rendue, c'est FALLBACK (français seul) | ✅ Décidé par le responsable |
+| 2026-11-14 | **M8** : une branche par module, empilée sur la PR #7 (pile non fusionnée). Le changement de contrat fait l'objet d'une PR séparée, relue par Yvan | ✅ Décidé par le responsable |
+| 2026-11-14 | **M9** : pas d'échéance imposée. Le moteur avance par incréments testés, une PR par module, en privilégiant la qualité. TypeScript est conservé | ✅ Décidé par le responsable |
+| 2026-11-14 | **M10** : les règles de grammaire D7 de classe B (choix ou donnée manquante, ex. « nous » ɛ̀/bì) sont inactives par défaut ; un trait qui en dépend rend le statut PARTIAL. Chaque règle B peut être activée par une décision écrite, versionnée et citant D7 ; elle passe alors en classe A | ✅ Décidé par le responsable |
+| 2026-11-14 | **MOT1** livré (`src/engine/normalize.ts`, `classify.ts`) : formes WORD / EXPRESSION / SIMPLE_SENTENCE / COMPLEX_SENTENCE ; types QUESTION (oui/non ou partielle) / IMPERATIVE / STATEMENT ; négation (y compris « aucun », « non », « sans »), restriction « ne … que », exclamation ; valeurs protégées (variables, montants, nombres, marques, URL, e-mails). Sur les 379 textes de D8, une seule erreur de forme (MSG-018, verbe lexical : MOT2) | En attente de relecture |
