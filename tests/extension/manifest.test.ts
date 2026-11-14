@@ -32,7 +32,7 @@ describe('manifest de production — instantané de sécurité (P1.2, T-INS)', (
 
   it('n’injecte le script de contenu que sur l’environnement de test, dans le cadre principal', () => {
     expect(prod['content_scripts']).toEqual([
-      { matches: [SAFINUM], js: ['content.js'], run_at: 'document_idle', all_frames: false },
+      { matches: [SAFINUM], js: ['content.js'], css: ['content.css'], run_at: 'document_idle', all_frames: false },
     ]);
   });
 

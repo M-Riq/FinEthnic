@@ -11,6 +11,13 @@
   --off: #6b7280;
   --focus: #1d4ed8;
   --error: #b91c1c;
+  /* Légende du diagnostic : mêmes traits que content.css (≥ 3:1 sur blanc). */
+  --approved: #0b6e4f;
+  --unverified: #1d4ed8;
+  --untranslated: #92400e;
+  --no-match: #b91c1c;
+  --ambiguous: #6d28d9;
+  --neutral: #374151;
 }
 
 * { box-sizing: border-box; }
@@ -30,6 +37,7 @@ h1 { margin: 0; font-size: 1.25rem; }
 .subtitle { margin: 0; color: var(--muted); }
 
 .setting { padding: 12px 0; border-top: 1px solid #d1d5db; border-bottom: 1px solid #d1d5db; }
+.setting-next { border-top: none; }
 
 .switch {
   display: flex;
@@ -79,6 +87,43 @@ h1 { margin: 0; font-size: 1.25rem; }
 
 .state { margin: 4px 8px 0; color: var(--muted); }
 .error { margin: 12px 0 0; color: var(--error); font-weight: 600; }
+
+.report { padding: 12px 0 0; }
+.report h2 { margin: 0 0 4px; font-size: 1rem; }
+.report-status { margin: 0 0 8px; color: var(--muted); }
+.counts { margin: 0 0 8px; }
+.counts div { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
+.counts .sub { padding-left: 12px; }
+.counts dt { margin: 0; }
+.counts dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 600; }
+.note { margin: 0 0 8px; color: var(--muted); font-size: 0.875rem; }
+
+/* Échantillon du trait utilisé dans la page : la forme du trait suffit à distinguer les catégories. */
+.key::before { content: "Aa"; }
+.key { display: inline-block; margin-right: 8px; text-decoration-thickness: 2px; text-underline-offset: 2px; }
+.key-approved { text-decoration-line: underline; text-decoration-style: solid; text-decoration-color: var(--approved); }
+.key-unverified { text-decoration-line: underline; text-decoration-style: dashed; text-decoration-color: var(--unverified); }
+.key-partial { text-decoration-line: underline; text-decoration-style: wavy; text-decoration-color: var(--unverified); }
+.key-untranslated { text-decoration-line: underline; text-decoration-style: dotted; text-decoration-color: var(--untranslated); }
+.key-no-match { text-decoration-line: underline; text-decoration-style: double; text-decoration-color: var(--no-match); }
+.key-ambiguous { text-decoration-line: underline overline; text-decoration-style: wavy; text-decoration-color: var(--ambiguous); }
+.key-protected { text-decoration-line: overline; text-decoration-style: solid; text-decoration-color: var(--neutral); }
+.key-waiting { text-decoration-line: underline overline; text-decoration-style: dotted; text-decoration-color: var(--neutral); }
+.key-numeric { text-decoration-line: overline; text-decoration-style: dotted; text-decoration-color: var(--neutral); }
+
+.action {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--muted);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.action:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.action[aria-busy="true"] { cursor: progress; }
 
 footer { margin-top: 12px; color: var(--muted); font-size: 0.875rem; }
 footer p { margin: 0 0 4px; }

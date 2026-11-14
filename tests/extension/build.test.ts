@@ -62,6 +62,7 @@ describe('buildExtension', () => {
   });
 
   const EXPECTED_FILES = [
+    'content.css',
     'content.js',
     'icons/icon-128.png',
     'icons/icon-16.png',
@@ -82,7 +83,7 @@ describe('buildExtension', () => {
 
     // Tous les fichiers cités par le manifest et par le popup existent dans la sortie.
     const referenced = [
-      ...manifest.content_scripts.flatMap((s: { js: string[] }) => s.js),
+      ...manifest.content_scripts.flatMap((s: { js: string[]; css: string[] }) => [...s.js, ...s.css]),
       manifest.action.default_popup,
       ...Object.values<string>(manifest.icons),
       ...Object.values<string>(manifest.action.default_icon),
@@ -105,6 +106,11 @@ describe('buildExtension', () => {
     expect(await buildExtension({ dev: true, outDir: out })).toEqual(EXPECTED_FILES);
     const manifest = JSON.parse(await readFile(path.join(out, 'manifest.json'), 'utf8'));
     expect(manifest.content_scripts[0].matches).toContain('http://localhost/*');
+    // Le faux moteur n'est présent qu'ici ; la règle de production le refuserait.
+    const content = await readFile(path.join(out, 'content.js'), 'utf8');
+    expect(findForbidden(content, { production: true })).toEqual(
+      expect.arrayContaining(['marqueur ⟦FAKE⟧', "engineId 'fake'"]),
+    );
   });
 
   it('remplace une construction précédente', async () => {

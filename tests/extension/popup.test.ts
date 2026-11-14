@@ -1,11 +1,13 @@
 // @vitest-environment jsdom
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
-import { initPopup } from '../../src/popup/popup';
+import { describe, expect, it, vi } from 'vitest';
+import { initPopup, type RequestDiagnostic } from '../../src/popup/popup';
 import type { Logger } from '../../src/shared/logger';
+import { COUNT_KEYS, DIAGNOSTIC_RESULT, type DiagnosticSnapshot } from '../../src/shared/messages';
 import { createSettingsStore, SETTINGS_KEY } from '../../src/shared/settings';
 import { createFakeStorage, flush } from './support/fake-storage';
+import { recorder } from './support/page';
 
 // Sous jsdom, un `URL` n'est pas accepté par `node:fs` : on passe par un chemin de fichier.
 const HTML = readFileSync(path.join(import.meta.dirname, '../../src/popup/popup.html'), 'utf8');
@@ -106,5 +108,110 @@ describe('popup — comportement', () => {
     expect(button.getAttribute('aria-checked')).toBe('false');
     detach();
     expect(fake.listenerCount()).toBe(0);
+  });
+});
+
+describe('popup — rapport de diagnostic (P2.6)', () => {
+  const snapshot = (patch: Partial<DiagnosticSnapshot> = {}): DiagnosticSnapshot => ({
+    type: DIAGNOSTIC_RESULT,
+    enabled: true,
+    engine: 'fake',
+    step: 2,
+    counts: { candidates: 12, numeric: 3, waiting: 0, approved: 4, unverified: 2, partial: 1, untranslated: 1, noMatch: 2, ambiguous: 1, protected: 1 },
+    ...patch,
+  });
+
+  async function openReport(initial: Record<string, unknown>, request: RequestDiagnostic) {
+    const doc = new DOMParser().parseFromString(HTML, 'text/html');
+    const fake = createFakeStorage({ [SETTINGS_KEY]: initial });
+    const log = recorder();
+    await initPopup(doc, createSettingsStore(fake.storage), log.logger, request);
+    await flush();
+    const cell = (key: string) => doc.querySelector(`[data-count="${key}"], [data-field="${key}"]`)?.textContent;
+    return {
+      doc,
+      fake,
+      cell,
+      named: log.named,
+      report: doc.getElementById('report')!,
+      status: doc.getElementById('report-status')!,
+      counts: doc.getElementById('report-counts')!,
+      toggle: doc.querySelector<HTMLButtonElement>('#diagnostic')!,
+      refresh: doc.querySelector<HTMLButtonElement>('#report-refresh')!,
+    };
+  }
+
+  it('propose un second interrupteur et un tableau pour chaque compteur', () => {
+    const doc = new DOMParser().parseFromString(HTML, 'text/html');
+    const toggle = doc.querySelectorAll('button[role="switch"]')[1]!;
+    expect(toggle.id).toBe('diagnostic');
+    expect(toggle.textContent?.trim()).toBe('Mode diagnostic');
+    expect(doc.getElementById('report')!.hidden).toBe(true);
+    expect(doc.getElementById('report-status')!.getAttribute('role')).toBe('status');
+    for (const key of COUNT_KEYS) expect(doc.querySelectorAll(`#report-counts [data-count="${key}"]`)).toHaveLength(1);
+  });
+
+  it('reste masqué et silencieux hors mode diagnostic', async () => {
+    const request = vi.fn(async () => snapshot());
+    const { report } = await openReport({}, request);
+    expect(report.hidden).toBe(true);
+    expect(request).not.toHaveBeenCalled();
+  });
+
+  it('affiche les compteurs de la page quand le mode est activé', async () => {
+    const request = vi.fn(async () => snapshot());
+    const { report, toggle, status, counts, cell, named } = await openReport({}, request);
+    toggle.click();
+    await flush();
+    expect(report.hidden).toBe(false);
+    expect(request).toHaveBeenCalledOnce();
+    expect(counts.hidden).toBe(false);
+    expect(status.textContent).toBe('12 texte(s) à traduire détecté(s) dans la page.');
+    expect(cell('approved')).toBe('4');
+    expect(cell('numeric')).toBe('3');
+    expect(cell('step')).toBe('2 sur 5');
+    expect(cell('engine')).toBe('faux moteur de test');
+    expect(named('popup:diagnostic')).toEqual([{ available: true }]);
+  });
+
+  it.each([
+    ['aucune réponse', () => Promise.reject(new Error('Could not establish connection'))],
+    ['réponse nulle', async () => null],
+    ['réponse invalide', async () => ({ ...snapshot(), counts: { approved: -1 } })],
+  ])('signale un diagnostic indisponible (%s)', async (_, request) => {
+    const { status, counts, named } = await openReport({ diagnostic: true }, request);
+    expect(status.textContent).toMatch(/^Diagnostic indisponible dans cet onglet/);
+    expect(counts.hidden).toBe(true);
+    expect(named('popup:diagnostic')).toEqual([{ available: false }]);
+  });
+
+  it('indique une traduction désactivée et une étape inconnue', async () => {
+    const disabled = await openReport({ diagnostic: true }, async () => snapshot({ enabled: false }));
+    expect(disabled.status.textContent).toBe("La traduction est désactivée : la page n'est pas analysée.");
+    expect(disabled.counts.hidden).toBe(true);
+
+    const unknown = await openReport({ diagnostic: true }, async () => snapshot({ step: 0, engine: 'none' }));
+    expect(unknown.cell('step')).toBe('inconnue');
+    expect(unknown.cell('engine')).toBe('aucun (version sans moteur)');
+  });
+
+  it('relit la page sur demande, une seule fois à la fois, et quand la traduction change', async () => {
+    let answer: (value: unknown) => void = () => undefined;
+    const request = vi.fn(() => new Promise<unknown>((resolve) => (answer = resolve)));
+    const { refresh, fake, cell } = await openReport({ diagnostic: true }, request);
+    answer(snapshot());
+    await flush();
+
+    refresh.click();
+    expect(refresh.getAttribute('aria-busy')).toBe('true');
+    refresh.click();
+    answer(snapshot({ counts: { ...snapshot().counts, approved: 7 } }));
+    await flush();
+    expect(request).toHaveBeenCalledTimes(2);
+    expect(cell('approved')).toBe('7');
+    expect(refresh.hasAttribute('aria-busy')).toBe(false);
+
+    fake.emit({ [SETTINGS_KEY]: { newValue: { diagnostic: true, enabled: false } } });
+    expect(request).toHaveBeenCalledTimes(3);
   });
 });
