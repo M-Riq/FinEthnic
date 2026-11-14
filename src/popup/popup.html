@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinEthnic — SAFINUM Éton</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>FinEthnic</h1>
+      <p class="subtitle">SAFINUM Éton</p>
+    </header>
+
+    <section class="setting" aria-labelledby="enabled-label">
+      <button type="button" class="switch" id="enabled" role="switch" aria-checked="false"
+        aria-describedby="enabled-state" data-setting="enabled" aria-disabled="true">
+        <span class="switch-label" id="enabled-label">Traduction en éton</span>
+        <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+      </button>
+      <p class="state" id="enabled-state" aria-live="polite"
+        data-on="Activée : les textes traduits s'affichent en éton."
+        data-off="Désactivée : la page reste en français.">Chargement…</p>
+    </section>
+
+    <p class="error" id="error" role="alert" hidden>Le réglage n'a pas pu être enregistré. Réessayez.</p>
+
+    <footer>
+      <p>Fonctionne seulement sur l'environnement de test SAFINUM Pay.</p>
+      <p>Aucune donnée de la page n'est envoyée ni enregistrée.</p>
+    </footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
