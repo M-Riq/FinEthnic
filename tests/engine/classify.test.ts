@@ -2,7 +2,9 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { classify, type SentenceAnalysis } from '../../src/engine/classify';
+import {
+  classify, negationIndices, questionParticleIndices, restrictionIndices, type SentenceAnalysis,
+} from '../../src/engine/classify';
 import { LEXICON } from './support';
 
 const GUARDS = ['Safinum', 'Safinum Pay', 'FCFA', 'XAF'];
@@ -83,6 +85,18 @@ describe('classify — avec le lexique de Lefff (moteur, PR 2)', () => {
   it('une forme coordonnée après un verbe à l’indicatif n’est pas un impératif', () => {
     expect(withLexicon('Le système vérifie et envoie le code.').map(summary)).toEqual(['COMPLEX_SENTENCE STATEMENT']);
     expect(withLexicon('Saisissez le montant et confirmez.').map(summary)).toEqual(['COMPLEX_SENTENCE IMPERATIVE']);
+  });
+
+  it('une lecture de nom propre de Lefff n’empêche pas l’impératif (« Viens », aussi nom de commune)', () => {
+    expect(withLexicon('Viens !').map(summary)).toEqual(['SIMPLE_SENTENCE IMPERATIVE']);
+  });
+
+  it('« personne » devant « ne » est une négation, sauf après un déterminant ; « ne … que » est repéré', () => {
+    const tokens = (text: string) => withLexicon(text)[0]?.tokens ?? [];
+    expect([...negationIndices(tokens('Personne ne paie.'))]).toEqual([0, 1]);
+    expect([...negationIndices(tokens('La personne ne paie pas.'))]).toEqual([2, 4]);
+    expect([...restrictionIndices(tokens('Il ne paie que 500 FCFA.'))]).toEqual([1, 3]);
+    expect([...questionParticleIndices(tokens('Est-ce que tu paies ?'))]).toEqual([0, 1, 2]);
   });
 
   it('sans lexique, les verbes n’ont pas de traits', () => {

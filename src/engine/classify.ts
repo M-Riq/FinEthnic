@@ -154,7 +154,9 @@ function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<Fi
     if (t.key.endsWith('ez') && !NOT_VERBS_EZ.has(t.key) && imperativeSlot(i)) add(i, true);
     // Mot que le lexique ne connaît que comme forme conjuguée (« dépasse », « envoyons »), sauf après un
     // déterminant. En tête de proposition, sans sujet, une forme d'impératif marque un impératif.
-    const readings = lexicon?.lookup(t.key) ?? [];
+    // Les lectures de nom propre de Lefff (« Viens », commune) sont écartées : les noms propres de
+    // l'application sont protégés par les gardes.
+    const readings = (lexicon?.lookup(t.key) ?? []).filter((r) => r.pos !== 'PROPN');
     if (readings.length > 0 && readings.every(isFinite) && !isWord(prev, DETERMINERS)) {
       add(i, imperativeSlot(i) && readings.some((r) => r.mood === 'IMPERATIVE'));
     }
@@ -170,11 +172,16 @@ function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<Fi
     .map(([index, imperative]) => ({ index, key: (tokens[index] as Token).key, imperative }));
 }
 
-function findNegation(tokens: Token[]): { negation: string[]; restriction: boolean; restrictiveQue: Set<number> } {
+function findNegation(tokens: Token[]): {
+  negation: string[]; marked: Set<number>; restriction: boolean; restrictiveQue: Set<number>; restrictive: Set<number>;
+} {
   const marked = new Set<number>();
   const restrictiveQue = new Set<number>();
+  const restrictive = new Set<number>();
   tokens.forEach((t, i) => {
     if (!isNe(t)) return;
+    // « Personne ne vole ton argent » : pronom négatif sujet.
+    if (tokens[i - 1]?.key === 'personne' && !isWord(tokens[i - 2], DETERMINERS)) marked.add(i - 1);
     for (let j = i + 1; j < tokens.length; j++) {
       const u = tokens[j] as Token;
       if (isWord(u, NEGATION_AFTER_NE)) {
@@ -183,6 +190,7 @@ function findNegation(tokens: Token[]): { negation: string[]; restriction: boole
       }
       if (u.key === 'que' || u.key === "qu'") {
         restrictiveQue.add(j);
+        restrictive.add(i).add(j);
         return;
       }
     }
@@ -193,8 +201,10 @@ function findNegation(tokens: Token[]): { negation: string[]; restriction: boole
   });
   return {
     negation: [...marked].sort((a, b) => a - b).map((i) => (tokens[i] as Token).key),
+    marked,
     restriction: restrictiveQue.size > 0,
     restrictiveQue,
+    restrictive,
   };
 }
 
@@ -219,6 +229,24 @@ function findQuestion(tokens: Token[]): SentenceAnalysis['question'] {
     if (j !== i && QUESTION_WORDS_IN_SITU.has(t.key)) markers.push(t.key);
   });
   return { kind: markers.length > 0 ? 'WH' : 'YES_NO', markers };
+}
+
+/** Indices des mots qui marquent la négation (« ne », « pas », « jamais », « sans »…), hors restriction « ne … que ». */
+export function negationIndices(tokens: Token[]): Set<number> {
+  return findNegation(tokens).marked;
+}
+
+/** Indices de la particule interrogative « est-ce que » (« est », « ce », « que »). */
+/** Indices de « ne » et de « que » dans chaque restriction « ne … que » (« seulement »). */
+export function restrictionIndices(tokens: Token[]): Set<number> {
+  return findNegation(tokens).restrictive;
+}
+
+/** Indices de la particule interrogative « est-ce que » (« est », « ce », « que »). */
+export function questionParticleIndices(tokens: Token[]): Set<number> {
+  const found = new Set<number>();
+  for (const i of estCeQue(tokens)) if (tokens[i]?.key === 'est') found.add(i).add(i + 1).add(i + 2);
+  return found;
 }
 
 /** Indices de « est » et de « que » dans chaque « est-ce que » / « est-ce qu' ». */
