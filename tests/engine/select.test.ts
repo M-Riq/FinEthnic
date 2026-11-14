@@ -9,6 +9,7 @@ import { ETON_RULES } from '../../src/engine/eton';
 import { INCOMPLETE_MARKER, type TextResult, type UnitResult } from '../../src/engine/select';
 import { KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
+import { GRAMMAR_RULES_PATH, readPartitives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -195,6 +196,28 @@ describe('select — termes français gardés (M20)', () => {
       expect(() => readKeptFrench(root)).toThrow(/terme en double « Compte »/u);
       write({ groups: [{ terms: ['case'] }], excluded: [{ fr: 'case' }] });
       expect(() => readKeptFrench(root)).toThrow(/à la fois gardé et exclu/u);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('readPartitives (M21)', () => {
+  it('lit la section facultative et refuse un nom en double ou mal écrit', () => {
+    const root = mkdtempSync(join(tmpdir(), 'finethnic-part-'));
+    const write = (data: unknown): void => {
+      mkdirSync(join(root, 'data/language-resources'), { recursive: true });
+      writeFileSync(join(root, GRAMMAR_RULES_PATH), JSON.stringify(data));
+    };
+    try {
+      write({ ignoredWords: [] });
+      expect(readPartitives(root)).toEqual([]);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['argent'], ref: 'D7', note: 'n' }] });
+      expect(readPartitives(root)).toEqual([{ id: 'D7-PARTITIF', nouns: ['argent'], ref: 'D7' }]);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['argent', 'argent'], ref: 'D7' }] });
+      expect(() => readPartitives(root)).toThrow(/doublon/u);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['Argent liquide'], ref: 'D7' }] });
+      expect(() => readPartitives(root)).toThrow(/minuscules/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
