@@ -16,7 +16,7 @@
 >
 > La **v0.9** (2026-11-13) enregistre la **réception de D7** (lexique Markdown, avec une section de grammaire) et la décision **Q17** : D7 reste hors Git, sous CC BY-NC-SA 4.0 ; seules les formes citées sont versionnées. Elle ajoute l'import `import-dictionary` (BM3.3) et deux choix sur les caractères (liste blanche élargie, tiret des préfixes de classe gardé).
 >
-> La **v1.0** (2026-11-14) recentre le projet sur le **moteur de traduction Français → Éton** (piste **MOT**, décisions M1–M10, §12). Le moteur est autonome : sans locutrice, il ne traduit qu'avec D7 et D8 et signale exactement ce qui manque. Ces décisions remplacent, **pour le moteur**, la validation par les locutrices (Q22) et la règle « D7 jamais dans l'extension ». PROJECT_CONTEXT reste à réviser en conséquence.
+> La **v1.0** (2026-11-14) recentre le projet sur le **moteur de traduction Français → Éton** (piste **MOT**, décisions M1–M11, §12). Le moteur est autonome : sans locutrice, il ne traduit qu'avec D7 et D8 et signale exactement ce qui manque. Ces décisions remplacent, **pour le moteur**, la validation par les locutrices (Q22) et la règle « D7 jamais dans l'extension ». PROJECT_CONTEXT reste à réviser en conséquence.
 >
 > Q2, Q3, Q4, Q5, Q9, Q10, Q14, Q16, Q17, Q19 et Q22 sont tranchées, et Q11 l'est en partie (§12).
 > **Références :** `PROJECT_CONTEXT.md` (documents D1–D8, conflits C1–C14, questions Q1–Q24) ; interface moteur ⇄ extension : `INTEGRATION_CONTRACT.md` ; organisation : `TEAM_WORKFLOW.md`.
@@ -305,7 +305,7 @@ Comptes GitHub (Q19) : responsable du projet **`@M-Riq`**, Yvan **`@ivan-14-dev`
 | Rubrique | Contenu |
 |---|---|
 | **Responsable** | Responsable du projet |
-| **Objectifs** | Traduire un texte français reçu de l'extension en éton compréhensible, **uniquement** avec D7 et D8, sans humain dans la boucle (M1–M10, §12). Le moteur n'invente aucune forme ni règle éton. Il ne présente jamais une traduction partielle comme complète. |
+| **Objectifs** | Traduire un texte français reçu de l'extension en éton compréhensible, **uniquement** avec D7 et D8, sans humain dans la boucle (M1–M11, §12). Le moteur n'invente aucune forme ni règle éton. Il ne présente jamais une traduction partielle comme complète. |
 | **Chaîne** | `classify` (forme, type, négation, question) → `normalize` → `lemmatize` → comparaison D8 → `simplify` (synonymes, puis définitions D8 ; 3 variantes au plus) → `d7-lookup` (choix déterministe, alternatives citées) → `eton-grammar` (règles de classe A seulement, avec leur référence D7) → `select-status` (SUCCESS / PARTIAL / FALLBACK / PENDING, avec la liste exacte des manques). |
 | **Livraison** | Une PR par module, empilées sur la PR #7 : MOT1 `classify` + `normalize` ; MOT2 `lemmatize` (Lefff réduit aux mots de D7/D8) ; MOT3 `simplify` ; MOT4 `d7-lookup` + `eton-grammar` ; MOT5 `select-status` + API HTTP locale ; MOT6 contrat (PR `contract:` séparée, relue par Yvan). |
 | **Fichiers** | `src/engine/*.ts` (pur, sans import Node : embarquable dans l'extension), `tests/engine/*.test.ts` |
@@ -629,4 +629,5 @@ Chaque test est rattaché à une phase. Les colonnes **Obtenu** et **Statut** se
 | 2026-11-14 | **M8** : une branche par module, empilée sur la PR #7 (pile non fusionnée). Le changement de contrat fait l'objet d'une PR séparée, relue par Yvan | ✅ Décidé par le responsable |
 | 2026-11-14 | **M9** : pas d'échéance imposée. Le moteur avance par incréments testés, une PR par module, en privilégiant la qualité. TypeScript est conservé | ✅ Décidé par le responsable |
 | 2026-11-14 | **M10** : les règles de grammaire D7 de classe B (choix ou donnée manquante, ex. « nous » ɛ̀/bì) sont inactives par défaut ; un trait qui en dépend rend le statut PARTIAL. Chaque règle B peut être activée par une décision écrite, versionnée et citant D7 ; elle passe alors en classe A | ✅ Décidé par le responsable |
+| 2026-11-14 | **M11** : « ne … que » (« Vous ne payez que 500 FCFA ») est une **restriction** (« seulement »), pas une négation. Le moteur la signale à part (`restriction`) ; elle ne déclenche pas à elle seule le FALLBACK de M7 | ✅ Décidé par le responsable |
 | 2026-11-14 | **MOT1** livré (`src/engine/normalize.ts`, `classify.ts`) : formes WORD / EXPRESSION / SIMPLE_SENTENCE / COMPLEX_SENTENCE ; types QUESTION (oui/non ou partielle) / IMPERATIVE / STATEMENT ; négation (y compris « aucun », « non », « sans »), restriction « ne … que », exclamation ; valeurs protégées (variables, montants, nombres, marques, URL, e-mails). Sur les 379 textes de D8, une seule erreur de forme (MSG-018, verbe lexical : MOT2) | En attente de relecture |
