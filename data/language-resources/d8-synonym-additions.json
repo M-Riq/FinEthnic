@@ -551,15 +551,6 @@
       "date": "2026-11-15"
     },
     {
-      "entryId": "VOC-025",
-      "text": "Taux de change",
-      "synonym": "prix",
-      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prix » → táŋ. táŋ « calcul ; nombre ; prix, coût » (D7 p. 251, n° 2931)",
-      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
       "entryId": "VOC-030",
       "text": "Frais de retrait",
       "synonym": "prix",
@@ -571,15 +562,6 @@
     {
       "entryId": "VOC-031",
       "text": "Frais de service",
-      "synonym": "prix",
-      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prix » → táŋ. táŋ « calcul ; nombre ; prix, coût » (D7 p. 251, n° 2931)",
-      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
-      "decidedBy": "responsable du projet",
-      "date": "2026-11-15"
-    },
-    {
-      "entryId": "VOC-035",
-      "text": "Sous-total",
       "synonym": "prix",
       "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prix » → táŋ. táŋ « calcul ; nombre ; prix, coût » (D7 p. 251, n° 2931)",
       "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",

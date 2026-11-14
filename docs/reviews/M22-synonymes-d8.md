@@ -1,6 +1,6 @@
 # M22 — Synonymes de D8 compatibles avec D7 (rapport à valider)
 
-**Statut :** les 50 propositions sont validées par le responsable : le 2026-11-15 (groupe A, 15, en bloc ; groupe B, 35, une par une). Elles sont ajoutées dans `data/language-resources/d8-synonym-additions.json` : 105 → 155 entrées complètes (154 après le contrôle nom + adjectif de M23, qui retire « Arrondi »). Le fichier source de D8 n'est pas modifié. Un second lot (M24, voir plus bas) ajoute 28 synonymes validés : 154 → 182 entrées complètes.
+**Statut :** les 50 propositions sont validées par le responsable : le 2026-11-15 (groupe A, 15, en bloc ; groupe B, 35, une par une). Elles sont ajoutées dans `data/language-resources/d8-synonym-additions.json` : 105 → 155 entrées complètes (154 après le contrôle nom + adjectif de M23, qui retire « Arrondi »). Le fichier source de D8 n'est pas modifié. Un second lot (M24, voir plus bas) ajoute 26 synonymes validés : 154 → 180 entrées complètes.
 
 ## Pourquoi
 
@@ -83,9 +83,9 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 | ≈ | P4-12 | Confirmer le transfert | accepter le transfert | mə̀m transfert | confirmer ≈ accepter | oui (2026-11-15) |
 | ≈ | P5-3 | Référence | numéro | nwàmɔ̀ | — | oui (2026-11-15) |
 
-## Second lot (M24) : 30 propositions, 28 validées
+## Second lot (M24) : 30 propositions, 26 validées
 
-Après le contrôle nom + adjectif de M23, les 220 entrées sans proposition ont été relues. 30 propositions de sens proche ont été testées dans le moteur : chacune rend son entrée complète, et aucune autre traduction ne change. Le responsable les a jugées une par une le 2026-11-15 : 28 « oui », 2 « non ». Résultat : 154 → 182 entrées complètes ; seules les 28 entrées validées changent.
+Après le contrôle nom + adjectif de M23, les 220 entrées sans proposition ont été relues. 30 propositions de sens proche ont été testées dans le moteur : chacune rend son entrée complète, et aucune autre traduction ne change. Le responsable les a jugées une par une le 2026-11-15 : 28 « oui », 2 « non ». Puis il a retiré 2 « oui » (n° 14 et 17, voir sous le tableau) : 26 synonymes ajoutés. Résultat : 154 → 180 entrées complètes ; seules les 26 entrées validées changent.
 
 Les entrées marquées « texte de page » (P1 à P5) sont les textes des pages de l'application.
 
@@ -104,10 +104,10 @@ Les entrées marquées « texte de page » (P1 à P5) sont les textes des pages 
 | 11 | SEC-005 | Authentification à deux facteurs | preuve | ndə̀m | « à deux facteurs » | oui (2026-11-15) |
 | 12 | SEC-010 | Données personnelles | informations | pɔ́ « nouvelle, information, message » (p. 234) | « personnelles » | oui (2026-11-15) |
 | 13 | SEC-036 | Expiration de session | fin | à-mànà « fin ; celui qui termine » (p. 75) | « de session » | oui (2026-11-15) |
-| 14 | VOC-025 | Taux de change | prix | táŋ « calcul ; nombre ; prix, coût » (p. 251) | « de change » | oui (2026-11-15) |
+| 14 | VOC-025 | Taux de change | prix | táŋ « calcul ; nombre ; prix, coût » (p. 251) | « de change » | oui, puis retiré (2026-11-15) |
 | 15 | VOC-030 | Frais de retrait | prix | táŋ | « de retrait » | oui (2026-11-15) |
 | 16 | VOC-031 | Frais de service | prix | táŋ | « de service » | oui (2026-11-15) |
-| 17 | VOC-035 | Sous-total | prix | táŋ | — | oui (2026-11-15) |
+| 17 | VOC-035 | Sous-total | prix | táŋ | — | oui, puis retiré (2026-11-15) |
 | 18 | VOC-093 | Date de la transaction | jour | à-mǒz « jour » (p. 75) | « de la transaction » | oui (2026-11-15) |
 | 19 | VOC-067 | Mobile Money | argent dans le téléphone | mɔ̀ní á ŋ̀-kwǎl (p. 192, 71, 214) | — | oui (2026-11-15) |
 | 20 | VOC-069 | Carte prépayée | carte avec argent | carte èè mɔ̀ní (p. 105, 192) | — | oui (2026-11-15) |
@@ -122,13 +122,13 @@ Les entrées marquées « texte de page » (P1 à P5) sont les textes des pages 
 | 29 | VOC-098 | Service client | aider | kà « aider » (p. 149) | un verbe remplace le nom | oui (2026-11-15) |
 | 30 | ACT-028 | Souscrire | prendre | ɲɔ̀ŋ « prendre, adopter » (p. 226) | — | oui (2026-11-15) |
 
-À savoir : 14 à 17 donnent tous táŋ ; dans l'application, ces quatre textes ne se distinguent plus.
+Retrait de 14 et 17 : ces quatre propositions donnaient toutes táŋ, si bien que sur un même écran (un reçu, par exemple) les lignes ne se distinguaient plus. Le responsable a retiré táŋ pour « Taux de change » et « Sous-total », qui restent en français ; « Frais de retrait » et « Frais de service » gardent táŋ (« prix, coût »).
 
 Propositions écartées pendant l'analyse : « petit argent » et « petit coût » (bloqués par M23) ; « Banque » → maison, « Imprimer » → mettre, « Chèque » → papier (sens trop éloigné) ; « Compte » → caisse (ì-zímí veut aussi dire « cercueil ») ; Expéditeur, Destinataire, Bénéficiaire → verbe (la personne devient une action) ; « Montant à envoyer » (bloqué par la règle infinitif + préposition).
 
 ## Entrées sans proposition (220 sur 270)
 
-Ce décompte date du premier lot ; le second lot (M24) en a débloqué 28. Aucune reformulation attestée n'a été trouvée. Principaux obstacles, mesurés sur les 270 unités non complètes (une unité peut en cumuler plusieurs) :
+Ce décompte date du premier lot ; le second lot (M24) en a débloqué 26. Aucune reformulation attestée n'a été trouvée. Principaux obstacles, mesurés sur les 270 unités non complètes (une unité peut en cumuler plusieurs) :
 
 - « de », « d' », « du », surtout entre deux noms (« numéro du bénéficiaire ») : 119, 57 et 44 unités. Classe C : D7 montre un connectif qui varie selon la classe et le ton ;
 - forme verbale non infinitive, surtout le participe passé (« compte bloqué », « argent envoyé ») : 100. D7 ne donne que l'infinitif ;
