@@ -2,7 +2,8 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BUILD_MARKER, buildExtension, findForbidden, parseArgs, ROOT } from '../../build.mjs';
+import { inflateRawSync } from 'node:zlib';
+import { BUILD_MARKER, buildExtension, findForbidden, parseArgs, ROOT, zipFiles } from '../../build.mjs';
 
 describe('findForbidden', () => {
   it('refuse le réseau, l’évaluation de code et l’injection HTML, en production comme en développement', () => {
@@ -45,10 +46,45 @@ describe('findForbidden', () => {
 
 describe('parseArgs', () => {
   it('choisit dist/ en production et dist-dev/ en développement', () => {
-    expect(parseArgs([])).toEqual({ dev: false, outDir: path.join(ROOT, 'dist') });
-    expect(parseArgs(['--dev'])).toEqual({ dev: true, outDir: path.join(ROOT, 'dist-dev') });
-    expect(parseArgs(['--out', '/tmp/x'])).toEqual({ dev: false, outDir: '/tmp/x' });
+    expect(parseArgs([])).toEqual({ dev: false, outDir: path.join(ROOT, 'dist'), zip: false });
+    expect(parseArgs(['--dev'])).toEqual({ dev: true, outDir: path.join(ROOT, 'dist-dev'), zip: false });
+    expect(parseArgs(['--out', '/tmp/x'])).toEqual({ dev: false, outDir: '/tmp/x', zip: false });
+    expect(parseArgs(['--zip'])).toEqual({ dev: false, outDir: path.join(ROOT, 'dist'), zip: true });
     expect(() => parseArgs(['--prod'])).toThrow('Argument inconnu');
+    expect(() => parseArgs(['--dev', '--zip'])).toThrow('production');
+  });
+});
+
+/** Lit une archive ZIP par son répertoire central : nom → contenu décompressé. */
+function unzip(zip: Buffer): Map<string, Buffer> {
+  const end = zip.length - 22;
+  expect(zip.readUInt32LE(end)).toBe(0x06054b50);
+  const files = new Map<string, Buffer>();
+  let at = zip.readUInt32LE(end + 16);
+  for (let i = 0; i < zip.readUInt16LE(end + 10); i++) {
+    expect(zip.readUInt32LE(at)).toBe(0x02014b50);
+    const size = zip.readUInt32LE(at + 20);
+    const nameLength = zip.readUInt16LE(at + 28);
+    const name = zip.toString('utf8', at + 46, at + 46 + nameLength);
+    const local = zip.readUInt32LE(at + 42);
+    const start = local + 30 + zip.readUInt16LE(local + 26) + zip.readUInt16LE(local + 28);
+    files.set(name, inflateRawSync(zip.subarray(start, start + size)));
+    at += 46 + nameLength;
+  }
+  return files;
+}
+
+describe('zipFiles', () => {
+  it('archive les fichiers à l’identique, dans un ordre fixe, de façon reproductible', () => {
+    const files = [
+      { name: 'popup/popup.html', data: Buffer.from('<p>Éton : mbəmbə</p>') },
+      { name: 'manifest.json', data: Buffer.from('{"manifest_version":3}') },
+    ];
+    const zip = zipFiles(files);
+    expect(zipFiles([...files].reverse()).equals(zip)).toBe(true);
+    const back = unzip(zip);
+    expect([...back.keys()]).toEqual(['manifest.json', 'popup/popup.html']);
+    for (const { name, data } of files) expect(back.get(name)?.equals(data)).toBe(true);
   });
 });
 
@@ -68,6 +104,9 @@ describe('buildExtension', () => {
     'icons/icon-16.png',
     'icons/icon-32.png',
     'icons/icon-48.png',
+    'licences/D7-LICENCE.md',
+    'licences/LEFFF-LICENSE-LGPL-LR.txt',
+    'licences/LEFFF.md',
     'manifest.json',
     'popup/popup.css',
     'popup/popup.html',

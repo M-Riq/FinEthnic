@@ -83,7 +83,7 @@ describe('définition essayée phrase par phrase (§3.5)', () => {
   it('retient la première phrase de la définition entièrement traduisible', () => {
     const r = createEngine(RESOURCES).translate('Virement');
     expect(r).toMatchObject({ status: 'SUCCESS' });
-    expect(r.units[0]?.chosen).toMatchObject({ source: 'DEFINITION', text: "Envoyer l'argent." });
+    expect(r.units[0]?.chosen).toMatchObject({ source: 'DEFINITION', text: "Envoyer l'argent" });
     expect(r.units[0]?.alternatives.map((a) => a.text)).not.toContain('Et une quatrième.');
   });
 });

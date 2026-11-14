@@ -3,7 +3,7 @@ import { createContractEngine } from '../../src/engine/contract-engine';
 import type { EnrichedEntry } from '../../src/engine/enrich';
 import type { Simplifier } from '../../src/engine/simplifier';
 import {
-  anonymize, CORPUS_KEY, corpusText, createChromeCorpusStore, type EvaluatedText, type NameReading, startCorpusSync,
+  CORPUS_KEY, corpusText, createChromeCorpusStore, type EvaluatedText, startCorpusSync, templateValues,
 } from '../../src/content/corpus-sync';
 import type { TranslationRequest } from '../../src/language/contract';
 import { MOT_TEST_RESOURCES } from '../contract/fixtures/mot-engine';
@@ -103,23 +103,11 @@ describe('stockage et filtrage des textes', () => {
     expect(text('Available balance')).toBeNull();
     expect(text('x'.repeat(2001))).toBeNull();
     expect(text('Tarif réduit')).toBe('Tarif réduit');
-    // Lectures de Lefff : « Marie », « Pierre », « Claire », « Frais » ont aussi une lecture de nom propre.
-    const proper = ['marie', 'pierre', 'claire', 'frais'];
-    const common = ['reçu', 'de', 'bonjour', 'étape', 'sur', 'titulaire', 'du', 'compte', 'bénéficiaire', 'envoyé', 'par', 'votre', 'paiement', 'est', 'confirmé', 'retrait', 'paul.'];
-    const nameReading = (key: string) => (proper.includes(key) ? 'proper' : common.includes(key) ? 'common' : 'unknown') as NameReading;
-    const anon = (t: string) => anonymize(t, { guards: ['FCFA'], nameReading });
-    expect(anon('Reçu :\u00A05\u202F000 FCFA de Paul Mbarga (+237 6 99 12 34 56, paul@exemple.cm)')).toBe(
-      'Reçu : {valeur} de {valeur} {valeur} ({valeur}, {valeur})',
+    // Les valeurs deviennent `{valeur}` (une entrée pour tous les montants) ; les noms restent.
+    expect(templateValues('Reçu :\u00A05\u202F000 FCFA de Paul Mbarga (+237 6 99 12 34 56, paul@exemple.cm)', { guards: ['FCFA'] })).toBe(
+      'Reçu : {valeur} de Paul Mbarga ({valeur}, {valeur})',
     );
-    // Après « : », en capitales, ou prénom qui est aussi un mot courant : toujours un nom.
-    expect(anon('Titulaire du compte : Mbarga')).toBe('Titulaire du compte : {valeur}');
-    expect(anon('Bénéficiaire : Marie Claire')).toBe('Bénéficiaire : {valeur} {valeur}');
-    expect(anon('Envoyé par PAUL MBARGA')).toBe('Envoyé par {valeur} {valeur}');
-    expect(anon('Bonjour Marie Claire')).toBe('Bonjour {valeur} {valeur}');
-    expect(anon('Paiement reçu de Pierre')).toBe('Paiement reçu de {valeur}');
-    expect(anon('Marie, votre paiement est confirmé')).toBe('{valeur}, votre paiement est confirmé');
-    // Début de phrase : un mot courant qui peut aussi être un nom propre reste.
-    expect(anon('Frais de retrait. Étape 2 sur 3, {nom}')).toBe('Frais de retrait. Étape {valeur} sur {valeur}, {nom}');
+    expect(templateValues('Bonjour, {nom}. Étape 2 sur 3')).toBe('Bonjour, {nom}. Étape {valeur} sur {valeur}');
     // Un texte déjà rattaché à D8 n'est pas proposé.
     const known = engine.translate(req('Frais de transfert'));
     expect(corpusText({ text: 'Frais de transfert', result: { ...known, status: 'KNOWN_UNTRANSLATED' } }, french)).toBeNull();

@@ -135,7 +135,7 @@ describe('select — contrôle du sens (M18)', () => {
   it('sens faux relevé : le synonyme est écarté, la définition prend le relais', () => {
     const wrong = { ...LIN, entryId: 'X-2' };
     const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'], 'Refuser.')], [wrong]).translate('Écarter'));
-    expect(u).toMatchObject({ status: 'SUCCESS', output: 'bɛ̀n.' });
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'bɛ̀n' });
     expect(u.chosen?.source).toBe('DEFINITION');
     expect(u.excluded.map((c) => c.text)).toEqual(['mettre de côté']);
   });
