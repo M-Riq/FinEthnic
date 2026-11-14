@@ -8,11 +8,13 @@
  *   les valeurs prises par les variables sont rendues.
  * - `findTerms` : quels termes de D8 (mots ou expressions sans verbe conjugué) apparaissent dans une
  *   phrase ? Le plus long d'abord, sans chevauchement. Avec le lexique, un mot isolé est aussi
- *   reconnu par son lemme (« débité » → « Débiter »).
+ *   reconnu par son lemme (« débité » → « Débiter »). Un mot à la fois nom et participe passé, juste
+ *   après un nom ou un auxiliaire, est lu comme participe : « argent reçu » n'est pas le nom « Reçu ».
  *
  * Module pur, sans dépendance à Node. Les entrées sont fournies par l'appelant.
  */
 import { classify } from './classify';
+import { DETERMINERS, PREPOSITIONS } from './french';
 import type { Lexicon } from './lexicon';
 import { normalize, type Token } from './normalize';
 
@@ -154,14 +156,31 @@ export function matchWhole(corpus: Corpus, tokens: readonly Token[], text: strin
   return null;
 }
 
+/**
+ * « reçu », « arrondi », « garantie » : nom ou participe passé ? Participe juste après un nom ou un
+ * auxiliaire (« l'argent reçu », « le code reçu », « il a reçu ») ; nom après un déterminant, une
+ * préposition ou en tête (« le reçu », « Reçu de transaction »).
+ */
+function participleHere(tokens: readonly Token[], i: number, lexicon: Lexicon | undefined): boolean {
+  const token = tokens[i] as Token;
+  const previous = tokens[i - 1];
+  if (!lexicon || token.kind !== 'word' || previous?.kind !== 'word') return false;
+  if (DETERMINERS.has(previous.key) || PREPOSITIONS.has(previous.key)) return false;
+  const readings = lexicon.lookup(token.key);
+  if (!readings.some((r) => r.mood === 'PAST_PARTICIPLE') || !readings.some((r) => r.pos === 'NOUN')) return false;
+  return lexicon.lookup(previous.key).some((r) => r.pos === 'NOUN' || r.pos === 'AUX');
+}
+
 /** Termes de D8 présents dans une phrase : le plus long d'abord, sans chevauchement, de gauche à droite. */
 export function findTerms(corpus: Corpus, tokens: readonly Token[], lexicon?: Lexicon): TermMatch[] {
   const found: TermMatch[] = [];
   for (let i = 0; i < tokens.length;) {
     let match: TermMatch | null = null;
+    const participle = participleHere(tokens, i, lexicon);
     for (let n = Math.min(corpus.maxTermWords, tokens.length - i); n >= 1 && !match; n--) {
       const span = tokens.slice(i, i + n);
       if (!span.every(isWordLike)) continue;
+      if (n === 1 && participle) continue;
       const entry = corpus.terms.get(keyOf(span));
       if (entry) match = { entry, start: i, end: i + n, by: 'FORM' };
     }
@@ -169,7 +188,8 @@ export function findTerms(corpus: Corpus, tokens: readonly Token[], lexicon?: Le
     const readings = lexicon && token.kind === 'word' ? lexicon.lookup(token.key) : [];
     // Un auxiliaire (« a », « est ») n'est jamais rapproché d'un terme (« Avoir »).
     if (!match && readings.length > 0 && !readings.some((r) => r.pos === 'AUX')) {
-      const lemmas = [...new Set(readings.map((r) => r.lemma.toLocaleLowerCase('fr')))];
+      const read = participle ? readings.filter((r) => r.pos !== 'NOUN') : readings;
+      const lemmas = [...new Set(read.map((r) => r.lemma.toLocaleLowerCase('fr')))];
       const entry = lemmas.map((l) => corpus.terms.get(l)).find((e) => e !== undefined);
       if (entry) match = { entry, start: i, end: i + 1, by: 'LEMMA' };
     }

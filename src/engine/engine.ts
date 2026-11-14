@@ -8,7 +8,7 @@
  */
 import { buildCorpus, type CorpusEntry } from './corpus';
 import { buildD7Index, type D7Entry } from './d7';
-import { ETON_RULES, type IgnoredWords } from './eton';
+import { type Connective, ETON_RULES, type IgnoredWords, type Partitive } from './eton';
 import type { Lexicon } from './lexicon';
 import { type SelectOptions, selectText, type TextResult, type WrongSense } from './select';
 import { simplify } from './simplify';
@@ -25,6 +25,10 @@ export interface EngineResources {
   d7: readonly D7Entry[];
   /** Articles ignorés (règle validée). */
   ignored: readonly IgnoredWords[];
+  /** Partitifs supprimés après un verbe (M21) : grammar-rules.json, `partitives`. */
+  partitives?: readonly Partitive[];
+  /** Connectifs « de » entre deux noms (M26) : grammar-rules.json, `connectives`. */
+  connectives?: readonly Connective[];
   /** Identifiants des entrées critiques de D8. */
   critical: readonly string[];
   /** Sens faux relevés (M18) : data/language-resources/sense-review.json. */
@@ -67,6 +71,8 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
   const options: SelectOptions = {
     guards, lexicon, ignored, critical: new Set(resources.critical), references, wrongSenses: resources.wrongSenses ?? [],
     kept: resources.keptFrench ?? [],
+    partitives: resources.partitives ?? [],
+    connectives: resources.connectives ?? [],
   };
   const cacheSize = engineOptions.cacheSize ?? 1000;
   const cache = new Map<string, TextResult>();
@@ -80,7 +86,8 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
     criticalEntries: options.critical?.size ?? 0,
     wrongSenses: options.wrongSenses?.length ?? 0,
     keptFrench: options.kept?.length ?? 0,
-    activeRules: Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id),
+    activeRules: [...Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id), ...(options.partitives ?? []).map((p) => p.id),
+      ...(options.connectives ?? []).map((c) => c.id)],
   };
 
   function translate(text: string): TextResult {

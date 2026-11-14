@@ -5,7 +5,8 @@
  * - chaque mot plein est cherché dans D7 (forme du texte, puis lemme de même catégorie) ;
  * - seules les règles de classe A de D7 sont appliquées : ordre sujet – verbe – compléments, articles
  *   ignorés (validé en BM3.6), « də̀ » en tête d'une question oui/non, mot interrogatif laissé en place,
- *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ;
+ *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ; « de » entre
+ *   deux noms, accordé à la classe du premier nom (M26) ;
  * - tout trait qui demande une règle de classe B (inactive par défaut, M10) ou C (non documentée) est
  *   rendu comme un manque, avec la règle et sa référence. Aucun manque → phrase complète.
  *
@@ -62,7 +63,7 @@ export const ETON_RULES = {
   ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd »)', 'Ordre et connectif accordé : un exemple seulement.'),
   INFINITIVE: rule('D7-INFINITIF-PREPOSITION', 'C', 'lexique n° 685 (exemple « ású ɲcígní ɲâg »)', 'Forme du verbe après une préposition (« pour couper ») : préfixe non documenté.'),
   NUMERAL: rule('D7-NOMBRE', 'C', '§1-7', 'Place et accord du nombre par rapport au nom : non documentés.'),
-  CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : accord non documenté.'),
+  CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : premier nom gardé en français ou de classe sans forme sûre dans D7 (2, 3, 4, 3a, 6…), second nom à voyelle ou nasale initiale (fusion non documentée), ou noms juxtaposés sans « de » (M26).'),
   VERB_FORM: rule('D7-FORME-VERBALE', 'C', '§3', 'Participe ou forme conjuguée : D7 ne donne que l’infinitif.'),
 } as const satisfies Record<string, EtonRule>;
 
@@ -73,6 +74,29 @@ export interface IgnoredWords {
   ref: string;
 }
 
+/**
+ * Partitif supprimé (grammar-rules.json, `partitives`, M21) : « du », « de l' », « de la » juste après
+ * un verbe et devant un nom de la liste fermée `nouns`. Ailleurs, « de » reste un manque.
+ */
+export interface Partitive {
+  id: string;
+  nouns: readonly string[];
+  ref: string;
+}
+
+/**
+ * Connectif (grammar-rules.json, `connectives`, M26) : « de », « du », « d' » entre deux noms rendu par la
+ * forme de la classe du premier nom (D7). Ailleurs (classe absente de `forms`, premier nom gardé en
+ * français), « de » reste un manque.
+ */
+export interface Connective {
+  id: string;
+  words: readonly string[];
+  /** Classe nominale du premier nom au singulier (« 9 » pour « 9/10 », « s.g ») → forme éton. */
+  forms: Readonly<Record<string, string>>;
+  ref: string;
+}
+
 export interface EtonOptions {
   guards?: readonly string[];
   lexicon?: Lexicon;
@@ -80,6 +104,10 @@ export interface EtonOptions {
   ignored?: readonly IgnoredWords[];
   /** Termes français gardés tels quels quand D7 ne les a pas (M20), employés comme noms. */
   kept?: readonly string[];
+  /** Partitifs supprimés après un verbe (M21). */
+  partitives?: readonly Partitive[];
+  /** Connectifs entre deux noms (M26). */
+  connectives?: readonly Connective[];
 }
 
 export type Gap =
@@ -125,6 +153,11 @@ export interface EtonSentence {
   ambiguous: string[];
   /** Termes français gardés dans la phrase (M20). */
   kept: string[];
+  /**
+   * Phrase incomplète seulement parce qu'aucun mot n'est rendu par D7 et que les termes gardés y sont seuls
+   * (« Compte ») : elle serait complète si on acceptait du français seul. Signal pour le bilan (M25).
+   */
+  keptOnly: boolean;
   /** Mots pleins trouvés dans D7 et écrits / mots pleins. */
   found: number;
   total: number;
@@ -139,6 +172,8 @@ export interface EtonText {
   gaps: Gap[];
   ambiguous: string[];
   kept: string[];
+  /** Incomplet, et chaque phrase incomplète l'est seulement faute de mot de D7 à côté des termes gardés (M25). */
+  keptOnly: boolean;
   found: number;
   total: number;
 }
@@ -160,7 +195,8 @@ const IRREGULAR_IMPERATIVES: Readonly<Record<string, string>> = { aller: 'kɛ̀n
 type Role =
   | { kind: 'LEX' }
   | { kind: 'VERB'; lemma: string | null; finite: number | null }
-  | { kind: 'PUNCT' | 'PROTECTED' | 'DROP' | 'PARTICLE' | 'NEG' | 'RESTRICT' | 'SUBJECT' | 'AUXILIARY' | 'POSSESSIVE' | 'OBJECT' };
+  | { kind: 'DROP'; rule?: EtonRule }
+  | { kind: 'PUNCT' | 'PROTECTED' | 'PARTICLE' | 'NEG' | 'RESTRICT' | 'SUBJECT' | 'AUXILIARY' | 'POSSESSIVE' | 'OBJECT' };
 
 function wordAt(tokens: readonly Token[], i: number): Token | undefined {
   const t = tokens[i];
@@ -168,7 +204,7 @@ function wordAt(tokens: readonly Token[], i: number): Token | undefined {
 }
 
 /** Rôle de chaque jeton : mot à chercher dans D7, mot grammatical rendu par une règle, valeur protégée… */
-function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: ReadonlySet<string>): Role[] {
+function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: ReadonlySet<string>, partitives: readonly Partitive[] = []): Role[] {
   const { tokens } = s;
   const out: Role[] = tokens.map((t) => (t.kind === 'punct' ? { kind: 'PUNCT' } : t.kind === 'word' ? { kind: 'LEX' } : { kind: 'PROTECTED' }));
   const set = (i: number, role: Role): void => {
@@ -196,6 +232,18 @@ function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: Reado
       }
       set(main.index, { kind: 'VERB', lemma: main.lemma, finite: v.index });
     } else set(v.index, { kind: 'VERB', lemma: v.features?.lemma ?? null, finite: v.index });
+  }
+  for (const p of partitives) {
+    const rule: EtonRule = { id: p.id, ruleClass: 'A', ref: p.ref, description: 'Partitif après un verbe (« du », « de l’ », « de la ») : absent en éton.' };
+    tokens.forEach((t, i) => {
+      if (t.kind !== 'word' || out[i]?.kind !== 'LEX') return;
+      const article = t.key === 'de' ? wordAt(tokens, i + 1) : undefined;
+      const span = t.key === 'du' ? 1 : article && (article.key === "l'" || article.key === 'la') ? 2 : 0;
+      const noun = wordAt(tokens, i + span);
+      const before = out[i - 1]?.kind === 'VERB' || verbal(i - 1);
+      if (span === 0 || !noun || !p.nouns.includes(noun.key) || !before) return;
+      for (let k = i; k < i + span; k++) set(k, { kind: 'DROP', rule });
+    });
   }
   tokens.forEach((t, i) => {
     if (t.kind !== 'word') return;
@@ -394,6 +442,18 @@ function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undef
   return { rules, irregular: null };
 }
 
+/**
+ * Second nom du connectif commençant par une consonne ordinaire (M26). Devant une voyelle ou une nasale
+ * syllabique, D7 n'écrit pas le connectif à part : son ton se fond dans le nom (ìkǔm í mbâz « souche de
+ * maïs », mais ìkùm ílə́ « souche d'arbre », n° 890 ; ǹtùdà ḿmûŋ, n° 2173), fusion non documentée.
+ */
+function consonantInitial(form: string): boolean {
+  const d = form.normalize('NFD').toLocaleLowerCase('fr');
+  const first = d[0] ?? '';
+  if (/[aeiouɛəɔ]/u.test(first)) return false;
+  return !(/[mnŋɲ]/u.test(first) && /\p{Mn}/u.test(d[1] ?? ''));
+}
+
 const ATTACHED = new Set(['.', ',', '…', ')', '...']);
 
 function join(parts: readonly { text: string; punct: boolean }[]): string {
@@ -406,12 +466,15 @@ function join(parts: readonly { text: string; punct: boolean }[]): string {
   return out;
 }
 
-/** Construit la phrase éton d'une phrase française analysée. */
-export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOptions = {}): EtonSentence {
+/**
+ * Construit la phrase éton d'une phrase française analysée. `keptAlone` (interne) : accepter une phrase
+ * sans mot de D7, pour savoir si les termes gardés seuls sont le seul manque (`keptOnly`).
+ */
+export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOptions = {}, keptAlone = false): EtonSentence {
   const { tokens } = s;
   const { lexicon } = options;
   const ignoredWords = new Set((options.ignored ?? []).flatMap((g) => g.words));
-  const roleList = roles(s, lexicon, ignoredWords);
+  const roleList = roles(s, lexicon, ignoredWords, options.partitives);
   const present = pronounPresent(s, roleList, lexicon);
   const subjects = new Map<number, EtonPiece>();
   const pieces: EtonPiece[] = [];
@@ -422,6 +485,9 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   let total = 0;
   /** Jetons rendus par une entrée de D7 (une expression peut contenir « rien »). */
   const consumed = new Set<number>();
+  /** Classe nominale de D7 des noms rendus, et manque de chaque mot absent (connectif, M26). */
+  const nounClasses = new Map<EtonPiece, string>();
+  const wordGaps = new Map<EtonPiece, Gap>();
   const gap = (fr: string, r: EtonRule): void => {
     if (!gaps.some((g) => g.kind === 'RULE' && g.rule === r && g.fr === fr)) gaps.push({ kind: 'RULE', fr, rule: r });
   };
@@ -446,7 +512,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         continue;
       case 'DROP': {
         const g = (options.ignored ?? []).find((x) => x.words.includes(t.key));
-        if (g) applied.add({ id: g.id, ruleClass: 'A', ref: g.ref, description: 'Mot ignoré : l’éton n’a pas d’article.' });
+        if (role.rule) applied.add(role.rule);
+        else if (g) applied.add({ id: g.id, ruleClass: 'A', ref: g.ref, description: 'Mot ignoré : l’éton n’a pas d’article.' });
         i++;
         continue;
       }
@@ -504,9 +571,12 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     }
     const fr = tokens.slice(i, hit?.end ?? i + 1).map((x) => x.text).join(' ');
     if (!hit) {
-      pieces.push({ fr, eto: null, source: 'MISSING', ref: null });
+      const missing: EtonPiece = { fr, eto: null, source: 'MISSING', ref: null };
       const rejected = d7.get(t.key).map((x) => ({ eto: x.eto, category: x.category, ref: x.ref }));
-      gaps.push({ kind: 'WORD', fr, rejected });
+      const wordGap: Gap = { kind: 'WORD', fr, rejected };
+      pieces.push(missing);
+      gaps.push(wordGap);
+      wordGaps.set(missing, wordGap);
       i++;
       continue;
     }
@@ -544,13 +614,15 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       if (highInitial(entry.eto)) piece.downstep = true;
       applied.add(ETON_RULES.PRESENT_PRONOUN);
     }
+    if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
     pieces.push(piece);
     i = hit.end;
   }
 
   // Phrase sans aucun mot rendu par D7 (« Code PIN ») : les termes gardés redeviennent des manques,
   // pour ne pas présenter du français comme une traduction.
-  if (found === 0) {
+  const keptWithoutD7 = found === 0 && pieces.some((p) => p.source === 'FRENCH');
+  if (keptWithoutD7 && !keptAlone) {
     for (const p of pieces) {
       if (p.source !== 'FRENCH') continue;
       p.source = 'MISSING';
@@ -560,19 +632,60 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     }
   }
 
+  // « de » entre deux noms (M26) : forme de la classe du premier nom, rendu par D7 avec sa classe.
+  const connectiveRules = new Map<Connective, EtonRule>();
+  for (let k = 1; k + 1 < pieces.length; k++) {
+    const p = pieces[k] as EtonPiece;
+    const a = pieces[k - 1] as EtonPiece;
+    const b = pieces[k + 1] as EtonPiece;
+    if (p.source !== 'MISSING' || a.source !== 'D7' || a.eto === null || a.category !== 'NOM') continue;
+    if (!(b.source === 'D7' || b.source === 'FRENCH') || b.eto === null || b.category !== 'NOM' || !consonantInitial(b.eto)) continue;
+    const key = p.fr.toLocaleLowerCase('fr').replace(/’/gu, "'");
+    const nounClass = nounClasses.get(a)?.split('/')[0];
+    const c = nounClass === undefined ? undefined : (options.connectives ?? []).find((x) => x.words.includes(key) && x.forms[nounClass] !== undefined);
+    if (c === undefined || nounClass === undefined) continue;
+    p.eto = c.forms[nounClass] as string;
+    p.source = 'RULE';
+    p.ref = c.ref;
+    const g = wordGaps.get(p);
+    if (g) gaps.splice(gaps.indexOf(g), 1);
+    let r = connectiveRules.get(c);
+    if (!r) {
+      r = { id: c.id, ruleClass: 'A', ref: c.ref, description: 'Connectif « de » entre deux noms : forme de la classe du premier nom.' };
+      connectiveRules.set(c, r);
+    }
+    applied.add(r);
+    found++;
+  }
+
   // Traits de la phrase.
   const negation = [...negationIndices(tokens)].filter((k) => !consumed.has(k));
   if (negation.length > 0) gap(negation.map((k) => (tokens[k] as Token).key).join(' '), s.type === 'IMPERATIVE' ? ETON_RULES.NEGATION_IMPERATIVE : ETON_RULES.NEGATION);
   if (s.restriction) gap('ne … que', ETON_RULES.RESTRICTION);
   const lexical = pieces.filter((p) => p.source === 'D7' || p.source === 'MISSING' || p.source === 'FRENCH');
+  // Un terme gardé est un nom : « frais » + adjectif de D7 demande aussi la règle d'accord.
+  const rendered = (p: EtonPiece | undefined): p is EtonPiece => p !== undefined && (p.source === 'D7' || p.source === 'FRENCH');
+  // Adjectif français rendu par un adverbe de D7 (« petit » → cə̀càd « petit, peu ») : même règle qu'un adjectif.
+  const adjectival = (p: EtonPiece): boolean => p.category === 'ADJ' || (p.category === 'ADV' && !p.fr.includes(' ')
+    && (lexicon?.lookup(p.fr.toLocaleLowerCase('fr')) ?? []).some((r) => r.pos === 'ADJ'));
+  for (let k = 0; k < pieces.length; k++) {
+    const p = pieces[k] as EtonPiece;
+    if (!rendered(p) || !adjectival(p)) continue;
+    for (const dir of [-1, 1]) {
+      // « nombre plus facile » : un adverbe entre le nom et l'adjectif ne dispense pas de la règle.
+      let j = k + dir;
+      while (rendered(pieces[j]) && pieces[j]?.category === 'ADV' && !adjectival(pieces[j] as EtonPiece)) j += dir;
+      const n = pieces[j];
+      if (rendered(n) && n.category === 'NOM') gap(dir < 0 ? `${n.fr} ${p.fr}` : `${p.fr} ${n.fr}`, ETON_RULES.ADJECTIVE);
+    }
+  }
   for (let k = 1; k < pieces.length; k++) {
     const a = pieces[k - 1] as EtonPiece;
     const b = pieces[k] as EtonPiece;
-    // Un terme gardé est un nom : « frais » + adjectif de D7 demande aussi la règle d'accord.
-    if ((a.source !== 'D7' && a.source !== 'FRENCH') || (b.source !== 'D7' && b.source !== 'FRENCH')) continue;
+    if (!rendered(a) || !rendered(b)) continue;
     const pair = [a.category, b.category];
-    if (pair.includes('NOM') && pair.includes('ADJ')) gap(`${a.fr} ${b.fr}`, ETON_RULES.ADJECTIVE);
-    else if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
+    if (pair.includes('NOM') && (adjectival(a) || adjectival(b))) continue;
+    if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
     else if (PREPOSITIONS.has(a.fr.toLocaleLowerCase('fr')) && b.category === 'VERBE') gap(`${a.fr} ${b.fr}`, ETON_RULES.INFINITIVE);
     else if (pair[0] === 'NOM' && pair[1] === 'NOM') gap(`${a.fr} ${b.fr}`, ETON_RULES.CONNECTIVE);
   }
@@ -588,6 +701,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     gaps,
     ambiguous: pieces.filter((p) => p.source === 'D7' && ((p.senses ?? 1) > 1 || p.qualifier || p.homograph)).map((p) => p.fr),
     kept: pieces.filter((p) => p.source === 'FRENCH').map((p) => p.fr),
+    keptOnly: keptWithoutD7 && !keptAlone && buildSentence(s, d7, options, true).eto !== null,
     found,
     total,
   };
@@ -606,6 +720,7 @@ export function buildEton(text: string, d7: D7Index, options: EtonOptions = {}):
     gaps: sentences.flatMap((s) => s.gaps),
     ambiguous: sentences.flatMap((s) => s.ambiguous),
     kept: sentences.flatMap((s) => s.kept),
+    keptOnly: !complete && sentences.every((s) => s.eto !== null || s.keptOnly),
     found: sentences.reduce((n, s) => n + s.found, 0),
     total: sentences.reduce((n, s) => n + s.total, 0),
   };

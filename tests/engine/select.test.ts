@@ -6,9 +6,12 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { CorpusEntry } from '../../src/engine/corpus';
 import { createEngine, type EngineResources } from '../../src/engine/engine';
 import { ETON_RULES } from '../../src/engine/eton';
-import { INCOMPLETE_MARKER, type TextResult, type UnitResult } from '../../src/engine/select';
-import { KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH } from '../../scripts/lib/engine-load';
+import { INCOMPLETE_MARKER, onlyFrenchKept, type TextResult, type UnitResult } from '../../src/engine/select';
+import {
+  KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
+} from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
+import { GRAMMAR_RULES_PATH, readConnectives, readPartitives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -161,6 +164,29 @@ describe('select — contrôle du sens (M18)', () => {
     }
   });
 
+  it('d8-synonym-additions.json : ajoute le synonyme validé après ceux de D8, refuse un texte changé ou un doublon', () => {
+    const root = mkdtempSync(join(tmpdir(), 'finethnic-syn-'));
+    const add = { entryId: 'VOC-039', text: 'Tarif', synonym: 'coût', reason: 'r', ref: 'M22', decidedBy: 'responsable', date: '2026-11-15' };
+    const write = (additions: unknown[]): void => {
+      mkdirSync(join(root, 'data/language-resources'), { recursive: true });
+      writeFileSync(join(root, SYNONYM_ADDITIONS_PATH), JSON.stringify({ additions }));
+    };
+    try {
+      write([add]);
+      const corpus = withSynonymAdditions(root, RESOURCES.corpus);
+      expect(corpus.find((e) => e.id === 'VOC-039')?.synonyms).toEqual(['prix', 'argent', 'coût']);
+      expect(RESOURCES.corpus.find((e) => e.id === 'VOC-039')?.synonyms).toEqual(['prix', 'argent']);
+      write([{ ...add, text: 'Tarifs' }]);
+      expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/le texte de VOC-039 est « Tarif »/u);
+      write([{ ...add, synonym: 'Prix' }]);
+      expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/déjà un synonyme de VOC-039/u);
+      write([{ ...add, entryId: 'X-9' }]);
+      expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/entrée de D8 inconnue X-9/u);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
   it('un sens faux relevé ne concerne que son entrée de D8', () => {
     const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'])], [LIN]).translate('Écarter'));
     expect(u).toMatchObject({ status: 'SUCCESS', output: 'lìŋ', excluded: [] });
@@ -182,6 +208,18 @@ describe('select — termes français gardés (M20)', () => {
     expect(u).toMatchObject({ status: 'SUCCESS', output: 'lóm reçu', reasons: ['FRENCH_KEPT'] });
   });
 
+  it('un terme gardé seul reste non traduit, signalé ONLY_FRENCH_KEPT pour être compté à part (M25)', () => {
+    const engine = withKept([entry('X-6', 'Le reçu', []), entry('X-7', 'Le reçu du bordereau', [])]);
+    const alone = engine.translate('Le reçu');
+    expect(alone).toMatchObject({ status: 'PARTIAL', output: null });
+    expect(alone.units[0]?.reasons).toContain('ONLY_FRENCH_KEPT');
+    expect(onlyFrenchKept(alone)).toBe(true);
+    const missing = engine.translate('Le reçu du bordereau');
+    expect(missing.status).not.toBe('SUCCESS');
+    expect(missing.units[0]?.reasons).not.toContain('ONLY_FRENCH_KEPT');
+    expect(onlyFrenchKept(missing)).toBe(false);
+  });
+
   it('kept-french-terms.json : refuse un terme en double ou à la fois gardé et exclu', () => {
     const root = mkdtempSync(join(tmpdir(), 'finethnic-kept-'));
     const write = (data: unknown): void => {
@@ -195,6 +233,34 @@ describe('select — termes français gardés (M20)', () => {
       expect(() => readKeptFrench(root)).toThrow(/terme en double « Compte »/u);
       write({ groups: [{ terms: ['case'] }], excluded: [{ fr: 'case' }] });
       expect(() => readKeptFrench(root)).toThrow(/à la fois gardé et exclu/u);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('readPartitives (M21)', () => {
+  it('lit la section facultative et refuse un nom en double ou mal écrit', () => {
+    const root = mkdtempSync(join(tmpdir(), 'finethnic-part-'));
+    const write = (data: unknown): void => {
+      mkdirSync(join(root, 'data/language-resources'), { recursive: true });
+      writeFileSync(join(root, GRAMMAR_RULES_PATH), JSON.stringify(data));
+    };
+    try {
+      write({ ignoredWords: [] });
+      expect(readPartitives(root)).toEqual([]);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['argent'], ref: 'D7', note: 'n' }] });
+      expect(readPartitives(root)).toEqual([{ id: 'D7-PARTITIF', nouns: ['argent'], ref: 'D7' }]);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['argent', 'argent'], ref: 'D7' }] });
+      expect(() => readPartitives(root)).toThrow(/doublon/u);
+      write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['Argent liquide'], ref: 'D7' }] });
+      expect(() => readPartitives(root)).toThrow(/minuscules/u);
+      // Connectifs (M26) : une forme d'un seul mot par classe.
+      expect(readConnectives(root)).toEqual([]);
+      write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7', note: 'n' }] });
+      expect(readConnectives(root)).toEqual([{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7' }]);
+      write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de'], forms: { '9': 'ì mɔ̀ní' }, ref: 'D7' }] });
+      expect(() => readConnectives(root)).toThrow(/une forme éton/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

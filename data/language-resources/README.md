@@ -8,8 +8,9 @@ Ressources utilisées **pendant la préparation** de la bibliothèque. Elles ne 
 |---|---|---|---|
 | `duplicate-review.json` | Listes tenues à la main pour le rapport de doublons (BM2.4) | Oui | BM2 |
 | `grammar-rules.json` | Règles de formation des phrases de D7, utilisées par la cascade (BM3.6, §3.10). Format : `../schemas/grammar-rules.schema.json` | Oui | **Vide** jusqu'à Q23 (règles à transcrire) |
-| `sense-review.json` | Sens faux relevés (M18) : dans une entrée de D8, une forme éton citée de D7 qui trahit le sens (« Rejeter » → « mettre de côté » → lìŋ « épargner »). Le moteur écarte ces candidats, puis essaie les autres synonymes, la définition, et laisse le français si rien de juste ne reste. Chaque ligne : `entryId`, `fr`, `eto`, `ref` (page et n° de D7), `reason` | Oui | 1 sens relevé (2026-11-14) |
+| `sense-review.json` | Sens faux relevés (M18) : dans une entrée de D8, une forme éton citée de D7 qui trahit le sens (« Rejeter » → « mettre de côté » → lìŋ « épargner »). Le moteur écarte ces candidats, puis essaie les autres synonymes, la définition, et laisse le français si rien de juste ne reste. Chaque ligne : `entryId`, `fr`, `eto`, `ref` (page et n° de D7), `reason` | Oui | 4 sens relevés : « Rejeter » → lìŋ (2026-11-14), « Retourner » → vyàŋlà, « Institution de microfinance » → ì-zímí (« caisse, cercueil »), « Opposition » → bán (« arrêt, gare ») (2026-11-15) |
 | `kept-french-terms.json` | Termes français gardés tels quels dans la phrase éton (M20) : notions financières et numériques modernes absentes de D7 (compte, code, frais, mot de passe, SMS…), en groupes (`groups[].terms`), avec les mots exclus et leur raison (`excluded`). Gardés seulement comme noms et toujours signalés (`FRENCH_KEPT`) ; une phrase sans aucun mot rendu par D7 n'est pas présentée comme traduite | Oui | 76 termes validés (2026-11-15) |
+| `d8-synonym-additions.json` | Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7 (verbe + nom, nom « á » nom, « pour rien »…). Le moteur les lit après les synonymes de D8, sans modifier D8. Chaque ligne : `entryId`, `text` (texte de D8, vérifié au chargement), `synonym`, `reason`, `ref`, `decidedBy`, `date`. Propositions et décisions : `docs/reviews/M22-synonymes-d8.md` | Oui | 76 synonymes validés : 50 en M22 (groupe A et groupe B), 26 en M24 (second lot) |
 | `raw/` | D7 tel que reçu (`dictionnaire_eton_lexique.md`), son extraction `dictionary.json` et les rapports `import-report.md` et `cascade-report.md`. Format de l'extraction : `../schemas/dictionary.schema.json` | **Non** (`.gitignore`) | D7 reçu le 2026-11-13 |
 
 ## Provenance et licence
@@ -33,11 +34,13 @@ Lit la feuille « Éton → Français » du lexique (une ligne par entrée, avec
 
 ## Formats (provisoires jusqu'à D7)
 
-**Dictionnaire** (`dictionary.schema.json`) : `kind` (`test` ou `d7`), `source`, puis `entries[]` avec `fr` (mot ou expression française), `eto` (forme éton, NFC), `category` (`NOM`, `VERBE`, `ADJ`…), `gloss` (sens) et `ref` (page ou entrée de D7, obligatoire). Un mot à plusieurs sens a une ligne par sens.
+**Dictionnaire** (`dictionary.schema.json`) : `kind` (`test` ou `d7`), `source`, puis `entries[]` avec `fr` (mot ou expression française), `eto` (forme éton, NFC), `category` (`NOM`, `VERBE`, `ADJ`…), `gloss` (sens), `ref` (page ou entrée de D7, obligatoire) et, pour un nom, `nounClass` (classe nominale de D7, ex. `7/8`, `s.g`). Un mot à plusieurs sens a une ligne par sens.
 
 **Règles** (`grammar-rules.schema.json`) :
 - `rules[]` : `id`, `description`, `ref` (référence D7 obligatoire), `pattern` (catégories dans l'ordre français, ex. `["NOM", "ADJ"]`) et `order` (positions de sortie, ex. `[2, 1]`). Une règle décrit **seulement l'ordre des mots** ; tons, classes nominales et accords restent du ressort de la locutrice (R20).
 - `ignoredWords[]` : groupes de mots français (`words`) sans équivalent à traduire (articles…), chaque groupe avec une `ref` et une `note`. Sans entrée ici, ces mots sont signalés comme manquants.
+- `partitives[]` (facultatif, M21) : `id`, `nouns` (liste fermée de noms en minuscules), `ref` et `note`. Le moteur supprime « du », « de l' », « de la » juste après un verbe et devant un de ces noms (« envoyer de l'argent » → lóm mɔ̀ní). Ailleurs, « de » reste un manque, sauf entre deux noms (`connectives[]`).
+- `connectives[]` (facultatif, M26) : `id`, `words` (« de », « du », « d' »), `forms` (forme du connectif par classe nominale de D7, au singulier : `{"1": "à", "9": "ì"…}`), `ref` et `note`. Entre deux noms, le moteur écrit la forme de la classe du premier nom (« prix de l'argent » → táŋ ì mɔ̀ní). « de » reste un manque si le premier nom est gardé en français ou d'une classe absente de `forms`, ou si le second nom commence par une voyelle ou une nasale syllabique (fusion non documentée).
 
 Le mini-dictionnaire et les règles **de test** sont dans `tests/language/fixtures/cascade/`. Leurs formes sont visiblement fictives (`⟦TEST:…⟧`) et ne doivent jamais entrer dans `data/`.
 

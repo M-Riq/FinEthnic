@@ -122,6 +122,52 @@ describe('buildEton — termes français gardés (M20)', () => {
   });
 });
 
+describe('buildEton — partitif après un verbe (M21)', () => {
+  const PARTITIVES = [{ id: 'D7-PARTITIF', nouns: ['argent', 'sel'], ref: 'D7 p. 81 (lexique n° 153)' }];
+  const part = (text: string): EtonText => buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, partitives: PARTITIVES });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('« de l’ », « du » après un verbe et devant un nom de la liste disparaissent', () => {
+    const r = part("Envoyer de l'argent");
+    expect(r).toMatchObject({ eto: 'lóm mɔ̀ní', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-PARTITIF');
+    expect(gapIds(part('Envoyer du sel'))).toEqual(['WORD:sel']);
+  });
+
+  it('« de » reste un manque ailleurs : nom hors liste, après un nom, en début de phrase', () => {
+    expect(gapIds(part('Retirer du compte'))).toContain('WORD:du');
+    expect(gapIds(part("Le prix de l'argent"))).toEqual(['WORD:de']);
+    expect(gapIds(part("De l'argent"))).toEqual(['WORD:De']);
+    expect(applied(part("Le prix de l'argent"))).not.toContain('D7-PARTITIF');
+  });
+});
+
+describe('buildEton — connectif « de » entre deux noms (M26)', () => {
+  const CONNECTIVES = [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', 'du', "d'"], forms: { '1': 'à', '9': 'ì', 's.g': 'à' }, ref: 'D7 p. 196 (lexique n° 1991)' }];
+  const conn = (text: string, kept: string[] = []): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, connectives: CONNECTIVES, kept });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('la forme suit la classe du premier nom de D7 ; le second peut être un terme gardé', () => {
+    const r = conn("Le prix de l'argent");
+    expect(r).toMatchObject({ eto: 'táŋ ì mɔ̀ní', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-CONNECTIF-CLASSE');
+    expect(conn("L'enfant du prix").eto).toBe('m-wán à táŋ');
+    expect(conn("L'argent du compte", ['compte']).eto).toBe('mɔ̀ní à compte');
+  });
+
+  it('« de » reste un manque : classe sans forme, premier nom gardé en français, pas entre deux noms', () => {
+    expect(gapIds(conn("L'arbre de l'argent"))).toEqual(['WORD:de']);
+    expect(gapIds(conn("Le compte de l'argent", ['compte']))).toEqual(['WORD:de']);
+    expect(gapIds(conn("Envoyer de l'argent"))).toEqual(['WORD:de']);
+    expect(applied(conn("L'arbre de l'argent"))).not.toContain('D7-CONNECTIF-CLASSE');
+  });
+
+  it('pas de connectif séparé devant un second nom à voyelle initiale : la fusion n’est pas documentée', () => {
+    expect(gapIds(conn("L'enfant de l'arbre"))).toEqual(['WORD:de']);
+  });
+});
+
 describe('buildEton — manques signalés, jamais inventés', () => {
   it('un mot absent de D7 donne un brouillon, pas une traduction', () => {
     const r = run('Envoyer le code');
@@ -173,6 +219,15 @@ describe('buildEton — manques signalés, jamais inventés', () => {
     expect(gapIds(run("l'argent à envoyer"))).toEqual([ETON_RULES.INFINITIVE.id]);
     // D7 : « íꜜlə́ á sí » (sous l'arbre) — l'adverbe suit le nom.
     expect(gapIds(run("sous l'arbre"))).toEqual([ETON_RULES.POSTPOSITION.id]);
+  });
+
+  it('nom + adjectif : aussi pour un adjectif rendu par un adverbe de D7, ou séparé du nom par un adverbe', () => {
+    // D7 classe cə̀càd « petit, peu » parmi les adverbes : l'ordre avec le nom n'est pas attesté pour autant.
+    expect(gapIds(run('petit argent'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    expect(gapIds(run('argent petit'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    expect(gapIds(run('prix plus facile'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    // Un vrai adverbe à côté d'un nom n'est pas un adjectif : « pour rien » reste rendu.
+    expect(run('Argent pour rien').eto).toBe('mɔ̀ní á pûpùd');
   });
 
   it('signale le sens à confirmer : entrée à plusieurs sens', () => {

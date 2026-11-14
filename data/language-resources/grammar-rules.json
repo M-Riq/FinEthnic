@@ -14,6 +14,42 @@
       "note": "L'éton n'a pas d'article : dans les phrases d'exemple de D7, le nom figure seul. « un » et « une » ne sont pas ignorés, car ils peuvent signifier le nombre 1 (D7 p. 238, lexique n° 2716). Validé par le responsable le 2026-11-13."
     }
   ],
+  "partitives": [
+    {
+      "id": "D7-PARTITIF",
+      "nouns": [
+        "argent",
+        "sel",
+        "maïs",
+        "vin",
+        "lait",
+        "travail"
+      ],
+      "ref": "D7, lexique : n° 153 p. 81 (« Ajoute du sel dans la sauce. » bág ŋ́kǔ á ꜜɲɲám), n° 330 p. 94 (« Elle braise du maïs. » àtə́ bùm mbâz), n° 1015 p. 135 (« Elle lui a donné du travail. » àvə́ ɲə̂ bìsá), n° 1606 p. 173 (« J’ai mis de côté du maïs… » … lìŋ mbáz…), n° 1764 p. 183 (« Verse-moi du lait maternel… » twánɔ̂ mà mə̀bé…), n° 1990 p. 196 (« Onguene nous a réservé du vin. » òŋgə́nə̂ ànáy bî mə̀jɔ̀g)",
+      "note": "Partitif « du », « de l’ », « de la » juste après un verbe et devant un de ces noms : absent en éton, comme « des ». Liste fermée : « argent » (D8) et les noms de masse des exemples de D7. Ailleurs, « de » reste un manque : « retirer du compte » (provenance) et « nom du bénéficiaire » (connectif non documenté, classe C). Validé par le responsable le 2026-11-15."
+    }
+  ],
+  "connectives": [
+    {
+      "id": "D7-CONNECTIF-CLASSE",
+      "words": [
+        "de",
+        "du",
+        "d'"
+      ],
+      "forms": {
+        "1": "à",
+        "5": "ɛ́",
+        "7": "í",
+        "8": "bí",
+        "9": "ì",
+        "10": "í",
+        "s.g": "à"
+      },
+      "ref": "D7, lexique : n° 1617 p. 174 (mòd à ndá « le bailleur », litt. personne de la maison, cl. 1), n° 592 p. 111 (ɛ̀ndúmgí ɛ́ ndá « un coin de la maison », cl. 5), n° 767 p. 122 (ìbúg í ndá « le mot ndá », cl. 7), n° 233 p. 88 (bìcàgà bí síl « restes des termites », cl. 8), n° 1678 p. 178 (mbàm ì mòd « un homme généreux », cl. 9), n° 2518 p. 226 (ɲǒl í dǒb « couleur du ciel », cl. 10), n° 221 p. 87 (bə̀mə̀ à mòd « quelqu’un de soucieux », sans classe s.g), n° 890 p. 129 (ìkǔm í mbâz « souche de maïs », mais ìkùm ílə́ « souche d’arbre ») ; esquisse grammaticale §2 (marques du sujet de mêmes formes)",
+      "note": "« de », « du », « d’ » entre deux noms : le connectif s’accorde avec la classe du premier nom (classe au singulier de D7, « 9 » pour « 9/10 »). Formes relevées dans les exemples du lexique de D7 (nom + connectif + nom) : cl. 1 à (3), cl. 5 ɛ́ (4), cl. 7 í (10), cl. 8 bí (2), cl. 9 ì (4), cl. 10 í (3), sans classe à (6) ; ce sont les formes des marques du sujet de l’esquisse §2. Les « á » des mêmes relevés traduisent « sur », « à » (« porter l’enfant sur le dos », n° 213). Classe 6 écartée : mə́ (5 exemples) est contredit par mə̀màn mí sá « la fin du travail » (n° 66). Classes 2, 3, 4, 3a : moins de deux exemples ; dans tous ces cas, « de » reste un manque, comme après un terme gardé en français (classe inconnue). Devant un second nom à voyelle initiale ou à nasale syllabique, le connectif se fond dans ce nom (ìkùm ílə́, n° 890 ; ǹtùdà ḿmûŋ, n° 2173) sans règle écrite : « de » reste un manque. Validé par le responsable le 2026-11-15 (M26)."
+    }
+  ],
   "rules": [
     {
       "id": "D7-VERBE-NOM",

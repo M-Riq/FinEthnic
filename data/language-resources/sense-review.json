@@ -9,6 +9,33 @@
       "reason": "D7 : lìŋ « épargner, mettre de côté ». Dans « Rejeter », « mettre de côté » veut dire écarter une demande, pas épargner de l'argent.",
       "decidedBy": "responsable du projet",
       "date": "2026-11-14"
+    },
+    {
+      "entryId": "ACT-051",
+      "fr": "Retourner",
+      "eto": "vyàŋlà",
+      "ref": "D7 p. 269 (lexique n° 3258)",
+      "reason": "D7 : vyàŋlà « retourner, renverser » (« Elle a retourné son enfant dans le lit »). Le bouton « Retourner » veut dire revenir à l'écran d'avant (D8), pas renverser un objet. Le synonyme de D8 « revenir » donne dúgnì « revenir, rentrer » (D7 p. 104, n° 483).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-066",
+      "fr": "caisse du village",
+      "eto": "ì-zímí",
+      "ref": "D7 p. 144 (lexique n° 1166)",
+      "reason": "D7 : ì-zímí « caisse, cercueil ». Avec le connectif (M26), « caisse du village » donnerait ì-zímí í à-tán, qui peut se lire « cercueil du village » : sens trompeur pour une institution de microfinance.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-032",
+      "fr": "arrêt",
+      "eto": "bán",
+      "ref": "D7 p. 82 (lexique n° 170)",
+      "reason": "D7 : bán « arrêt, stationnement, gare ». Dans « Opposition », l’arrêt est le blocage de la carte, pas un lieu où l’on s’arrête : « bán ì carte » se lirait « la gare de la carte ». Le synonyme de D8 « arrêter la carte » donne tɛ́lî « arrêter (tr.) » (D7 p. 251, n° 2936).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
     }
   ]
 }

@@ -119,4 +119,13 @@ describe('simplify — corpus D8 réel', () => {
     });
     expect(missed.map((e) => e.id)).toEqual([]);
   });
+
+  it('un participe après un nom n’est pas le nom de D8 (« le code reçu » ≠ « Reçu ») ; après un déterminant, si', () => {
+    const terms = (text: string): string[] =>
+      simplify(text, corpus, { guards, lexicon: LEXICON }).units.flatMap((u) => u.terms.map((t) => `${t.term}/${t.by}`));
+    expect(terms('Tape le code reçu.')).not.toContain('Reçu/FORM');
+    expect(terms("L'argent reçu arrive.")).not.toContain('Reçu/FORM');
+    expect(terms('Le montant arrondi arrive.')).not.toContain('Arrondi/FORM');
+    expect(terms('Garde bien ce reçu.')).toContain('Reçu/FORM');
+  });
 });

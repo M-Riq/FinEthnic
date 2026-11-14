@@ -19,7 +19,8 @@
     "import-dictionary": "tsx scripts/import-dictionary.ts",
     "propose-translations": "tsx scripts/propose-translations.ts",
     "build-lefff": "tsx scripts/build-lefff.ts",
-    "serve-engine": "tsx scripts/serve-engine.ts"
+    "serve-engine": "tsx scripts/serve-engine.ts",
+    "engine-report": "tsx scripts/engine-report.ts"
   },
   "devDependencies": {
     "@types/chrome": "0.3.7",

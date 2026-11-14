@@ -10,7 +10,7 @@
  */
 
 // --- Transcription exacte de INTEGRATION_CONTRACT.md §4 ---
-export const CONTRACT_VERSION = '0.3.0';
+export const CONTRACT_VERSION = '0.4.0';
 
 export type SourceLang = 'fr' | 'en';
 export type TargetLang = 'eto';
@@ -89,6 +89,13 @@ export interface TranslationResult {
   /** Valeurs protégées trouvées dans `text`, dans l'ordre. Elles doivent se retrouver octet pour octet dans `output`. */
   protectedSegments: string[];
   reason: ResultReason | null;
+  /**
+   * Facultatif (v0.4.0). Termes français gardés tels quels dans `unverifiedOutput` parce que le dictionnaire
+   * ne les a pas (notions modernes validées par le responsable : « compte », « mot de passe »…), dans
+   * l'ordre où ils y apparaissent (I12). Ils peuvent venir d'un synonyme de la bibliothèque et non de `text`.
+   * Absent ou [] : aucun terme gardé signalé ; toujours absent ou [] hors PENDING_VALIDATION.
+   */
+  keptFrench?: string[];
 }
 
 export interface EngineInfo {

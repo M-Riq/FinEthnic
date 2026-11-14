@@ -6,7 +6,7 @@
  *                      ou `{ "texts": ["…", …] }` → `{ "results": [ … ] }`.
  *   `sourceLang` ('fr' | 'auto') et `targetLang` ('eto') sont acceptés, comme dans la requête du contrat.
  *
- * Interface du contrat d'intégration (MOT6, INTEGRATION_CONTRACT.md v0.3.0), si un moteur contrat est fourni :
+ * Interface du contrat d'intégration (MOT6, INTEGRATION_CONTRACT.md v0.4.0), si un moteur contrat est fourni :
  * - GET  /contract/info       → EngineInfo ;
  * - POST /contract/translate  → une TranslationRequest → une TranslationResult,
  *                               ou `{ "requests": [ … ] }` → `{ "results": [ … ] }`.

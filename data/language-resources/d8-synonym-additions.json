@@ -1,0 +1,689 @@
+{
+  "description": "Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7. Le moteur les lit en plus des synonymes de D8, sans modifier D8. Chaque ajout a été testé dans le moteur et validé par le responsable.",
+  "additions": [
+    {
+      "entryId": "ACT-031",
+      "text": "Ouvrir un compte",
+      "synonym": "ouvrir le compte",
+      "reason": "Sens fidèle (groupe A). Moteur : « ouvrir le compte » → yázî compte.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-035",
+      "text": "Ajouter un bénéficiaire",
+      "synonym": "ajouter le bénéficiaire",
+      "reason": "Sens fidèle (groupe A). Moteur : « ajouter le bénéficiaire » → bág bénéficiaire. « un » bloquait (règle du nombre).",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-043",
+      "text": "Demander un code de vérification",
+      "synonym": "demander le code",
+      "reason": "Sens fidèle (groupe A). Moteur : « demander le code » → bólô code.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-053",
+      "text": "Précédent",
+      "synonym": "revenir",
+      "reason": "Sens fidèle (groupe A). Moteur : « revenir » → dúgnì.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-004",
+      "text": "Portefeuille électronique",
+      "synonym": "argent dans le téléphone",
+      "reason": "Sens fidèle (groupe A). Moteur : « argent dans le téléphone » → mɔ̀ní á ŋ̀-kwǎl. Reprend la définition de D8.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-018",
+      "text": "Devise",
+      "synonym": "monnaie",
+      "reason": "Sens fidèle (groupe A). Moteur : « monnaie » → cáz. Entrée cáz1 « monnaie » ; homonymes cáz2–4 (tacle, contrôler) écrits pareil.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-054",
+      "text": "En attente",
+      "synonym": "attendre",
+      "reason": "Sens fidèle (groupe A). Moteur : « attendre » → yàŋà. D8 : « il faut attendre ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-021",
+      "text": "Ce service est gratuit.",
+      "synonym": "Service pour rien.",
+      "reason": "Sens fidèle (groupe A). Moteur : « Service pour rien. » → Service á pûpùd.. Á pûpùd « pour rien ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-037",
+      "text": "Frais : {frais} {devise}",
+      "synonym": "Prix : {frais} {devise}",
+      "reason": "Sens fidèle (groupe A). Moteur : « Prix : {frais} {devise} » → táŋ : {frais} {devise}. D8 : « Prix du service ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-050",
+      "text": "Numéro de référence : {référence}",
+      "synonym": "Numéro : {référence}",
+      "reason": "Sens fidèle (groupe A). Moteur : « Numéro : {référence} » → nwàmɔ̀ : {référence}.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-078",
+      "text": "Notifications",
+      "synonym": "messages",
+      "reason": "Sens fidèle (groupe A). Moteur : « messages » → pɔ́. Pɔ́ « nouvelle, information, message ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-016",
+      "text": "Paiement de services",
+      "synonym": "payer le service",
+      "reason": "Sens fidèle (groupe A). Moteur : « payer le service » → yágnà service.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P2-12",
+      "text": "Retour",
+      "synonym": "revenir",
+      "reason": "Sens fidèle (groupe A). Moteur : « revenir » → dúgnì.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P3-8",
+      "text": "Paiement de services",
+      "synonym": "payer le service",
+      "reason": "Sens fidèle (groupe A). Moteur : « payer le service » → yágnà service.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P5-8",
+      "text": "Statut",
+      "synonym": "état",
+      "reason": "Sens fidèle (groupe A). Moteur : « état » → ì-tə́.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-016",
+      "text": "Confirmer",
+      "synonym": "accepter",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter » → mə̀m. Mə̀m « avouer, accepter » ; même forme que Valider.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-020",
+      "text": "Autoriser",
+      "synonym": "accepter",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter » → mə̀m. « permettre » absent de D7.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-023",
+      "text": "Accepter les conditions",
+      "synonym": "accepter la loi",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter la loi » → mə̀m mbɛ́ní. Mbɛ́ní « loi, interdiction » ; « règles » absent de D7.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-025",
+      "text": "Contester",
+      "synonym": "refuser l'opération",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « refuser l'opération » → bɛ̀n ì-sàlgà. Contester ≈ refuser.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-034",
+      "text": "Débloquer",
+      "synonym": "ouvrir le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « ouvrir le compte » → yázî compte. D8 : « rouvrir », « permettre encore d'utiliser un compte ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-039",
+      "text": "Réinitialiser",
+      "synonym": "changer le code",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « changer le code » → cɛ́nî code. D8 : « remettre comme au début (mot de passe, code secret) ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-008",
+      "text": "Solde disponible",
+      "synonym": "argent dans le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent dans le compte » → mɔ̀ní á compte. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-013",
+      "text": "Plafond",
+      "synonym": "limite",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « limite » → ɲ̀-ɲə̀. Ɲ̀-ɲə̀ « limite ; époque ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-024",
+      "text": "Somme",
+      "synonym": "argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent » → mɔ̀ní. Somme = quantité d'argent.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-043",
+      "text": "Virement",
+      "synonym": "envoyer de l'argent à la banque",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « envoyer de l'argent à la banque » → lóm mɔ̀ní á banque. Verbe à la place du nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-048",
+      "text": "Crédit",
+      "synonym": "ajouter de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « ajouter de l'argent » → bág mɔ̀ní. Verbe à la place du nom (= Créditer).",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-049",
+      "text": "Débit",
+      "synonym": "enlever de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « enlever de l'argent » → sóg mɔ̀ní. Verbe à la place du nom (= Débiter).",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-050",
+      "text": "Reçu",
+      "synonym": "preuve",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « preuve » → ndə̀m. Ndə̀m « signe, preuve ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-052",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀. D8 : « numéro de l'opération ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-053",
+      "text": "Statut de la transaction",
+      "synonym": "état",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « état » → ì-tə́. Perd « de la transaction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-080",
+      "text": "Prêt",
+      "synonym": "dette",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « dette » → ì-kòló. Point de vue de celui qui emprunte.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-097",
+      "text": "Conditions générales",
+      "synonym": "loi",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « loi » → mbɛ́ní. Mbɛ́ní « loi, interdiction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-002",
+      "text": "Votre solde disponible est de {montant} {devise}.",
+      "synonym": "Argent dans le compte : {montant} {devise}.",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Argent dans le compte : {montant} {devise}. » → mɔ̀ní á compte : {montant} {devise}.. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-003",
+      "text": "Numéro de compte : {numéro_compte}",
+      "synonym": "Numéro : {numéro_compte}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Numéro : {numéro_compte} » → nwàmɔ̀ : {numéro_compte}. Perd « de compte ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-009",
+      "text": "Voir toutes les transactions",
+      "synonym": "voir les opérations",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « voir les opérations » → yɛ́n ì-sàlgà. Perd « toutes ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-013",
+      "text": "Frais de transfert : {frais} {devise}",
+      "synonym": "Prix : {frais} {devise}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Prix : {frais} {devise} » → táŋ : {frais} {devise}. Perd « de transfert ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-040",
+      "text": "Référence : {référence}",
+      "synonym": "Numéro : {référence}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Numéro : {référence} » → nwàmɔ̀ : {référence}. D8 : « Code ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-046",
+      "text": "Date de l'opération : {date}",
+      "synonym": "Jour : {date}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Jour : {date} » → à-mǒz : {date}. Perd « de l'opération ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-062",
+      "text": "Chargement en cours...",
+      "synonym": "attendre",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « attendre » → yàŋà.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-079",
+      "text": "Aide et assistance",
+      "synonym": "aider",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « aider » → kà. Verbe à la place du nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-032",
+      "text": "Opposition",
+      "synonym": "arrêter la carte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « arrêter la carte » → tɛ́lî carte. Tɛ́lî « placer ; arrêter ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-034",
+      "text": "Preuve de transaction",
+      "synonym": "preuve",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « preuve » → ndə̀m. Perd « de transaction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-004",
+      "text": "Salaire reçu",
+      "synonym": "recevoir le salaire",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir le salaire » → g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn. Verbe à la place de « reçu ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-005",
+      "text": "Transfert reçu",
+      "synonym": "recevoir de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir de l'argent » → g͡bɛ̀ɛn ̀ ì mɔ̀ní. Verbe à la place de « reçu ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-4",
+      "text": "Solde disponible",
+      "synonym": "argent dans le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent dans le compte » → mɔ̀ní á compte. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-11",
+      "text": "Salaire reçu",
+      "synonym": "recevoir le salaire",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir le salaire » → g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-12",
+      "text": "Transfert reçu",
+      "synonym": "recevoir de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir de l'argent » → g͡bɛ̀ɛn ̀ ì mɔ̀ní.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P4-8",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P4-12",
+      "text": "Confirmer le transfert",
+      "synonym": "accepter le transfert",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter le transfert » → mə̀m transfert. Confirmer ≈ accepter.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P5-3",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-005",
+      "text": "Numéro de compte",
+      "synonym": "numéro",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « numéro » → nwàmɔ̀. nwàmɔ̀ « nombre, numéro » (D7 p. 206, n° 2184)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-5",
+      "text": "Numéro de compte",
+      "synonym": "numéro",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « numéro » → nwàmɔ̀. nwàmɔ̀ « nombre, numéro » (D7 p. 206, n° 2184)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-023",
+      "text": "Nom du bénéficiaire",
+      "synonym": "nom",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « nom » → d-ǒy. d-ǒy « nom » (D7 p. 102, n° 455)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P3-5",
+      "text": "Nom du bénéficiaire",
+      "synonym": "nom",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « nom » → d-ǒy. d-ǒy « nom » (D7 p. 102, n° 455)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-009",
+      "text": "Type d'opération",
+      "synonym": "genre",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « genre » → kán. kán « type, genre » (D7 p. 153, n° 1309)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P2-5",
+      "text": "Type d'opération",
+      "synonym": "genre",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « genre » → kán. kán « type, genre » (D7 p. 153, n° 1309)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-049",
+      "text": "Reçu de transaction",
+      "synonym": "preuve",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « preuve » → ndə̀m. ndə̀m « signe, preuve » (D7 p. 197, n° 2017)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-004",
+      "text": "Authentification",
+      "synonym": "preuve",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « preuve » → ndə̀m. ndə̀m « signe, preuve » (D7 p. 197, n° 2017)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-005",
+      "text": "Authentification à deux facteurs",
+      "synonym": "preuve",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « preuve » → ndə̀m. ndə̀m « signe, preuve » (D7 p. 197, n° 2017)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-010",
+      "text": "Données personnelles",
+      "synonym": "informations",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « informations » → pɔ́. pɔ́ « nouvelle, information, message » (D7 p. 234, n° 2661)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-036",
+      "text": "Expiration de session",
+      "synonym": "fin",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « fin » → à-mànà. à-mànà « fin ; celui qui termine » (D7 p. 75, n° 66)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-030",
+      "text": "Frais de retrait",
+      "synonym": "prix",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prix » → táŋ. táŋ « calcul ; nombre ; prix, coût » (D7 p. 251, n° 2931)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-031",
+      "text": "Frais de service",
+      "synonym": "prix",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prix » → táŋ. táŋ « calcul ; nombre ; prix, coût » (D7 p. 251, n° 2931)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-093",
+      "text": "Date de la transaction",
+      "synonym": "jour",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « jour » → à-mǒz. à-mǒz « jour » (D7 p. 75, n° 70)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-067",
+      "text": "Mobile Money",
+      "synonym": "argent dans le téléphone",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « argent dans le téléphone » → mɔ̀ní á ŋ̀-kwǎl. mɔ̀ní « argent » (D7 p. 192, n° 1919) + á « dans, à » (D7 p. 71, n° 1) + ŋ̀-kwǎl « corde, fil ; téléphone ; liane » (D7 p. 214, n° 2326)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-069",
+      "text": "Carte prépayée",
+      "synonym": "carte avec argent",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « carte avec argent » → carte èè mɔ̀ní. carte (terme gardé en français) + èè « avec, et » (D7 p. 105, n° 495) + mɔ̀ní « argent » (D7 p. 192, n° 1919)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-073",
+      "text": "Agence",
+      "synonym": "boutique",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « boutique » → ì-pàtìlá. ì-pàtìlá « magasin, épicerie, bar, boutique » (D7 p. 135, n° 1001)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-058",
+      "text": "Nouveau transfert",
+      "synonym": "envoyer",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « envoyer » → lóm. lóm « envoyer » (D7 p. 174, n° 1616). Un verbe remplace le nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P5-10",
+      "text": "Nouveau transfert",
+      "synonym": "envoyer",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « envoyer » → lóm. lóm « envoyer » (D7 p. 174, n° 1616). Un verbe remplace le nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-013",
+      "text": "Hameçonnage",
+      "synonym": "piège",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « piège » → ù-lám. ù-lám « piège » (D7 p. 261, n° 3095)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-033",
+      "text": "Signalement",
+      "synonym": "informer",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « informer » → bɛ́nî. bɛ́nî « informer, annoncer, publier » (D7 p. 84, n° 195). Un verbe remplace le nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-051",
+      "text": "Récapitulatif",
+      "synonym": "liste",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « liste » → líz. líz « liste » (D7 p. 173, n° 1607)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P4-1",
+      "text": "Récapitulatif",
+      "synonym": "liste",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « liste » → líz. líz « liste » (D7 p. 173, n° 1607)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-072",
+      "text": "Application mobile",
+      "synonym": "téléphone",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « téléphone » → ŋ̀-kwǎl. ŋ̀-kwǎl « corde, fil ; téléphone ; liane » (D7 p. 214, n° 2326)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-098",
+      "text": "Service client",
+      "synonym": "aider",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « aider » → kà. kà « aider » (D7 p. 149, n° 1256). Un verbe remplace le nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-028",
+      "text": "Souscrire",
+      "synonym": "prendre",
+      "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prendre » → ɲɔ̀ŋ. ɲɔ̀ŋ « prendre, adopter » (D7 p. 226, n° 2526)",
+      "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    }
+  ]
+}
