@@ -591,14 +591,29 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   if (negation.length > 0) gap(negation.map((k) => (tokens[k] as Token).key).join(' '), s.type === 'IMPERATIVE' ? ETON_RULES.NEGATION_IMPERATIVE : ETON_RULES.NEGATION);
   if (s.restriction) gap('ne … que', ETON_RULES.RESTRICTION);
   const lexical = pieces.filter((p) => p.source === 'D7' || p.source === 'MISSING' || p.source === 'FRENCH');
+  // Un terme gardé est un nom : « frais » + adjectif de D7 demande aussi la règle d'accord.
+  const rendered = (p: EtonPiece | undefined): p is EtonPiece => p !== undefined && (p.source === 'D7' || p.source === 'FRENCH');
+  // Adjectif français rendu par un adverbe de D7 (« petit » → cə̀càd « petit, peu ») : même règle qu'un adjectif.
+  const adjectival = (p: EtonPiece): boolean => p.category === 'ADJ' || (p.category === 'ADV' && !p.fr.includes(' ')
+    && (lexicon?.lookup(p.fr.toLocaleLowerCase('fr')) ?? []).some((r) => r.pos === 'ADJ'));
+  for (let k = 0; k < pieces.length; k++) {
+    const p = pieces[k] as EtonPiece;
+    if (!rendered(p) || !adjectival(p)) continue;
+    for (const dir of [-1, 1]) {
+      // « nombre plus facile » : un adverbe entre le nom et l'adjectif ne dispense pas de la règle.
+      let j = k + dir;
+      while (rendered(pieces[j]) && pieces[j]?.category === 'ADV' && !adjectival(pieces[j] as EtonPiece)) j += dir;
+      const n = pieces[j];
+      if (rendered(n) && n.category === 'NOM') gap(dir < 0 ? `${n.fr} ${p.fr}` : `${p.fr} ${n.fr}`, ETON_RULES.ADJECTIVE);
+    }
+  }
   for (let k = 1; k < pieces.length; k++) {
     const a = pieces[k - 1] as EtonPiece;
     const b = pieces[k] as EtonPiece;
-    // Un terme gardé est un nom : « frais » + adjectif de D7 demande aussi la règle d'accord.
-    if ((a.source !== 'D7' && a.source !== 'FRENCH') || (b.source !== 'D7' && b.source !== 'FRENCH')) continue;
+    if (!rendered(a) || !rendered(b)) continue;
     const pair = [a.category, b.category];
-    if (pair.includes('NOM') && pair.includes('ADJ')) gap(`${a.fr} ${b.fr}`, ETON_RULES.ADJECTIVE);
-    else if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
+    if (pair.includes('NOM') && (adjectival(a) || adjectival(b))) continue;
+    if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
     else if (PREPOSITIONS.has(a.fr.toLocaleLowerCase('fr')) && b.category === 'VERBE') gap(`${a.fr} ${b.fr}`, ETON_RULES.INFINITIVE);
     else if (pair[0] === 'NOM' && pair[1] === 'NOM') gap(`${a.fr} ${b.fr}`, ETON_RULES.CONNECTIVE);
   }

@@ -195,6 +195,15 @@ describe('buildEton — manques signalés, jamais inventés', () => {
     expect(gapIds(run("sous l'arbre"))).toEqual([ETON_RULES.POSTPOSITION.id]);
   });
 
+  it('nom + adjectif : aussi pour un adjectif rendu par un adverbe de D7, ou séparé du nom par un adverbe', () => {
+    // D7 classe cə̀càd « petit, peu » parmi les adverbes : l'ordre avec le nom n'est pas attesté pour autant.
+    expect(gapIds(run('petit argent'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    expect(gapIds(run('argent petit'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    expect(gapIds(run('prix plus facile'))).toEqual([ETON_RULES.ADJECTIVE.id]);
+    // Un vrai adverbe à côté d'un nom n'est pas un adjectif : « pour rien » reste rendu.
+    expect(run('Argent pour rien').eto).toBe('mɔ̀ní á pûpùd');
+  });
+
   it('signale le sens à confirmer : entrée à plusieurs sens', () => {
     const r = run('Langue');
     expect(r.eto).toBe('ù-jə́m');

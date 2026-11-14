@@ -1,6 +1,6 @@
 # M22 — Synonymes de D8 compatibles avec D7 (rapport à valider)
 
-**Statut :** les 50 propositions sont validées par le responsable : le 2026-11-15 (groupe A, 15, en bloc ; groupe B, 35, une par une). Elles sont ajoutées dans `data/language-resources/d8-synonym-additions.json` : 105 → 155 entrées complètes. Le fichier source de D8 n'est pas modifié.
+**Statut :** les 50 propositions sont validées par le responsable : le 2026-11-15 (groupe A, 15, en bloc ; groupe B, 35, une par une). Elles sont ajoutées dans `data/language-resources/d8-synonym-additions.json` : 105 → 155 entrées complètes (154 après le contrôle nom + adjectif de M23, qui retire « Arrondi »). Le fichier source de D8 n'est pas modifié.
 
 ## Pourquoi
 
