@@ -115,6 +115,12 @@ function atClauseStart(tokens: Token[], i: number): boolean {
   return isWord(prev, CLAUSE_LINKERS);
 }
 
+function onlyInfinitive(token: Token | undefined, lexicon: Lexicon | undefined): boolean {
+  if (token?.kind !== 'word' || token.enclitic) return false;
+  const readings = lexicon?.lookup(token.key) ?? [];
+  return readings.length > 0 && readings.every((r) => r.pos === 'VERB' && r.mood === 'INFINITIVE');
+}
+
 function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<FiniteVerb, 'features'>[] {
   const found = new Map<number, boolean>();
   const add = (index: number, imperative: boolean): void => {
@@ -161,9 +167,10 @@ function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<Fi
       add(i, imperativeSlot(i) && readings.some((r) => r.mood === 'IMPERATIVE'));
     }
     // Forme aussi nom ou autre (« Garde », « Change », « Donne ») : impératif en tête de proposition si
-    // un déterminant de complément suit (« Garde ce papier ») ou dans « ne … pas » (« Ne donne pas »).
+    // un déterminant de complément suit (« Garde ce papier »), dans « ne … pas » (« Ne donne pas ») ou
+    // devant un mot qui n'est qu'un infinitif (causatif « Faites payer », « Laissez passer »).
     else if (readings.some((r) => r.pos === 'VERB' && r.mood === 'IMPERATIVE') && !isWord(prev, DETERMINERS) && imperativeSlot(i)
-      && (isWord(next, OBJECT_DETERMINERS) || (isNe(prev) && isWord(next, NEGATION_AFTER_NE)))) {
+      && (isWord(next, OBJECT_DETERMINERS) || (isNe(prev) && isWord(next, NEGATION_AFTER_NE)) || onlyInfinitive(next, lexicon))) {
       add(i, true);
     }
   });

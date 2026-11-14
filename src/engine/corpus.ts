@@ -158,12 +158,13 @@ export function matchWhole(corpus: Corpus, tokens: readonly Token[], text: strin
 
 /**
  * « reçu », « arrondi », « garantie » : nom ou participe passé ? Participe juste après un nom ou un
- * auxiliaire (« l'argent reçu », « le code reçu », « il a reçu ») ; nom après un déterminant, une
+ * auxiliaire (« l'argent reçu », « le code reçu », « il a reçu », « avez-vous reçu ») ; nom après un déterminant, une
  * préposition ou en tête (« le reçu », « Reçu de transaction »).
  */
 function participleHere(tokens: readonly Token[], i: number, lexicon: Lexicon | undefined): boolean {
   const token = tokens[i] as Token;
-  const previous = tokens[i - 1];
+  // Sujet inversé entre l'auxiliaire et le participe (« Avez-vous reçu ») : on regarde l'auxiliaire.
+  const previous = tokens[i - 1]?.enclitic ? tokens[i - 2] : tokens[i - 1];
   if (!lexicon || token.kind !== 'word' || previous?.kind !== 'word') return false;
   if (DETERMINERS.has(previous.key) || PREPOSITIONS.has(previous.key)) return false;
   const readings = lexicon.lookup(token.key);

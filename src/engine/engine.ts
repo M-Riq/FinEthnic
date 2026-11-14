@@ -6,8 +6,10 @@
  * l'API HTTP locale (scripts/serve-engine.ts) l'expose. Les ressources sont fournies par l'appelant.
  * Module pur, sans dépendance à Node.
  */
-import { buildCorpus, type CorpusEntry } from './corpus';
+import { type AnalyseGrammaticale, analyzeGrammar } from './analysis';
+import { buildCorpus, type CorpusEntry, findTerms } from './corpus';
 import { buildD7Index, type D7Entry } from './d7';
+import { normalize } from './normalize';
 import { type AdjectiveRule, type Connective, ETON_RULES, type IgnoredWords, type Partitive, type Possessive } from './eton';
 import type { Lexicon } from './lexicon';
 import { type SelectOptions, selectText, type TextResult, type WrongSense } from './select';
@@ -60,6 +62,14 @@ export interface Engine {
   info(): EngineInfo;
   translate(text: string): TextResult;
   translateMany(texts: readonly string[]): TextResult[];
+  /** Analyse grammaticale du texte français (mission §3.3). */
+  analyze(text: string): AnalyseGrammaticale;
+  /**
+   * Ajoute ou remplace (même identifiant) des entrées de D8 créées par l'enrichissement (§3.4).
+   * L'index est reconstruit et le cache vidé. Une entrée livrée garde la priorité sur une entrée
+   * enrichie de même texte (première entrée gardée par `buildCorpus`).
+   */
+  extend(entries: readonly CorpusEntry[]): void;
 }
 
 export interface EngineOptions {
@@ -69,11 +79,14 @@ export interface EngineOptions {
 
 export function createEngine(resources: EngineResources, engineOptions: EngineOptions = {}): Engine {
   const { guards, lexicon, ignored } = resources;
-  const corpus = buildCorpus(resources.corpus, { guards, lexicon });
+  let corpus = buildCorpus(resources.corpus, { guards, lexicon });
   const d7 = buildD7Index(resources.d7);
-  const references = new Map(resources.corpus.map((e) => [e.id, [e.text, ...e.synonyms, e.definition ?? ''].join(' . ')] as const));
+  const reference = (e: CorpusEntry): string => [e.text, ...e.synonyms, e.definition ?? ''].join(' . ');
+  const references = new Map(resources.corpus.map((e) => [e.id, reference(e)] as const));
+  const extended = new Map<string, CorpusEntry>();
+  const critical = new Set(resources.critical);
   const options: SelectOptions = {
-    guards, lexicon, ignored, critical: new Set(resources.critical), references, wrongSenses: resources.wrongSenses ?? [],
+    guards, lexicon, ignored, critical, references, wrongSenses: resources.wrongSenses ?? [],
     kept: resources.keptFrench ?? [],
     partitives: resources.partitives ?? [],
     connectives: resources.connectives ?? [],
@@ -89,7 +102,7 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
     d7Entries: resources.d7.length,
     d7Keys: d7.size,
     lexiconForms: lexicon.size,
-    criticalEntries: options.critical?.size ?? 0,
+    criticalEntries: critical.size,
     wrongSenses: options.wrongSenses?.length ?? 0,
     keptFrench: options.kept?.length ?? 0,
     activeRules: [...Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id), ...(options.partitives ?? []).map((p) => p.id),
@@ -108,5 +121,27 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
     return result;
   }
 
-  return { info: () => ({ ...info, activeRules: [...info.activeRules] }), translate, translateMany: (texts) => texts.map(translate) };
+  function extend(entries: readonly CorpusEntry[]): void {
+    if (entries.length === 0) return;
+    const base = corpus;
+    for (const e of entries) {
+      extended.set(e.id, e);
+      references.set(e.id, reference(e));
+      // Une entrée qui contient un terme critique (montant, frais…) est critique : sinon la
+      // correspondance exacte masquerait ce terme et un échec ne serait plus signalé (FALLBACK).
+      if (findTerms(base, normalize(e.text, { guards }).tokens, lexicon).some((t) => critical.has(t.entry.id))) critical.add(e.id);
+    }
+    corpus = buildCorpus([...resources.corpus, ...extended.values()], { guards, lexicon });
+    info.d8Entries = resources.corpus.length + extended.size;
+    info.criticalEntries = critical.size;
+    cache.clear();
+  }
+
+  return {
+    info: () => ({ ...info, activeRules: [...info.activeRules] }),
+    translate,
+    translateMany: (texts) => texts.map(translate),
+    analyze: (text) => analyzeGrammar(text, { lexicon, guards }),
+    extend,
+  };
 }

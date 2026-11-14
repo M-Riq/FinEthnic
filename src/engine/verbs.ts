@@ -20,6 +20,14 @@ import type { Token } from './normalize';
 export type Time = 'PRESENT' | 'PAST' | 'FUTURE';
 export type Aspect = 'PERFECTIVE' | 'IMPERFECTIVE';
 export type Construction = 'COMPOUND' | 'NEAR_FUTURE' | 'RECENT_PAST';
+/**
+ * Dérivation verbale exprimée en français par une construction (esquisse §8.5) :
+ * - CAUSATIVE : « faire » + infinitif (« Il fait payer le client ») ;
+ * - PRONOMINAL : verbe pronominal réfléchi ou réciproque (« il se connecte », « ils s'aiment »,
+ *   « Connectez-vous »). Le français ne distingue pas réfléchi et réciproque.
+ * Le passif reste signalé par `passive`.
+ */
+export type Derivation = 'CAUSATIVE' | 'PRONOMINAL';
 
 export interface VerbFeatures {
   /** Lemme du verbe conjugué (l'auxiliaire dans « a envoyé »). */
@@ -30,6 +38,7 @@ export interface VerbFeatures {
   aspect: Aspect | null;
   construction: Construction | null;
   passive: boolean;
+  derivation: Derivation | null;
   /** Participe ou infinitif qui porte le sens dans une construction à auxiliaire (« envoyé » dans « a envoyé »). */
   main: { index: number; lemma: string } | null;
   /** Vrai si plusieurs lemmes ou temps restaient possibles : la première lecture de Lefff a été gardée. */
@@ -113,6 +122,33 @@ function reflexiveBefore(tokens: readonly Token[], i: number): boolean {
   return (t.key === 'nous' || t.key === 'vous') && tokens[j - 1]?.key === t.key;
 }
 
+const REFLEXIVE_OF: Readonly<Record<string, Subject | null>> = {
+  me: [1, 'SINGULAR'], "m'": [1, 'SINGULAR'], te: [2, 'SINGULAR'], "t'": [2, 'SINGULAR'], se: null, "s'": null,
+};
+const IMPERATIVE_REFLEXIVE: Readonly<Record<string, Subject>> = { toi: [2, 'SINGULAR'], nous: [1, 'PLURAL'], vous: [2, 'PLURAL'] };
+
+/**
+ * Verbe pronominal : pronom réfléchi accordé au sujet juste avant le verbe (ou l'auxiliaire), ou pronom
+ * accordé à la personne de l'impératif juste après (« Connectez-vous »). « il me paie » n'est pas pronominal.
+ */
+function pronominal(tokens: readonly Token[], i: number, r: Reading, imperative: boolean): boolean {
+  if (imperative) {
+    const after = tokens[i + 1];
+    const expected = after?.enclitic ? IMPERATIVE_REFLEXIVE[after.key] : undefined;
+    return expected !== undefined && r.persons.includes(expected[0]) && (r.number === null || r.number === expected[1]);
+  }
+  let j = i - 1;
+  while (NE.has(tokens[j]?.key ?? '')) j--;
+  const t = tokens[j];
+  if (t === undefined || t.kind !== 'word') return false;
+  if ((t.key === 'nous' || t.key === 'vous') && tokens[j - 1]?.key === t.key) return true;
+  if (!(t.key in REFLEXIVE_OF)) return false;
+  const person = REFLEXIVE_OF[t.key];
+  if (person === null || person === undefined) return true;
+  const subject = subjectOf(tokens, i);
+  return subject !== null && subject[0] === person[0] && subject[1] === person[1];
+}
+
 /**
  * Traits du verbe conjugué tokens[i]. null si le lexique ne connaît aucune forme conjuguée pour ce
  * mot. `imperative` vient de la classification (position en tête de proposition, sans sujet).
@@ -127,6 +163,7 @@ export function describeVerb(tokens: readonly Token[], i: number, lexicon: Lexic
   let construction: Construction | null = null;
   let passive = false;
   let main: VerbFeatures['main'] = null;
+  let derivation: Derivation | null = pronominal(tokens, i, r, imperative) ? 'PRONOMINAL' : null;
 
   if (r.lemma === 'avoir' || r.lemma === 'être') {
     const k = nextContentWord(tokens, i, lexicon, false);
@@ -153,12 +190,27 @@ export function describeVerb(tokens: readonly Token[], i: number, lexicon: Lexic
       [time, aspect, construction] = ['FUTURE', null, 'NEAR_FUTURE'];
       main = { index: k, lemma: infinitive.lemma };
     }
+  } else if (r.lemma === 'faire') {
+    const k = nextContentWord(tokens, i, lexicon, true);
+    const infinitive = withMood(tokens, k, lexicon, 'INFINITIVE');
+    if (infinitive) {
+      derivation = 'CAUSATIVE';
+      main = { index: k, lemma: infinitive.lemma };
+    }
   } else if (r.lemma === 'venir' && r.mood === 'INDICATIVE' && r.tense === 'PRESENT') {
     const de = tokens[i + 1];
     const k = de?.key === 'de' || de?.key === "d'" ? nextContentWord(tokens, i + 1, lexicon, true) : -1;
     const infinitive = withMood(tokens, k, lexicon, 'INFINITIVE');
     if (infinitive) {
       [time, aspect, construction] = ['PAST', 'PERFECTIVE', 'RECENT_PAST'];
+      main = { index: k, lemma: infinitive.lemma };
+    }
+  }
+  if (main?.lemma === 'faire' && !passive) { // « a fait payer » : causatif au passé composé
+    const k = nextContentWord(tokens, main.index, lexicon, true);
+    const infinitive = withMood(tokens, k, lexicon, 'INFINITIVE');
+    if (infinitive) {
+      derivation = 'CAUSATIVE';
       main = { index: k, lemma: infinitive.lemma };
     }
   }
@@ -170,6 +222,7 @@ export function describeVerb(tokens: readonly Token[], i: number, lexicon: Lexic
     aspect,
     construction,
     passive,
+    derivation,
     main,
     ambiguous: choice.ambiguous,
   };

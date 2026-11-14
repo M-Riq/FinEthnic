@@ -3,7 +3,8 @@
  *
  * Le moteur ne génère aucun texte : il n'utilise que ce que D8 contient.
  * - EXACT : le texte (ou une de ses phrases) est une entrée de D8. Candidats : l'original, puis les
- *   synonymes de D8, puis la définition (variables remplies par les valeurs du texte reçu).
+ *   synonymes de D8 un par un, puis chaque phrase de la définition (3 au plus, mission §3.5), variables
+ *   remplies par les valeurs du texte reçu.
  * - PARTIAL : la phrase n'est pas dans D8 mais contient des termes de D8. Candidats : l'original, puis
  *   au plus 3 variantes où chaque terme est remplacé par un de ses synonymes. Une variante n'est gardée
  *   que si elle ne perd rien de la phrase (question, impératif, négation, restriction, temps).
@@ -181,7 +182,11 @@ function substitute(sentence: SentenceAnalysis, choices: readonly { match: TermM
   for (const { match, synonym } of choices) {
     const a = (tokens[match.start] as Token).start - offset;
     const b = (tokens[match.end - 1] as Token).end - offset;
-    out += text.slice(cursor, a) + caseFor(synonym, a === 0, text.slice(a, b));
+    let before = text.slice(cursor, a);
+    const replaced = caseFor(synonym, a === 0, text.slice(a, b));
+    // Élision devant une voyelle : « le » + « argent » → « l'argent » (h exclu : muet ou aspiré, D8 ne le dit pas).
+    if (/^[aeiouyàâéèêëîïôûù]/iu.test(replaced)) before = before.replace(/(^|[\s'’])(l)[ea] $|(^|[\s'’])(d)e $/iu, (_m, p1: string | undefined, l: string | undefined, p3: string | undefined, d: string | undefined) => `${p1 ?? p3 ?? ''}${l ?? d ?? ''}'`);
+    out += before + replaced;
     cursor = b;
   }
   return out + text.slice(cursor);
@@ -203,6 +208,14 @@ function note(match: TermMatch, sentence: SentenceAnalysis): TermNote {
   };
 }
 
+/** Phrases d'une définition de D8 (3 au plus) : chacune est un candidat de traduction à part. */
+export function definitionSentences(definition: string, options: SimplifyOptions = {}): string[] {
+  const sentences = classify(definition, options).sentences.filter((s) => s.form !== null).map((s) => s.text);
+  return (sentences.length > 0 ? sentences : [definition]).slice(0, MAX_DEFINITION_SENTENCES);
+}
+
+const MAX_DEFINITION_SENTENCES = 3;
+
 function exactUnit(text: string, sentences: SentenceAnalysis[], entry: CorpusEntry, values: ReadonlyMap<string, string>, options: SimplifyOptions): SimplifiedUnit {
   const original = featuresOf(sentences);
   const candidate = (t: string, source: CandidateSource): Candidate => ({
@@ -219,7 +232,14 @@ function exactUnit(text: string, sentences: SentenceAnalysis[], entry: CorpusEnt
     seen.add(filled);
     candidates.push(candidate(filled, 'SYNONYM'));
   }
-  if (entry.definition !== null) candidates.push(candidate(fillVariables(entry.definition, values), 'DEFINITION'));
+  if (entry.definition !== null) {
+    // Mission §3.5 : la définition simple est essayée phrase par phrase (3 au plus), dans l'ordre de D8.
+    for (const sentence of definitionSentences(fillVariables(entry.definition, values), options)) {
+      if (seen.has(sentence)) continue;
+      seen.add(sentence);
+      candidates.push(candidate(sentence, 'DEFINITION'));
+    }
+  }
   return {
     text,
     sentences,

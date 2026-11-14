@@ -89,6 +89,18 @@ export const ETON_RULES = {
   NEGATION_IMPERATIVE: rule('D7-NEGATION-IMPERATIF', 'B', '§4 Négation', 'Auxiliaire bə́ ꜜ + verbe : ton du verbe non documenté.'),
   RESTRICTION: rule('D7-RESTRICTION', 'C', '§4', 'Aucune règle de « ne … que » dans D7.'),
   PASSIVE: rule('D7-PASSIF', 'C', '§6 Dérivation', 'Suffixe -bàn : exemples seulement, pas une règle productive.'),
+  CAUSATIVE: {
+    id: 'D7-CAUSATIF',
+    ruleClass: 'C',
+    ref: `D7, tableau « 6. Dériver un verbe à partir d’un autre » ; ${ESQUISSE}, §8.5 ex. (36), (37)`,
+    description: '« faire » + infinitif : verbe causatif en -à ou -là avec harmonie vocalique. Choix entre les deux suffixes et tons non décrits : exemples seulement.',
+  },
+  PRONOMINAL: {
+    id: 'D7-PRONOMINAL',
+    ruleClass: 'C',
+    ref: `D7, tableau « 6. Dériver un verbe à partir d’un autre » ; ${ESQUISSE}, §8.5 ex. (43) à (45), §8.6.1 (« pas de pronoms réfléchis ou réciproques »)`,
+    description: 'Verbe pronominal (« se connecter », « s’aimer ») : l’éton n’a pas de pronom réfléchi ; sens rendu par -bàn (réfléchi, passif ou potentiel), -nì (réciproque) ou pronom + íꜜmɛ́n. Le français ne dit pas lequel : non décidable.',
+  },
   POSTPOSITION: rule('D7-LOCATIF-APRES-NOM', 'B', '§7 (exemple « íꜜlə́ á sí » sous l’arbre)', 'Préposition française rendue par un adverbe de lieu de D7, placé après le nom : un exemple seulement.'),
   POSSESSIVE: rule('D7-POSSESSIF', 'C', '§8.6.2 de l’esquisse complète, tableaux 11 à 15', 'Possessif hors D7-POSSESSIF-CLASSE (M31) : « mes, tes, ses, nos, vos, leurs » (le moteur n’écrit pas le pluriel des noms), nom précédé ou suivi d’un adjectif, suivi d’un autre nom, de « de » ou d’un mot manquant, nom sans classe sûre ou sans ton final noté, antécédent de « qui », « mon » après un nom de classe 1 ou 9 à ton haut (aucun exemple).'),
   OBJECT_PRONOUN: rule('D7-PRONOM-OBJET', 'B', '§3 (exemple « mə̀tə́ wɔ̂ yɛ́n »)', 'Place et forme du pronom complément : un exemple seulement.'),
@@ -675,6 +687,8 @@ function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undef
   else if (f.time === 'FUTURE') rules.push(ETON_RULES.FUTURE);
   else rules.push(ETON_RULES.PRESENT);
   if (f.passive) rules.push(ETON_RULES.PASSIVE);
+  if (f.derivation === 'CAUSATIVE') rules.push(ETON_RULES.CAUSATIVE);
+  if (f.derivation === 'PRONOMINAL') rules.push(ETON_RULES.PRONOMINAL);
   return { rules, irregular: null };
 }
 
