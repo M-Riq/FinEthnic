@@ -11,7 +11,7 @@ import {
   KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
 } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
-import { GRAMMAR_RULES_PATH, readConnectives, readPartitives } from '../../scripts/lib/engine-d7';
+import { GRAMMAR_RULES_PATH, readConnectives, readPartitives, readPossessives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -265,6 +265,15 @@ describe('readPartitives (M21)', () => {
       expect(readConnectives(root)).toEqual([{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7' }]);
       write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de'], forms: { '9': 'ì mɔ̀ní' }, ref: 'D7' }] });
       expect(() => readConnectives(root)).toThrow(/une forme éton/u);
+      // Possessifs (M31) : chaque mot dans une seule personne, classes de « 1 » à « 10 ».
+      expect(readPossessives(root)).toEqual([]);
+      const person = { person: '2sg', words: ['ton', 'votre'], afterLow: { '1': 'wɔ̀' }, afterHigh: { '1': 'wɔ̂' } };
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [person], ref: 'D7', note: 'n' }] });
+      expect(readPossessives(root)).toEqual([{ id: 'D7-POSSESSIF-CLASSE', persons: [{ words: ['ton', 'votre'], afterLow: { '1': 'wɔ̀' }, afterHigh: { '1': 'wɔ̂' } }], ref: 'D7' }]);
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [person, { ...person, words: ['votre'] }], ref: 'D7' }] });
+      expect(() => readPossessives(root)).toThrow(/une seule personne/u);
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [{ ...person, afterLow: { 's.g': 'wɔ̀' } }], ref: 'D7' }] });
+      expect(() => readPossessives(root)).toThrow(/classe nominale/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

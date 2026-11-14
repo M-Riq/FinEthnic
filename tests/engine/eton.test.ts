@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { augmented, buildEton, ETON_RULES, type EtonText, subjectClass } from '../../src/engine/eton';
+import { augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -245,6 +245,57 @@ describe('buildEton — connectif « de » entre deux noms (M26)', () => {
 
   it('pas de connectif séparé devant un second nom à voyelle initiale : la fusion n’est pas documentée', () => {
     expect(gapIds(conn("L'enfant de l'arbre"))).toEqual(['WORD:de']);
+  });
+});
+
+describe('buildEton — possessif après le nom (M31)', () => {
+  // Extrait des tableaux 11 à 15 de l'esquisse (§8.6.2).
+  const POSSESSIVES = [{
+    id: 'D7-POSSESSIF-CLASSE',
+    persons: [
+      { words: ['mon', 'ma'], afterLow: { '1': 'wàmɔ̀', '7': 'yámâ' }, afterHigh: { '7': 'yâmà' } },
+      { words: ['ton', 'ta', 'votre'], afterLow: { '1': 'wɔ̀', '7': 'yɔ̂', '9': 'yɔ̀' }, afterHigh: { '1': 'wɔ̂', '7': 'yɔ̂', '9': 'yɔ̂' } },
+      { words: ['son', 'sa'], afterLow: { '1': 'wě' }, afterHigh: { '1': 'ꜜwé' } },
+      { words: ['notre'], afterLow: { '7': 'yèèní' }, afterHigh: { '7': 'ꜜyééní' } },
+    ],
+    ref: 'esquisse §8.6.2',
+  }];
+  const CONNECTIVES = [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', 'du', "d'"], forms: { '1': 'à', '9': 'ì', 's.g': 'à' }, ref: 'D7 p. 196 (lexique n° 1991)' }];
+  const poss = (text: string, kept: string[] = []): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, possessives: POSSESSIVES, connectives: CONNECTIVES, kept });
+
+  it('le dernier ton du nom : haut (á, ǎ), bas (à, â), ou inconnu', () => {
+    expect([finalTone('mɔ̀ní'), finalTone('ŋ̀-kwǎl'), finalTone('m-òd'), finalTone('ŋ̀-kɔ́lɔ̂'), finalTone('pa')]).toEqual(['HIGH', 'HIGH', 'LOW', 'LOW', null]);
+  });
+
+  it('après le nom, forme de la classe du nom et de son dernier ton ; terme gardé : classe 1, ton bas', () => {
+    const r = poss('Ton argent attend.');
+    expect(r).toMatchObject({ eto: 'mɔ̀ní wɔ̂ àtə́ yàŋà.', complete: true, gaps: [] });
+    expect(r.sentences.flatMap((x) => x.applied.map((a) => a.id))).toContain('D7-POSSESSIF-CLASSE');
+    expect(poss('Son enfant mange.').eto).toBe('m-wán ꜜwé àtə́ ꜜdí.');
+    expect(poss('Notre arbre attend.').eto).toMatch(/^ì-lə́ ꜜyééní /u);
+    expect(poss('Mon arbre attend.').eto).toMatch(/^ì-lə́ yâmà /u);
+    expect(poss('Votre compte attend.', ['compte']).eto).toBe('compte wɔ̀ àtə́ yàŋà.');
+    expect(poss("L'argent de ton prix").eto).toBeNull();
+  });
+
+  it('reste un manque hors des cas attestés', () => {
+    // « mon » après un nom de classe 1 à ton haut : aucun exemple.
+    expect(gapIds(poss('Envoyer mon argent'))).toEqual(['D7-POSSESSIF']);
+    expect(gapIds(poss('Tes enfants'))).toContain('D7-POSSESSIF');
+    expect(gapIds(poss('Ton message'))).toEqual(['D7-POSSESSIF']);
+    expect(gapIds(poss('Ton arbre facile'))).toContain('D7-POSSESSIF');
+    expect(gapIds(poss('Votre compte'))).toContain('D7-POSSESSIF');
+    expect(poss('Ton arbre qui attend.').eto).toBeNull();
+  });
+
+  it('avec « de » : le possessif devant « de » et le connectif devant un nom possédé restent des manques', () => {
+    const before = poss("Ton prix de l'argent");
+    expect(gapIds(before)).toEqual(['D7-POSSESSIF']);
+    expect(before.draft).toBe('[Ton] táŋ ì mɔ̀ní');
+    const after = poss('Le prix de ton argent');
+    expect(gapIds(after)).toEqual(['WORD:de']);
+    expect(after.draft).toBe('táŋ [de] mɔ̀ní wɔ̂');
   });
 });
 
