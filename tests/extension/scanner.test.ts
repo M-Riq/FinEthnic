@@ -10,10 +10,16 @@ const scan = (root: Node = document.body) => {
   scanTexts(root, (node, kind) => found.push({ node, kind }));
   return found;
 };
-const candidates = (root?: Node) => scan(root).filter((t) => t.kind === 'candidate').map((t) => t.node.data.trim());
+const ofKind = (kind: TextKind, root?: Node) => scan(root).filter((t) => t.kind === kind).map((t) => t.node.data.trim());
+const candidates = (root?: Node) => ofKind('candidate', root);
 
 /** Q8 non tranchée : `select` et `option` restent exclus (exception documentée de T-DET-01). */
 const EXCLUDED_BY_Q8 = new Set(['P3-8']);
+/**
+ * Textes D8 placés dans une cellule valeur (`dd`) de la page de test : détectés, mais protégés par leur
+ * position (P3.4, sur-protection acceptée). À revoir avec le DOM réel (Q20).
+ */
+const IN_VALUE_POSITION = new Set(['P2-9', 'P5-9']);
 
 describe('classement des textes (P2.3)', () => {
   it.each([
@@ -37,8 +43,10 @@ describe('T-DET-01 — tous les textes D8 de la page de test sont détectés', (
     it(`page ${page}`, () => {
       loadFixture(document, page);
       const found = new Set(candidates());
+      const values = new Set(ofKind('value'));
       for (const { id, text } of d8Texts(page)) {
         if (EXCLUDED_BY_Q8.has(id)) expect(found, id).not.toContain(text);
+        else if (IN_VALUE_POSITION.has(id)) expect(values, id).toContain(text);
         else expect(found, id).toContain(text);
       }
     });
@@ -55,9 +63,9 @@ describe('T-DET-01 — tous les textes D8 de la page de test sont détectés', (
 
   it('classe à part les valeurs faites de chiffres sans lettre', () => {
     loadFixture(document, 4);
-    const numeric = scan().filter((t) => t.kind === 'numeric-like').map((t) => t.node.data.trim());
-    expect(numeric).toEqual(['+237 6 99 12 34 56']);
-    expect(candidates()).toContain('25 000 FCFA');
+    expect(ofKind('numeric-like')).toEqual(['+237 6 99 12 34 56']);
+    expect(candidates()).not.toContain('25 000 FCFA');
+    expect(ofKind('value')).toContain('25 000 FCFA');
   });
 });
 

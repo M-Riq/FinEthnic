@@ -11,7 +11,7 @@ import type { CountKey } from '../shared/messages';
 import { contextOf, readPageContext, type PageContext, type Step } from './context';
 import { countEntries, type Tracked } from './diagnostic';
 import { watchMutations, type Schedule } from './observer';
-import { classifyText, scanTexts, type TextKind } from './scanner';
+import { classifyText, scanTexts, type EchoCheck, type TextKind } from './scanner';
 
 /** Textes évalués au plus par trame ; le reste passe à la trame suivante. */
 export const DEFAULT_BUDGET = 200;
@@ -31,6 +31,8 @@ export interface PipelineOptions {
   schedule: Schedule;
   logger: Logger;
   budget?: number;
+  /** Écho des valeurs saisies (P3.4) : un texte qui reprend une saisie n'est jamais soumis au moteur. */
+  isEcho?: EchoCheck;
   /** Appelé après chaque lot (scan ou évaluation), par exemple pour mettre à jour le surlignage. */
   onUpdate?: () => void;
 }
@@ -118,19 +120,25 @@ export function startPipeline(options: PipelineOptions): Pipeline {
     page = readPageContext(doc);
     let candidates = 0;
     let numeric = 0;
+    let values = 0;
     for (const root of roots) {
-      scanTexts(root, (node, kind) => {
-        register(node, kind);
-        if (kind === 'candidate') candidates++;
-        else numeric++;
-      });
+      scanTexts(
+        root,
+        (node, kind) => {
+          register(node, kind);
+          if (kind === 'candidate') candidates++;
+          else if (kind === 'value') values++;
+          else numeric++;
+        },
+        options.isEcho,
+      );
     }
     forget();
     // L'étape ne sert qu'à départager : un changement d'étape fait réévaluer les textes déjà suivis.
     if (engine && page.step !== previousStep) {
       for (const [node, entry] of tracked) if (entry.kind === 'candidate') queue.add(node);
     }
-    logger.event('content:scan', { roots: roots.length, candidates, numeric, tracked: tracked.size, step: page.step ?? 0 });
+    logger.event('content:scan', { roots: roots.length, candidates, numeric, values, tracked: tracked.size, step: page.step ?? 0 });
     evaluate();
     options.onUpdate?.();
   };

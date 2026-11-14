@@ -110,6 +110,7 @@ h1 { margin: 0; font-size: 1.25rem; }
 .key-protected { text-decoration-line: overline; text-decoration-style: solid; text-decoration-color: var(--neutral); }
 .key-waiting { text-decoration-line: underline overline; text-decoration-style: dotted; text-decoration-color: var(--neutral); }
 .key-numeric { text-decoration-line: overline; text-decoration-style: dotted; text-decoration-color: var(--neutral); }
+.key-values { text-decoration-line: overline; text-decoration-style: double; text-decoration-color: var(--neutral); }
 
 .action {
   min-height: 44px;

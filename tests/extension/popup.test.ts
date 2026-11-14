@@ -117,7 +117,7 @@ describe('popup — rapport de diagnostic (P2.6)', () => {
     enabled: true,
     engine: 'fake',
     step: 2,
-    counts: { candidates: 12, numeric: 3, waiting: 0, approved: 4, unverified: 2, partial: 1, untranslated: 1, noMatch: 2, ambiguous: 1, protected: 1 },
+    counts: { candidates: 12, numeric: 3, values: 5, waiting: 0, approved: 4, unverified: 2, partial: 1, untranslated: 1, noMatch: 2, ambiguous: 1, protected: 1 },
     ...patch,
   });
 

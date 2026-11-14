@@ -104,7 +104,11 @@ describe('chaîne de lecture (P2.5–P2.8)', () => {
       targetLang: 'eto',
       context: { role: 'heading', live: false, pageLang: 'fr', step: 1 },
     });
-    expect(named('content:scan')).toEqual([{ roots: 1, candidates: counts.candidates, numeric: 0, tracked: counts.candidates, step: 1 }]);
+    // Valeurs protégées par leur position : 2 `dd` (solde, compte) et 4 dates dans des `<time>`.
+    expect(counts.values).toBe(6);
+    expect(named('content:scan')).toEqual([
+      { roots: 1, candidates: counts.candidates, numeric: 0, values: 6, tracked: counts.candidates + 6, step: 1 },
+    ]);
     for (const [, data] of events) for (const value of Object.values(data ?? {})) expect(typeof value).not.toBe('string');
   });
 
@@ -162,12 +166,12 @@ describe('chaîne de lecture (P2.5–P2.8)', () => {
   });
 
   it('respecte le budget par trame et évalue le reste aux trames suivantes', async () => {
-    const { pipeline, frames, named } = start({ budget: 10 });
+    const { pipeline, frames, named } = start({ budget: 5 });
     const total = pipeline.counts().candidates;
-    expect(total).toBeGreaterThan(20);
-    expect(pipeline.counts().waiting).toBe(total - 10);
-    expect(named('content:evaluate')[0]).toEqual({ texts: 10, invalid: 0, remaining: total - 10 });
-    expect(await frames.frames()).toBe(Math.ceil(total / 10) - 1);
+    expect(total).toBeGreaterThan(10);
+    expect(pipeline.counts().waiting).toBe(total - 5);
+    expect(named('content:evaluate')[0]).toEqual({ texts: 5, invalid: 0, remaining: total - 5 });
+    expect(await frames.frames()).toBe(Math.ceil(total / 5) - 1);
     expect(pipeline.counts().waiting).toBe(0);
   });
 

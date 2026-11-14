@@ -12,3 +12,4 @@
 ::highlight(finethnic-protected) { text-decoration: overline solid #374151 2px; }
 ::highlight(finethnic-waiting) { text-decoration: underline overline dotted #374151 2px; }
 ::highlight(finethnic-numeric) { text-decoration: overline dotted #374151 2px; }
+::highlight(finethnic-values) { text-decoration: overline double #374151 2px; }
