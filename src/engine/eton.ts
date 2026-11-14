@@ -6,7 +6,8 @@
  * - seules les règles de classe A de D7 sont appliquées : ordre sujet – verbe – compléments, articles
  *   ignorés (validé en BM3.6), « də̀ » en tête d'une question oui/non, mot interrogatif laissé en place,
  *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ; « de » entre
- *   deux noms, accordé à la classe du premier nom (M26) ;
+ *   deux noms, accordé à la classe du premier nom (M26) ; nom adjectival de classe 7 en tête, suivi du
+ *   connectif í et du nom (M33) ;
  * - tout trait qui demande une règle de classe B (inactive par défaut, M10) ou C (non documentée) est
  *   rendu comme un manque, avec la règle et sa référence. Aucun manque → phrase complète.
  *
@@ -92,7 +93,7 @@ export const ETON_RULES = {
   POSSESSIVE: rule('D7-POSSESSIF', 'C', '§8.6.2 de l’esquisse complète, tableaux 11 à 15', 'Possessif hors D7-POSSESSIF-CLASSE (M31) : « mes, tes, ses, nos, vos, leurs » (le moteur n’écrit pas le pluriel des noms), nom précédé ou suivi d’un adjectif, suivi d’un autre nom, de « de » ou d’un mot manquant, nom sans classe sûre ou sans ton final noté, antécédent de « qui », « mon » après un nom de classe 1 ou 9 à ton haut (aucun exemple).'),
   OBJECT_PRONOUN: rule('D7-PRONOM-OBJET', 'B', '§3 (exemple « mə̀tə́ wɔ̂ yɛ́n »)', 'Place et forme du pronom complément : un exemple seulement.'),
   AGREEMENT: rule('D7-ACCORD', 'C', 'lexique (radicaux liés « -… »)', 'Radical lié : préfixe d’accord non documenté.'),
-  ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd »)', 'Ordre et connectif accordé : un exemple seulement.'),
+  ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd ») ; esquisse §8.6.3', 'Nom + adjectif hors D7-NOM-ADJECTIVAL-CLASSE (M33) : nom adjectival d’une classe sans forme sûre (3 : ton seul et nom adjectival modifié ; 1 : placé après le nom), écarté pour son sens, finissant par un ton descendant ou sans ton noté ; adjectif rendu par un adverbe ; nom à voyelle ou nasale initiale, au pluriel, sujet d’un verbe, antécédent de « qui », ou voisin d’un autre nom, adjectif, possessif ou « de » ; adverbe entre les deux.'),
   INFINITIVE: rule('D7-INFINITIF-PREPOSITION', 'C', 'lexique n° 105, n° 685 (exemple « ású ɲcígní ɲâg ») ; esquisse §8.7.8', 'Verbe après une préposition hors D7-POUR-SUBJONCTIF (M32) : « nom à + verbe » (« argent à envoyer », aucun exemple), verbe de plusieurs syllabes ou à voyelle longue (subjonctif : un seul exemple), « être », « avoir », autre préposition.'),
   NUMERAL: rule('D7-NOMBRE', 'C', '§1-7', 'Place et accord du nombre par rapport au nom : non documentés.'),
   CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : premier nom gardé en français ou de classe sans forme sûre dans D7 (2, 3, 4, 3a, 6…), second nom à voyelle ou nasale initiale (fusion non documentée), ou noms juxtaposés sans « de » (M26).'),
@@ -130,6 +131,19 @@ export interface Connective {
 }
 
 /**
+ * Nom adjectival (grammar-rules.json, `adjectives`, M33) : nom + adjectif rendu par un nom adjectival de D7
+ * placé en tête, suivi du connectif de sa classe, puis du nom (ì-túg í ndá « une maison délabrée »).
+ */
+export interface AdjectiveRule {
+  id: string;
+  /** Classe du nom adjectival au singulier (« 7 » pour « 7/8 ») → connectif. */
+  forms: Readonly<Record<string, string>>;
+  /** Formes de D7 écartées pour leur sens. */
+  excluded: readonly string[];
+  ref: string;
+}
+
+/**
  * Possessif (grammar-rules.json, `possessives`, M31) : « ton », « votre »… devant un nom au singulier, rendu
  * après le nom par la forme de la classe du nom (s.g et terme gardé : classe 1), selon le dernier ton du nom.
  */
@@ -158,6 +172,8 @@ export interface EtonOptions {
   connectives?: readonly Connective[];
   /** Possessifs après le nom (M31). */
   possessives?: readonly Possessive[];
+  /** Noms adjectivaux en tête (M33). */
+  adjectives?: readonly AdjectiveRule[];
 }
 
 export type Gap =
@@ -651,6 +667,24 @@ function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undef
   return { rules, irregular: null };
 }
 
+/** Dernier ton descendant (â, ou voyelle longue á + à) : le nom adjectival change alors de forme en tête (M33). */
+function fallingFinal(eto: string): boolean {
+  const d = eto.normalize('NFD');
+  return /\u0302[^aeiouɛəɔ]*$/iu.test(d) || /[aeiouɛəɔ]\u0301[aeiouɛəɔ]\u0300[^aeiouɛəɔ]*$/iu.test(d);
+}
+
+/** Nom et adjectif français au singulier d'après Lefff : un mot au pluriel seulement l'exclut (M33). */
+function singular(words: readonly string[], lexicon: Lexicon | undefined): boolean {
+  if (!lexicon) return false;
+  let known = false;
+  for (const w of words) {
+    const numbers = new Set(lexicon.lookup(w.toLocaleLowerCase('fr')).filter((r) => r.pos === 'NOUN' || r.pos === 'ADJ').map((r) => r.number));
+    if (numbers.has('PLURAL') && !numbers.has('SINGULAR')) return false;
+    if (numbers.has('SINGULAR')) known = true;
+  }
+  return known;
+}
+
 /**
  * Second nom du connectif commençant par une consonne ordinaire (M26). Devant une voyelle ou une nasale
  * syllabique, D7 n'écrit pas le connectif à part : son ton se fond dans le nom (ìkǔm í mbâz « souche de
@@ -695,6 +729,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   /** « qui » sujet d'une relative (M30) : indice de « qui », puis antécédent et forme lus à la construction. */
   const relativeWords = new Set([...present.values()].flatMap((p) => (p.relative === null ? [] : [p.relative])));
   const relatives = new Map<number, { piece: EtonPiece; antecedent: EtonPiece; augment: string; form: string }>();
+  /** Noms dont la classe porte un accord (sujet, antécédent de « qui ») : pas de nom adjectival en tête (M33). */
+  const agreeing = new Set<EtonPiece>();
   /** Possessifs (M31), placés après leur nom une fois la phrase construite. */
   const possessivePieces = new Map<EtonPiece, string>();
   /** Nom de D7 rendu, par indice du jeton qui le suit. */
@@ -781,6 +817,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       if (a && a === pieces[pieces.length - 1] && augment && form && headed) {
         const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
         relatives.set(i, { piece, antecedent: a, augment, form });
+        agreeing.add(a);
         pieces.push(piece);
         i++;
         continue;
@@ -795,6 +832,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       if (plan?.copula) {
         const key = plan.subject === null ? null : (tokens[plan.subject] as Token).key;
         const c = key === null ? nounSubjectClass(pieces, grammar, nounClasses, plan.plural) : null;
+        if (c !== null) for (const p of pieces) agreeing.add(p);
         const form = key !== null ? (plan.negation ? COPULA_NEGATIVE_SUBJECTS : COPULA_SUBJECTS)[key]
           : c === null ? undefined : (plan.negation ? CLASS_COPULA_NEGATIVE : CLASS_COPULA)[c];
         if (form) {
@@ -817,6 +855,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         if (piece && form) marker = { piece, form, rule: r, insert: false, plan };
       } else if (plan && !plan.copula) {
         const c = nounSubjectClass(pieces, grammar, nounClasses, plan.plural);
+        if (c !== null) for (const p of pieces) agreeing.add(p);
         const form = c === null ? undefined : (plan.negation ? CLASS_NEGATIVE : CLASS_PRESENT)[c];
         if (form) marker = { piece: { fr: '', eto: null, source: 'RULE', ref: null }, form, rule: ETON_RULES.PRESENT_SUBJECT, insert: true, plan };
       }
@@ -894,7 +933,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       if (marker.augment) marker.augment.piece.eto = marker.augment.form;
       if (marker.insert) pieces.push(marker.piece);
     }
-    if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
+    if ((entry.category === 'NOM' || entry.category === 'ADJ') && entry.nounClass) nounClasses.set(piece, entry.nounClass);
     if (entry.category === 'NOM') endAt.set(hit.end, piece);
     pieces.push(piece);
     i = hit.end;
@@ -1008,9 +1047,41 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   // Adjectif français rendu par un adverbe de D7 (« petit » → cə̀càd « petit, peu ») : même règle qu'un adjectif.
   const adjectival = (p: EtonPiece): boolean => p.category === 'ADJ' || (p.category === 'ADV' && !p.fr.includes(' ')
     && (lexicon?.lookup(p.fr.toLocaleLowerCase('fr')) ?? []).some((r) => r.pos === 'ADJ'));
+  // Nom adjectival en tête (M33) : « ì-túg í ndá » (maison délabrée) ; ailleurs, l'adjectif reste un manque.
+  const headed = new Set<EtonPiece>();
+  const adjectiveRules = new Map<AdjectiveRule, EtonRule>();
+  for (const p of [...pieces]) {
+    if (p.source !== 'D7' || p.category !== 'ADJ' || p.eto === null || /\s/u.test(p.eto) || fallingFinal(p.eto) || finalTone(p.eto) === null) continue;
+    const nounClass = nounClasses.get(p)?.split('/')[0];
+    const eto = p.eto;
+    const def = nounClass === undefined ? undefined
+      : (options.adjectives ?? []).find((x) => x.forms[nounClass] !== undefined && !x.excluded.includes(eto.normalize('NFC')));
+    if (def === undefined || nounClass === undefined) continue;
+    const k = pieces.indexOf(p);
+    const sides = [-1, 1].filter((d) => rendered(pieces[k + d]) && pieces[k + d]?.category === 'NOM');
+    if (sides.length !== 1) continue;
+    const dir = sides[0] as number;
+    const n = pieces[k + dir] as EtonPiece;
+    // Voisins : rien qui demande une autre règle (nom, adjectif, possessif, « de », adverbe).
+    const busy = (q: EtonPiece | undefined): boolean => q !== undefined && (grammar.get(q) === 'POSSESSIVE'
+      || ((q.source === 'D7' || q.source === 'FRENCH') && ['NOM', 'ADJ', 'ADV', 'NUM'].includes(q.category ?? ''))
+      || ((q.source === 'RULE' || q.source === 'MISSING') && CONNECTIVE_WORDS.has(q.fr.toLocaleLowerCase('fr').replace(/’/gu, "'"))));
+    if (busy(pieces[k + 2 * dir]) || busy(pieces[k - dir])) continue;
+    if (n.eto === null || !consonantInitial(n.eto) || agreeing.has(n) || agreeing.has(p) || !singular([p.fr, n.fr], lexicon)) continue;
+    pieces.splice(k, 1);
+    const at = pieces.indexOf(n);
+    pieces.splice(at, 0, p, { fr: '', eto: def.forms[nounClass] as string, source: 'RULE', ref: def.ref });
+    headed.add(p);
+    let r = adjectiveRules.get(def);
+    if (!r) {
+      r = { id: def.id, ruleClass: 'A', ref: def.ref, description: 'Nom adjectival en tête, suivi du connectif de sa classe, puis du nom.' };
+      adjectiveRules.set(def, r);
+    }
+    applied.add(r);
+  }
   for (let k = 0; k < pieces.length; k++) {
     const p = pieces[k] as EtonPiece;
-    if (!rendered(p) || !adjectival(p)) continue;
+    if (!rendered(p) || !adjectival(p) || headed.has(p)) continue;
     for (const dir of [-1, 1]) {
       // « nombre plus facile » : un adverbe entre le nom et l'adjectif ne dispense pas de la règle.
       let j = k + dir;

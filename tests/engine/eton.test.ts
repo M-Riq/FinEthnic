@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass, subjunctiveTu } from '../../src/engine/eton';
+import { type AdjectiveRule, augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass, subjunctiveTu } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -318,6 +318,31 @@ describe('buildEton — « pour » + verbe : ású + subjonctif avec « tu » (M
     expect(gapIds(run("L'argent pour payer"))).toEqual(['D7-INFINITIF-PREPOSITION']);
     expect(applied(run("L'argent à envoyer"))).not.toContain('D7-POUR-SUBJONCTIF');
     expect(run("L'argent à envoyer").eto).toBeNull();
+  });
+});
+
+describe('buildEton — nom adjectival de classe 7 en tête : adjectif + í + nom (M33)', () => {
+  const ADJECTIVES: AdjectiveRule[] = [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: ['ì-kùŋá'], ref: 'esquisse §8.6.3' }];
+  const adj = (text: string, adjectives = ADJECTIVES): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, kept: ['banque'], adjectives });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('« le prix vétuste » → ì-túg í táŋ (ìtúg í ndá, D7 n° 1095) ; aussi devant un terme gardé et après un verbe', () => {
+    const r = adj('Le prix vétuste');
+    expect(r).toMatchObject({ eto: 'ì-túg í táŋ', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-NOM-ADJECTIVAL-CLASSE');
+    expect(adj('La banque vétuste')).toMatchObject({ eto: 'ì-túg í banque', complete: true });
+    expect(adj('Manger le prix vétuste')).toMatchObject({ eto: 'dí ì-túg í táŋ', complete: true });
+  });
+
+  it('reste un manque : forme écartée, ton final descendant, voyelle initiale, pluriel, sujet, nom suivi de « de »', () => {
+    expect(gapIds(adj('Le prix vétuste', [{ ...ADJECTIVES[0] as AdjectiveRule, excluded: ['ì-túg'] }]))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Le prix facile'))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Un arbre vétuste'))).toContain('D7-NOM-ADJECTIF');
+    expect(gapIds(adj('Les prix vétustes'))).toEqual(['D7-NOM-ADJECTIF']);
+    // Sujet : l'accord suivrait le nom adjectival (ɲ̀ɲòm môd úꜜtə́ kù, D7 n° 2510), non décrit.
+    expect(gapIds(adj('Le prix vétuste mange'))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Le prix vétuste de la banque'))).toContain('D7-NOM-ADJECTIF');
   });
 });
 

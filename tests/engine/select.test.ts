@@ -11,7 +11,7 @@ import {
   KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
 } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
-import { GRAMMAR_RULES_PATH, readConnectives, readPartitives, readPossessives } from '../../scripts/lib/engine-d7';
+import { GRAMMAR_RULES_PATH, readAdjectives, readConnectives, readPartitives, readPossessives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -274,6 +274,13 @@ describe('readPartitives (M21)', () => {
       expect(() => readPossessives(root)).toThrow(/une seule personne/u);
       write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [{ ...person, afterLow: { 's.g': 'wɔ̀' } }], ref: 'D7' }] });
       expect(() => readPossessives(root)).toThrow(/classe nominale/u);
+      // Noms adjectivaux (M33) : formes écartées données avec leur raison.
+      expect(readAdjectives(root)).toEqual([]);
+      const excluded = [{ eto: 'ì-kùŋá', reason: 'sens « sans valeur »' }];
+      write({ adjectives: [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded, ref: 'esquisse', note: 'n' }] });
+      expect(readAdjectives(root)).toEqual([{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: ['ì-kùŋá'], ref: 'esquisse' }]);
+      write({ adjectives: [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: [{ eto: 'ì-kùŋá' }], ref: 'esquisse' }] });
+      expect(() => readAdjectives(root)).toThrow(/reason/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
