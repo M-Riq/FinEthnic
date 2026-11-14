@@ -34,6 +34,8 @@ export const MOT_TEST_RESOURCES: ContractResources = {
     ['TST-EDGE', '⟦TEST:frais⟧ : 0 FCFA'],
   ]),
   rejected: new Set(['REJ-001']),
+  // Terme gardé en français (M20, contrat v0.4.0) : signalé dans keptFrench.
+  keptFrench: ['code'],
 };
 
 export const createMotTestEngine = (): TranslationEngine => createContractEngine(MOT_TEST_RESOURCES, { cacheSize: 0 });
@@ -52,6 +54,8 @@ export const MOT_TEST_SAMPLES: ConformanceSamples = {
       { text: 'Montant', sourceLang: 'auto', targetLang: 'eto' },
       // Texte composé, brouillon (matchKind 'composed', unverifiedKind 'partial').
       { text: 'Montant à envoyer', sourceLang: 'fr', targetLang: 'eto' },
+      // Texte composé avec un terme gardé en français (keptFrench : ["code"], I12).
+      { text: 'Montant du code', sourceLang: 'fr', targetLang: 'eto' },
     ],
     NO_MATCH: [
       { text: 'Votre paiement a été envoyé avec succès.', sourceLang: 'fr', targetLang: 'eto' },

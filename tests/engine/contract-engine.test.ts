@@ -77,6 +77,18 @@ describe('createContractEngine — requêtes', () => {
     expect(engine().translate(req('Frais de transfert ?')).status).not.toBe('APPROVED');
   });
 
+  it('signale les termes français gardés (keptFrench, I12) ; absent hors PENDING_VALIDATION', () => {
+    const r = engine().translate(req(' Code du montant '));
+    expect(r).toMatchObject({ status: 'PENDING_VALIDATION', unverifiedKind: 'partial', keptFrench: ['Code'] });
+    expect(r.unverifiedOutput).toBe(' Code [du] ⟦TEST:somme⟧ ');
+    expect(checkResultShape(req(' Code du montant '), r)).toEqual([]);
+    expect(engine().translate(req('Envoyer Argent')).keptFrench).toEqual([]);
+    // Texte hors D8 et incomplet : rien n'est proposé, donc aucun terme gardé.
+    const none = engine().translate(req('Envoyer le code'));
+    expect(none.status).toBe('NO_MATCH');
+    expect(none.keptFrench).toBeUndefined();
+  });
+
   it('un texte trop long ou mal formé donne NO_MATCH sans exception (I2, I10)', () => {
     const e = engine();
     expect(e.translate(req('a'.repeat(MAX_TEXT_LENGTH + 1)))).toMatchObject({ status: 'NO_MATCH', reason: 'too-long' });
@@ -120,7 +132,7 @@ describe('API HTTP locale — routes du contrat (MOT6)', () => {
   });
 
   it('GET /contract/info', async () => {
-    expect(await (await fetch(`${base}/contract/info`)).json()).toMatchObject({ contractVersion: '0.3.0', engineId: 'finethnic' });
+    expect(await (await fetch(`${base}/contract/info`)).json()).toMatchObject({ contractVersion: '0.4.0', engineId: 'finethnic' });
   });
 
   it('refuse un corps qui n’est pas un objet JSON', async () => {

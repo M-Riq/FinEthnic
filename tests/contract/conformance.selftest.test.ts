@@ -176,6 +176,24 @@ describe('la suite de conformité détecte les moteurs non conformes', () => {
     expect(failingChecks(approvesComposed)).toEqual(['T-CON-02']);
   });
 
+  it('T-CON-02 : keptFrench absent est accepté ; un terme gardé absent de unverifiedOutput est refusé (I12)', () => {
+    const withKept = (kept: (r: TranslationResult) => string[]) => engineWith((req) => {
+      const r = translateWithTable(req);
+      return { ...r, keptFrench: kept(r) };
+    });
+    const firstWord = (r: TranslationResult): string[] => (r.unverifiedOutput ? [r.unverifiedOutput.trim().split(' ')[0] as string] : []);
+    expect(failingChecks(withKept(firstWord))).toEqual([]);
+    expect(failingChecks(withKept((r) => (r.unverifiedOutput ? ['mot de passe'] : [])))).toEqual(['T-CON-02']);
+  });
+
+  it('T-CON-02 : keptFrench renseigné hors PENDING_VALIDATION (I12)', () => {
+    const leaky = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.status === 'APPROVED' ? { ...r, keptFrench: ['compte'] } : r;
+    });
+    expect(failingChecks(leaky)).toEqual(['T-CON-02']);
+  });
+
   it('T-CON-01 et T-CON-02 : un statut déclaré jamais renvoyé', () => {
     const { AMBIGUOUS: _ambiguous, ...rest } = CONTRACT_EXAMPLE_SAMPLES.byStatus;
     const declared = { ...CONTRACT_EXAMPLE_SAMPLES, byStatus: { ...rest, AMBIGUOUS: [] }, neverReturned: { AMBIGUOUS: 'test' } };

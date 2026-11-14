@@ -1,6 +1,6 @@
 # INTEGRATION_CONTRACT — Moteur linguistique ⇄ Extension Chrome
 
-> **Statut :** 🟡 **PROPOSITION v0.3.0-draft — non validée.** Le contrat sera validé en **Synchronisation 1** (TEAM_WORKFLOW §7). Avant cette validation, rien n'est figé. Le responsable a accepté Q14 (§8) et Q16 (§5.3) le 2026-11-12, puis a tranché **Q9** le 2026-11-13 : les traductions non vérifiées s'affichent, **avec un marqueur** (§5.4). Le 2026-11-14 (MOT6), il a placé le moteur de traduction MOT derrière le contrat : traductions partielles (`unverifiedKind`), textes composés (`matchKind: 'composed'`, I7 révisé) et détection interne des valeurs protégées (Q14 révisée). Il reste la relecture d'Yvan (`@ivan-14-dev`).
+> **Statut :** 🟡 **PROPOSITION v0.4.0-draft — non validée.** Le contrat sera validé en **Synchronisation 1** (TEAM_WORKFLOW §7). Avant cette validation, rien n'est figé. Le responsable a accepté Q14 (§8) et Q16 (§5.3) le 2026-11-12, puis a tranché **Q9** le 2026-11-13 : les traductions non vérifiées s'affichent, **avec un marqueur** (§5.4). Le 2026-11-14 (MOT6), il a placé le moteur de traduction MOT derrière le contrat : traductions partielles (`unverifiedKind`), textes composés (`matchKind: 'composed'`, I7 révisé) et détection interne des valeurs protégées (Q14 révisée). Le 2026-11-15 (M20), le moteur garde en français les notions modernes validées que le dictionnaire n'a pas, et le contrat les signale (`keptFrench`, v0.4.0). Il reste la relecture d'Yvan (`@ivan-14-dev`).
 > **Propriétaire :** responsable du projet (bibliothèque et moteur). **Consommateur :** Yvan (extension).
 > **Références :** `TEAM_WORKFLOW.md` §4, §8 et §9 ; `PROJECT_CONTEXT.md` §3.7, §4.4 et §4.5 ; glossaire D5 (statuts et protection).
 > **Règle :** une fois validé, le contrat ne change qu'en suivant le §10 (prévenir, documenter, migrer).
@@ -38,7 +38,7 @@ Le contrat permet de développer les deux composantes **en parallèle**. Avant l
 Le fichier `src/language/contract.ts` sera la **transcription exacte** de cette section. Il contiendra **uniquement des types et des constantes**, sans logique.
 
 ```ts
-export const CONTRACT_VERSION = '0.3.0';
+export const CONTRACT_VERSION = '0.4.0';
 
 export type SourceLang = 'fr' | 'en';
 export type TargetLang = 'eto';
@@ -117,6 +117,13 @@ export interface TranslationResult {
   /** Valeurs protégées trouvées dans `text`, dans l'ordre. Elles doivent se retrouver octet pour octet dans `output`. */
   protectedSegments: string[];
   reason: ResultReason | null;
+  /**
+   * Facultatif (v0.4.0). Termes français gardés tels quels dans `unverifiedOutput` parce que le dictionnaire
+   * ne les a pas (notions modernes validées par le responsable : « compte », « mot de passe »…), dans
+   * l'ordre où ils y apparaissent (I12). Ils peuvent venir d'un synonyme de la bibliothèque et non de `text`.
+   * Absent ou [] : aucun terme gardé signalé ; toujours absent ou [] hors PENDING_VALIDATION.
+   */
+  keptFrench?: string[];
 }
 
 export interface EngineInfo {
@@ -144,7 +151,7 @@ export interface TranslationEngine {
 
 **Chargement :** le moteur et son lexique d'exécution sont **inclus dans le bundle** du script de contenu (esbuild). Il n'y a aucun chargement réseau. L'extension obtient l'instance par une fabrique unique, par exemple `createEngine()`, importée dans **un seul** fichier (ex. `src/content/engine-provider.ts`). Remplacer le faux moteur revient à modifier cet import.
 
-**Moteur MOT (v0.3.0) :** la fabrique est `createContractEngine(resources, options)` (`src/engine/contract-engine.ts`, module pur, sans Node). Ses ressources sont D8, D7 et l'extrait de Lefff. D7 restant hors de Git (Q17), la façon de les inclure dans le bundle reste à décider. En attendant, **pour le développement et l'intégration seulement**, l'API locale (`npm run serve-engine`, 127.0.0.1) expose la même interface : `GET /contract/info` → `EngineInfo` ; `POST /contract/translate` avec une `TranslationRequest` → `TranslationResult`, ou `{ "requests": [...] }` → `{ "results": [...] }`.
+**Moteur MOT (v0.4.0) :** la fabrique est `createContractEngine(resources, options)` (`src/engine/contract-engine.ts`, module pur, sans Node). Ses ressources sont D8, D7 et l'extrait de Lefff. D7 restant hors de Git (Q17), la façon de les inclure dans le bundle reste à décider. En attendant, **pour le développement et l'intégration seulement**, l'API locale (`npm run serve-engine`, 127.0.0.1) expose la même interface : `GET /contract/info` → `EngineInfo` ; `POST /contract/translate` avec une `TranslationRequest` → `TranslationResult`, ou `{ "requests": [...] }` → `{ "results": [...] }`.
 
 ## 5. Les six statuts
 
@@ -179,7 +186,7 @@ La bibliothèque utilise trois niveaux (PROJECT_CONTEXT §4.5) : la **dispositio
 
 `SOURCE_EXTRACTED` est un statut **côté source** : il ne produit pas de statut de résultat particulier.
 
-**Traduction non vérifiée (Q9, révisée par MOT6).** Depuis la v0.3.0, elle est produite **à l'exécution** par le moteur MOT (`src/engine/`, adaptateur `contract-engine.ts`) : le texte est classé, comparé à D8, simplifié par les synonymes et la définition de D8 (avec contrôle du sens, M18), puis traduit mot à mot par D7 selon les règles de grammaire de D7. Le moteur choisit le meilleur candidat. Il n'invente aucune forme : un mot absent de D7 reste en français, entre crochets. Une traduction rejetée par une locutrice (`validation.linguistic` ou `validation.financialMeaning` = `REJECTED`) n'est jamais renvoyée. Le lexique précalculé de BM5 (`unverifiedTarget`) n'est plus nécessaire.
+**Traduction non vérifiée (Q9, révisée par MOT6).** Depuis la v0.3.0, elle est produite **à l'exécution** par le moteur MOT (`src/engine/`, adaptateur `contract-engine.ts`) : le texte est classé, comparé à D8, simplifié par les synonymes et la définition de D8 (avec contrôle du sens, M18), puis traduit mot à mot par D7 selon les règles de grammaire de D7. Le moteur choisit le meilleur candidat. Il n'invente aucune forme : un mot absent de D7 reste en français, entre crochets. Exception (M20, v0.4.0) : les notions modernes validées par le responsable restent en français **sans** crochets ; elles sont listées dans `keptFrench` (§5.4, point 7). Une traduction rejetée par une locutrice (`validation.linguistic` ou `validation.financialMeaning` = `REJECTED`) n'est jamais renvoyée. Le lexique précalculé de BM5 (`unverifiedTarget`) n'est plus nécessaire.
 
 **Correspondance des statuts du moteur MOT (décision M17) :**
 
@@ -217,6 +224,7 @@ Une entrée de D8 dont la traduction est validée en langue et en sens financier
 4. Le popup indique en clair que ces traductions sont **automatiques et non vérifiées par une locutrice**. Il compte les textes « non vérifiés ».
 5. Le contrôle d'intégrité (§8, I4, I5) s'applique à `unverifiedOutput` comme à `output`. En cas d'écart, le texte original est conservé.
 6. **Traduction partielle** (`unverifiedKind: 'partial'`, v0.3.0) : le marqueur est **distinct** de celui d'une traduction complète (ex. « traduction incomplète »), et le texte original reste au survol. Les mots non rendus, en français entre crochets, sont affichés tels quels (principe 3). L'extension peut proposer une option séparée pour masquer les brouillons.
+7. **Termes gardés en français** (`keptFrench`, v0.4.0, facultatif) : notions modernes absentes du dictionnaire (« compte », « mot de passe »…), gardées en français par décision du responsable (M20). Ce ne sont **pas** des mots manquants : ceux-ci restent entre crochets. Ils apparaissent dans `unverifiedOutput`, dans l'ordre de `keptFrench`. L'extension **peut** les distinguer (ex. surlignage CSS, sans modifier le DOM) ou les citer dans le popup ; rien n'est obligatoire. Le marqueur « non vérifié » (point 2) s'applique toujours.
 
 **Portée.** Cette décision vaut pour l'**environnement de test** (`https://safinum.cm/hackathon-test`, seul site autorisé, Q2), qui n'utilise que des données fictives. Elle sera réexaminée avant tout usage réel, en particulier pour les messages de sécurité (`sensitivity = critical`) : voir Q24.
 
@@ -242,6 +250,7 @@ Une entrée de D8 dont la traduction est validée en langue et en sens financier
 | I9 | **Performance indicative** : médiane ≤ 1 ms par appel, sans cache, avec D8 et D7 réels (Node, poste de développement ; ~0,8 ms mesuré pour le moteur MOT le 2026-11-14). Le moteur garde un cache borné (I11). |
 | I10 | Au-delà de 2 000 caractères, le moteur renvoie `NO_MATCH` (`too-long`), sans analyse. |
 | I11 | Le moteur ne conserve aucune donnée entre les appels, sauf un cache mémoire **borné**, jamais persisté ni journalisé. |
+| I12 | `keptFrench` (facultatif, v0.4.0) : absent ou `[]` hors `PENDING_VALIDATION`. Sinon, chaque élément est une chaîne non vide présente dans `unverifiedOutput`, dans l'ordre (comme `protectedSegments` dans `text`). Un moteur qui ne renseigne pas le champ reste conforme. |
 
 ## 8. Répartition des responsabilités
 
@@ -289,7 +298,7 @@ Le faux moteur d'Yvan doit :
 
 - Emplacement proposé : `tests/contract/`, **copropriété** des deux membres.
 - Elle exécute les **mêmes** cas sur le faux moteur et sur le vrai moteur. Le remplacement est sûr si les deux passent.
-- Contenu : les invariants I2 à I5, I8 et I10, un cas par statut, deux cas de bord (approuvé et non vérifié, I4 et I5 sur `output` et sur `unverifiedOutput`), et les exemples D5 §4 de valeurs protégées.
+- Contenu : les invariants I2 à I5, I8 et I10, un cas par statut, deux cas de bord (approuvé et non vérifié, I4 et I5 sur `output` et sur `unverifiedOutput`), et les exemples D5 §4 de valeurs protégées. Depuis la v0.4.0, T-CON-02 vérifie aussi I12 quand `keptFrench` est présent.
 - Les cibles de test sont marquées `⟦TEST:<id>⟧`. **Aucune forme Éton réelle n'est utilisée dans les tests du contrat.**
 - Un moteur peut déclarer un statut qu'il ne renvoie **jamais** (`neverReturned`, avec la raison) : ce statut n'a pas besoin d'échantillon, et la suite vérifie qu'il n'apparaît dans aucun résultat. `APPROVED` et `PENDING_VALIDATION` ne peuvent pas être déclarés ainsi. Le moteur MOT déclare `AMBIGUOUS` (§5.2).
 - Cibles en place : le moteur de référence (`tests/contract/support/reference-engine.ts`) et le moteur MOT chargé avec une bibliothèque et un dictionnaire de test (`tests/contract/fixtures/mot-engine.ts`).
@@ -322,6 +331,7 @@ Les sorties ci-dessous utilisent des **marqueurs de test**. Ce ne sont pas des t
 | 0.1.0-draft (rév. 2) | 2026-11-12 | Q14 et Q16 acceptées par le responsable ; précision sur `step` dans une SPA (§6) ; relecteur `@ivan-14-dev` (§10) | Aucune : les types étaient déjà rédigés ainsi. `step` reste optionnel. |
 | 0.2.0-draft | 2026-11-13 | **Q9 tranchée par le responsable** : les traductions non vérifiées s'affichent avec un marqueur (§5.4). Nouveau champ obligatoire `unverifiedOutput` (non nul ⇔ `PENDING_VALIDATION`). I3 à I6 étendus. Une traduction rejetée donne `KNOWN_UNTRANSLATED` (§5.2). Changement **majeur** (§10) : le sens de `PENDING_VALIDATION` change. | `output` garde son sens. Le faux moteur doit renseigner `unverifiedOutput` et fournir un second cas de bord, `pendingEdge` (§9). Dans le lexique, la traduction non vérifiée est rangée à part (`unverifiedTarget`). L'extension ajoute l'option du popup, le marqueur, le texte original au survol et le contrôle d'intégrité sur `unverifiedOutput` (§5.4). Aucun code d'extension n'existait encore : pas de migration. |
 | 0.3.0-draft | 2026-11-14 | **MOT6** : le moteur MOT (D8 → D7) est placé derrière le contrat (`src/engine/contract-engine.ts`, décision M17, §5.2). Nouveau champ obligatoire `unverifiedKind` (`'complete'` ou `'partial'`, non nul ⇔ `PENDING_VALIDATION`) : un brouillon est renvoyé en `PENDING_VALIDATION` partiel, jamais présenté comme complet. Nouvelle valeur `matchKind: 'composed'` : un texte absent de D8 que le moteur compose donne `PENDING_VALIDATION` avec `entryId: null` (**I7 révisé**). I3, I6 et I9 révisés ; Q14 révisée (détection interne + `detectProtected` optionnel, §8) ; `'en'` non traduit tant que Q15 est ouverte (§5.3) ; `neverReturned` dans la suite de conformité (§11). Changement **majeur** (§10) : sens d'un invariant et nouveau champ obligatoire. | **Migration** : le faux moteur renseigne `unverifiedKind` (`'complete'` pour ses `PENDING_VALIDATION` actuels, `null` ailleurs). L'extension traite `matchKind: 'composed'` (pas d'`entryId` : compter « non vérifiés » sans ID) et affiche un marqueur distinct pour `'partial'` (§5.4, point 6). Une API locale expose la même interface pour l'intégration : `npm run serve-engine`, `GET /contract/info`, `POST /contract/translate`. Aucun code d'extension n'utilisait encore le contrat. |
+| 0.4.0-draft | 2026-11-15 | **M20** : le moteur garde en français 76 notions modernes validées par le responsable (finance et numérique : « compte », « mot de passe »…), absentes de D7 (`data/language-resources/kept-french-terms.json`). Nouveau champ **facultatif** `keptFrench` dans `TranslationResult` : ces termes, dans l'ordre de `unverifiedOutput`. Nouvel invariant **I12**, qui ne porte que sur ce nouveau champ ; T-CON-02 le vérifie (§11). Changement **mineur** (§10) : champ optionnel, aucun résultat existant ne change de sens. | **Aucune migration.** Le faux moteur peut omettre le champ. L'extension peut, si elle le souhaite, distinguer ces termes ou les citer dans le popup (§5.4, point 7). |
 
 ## 14. Points ouverts (voir PROJECT_CONTEXT §5)
 
