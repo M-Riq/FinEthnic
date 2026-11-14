@@ -7,11 +7,24 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { crc32, deflateRawSync } from 'node:zlib';
+import { deflateRawSync } from 'node:zlib';
 
 export interface ZipEntry {
   name: string;
   data: Buffer;
+}
+
+const CRC_TABLE = Uint32Array.from({ length: 256 }, (_, n) => {
+  let c = n;
+  for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+  return c >>> 0;
+});
+
+/** CRC-32 du format ZIP (`zlib.crc32` n'existe qu'à partir de Node 20.15 ; `engines` accepte Node 20). */
+export function crc32(data: Uint8Array): number {
+  let crc = 0xffffffff;
+  for (const byte of data) crc = (CRC_TABLE[(crc ^ byte) & 0xff] as number) ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
 }
 
 /** Date DOS fixe (1980-01-01 00:00) : deux paquets du même contenu sont identiques octet pour octet. */
