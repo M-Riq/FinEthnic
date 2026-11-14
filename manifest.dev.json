@@ -3,7 +3,7 @@
   "name": "FinEthnic — SAFINUM Éton (développement)",
   "short_name": "FinEthnic",
   "version": "0.1.0",
-  "description": "Affiche en éton les textes de l'environnement de test SAFINUM Pay. Aucune donnée n'est envoyée ni enregistrée.",
+  "description": "Affiche en éton les textes de l'environnement de test SAFINUM Pay. Rien n'est envoyé ; les textes nouveaux restent sur l'appareil.",
   "minimum_chrome_version": "110",
   "permissions": ["storage"],
   "icons": {

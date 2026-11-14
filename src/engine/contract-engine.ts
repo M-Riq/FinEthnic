@@ -33,8 +33,8 @@ import {
   type TranslationRequest,
   type TranslationResult,
 } from '../language/contract';
-import { textKey } from './corpus';
-import { createEngine, ENGINE_VERSION, type EngineOptions, type EngineResources } from './engine';
+import { type CorpusEntry, textKey } from './corpus';
+import { createEngine, type Engine, ENGINE_VERSION, type EngineOptions, type EngineResources } from './engine';
 import { normalize, type TokenKind } from './normalize';
 import type { TextResult, UnitResult } from './select';
 
@@ -59,6 +59,22 @@ export interface ContractResources extends EngineResources {
 export interface ContractEngineOptions extends EngineOptions {
   /** Détection des valeurs protégées fournie par l'extension (Q14 révisée). */
   detectProtected?: ProtectedDetector;
+  /**
+   * Version et statistiques de la bibliothèque calculées à la construction (`npm run build`) : sans elles,
+   * le premier `info()` traduit toute la bibliothèque, ce qui retarderait le démarrage dans la page.
+   */
+  libraryInfo?: Pick<EngineInfo, 'libraryVersion' | 'entryCounts'>;
+}
+
+/**
+ * Moteur du contrat qui accepte les entrées de D8 créées par l'enrichissement (mission §3.4). Hors contrat :
+ * l'extension s'en sert si le moteur fourni le propose, le contrat lui-même ne change pas.
+ */
+export interface ExtendableTranslationEngine extends TranslationEngine {
+  /** Moteur MOT sous-jacent : analyse grammaticale et résultat détaillé (enrichissement). */
+  readonly core: Engine;
+  /** Ajoute ou remplace des entrées enrichies (voir `Engine.extend`). */
+  extend(entries: readonly CorpusEntry[]): void;
 }
 
 const PROTECTED_KINDS: ReadonlySet<TokenKind> = new Set(['variable', 'amount', 'number', 'guard', 'url', 'email']);
@@ -229,8 +245,8 @@ const keptTerms = (r: TextResult): string[] =>
 const etonWords = (r: TextResult): number =>
   r.units.reduce((n, u) => n + (u.status === 'SUCCESS' || u.status === 'PARTIAL' ? (u.chosen?.eton.found ?? 0) : 0), 0);
 
-export function createContractEngine(resources: ContractResources, options: ContractEngineOptions = {}): TranslationEngine {
-  const { detectProtected, ...engineOptions } = options;
+export function createContractEngine(resources: ContractResources, options: ContractEngineOptions = {}): ExtendableTranslationEngine {
+  const { detectProtected, libraryInfo, ...engineOptions } = options;
   const engine = createEngine(resources, engineOptions);
   const approved = resources.approved ?? new Map<string, string>();
   const rejected = resources.rejected ?? new Set<string>();
@@ -321,7 +337,9 @@ export function createContractEngine(resources: ContractResources, options: Cont
     }
   }
 
-  let info: EngineInfo | null = null;
+  let info: EngineInfo | null = libraryInfo
+    ? { engineId: 'finethnic', contractVersion: CONTRACT_VERSION, targetLang: 'eto', variety: 'obala', libraryVersion: libraryInfo.libraryVersion, entryCounts: { ...libraryInfo.entryCounts } }
+    : null;
   function computeInfo(): EngineInfo {
     const counts = { approved: 0, pending: 0, untranslated: 0, protected: protectedEntries.length };
     for (const e of resources.corpus) {
@@ -345,13 +363,24 @@ export function createContractEngine(resources: ContractResources, options: Cont
     };
   }
 
-  const engineContract: TranslationEngine = {
+  const engineContract: ExtendableTranslationEngine = {
     info: () => {
       info ??= computeInfo();
       return { ...info, entryCounts: { ...info.entryCounts } };
     },
     translate,
     translateMany: (requests) => (Array.isArray(requests) ? requests.map((r) => translate(r)) : []),
+    core: engine,
+    extend(entries) {
+      engine.extend(entries);
+      // Les statistiques (`info`) restent celles de la bibliothèque livrée.
+      for (const e of entries) {
+        if (corpusText.has(e.id)) continue;
+        corpusText.set(e.id, e.text);
+        const key = textKey(e.text, resources.guards);
+        sameText.set(key, [...(sameText.get(key) ?? []), e.id]);
+      }
+    },
   };
   return engineContract;
 }

@@ -67,10 +67,11 @@ export function decide(
   if (result.status === 'APPROVED') {
     translation = result.output;
     display = 'approved';
-  } else if (result.status === 'PENDING_VALIDATION' && settings.showUnverified) {
+  } else if (result.status === 'PENDING_VALIDATION' && settings.showUnverified && result.unverifiedKind === 'complete') {
+    // Phase 4 (décision du responsable) : un brouillon incomplet ('partial', mots non rendus entre crochets)
+    // n'est jamais affiché, ni une traduction dont la nature est inconnue (contrat §2-1) : le français reste.
     translation = result.unverifiedOutput;
-    // Une traduction dont la nature est inconnue n'est jamais présentée comme complète (contrat §2-1).
-    display = result.unverifiedKind === 'complete' ? 'unverified' : 'partial';
+    display = 'unverified';
   } else {
     return KEEP;
   }

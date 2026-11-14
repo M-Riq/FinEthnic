@@ -8,7 +8,12 @@
  *
  * Le code produit est vérifié **avant** d'être écrit : la construction échoue s'il contient un accès
  * réseau, une évaluation de code, une injection HTML ou, en production, le faux moteur (contrat §9).
+ *
+ * Phase 4 : les ressources du moteur (D7, D8, règles de grammaire, extrait de Lefff) sont d'abord
+ * exportées dans `build/engine-data/` (`scripts/export-engine-data.ts`), puis intégrées comme texte au
+ * script de contenu : le moteur tourne dans la page, sans aucun chargement réseau.
  */
+import { execFileSync } from 'node:child_process';
 import { build } from 'esbuild';
 import { copyFile, lstat, mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -100,12 +105,19 @@ async function assertSafeOutDir(outDir) {
   }
 }
 
+/** Exporte les ressources du moteur (TypeScript, lancé avec tsx). */
+function exportEngineData() {
+  execFileSync(process.execPath, ['--import', 'tsx', 'scripts/export-engine-data.ts'], { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
+}
+
 /**
  * @param {{ dev: boolean, outDir: string }} options
  * @returns {Promise<string[]>} fichiers écrits, relatifs au dossier de sortie
  */
+
 export async function buildExtension({ dev, outDir }) {
   await assertSafeOutDir(outDir);
+  exportEngineData();
 
   const result = await build({
     absWorkingDir: ROOT,
@@ -123,6 +135,8 @@ export async function buildExtension({ dev, outDir }) {
     minifySyntax: true,
     sourcemap: dev ? 'inline' : false,
     define: { __FINETHNIC_DEV__: dev ? 'true' : 'false' },
+    // Ressources du moteur (build/engine-data/*.data), intégrées comme chaînes.
+    loader: { '.data': 'text' },
     write: false,
     logLevel: 'warning',
   });

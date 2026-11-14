@@ -8,12 +8,16 @@
  * P5 : les traductions affichables sont écrites dans la page (`renderer.ts`), les non vérifiées portent un
  * marqueur, et le français s'affiche au survol et au focus (`tooltip.ts`). Désactiver la traduction rend
  * à la page tous ses textes d'origine ; changer une option d'affichage s'applique sans réévaluer.
+ * Phase 4 : les textes évalués sont proposés à la couche corpus (D8 enrichi, `corpus-sync.ts`) ; quand le
+ * moteur apprend de nouvelles entrées, les textes pas encore traduits entièrement sont réévalués.
  */
+import type { Lexicon } from '../engine/lexicon';
 import type { TranslationEngine } from '../language/contract';
 import { createEchoGuard, type EchoGuard } from '../protection/echo';
 import type { Logger } from '../shared/logger';
 import { COUNT_KEYS, DIAGNOSTIC_RESULT, type DiagnosticSnapshot, type EngineKind } from '../shared/messages';
 import type { Settings, SettingsStore } from '../shared/settings';
+import type { PageCorpus } from './corpus-sync';
 import { clearHighlights, clearMarks, paintHighlights, paintMarks, type HighlightApi } from './diagnostic';
 import type { Schedule } from './observer';
 import { startPipeline, type Pipeline } from './pipeline';
@@ -27,6 +31,10 @@ export interface PageDeps {
   /** Registre `CSS.highlights`, ou `null` s'il n'est pas pris en charge. */
   highlights: HighlightApi | null;
   budget?: number;
+  /** Lexique français du moteur (classification des textes). */
+  lexicon?: Lexicon;
+  /** Couche corpus D8 (enrichissement local), ou `null` sans vrai moteur. */
+  corpus?: PageCorpus | null;
 }
 
 export interface ContentController {
@@ -105,6 +113,8 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
         onUpdate: paint,
         render: { renderer: current, settings: () => shownWith },
         ...(page.budget === undefined ? {} : { budget: page.budget }),
+        ...(page.lexicon ? { lexicon: page.lexicon } : {}),
+        ...(page.corpus ? { onEvaluated: page.corpus.offer } : {}),
       });
       tooltip = createTooltip(page.doc, describe);
     } else if (!settings.enabled && pipeline) {
@@ -118,6 +128,7 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
   };
 
   apply();
+  const unlearn = page.corpus?.subscribe(() => pipeline?.reevaluate()) ?? (() => undefined);
   const unsubscribe = store.subscribe((next) => {
     settings = next;
     logger.event('content:settings-changed', {
@@ -154,6 +165,7 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
     stop() {
       stopped = true;
       unsubscribe();
+      unlearn();
       halt();
       if (page.highlights) clearHighlights(page.highlights);
     },
