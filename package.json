@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.extension.json",
+    "build": "node build.mjs",
+    "build:dev": "node build.mjs --dev",
     "validate-data": "tsx scripts/validate-data.ts",
     "import-sources": "tsx scripts/import-sources.ts",
     "check-duplicates": "tsx scripts/check-duplicates.ts",
@@ -18,8 +20,11 @@
     "propose-translations": "tsx scripts/propose-translations.ts"
   },
   "devDependencies": {
+    "@types/chrome": "0.3.7",
     "@types/node": "26.6.6",
     "ajv": "8.20.0",
+    "esbuild": "0.28.2",
+    "jsdom": "31.0.1",
     "tsx": "4.23.15",
     "typescript": "7.0.2",
     "vitest": "5.1.0"

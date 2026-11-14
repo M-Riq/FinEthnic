@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "FinEthnic — SAFINUM Éton (développement)",
+  "short_name": "FinEthnic",
+  "version": "0.1.0",
+  "description": "Affiche en éton les textes de l'environnement de test SAFINUM Pay. Aucune donnée n'est envoyée ni enregistrée.",
+  "minimum_chrome_version": "110",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "FinEthnic — SAFINUM Éton",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://safinum.cm/hackathon-test*", "http://localhost/*", "http://127.0.0.1/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}
