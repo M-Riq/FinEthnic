@@ -40,7 +40,7 @@ Le script envoie chaque cas à `POST /contract/translate`, puis tous les cas en 
 | E01 | `Montant` | `PENDING_VALIDATION`, complète | `ɛ̀-bím ɛ́ mɔ̀ní` | cas de base |
 | E02 | `  Montant  ` | `PENDING_VALIDATION`, complète | `  ɛ̀-bím ɛ́ mɔ̀ní  ` | les espaces du nœud sont gardés |
 | E03 | `Solde disponible` | `PENDING_VALIDATION`, complète | `mɔ̀ní á compte` | `keptFrench: ["compte"]` |
-| E04 | `Bonjour` | `PENDING_VALIDATION`, **partielle** | `pwág ì-búg ású kàd [bonjour] á [quelqu'un].` | mots entre crochets = restés en français |
+| E04 | `Bonjour` | `PENDING_VALIDATION`, **partielle** | `pwág ì-búg ású úkâd [bonjour] á [quelqu'un].` | mots entre crochets = restés en français |
 | E05 | `Payer la facture` | `PENDING_VALIDATION`, complète | `yágnà facture` | absent de D8, composé (`entryId: null`), `keptFrench: ["facture"]` |
 | E06 | `Frais de transfert : 0 FCFA` | `PENDING_VALIDATION`, complète | `táŋ : 0 FCFA` | modèle à variable, `0` et `FCFA` protégés |
 | E07 | `Total à débiter : 5 000 FCFA` | `KNOWN_UNTRANSLATED` | — | entrée critique incomplète |

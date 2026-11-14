@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass } from '../../src/engine/eton';
+import { augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass, subjunctiveTu } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -296,6 +296,28 @@ describe('buildEton — possessif après le nom (M31)', () => {
     const after = poss('Le prix de ton argent');
     expect(gapIds(after)).toEqual(['WORD:de']);
     expect(after.draft).toBe('táŋ [de] mɔ̀ní wɔ̂');
+  });
+});
+
+describe('buildEton — « pour » + verbe : ású + subjonctif avec « tu » (M32)', () => {
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('verbe d’une syllabe : ú + ton descendant, quel que soit le ton du verbe (esquisse (167) : jə̀m → újə̂m)', () => {
+    expect(['dí', 'g͡bè', 'tál', 'jə̀m'].map(subjunctiveTu)).toEqual(['údî', 'úg͡bê', 'útâl', 'újə̂m']);
+    expect(['yàŋà', 'ɲíì', 'g͡bɛ̀ɛn ì', 'ì-lə́', 'pa'].map(subjunctiveTu)).toEqual([null, null, null, null, null]);
+  });
+
+  it('« pour manger » → ású údî ; le verbe garde sa forme de D7, seule l’écriture change', () => {
+    const r = run("L'argent pour manger");
+    expect(r).toMatchObject({ eto: 'mɔ̀ní ású údî', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-POUR-SUBJONCTIF');
+    expect(r.sentences[0]?.pieces.find((p) => p.fr === 'manger')).toMatchObject({ eto: 'dí', form: 'údî', source: 'D7' });
+  });
+
+  it('reste un manque : verbe de plusieurs syllabes, « à » + verbe', () => {
+    expect(gapIds(run("L'argent pour payer"))).toEqual(['D7-INFINITIF-PREPOSITION']);
+    expect(applied(run("L'argent à envoyer"))).not.toContain('D7-POUR-SUBJONCTIF');
+    expect(run("L'argent à envoyer").eto).toBeNull();
   });
 });
 
