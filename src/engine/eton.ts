@@ -57,7 +57,13 @@ export const ETON_RULES = {
     ref: `${ESQUISSE}, §8.7.9 (« àáꜜtə́ ꜜsá ») ; exemples de D7`,
     description: '« ne … pas » au présent : àá après la marque du sujet. Formes attestées seulement : màáꜜtə́ (je), wàátə́ (tu), àáꜜtə́ (il, elle, classe 1, s.g), bàáꜜtə́ (ils, elles, classe 2), byàáꜜtə́ (classe 8). Pas dans une relative (« que tu ne connais pas ») : forme non décrite. Validé par le responsable (M28).',
   },
-  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, être, avoir et verbe suivi d’un infinitif non couverts (M19, M28).'),
+  COPULA: {
+    id: 'D7-ETRE-PRESENT',
+    ruleClass: 'A',
+    ref: `D7 nə̀ « être » (p. 200), sə́ « ne pas être » (p. 243) ; ${ESQUISSE}, §8.7.9 (171)`,
+    description: '« être » au présent suivi d’un complément : marque du sujet + nə̀, en une forme (mə̀nə̀ je, ùnə̀ tu, ɛ̀nə̀ nous, ànə̀ il, elle, classe 1, s.g, bə́nə̂ ils, elles, classe 2, únə̂ cl. 3, mínə̂ cl. 4, ɛ́nə̂ cl. 5, mə́nə̂ cl. 6, ínə̂ cl. 7 et 10, bínə̂ cl. 8, ìnə̀ cl. 9) ; « ne … pas » : sə́ (mə̀sə́ je, àsə́ il, elle, classe 1, úꜜsə́ cl. 3, mə́sə́ cl. 6). Formes des exemples de D7 seulement. Hors règle : « vous », « c’est », relative (nə̌, esquisse (188)), être + participe, « être en train de », « être sur le point de », complément rendu par un verbe de D7. Validé par le responsable (M29).',
+  },
+  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, avoir, quasi-auxiliaires et verbe suivi d’un infinitif non couverts ; « être » hors D7-ETRE-PRESENT (« vous », « c’est », relative, forme négative non attestée) (M19, M28, M29).'),
   SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', '« nous » : ɛ̀ ou bì (seul ɛ̀tə́ est employé au présent) ; classes doubles du lexique (« 9/10, s.g ») non reliées à une marque.'),
   PAST_RECENT_PERFECTIVE: rule('D7-PASSE-RECENT-PERFECTIF', 'C', '§3 Temps', 'MS-H-thème(-H) : tons non documentés.'),
   PAST_RECENT_IMPERFECTIVE: rule('D7-PASSE-RECENT-IMPERFECTIF', 'C', '§3 Temps', 'MS-bə́ + infinitif de la forme G : forme G non documentée.'),
@@ -409,6 +415,15 @@ const CLASS_PRESENT: Readonly<Record<string, string>> = {
   1: 'àtə́', 2: 'bə́ꜜtə́', 3: 'úꜜtə́', 4: 'míꜜtə́', 5: 'ɛ́ꜜtə́', 6: 'mə́ꜜtə́', 7: 'íꜜtə́', 8: 'bíꜜtə́', 9: 'ìtə́', 10: 'íꜜtə́',
 };
 const CLASS_NEGATIVE: Readonly<Record<string, string>> = { 1: 'àáꜜtə́', 2: 'bàáꜜtə́', 8: 'byàáꜜtə́' };
+/** « être » au présent : marque du sujet + nə̀, et négatif sə́ (D7 nə̀, sə́ ; esquisse (171)), formes des exemples de D7 (M29). */
+const COPULA_SUBJECTS: Readonly<Record<string, string>> = {
+  je: 'mə̀nə̀', tu: 'ùnə̀', nous: 'ɛ̀nə̀', il: 'ànə̀', elle: 'ànə̀', ils: 'bə́nə̂', elles: 'bə́nə̂',
+};
+const COPULA_NEGATIVE_SUBJECTS: Readonly<Record<string, string>> = { je: 'mə̀sə́', il: 'àsə́', elle: 'àsə́' };
+const CLASS_COPULA: Readonly<Record<string, string>> = {
+  1: 'ànə̀', 2: 'bə́nə̂', 3: 'únə̂', 4: 'mínə̂', 5: 'ɛ́nə̂', 6: 'mə́nə̂', 7: 'ínə̂', 8: 'bínə̂', 9: 'ìnə̀', 10: 'ínə̂',
+};
+const CLASS_COPULA_NEGATIVE: Readonly<Record<string, string>> = { 1: 'àsə́', 3: 'úꜜsə́', 6: 'mə́sə́' };
 const SINGULAR_CLASSES: ReadonlySet<string> = new Set(['1', '3', '5', '7', '9']);
 const CONNECTIVE_WORDS: ReadonlySet<string> = new Set(['de', 'du', "d'", 'des']);
 /** Mots qui peuvent ouvrir une relative : la négation en àá ne vaut que hors relative (esquisse §8.7.9). */
@@ -439,6 +454,8 @@ interface PresentPlan {
   plural: boolean;
   /** Indices de « ne » et « pas » rendus par la négation, ou null. */
   negation: readonly [number, number] | null;
+  /** « être » : une seule forme sujet + nə̀ (ou sə́), sans infinitif (M29). */
+  copula: boolean;
 }
 
 /** Nombre d'un verbe au présent de la 3e personne (Lefff) ; null s'il est inconnu ou ambigu. */
@@ -480,7 +497,8 @@ function presentVerbs(s: SentenceAnalysis, roleList: readonly Role[], lexicon: L
   const subjectPronoun = roleList.some((r) => r.kind === 'SUBJECT');
   for (const v of s.finiteVerbs) {
     const role = roleList[v.index];
-    if (role?.kind !== 'VERB' || role.finite !== v.index || PRESENT_EXCLUDED.has(v.features?.lemma ?? '')) continue;
+    const copula = v.features?.lemma === 'être';
+    if (role?.kind !== 'VERB' || role.finite !== v.index || (PRESENT_EXCLUDED.has(v.features?.lemma ?? '') && !copula)) continue;
     const { rules, irregular } = verbRules(s, v.index, lexicon);
     if (irregular || rules.length !== 1 || rules[0] !== ETON_RULES.PRESENT) continue;
     const ne = wordAt(tokens, v.index - 1);
@@ -492,15 +510,23 @@ function presentVerbs(s: SentenceAnalysis, roleList: readonly Role[], lexicon: L
     while (roleList[j]?.kind === 'OBJECT' || (wordAt(tokens, j) && (lexicon?.lookup((tokens[j] as Token).key) ?? []).some((r) => r.pos === 'ADV'))) j++;
     const next = wordAt(tokens, j);
     if (next && (lexicon?.lookup(next.key) ?? []).some((r) => r.pos === 'VERB' && r.mood === 'INFINITIVE')) continue;
+    // « être en train de », « être sur le point de » : périphrases d'aspect, pas « être » + complément.
+    const after = [1, 2, 3].map((k) => wordAt(tokens, v.index + (negation.has(v.index + 1) ? 1 : 0) + k)?.key).join(' ');
+    if (copula && (after.startsWith('en train') || after === 'sur le point')) continue;
     const before = v.index - (negative ? 2 : 1);
     const subject = wordAt(tokens, before);
     const neg = negative ? [v.index - 1, v.index + 1] as const : null;
-    if (subject && !subject.enclitic && roleList[before]?.kind === 'SUBJECT' && subject.key in PRESENT_SUBJECTS) {
-      const relative = RELATIVE_WORDS.has(wordAt(tokens, before - 1)?.key ?? '');
-      if (!negative || (subject.key in NEGATIVE_SUBJECTS && !relative)) out.set(v.index, { subject: before, plural: subject.key === 'ils' || subject.key === 'elles', negation: neg });
-    } else if (subject && !subjectPronoun && roleList[before]?.kind === 'LEX') {
+    const forms = copula ? COPULA_SUBJECTS : PRESENT_SUBJECTS;
+    const negatives = copula ? COPULA_NEGATIVE_SUBJECTS : NEGATIVE_SUBJECTS;
+    if (subject && !subject.enclitic && roleList[before]?.kind === 'SUBJECT' && subject.key in forms) {
+      // « être » dans une relative a une forme propre (nə̌, esquisse (188)) : pas de forme non relative.
+      const relative = RELATIVE_WORDS.has(wordAt(tokens, before - 1)?.key ?? '') && roleList[before - 1]?.kind !== 'PARTICLE';
+      if ((!negative || (subject.key in negatives && !relative)) && !(copula && relative)) {
+        out.set(v.index, { subject: before, plural: subject.key === 'ils' || subject.key === 'elles', negation: neg, copula });
+      }
+    } else if (subject && !subjectPronoun && roleList[before]?.kind === 'LEX' && !RELATIVE_WORDS.has(subject.key)) {
       const plural = verbPlural(v.key, lexicon);
-      if (plural !== null) out.set(v.index, { subject: null, plural, negation: neg });
+      if (plural !== null) out.set(v.index, { subject: null, plural, negation: neg, copula });
     }
   }
   return out;
@@ -585,6 +611,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const grammar = new Map<EtonPiece, Role['kind']>();
   const negPieces = new Map<number, EtonPiece>();
   const renderedNegation = new Set<number>();
+  /** « être » rendu par une forme sujet + nə̀ (M29), confirmé après la phrase s'il a un complément. */
+  const copulas: { piece: EtonPiece; subject: EtonPiece | undefined; plan: PresentPlan }[] = [];
   const pieces: EtonPiece[] = [];
   const gaps: Gap[] = [];
   const applied = new Set<EtonRule>();
@@ -658,13 +686,27 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     let marker: { piece: EtonPiece; form: string; rule: EtonRule; insert: boolean; plan: PresentPlan } | undefined;
     if (role.kind === 'VERB' && role.finite !== null) {
       const plan = present.get(i);
-      if (plan?.subject != null) {
+      if (plan?.copula) {
+        const key = plan.subject === null ? null : (tokens[plan.subject] as Token).key;
+        const c = key === null ? nounSubjectClass(pieces, grammar, nounClasses, plan.plural) : null;
+        const form = key !== null ? (plan.negation ? COPULA_NEGATIVE_SUBJECTS : COPULA_SUBJECTS)[key]
+          : c === null ? undefined : (plan.negation ? CLASS_COPULA_NEGATIVE : CLASS_COPULA)[c];
+        if (form) {
+          const piece: EtonPiece = { fr: t.text, eto: form, source: 'RULE', ref: ETON_RULES.COPULA.ref };
+          copulas.push({ piece, subject: plan.subject === null ? undefined : subjects.get(plan.subject), plan });
+          pieces.push(piece);
+          found++;
+          i++;
+          continue;
+        }
+      }
+      if (plan?.subject != null && !plan.copula) {
         const key = (tokens[plan.subject] as Token).key;
         const piece = subjects.get(plan.subject);
         const form = (plan.negation ? NEGATIVE_SUBJECTS : PRESENT_SUBJECTS)[key];
         const r = PRONOUN_PRESENT.has(key) ? ETON_RULES.PRESENT_PRONOUN : ETON_RULES.PRESENT_SUBJECT;
         if (piece && form) marker = { piece, form, rule: r, insert: false, plan };
-      } else if (plan) {
+      } else if (plan && !plan.copula) {
         const c = nounSubjectClass(pieces, grammar, nounClasses, plan.plural);
         const form = c === null ? undefined : (plan.negation ? CLASS_NEGATIVE : CLASS_PRESENT)[c];
         if (form) marker = { piece: { fr: '', eto: null, source: 'RULE', ref: null }, form, rule: ETON_RULES.PRESENT_SUBJECT, insert: true, plan };
@@ -745,6 +787,22 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
     pieces.push(piece);
     i = hit.end;
+  }
+
+  // « être » (M29) : il faut un complément qui ne soit pas un verbe de D7 (« être rapide » : vóló), sinon manque.
+  for (const { piece, subject, plan } of copulas) {
+    const next = pieces.slice(pieces.indexOf(piece) + 1).find((p) => grammar.get(p) !== 'NEG');
+    if (next && next.source !== 'PUNCT' && !(next.source === 'D7' && (next.category === 'VERBE' || next.category === 'AUX'))) {
+      if (subject) pieces.splice(pieces.indexOf(subject), 1);
+      applied.add(ETON_RULES.COPULA);
+      if (plan.negation) for (const k of plan.negation) renderedNegation.add(k);
+    } else {
+      piece.eto = null;
+      piece.source = 'GRAMMAR';
+      piece.ref = null;
+      found--;
+      gap(piece.fr, ETON_RULES.PRESENT);
+    }
   }
 
   // « ne » et « pas » rendus par la marque négative du présent : plus de mot à part.

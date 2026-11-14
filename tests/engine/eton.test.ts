@@ -110,6 +110,32 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
     expect(gapIds(run("L'arbre n'attend pas."))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
   });
 
+  it('« être » au présent (M29) : sujet + nə̀ en une forme, négatif sə́, formes de D7 seulement', () => {
+    const r = run('Je suis ici.');
+    expect(r.eto).toBe('mə̀nə̀ mű.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.COPULA.id);
+    expect(run('Tu es ici.').eto).toBe('ùnə̀ mű.');
+    expect(run('Nous sommes ici.').eto).toBe('ɛ̀nə̀ mű.');
+    expect(run('Elle est ici.').eto).toBe('ànə̀ mű.');
+    expect(run('Ils sont ici.').eto).toBe('bə́nə̂ mű.');
+    expect(run("L'enfant est ici.").eto).toBe('m-wán ànə̀ mű.');
+    expect(run("L'arbre est facile.").eto).toBe('ì-lə́ ínə̂ ì-bùbû.');
+    expect(run('Le prix est ici.').eto).toBe('táŋ ìnə̀ mű.');
+    expect(run('Est-ce que tu es ici ?').eto).toBe('də̀ ùnə̀ mű ?');
+    expect(run("Elle n'est pas ici.").eto).toBe('àsə́ mű.');
+    expect(run('Je ne suis pas ici.').eto).toBe('mə̀sə́ mű.');
+  });
+
+  it('« être » : rien n’est produit sans forme sûre (vous, négation non attestée, c’est, relative, sans complément…)', () => {
+    for (const text of ['Vous êtes ici.', "Tu n'es pas ici.", "L'arbre n'est pas ici.", "C'est ici.", 'Le message est ici.',
+      "L'enfant qui est ici.", "L'argent que tu es.", 'Il est.', 'Il est manger.', 'Je suis en train de manger.']) {
+      const r = run(text);
+      expect(r.eto, text).toBeNull();
+      expect(r.draft, text).not.toMatch(/nə|sə́/u);
+    }
+    expect(gapIds(run('Il est.'))).toContain(ETON_RULES.PRESENT.id);
+  });
+
   it('classe d’accord du nom sujet (M28)', () => {
     expect(subjectClass('7/8', false)).toBe('7');
     expect(subjectClass('3a/6', false)).toBe('3');
