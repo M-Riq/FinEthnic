@@ -99,6 +99,8 @@ Attendu : trois lignes — `PENDING_VALIDATION · complete · táŋ`, `PENDING_V
 
 ## Partie C — l'affichage (après P2 et P5)
 
+**Automatisée** depuis BM7 : `npm run e2e-extension` charge le build de production (vrai moteur embarqué) dans Chrome, injecte les textes des 15 cas dans la page de test et vérifie l'affichage attendu (vérification `E2E-C`, 13 cas applicables à la page : E13 et E14 testent le paramètre `sourceLang` de l'API (`en`, `auto`), que la page ne choisit pas — l'extension envoie toujours `auto`, Q16). Résultat au 2026-11-15 : 13 / 13 (`docs/test-report.md`). Le tableau ci-dessous reste la liste de contrôle pour une vérification à la main, par exemple sur le site réel.
+
 Sur la page de test (ou une page locale contenant les textes des cas), option « Afficher les traductions non vérifiées » activée :
 
 | Statut reçu | Ce que l'on doit voir | OK ? |

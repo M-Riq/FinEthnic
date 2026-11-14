@@ -6,27 +6,36 @@ Documents de référence : [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md), [`ROADMAP
 
 ## Extension Chrome
 
-> **État : phase 5 (affichage et restauration), avec le faux moteur.** L'extension détecte les textes de la page, met à part les valeurs à ne jamais traduire (montants, références, noms, saisies réaffichées…), puis **remplace** les libellés traduits par le moteur, sans toucher à la structure de la page. Les traductions non vérifiées portent un marqueur, le français reste lisible au survol et au focus (ou en mode bilingue), et désactiver la traduction rend la page à l'identique. La version de production n'a pas encore de moteur de traduction (inclusion à décider, BM7) : elle compte les textes sans rien afficher.
+> **État : phases 5 à 7 terminées sur la page de test, avec le vrai moteur (BM7).** L'extension détecte les textes de la page, met à part les valeurs à ne jamais traduire (montants, références, noms, saisies réaffichées…), puis **remplace** les libellés traduits par le moteur, sans toucher à la structure de la page. Les traductions non vérifiées portent un marqueur (aucune n'est encore validée par une locutrice), le français reste lisible au survol et au focus (ou en mode bilingue), et désactiver la traduction rend la page à l'identique. Résultats : [`docs/test-report.md`](docs/test-report.md) ; architecture et limites : [`docs/note-technique.md`](docs/note-technique.md).
 
 ### Installation
 
-Prérequis : Node.js ≥ 20 et Chrome ≥ 110.
+Prérequis : Chrome ≥ 110.
+
+**Depuis le ZIP** (`finethnic-safinum-eton-<version>.zip`, produit par `npm run package`) : le décompresser dans un dossier, puis suivre les étapes Chrome ci-dessous en choisissant ce dossier.
+
+**Depuis les sources** (Node.js ≥ 20) : le build de production embarque le moteur et ses ressources, dont le dictionnaire D7, qui n'est jamais dans Git (Q17). Placer le fichier D7 reçu en privé dans `data/language-resources/raw/`, puis :
 
 ```sh
 npm ci
-npm run build        # construit l'extension dans dist/
+npm run import-dictionary   # une fois : importe D7 (hors Git)
+npm run build               # construit l'extension dans dist/
 ```
+
+Sans D7, `npm run build` s'arrête et indique la commande à lancer ; `node build.mjs --engine none` construit une extension sans moteur (elle compte les textes sans rien afficher).
 
 Dans Chrome :
 
 1. Ouvrir `chrome://extensions`.
 2. Activer le **Mode développeur** (en haut à droite).
-3. Cliquer sur **Charger l'extension non empaquetée** et choisir le dossier `dist/`.
+3. Cliquer sur **Charger l'extension non empaquetée** et choisir le dossier `dist/` (ou le dossier du ZIP décompressé).
 4. Épingler l'extension (icône de pièce de puzzle), puis ouvrir son popup.
 
 Chrome doit annoncer une seule autorisation : **« Lire et modifier vos données sur safinum.cm »**. Ouvrez l'environnement de test **directement** à l'adresse `https://safinum.cm/hackathon-test` : le script de l'extension n'est pas chargé si l'application est ouverte depuis une autre adresse.
 
 Après une nouvelle construction, cliquez sur le bouton de rechargement de l'extension dans `chrome://extensions`, puis rechargez la page.
+
+Avec la traduction activée, les premiers textes en éton apparaissent environ une seconde après l'ouverture de la page : c'est le temps de construction du moteur. Traduction désactivée, le moteur n'est pas construit.
 
 ### Popup
 
@@ -83,7 +92,9 @@ Dans les autres textes, `src/protection/patterns.ts` repère les valeurs protég
 npm run build:dev    # construit dans dist-dev/
 ```
 
-La construction de développement charge aussi le script sur `http://localhost` et `http://127.0.0.1` (pages de test locales) et utilise le **faux moteur** (`src/content/fake-engine.ts`, contrat §9) : ses « traductions » commencent par `⟦FAKE⟧` et ne sont pas de l'éton. Elle écrit dans la console des événements sans aucun texte de page, par exemple `[FinEthnic:content] content:scan {roots: 1, candidates: 26, …}`. **Ne distribuez jamais `dist-dev/`.**
+La construction de développement charge aussi le script sur `http://localhost` et `http://127.0.0.1` (pages de test locales) et utilise par défaut le **faux moteur** (`src/content/fake-engine.ts`, contrat §9) : ses « traductions » commencent par `⟦FAKE⟧` et ne sont pas de l'éton. Elle écrit dans la console des événements sans aucun texte de page, par exemple `[FinEthnic:content] content:scan {roots: 1, candidates: 26, …}`. **Ne distribuez jamais `dist-dev/`.**
+
+Le moteur se choisit à la construction avec `--engine` : `real` (vrai moteur, défaut en production, D7 requis), `fake` (développement seulement, refusé en production) ou `none`. Exemple, le vrai moteur sur les pages locales : `node build.mjs --dev --engine real`.
 
 Page de test locale (5 étapes, données fictives, structure supposée en attendant le relevé du DOM réel, Q20) :
 
@@ -98,6 +109,10 @@ python3 -m http.server 8000 --directory tests/fixtures
 | `npm test` | Tous les tests (Vitest ; ceux de l'extension sont dans `tests/extension/`) |
 | `npm run typecheck` | Vérification des types : bibliothèque (`tsconfig.json`) et extension (`tsconfig.extension.json`) |
 | `npm run build` / `npm run build:dev` | Construction de production / de développement |
+| `npm run e2e-extension` | Banc Chrome : build de production chargé dans Chrome sans interface, parcours des 5 étapes, injections, charge de 500 nœuds, script de démonstration, audit réseau et stockage (D7 requis ; `-- --dist <dossier>` pour tester un dossier déjà construit, `-- --chrome <chemin>` pour un autre Chrome) |
+| `npm run package` | Build de production, contrôles, puis `release/finethnic-safinum-eton-<version>.zip` avec les avis de licence (`LICENCES.txt`, LGPL-LR) |
+
+**Démonstration** (P7) : avec l'extension installée et la page de test ouverte, coller `docs/demo/inject-samples.js` dans la console DevTools, puis lancer `finethnicDemo.tout()` (tous les échantillons à la suite) ou un échantillon seul (`finethnicDemo.proche()`, `finethnicDemo.charge(500)`…). Le script imite l'application : il n'écrit que dans son propre panneau, en haut de la page.
 
 ESLint (prévu par Q4) n'est pas encore installé : `typescript-eslint` ne prend pas en charge TypeScript 7.
 
@@ -105,6 +120,7 @@ ESLint (prévu par Q4) n'est pas encore installé : `typescript-eslint` ne prend
 
 - Seule permission : `storage`. Aucune `host_permissions`, aucun service worker.
 - Le script de contenu ne s'exécute que sur `https://safinum.cm/hackathon-test*`, dans le cadre principal. Il ne modifie que le texte des libellés traduits, jamais la structure : aucun nœud ni attribut ajouté dans `<body>`, et HTML identique après désactivation (vérifié par test et dans Chrome). Sans moteur, il ne modifie rien.
+- Le moteur est embarqué dans `content.js` : aucun appel à un service, aucune donnée de la page ne sort du navigateur.
 - Le popup ne répond qu'aux messages de l'extension elle-même ; les réponses ne contiennent que des compteurs.
 - Aucune requête réseau. `build.mjs` **refuse de construire** si le code produit contient `fetch`, `XMLHttpRequest`, `WebSocket`, `EventSource`, `sendBeacon`, `import()`, `eval`, `Function(…)`, `setTimeout` avec une chaîne, `innerHTML`, `outerHTML`, `insertAdjacentHTML` ou `document.write`, ou, en production, le faux moteur (`⟦FAKE⟧`, contrat §9).
 - Le journal n'accepte que des nombres et des booléens : aucun texte de la page ne peut y figurer.
@@ -120,14 +136,21 @@ src/content/          script de contenu : index.ts (point d'entrée), controller
                       scanner.ts, observer.ts, context.ts, pipeline.ts (lecture et évaluation),
                       renderer.ts (seule écriture dans la page, restauration), tooltip.ts (français au survol),
                       diagnostic.ts et content.css (compteurs, surlignage, marqueurs), messaging.ts (popup),
-                      engine-provider.ts (seul choix du moteur), fake-engine.ts (développement)
+                      engine-provider.ts (seul choix du moteur), engine-resources.ts (ressources du vrai moteur
+                      dans le bundle), fake-engine.ts (développement)
 src/protection/       dom-guard.ts (régions jamais lues, positions « valeur »), patterns.ts (valeurs protégées,
                       module pur partagé avec le moteur), echo.ts (saisies réaffichées), integrity.ts (contrôle
                       avant écriture, empreinte de page)
 src/popup/            popup (HTML, CSS, logique)
 src/shared/           réglages, accès à chrome.storage, journal sans données, messages popup ⇄ page
-tests/extension/      tests Vitest (détection, observation, diagnostic, protection, intégrité, affichage, popup, manifest, construction)
+tests/extension/      tests Vitest (détection, observation, diagnostic, protection, intégrité, affichage, popup, manifest,
+                      construction, paquet ZIP)
 tests/fixtures/       page de test locale SAFINUM (5 étapes, données fictives)
+scripts/e2e-extension.ts, scripts/lib/cdp.ts, scripts/lib/e2e-probe.js
+                      banc Chrome (pilotage CDP, sonde dans la page)
+scripts/package-extension.ts, scripts/lib/extension-package.ts
+                      paquet ZIP de production
+docs/demo/            script d'injection de démonstration (P7)
 ```
 
 ## Bibliothèque linguistique et moteur
