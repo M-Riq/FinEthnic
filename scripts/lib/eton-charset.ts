@@ -3,6 +3,8 @@
  *
  * But : détecter les erreurs d'encodage et d'extraction, pas l'orthographe.
  * La liste blanche est PROVISOIRE : elle sera confirmée avec D7 et les locutrices (Q17).
+ * ɲ, ꜜ, la liaison de g͡b / k͡p et le double aigu (ton très haut, vérifié dans le livre)
+ * ont été ajoutés à la réception de D7 (2026-11-13, décisions du responsable).
  */
 
 /** Lettres de base : alphabet latin complet + lettres spéciales de l'alphabet général des langues camerounaises. */
@@ -12,6 +14,7 @@ const BASE_LETTERS = new Set<string>([
   'ɔ', 'Ɔ', // U+0254, U+0186
   'ŋ', 'Ŋ', // U+014B, U+014A
   'ə', 'Ə', 'Ǝ', // U+0259, U+018F, U+018E
+  'ɲ', 'Ɲ', // U+0272, U+019D (D7)
 ]);
 
 /** Marques de ton autorisées (après décomposition NFD). */
@@ -21,10 +24,13 @@ const TONE_MARKS = new Set<string>([
   '\u0302', // circonflexe
   '\u030C', // caron
   '\u0304', // macron
+  '\u030B', // double aigu, ton très haut (D7)
+  '\u0361', // liaison de deux consonnes, ex. g͡b (D7)
 ]);
 
 const OTHER_ALLOWED = new Set<string>([
   ...'0123456789',
+  '\uA71C', // ꜜ ton abaissé (downstep) (D7)
   ' ', '\u00A0', '\u202F', // espace, espaces insécables
   "'", '\u2019', '-', '.', ',', ';', ':', '!', '?', '«', '»', '(', ')', '"', '\u2026', '/',
 ]);

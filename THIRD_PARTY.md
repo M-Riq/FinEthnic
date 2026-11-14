@@ -23,7 +23,7 @@ Les dépendances indirectes sont figées dans `package-lock.json`.
 | Source | Usage | Licence / citation |
 |---|---|---|
 | Corpus fusionné D8 (`docs/sources/`) | Textes français, synonymes et définitions simples | Document du projet |
-| Dictionnaire Éton–Français (D7) | Justification des propositions (BM3) | À préciser à sa réception (Q17) |
+| *Dictionnaire éton–français* (D7), Mark Van de Velde & Kisito Essele Essele, Éditions CLÉ, Yaoundé, 2022 | Propositions de la cascade et leur justification (BM3). Hors Git ; seules les formes citées sont versionnées, avec leur page | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr) : les fichiers qui contiennent des formes de D7 sont diffusés sous la même licence (Q17) |
 
 ## Outils d'IA
 

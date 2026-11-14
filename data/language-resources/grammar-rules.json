@@ -1,6 +1,32 @@
 {
-  "description": "Règles de formation des phrases transcrites de D7, une par une avec leur page de référence (BM3.6, PROJECT_CONTEXT §3.10). VIDE tant que D7 n'est pas reçu et que Q23 n'est pas tranchée : sans règle, la cascade ne propose que des textes d'un seul mot ou d'une expression entière du dictionnaire. Après modification, relancer npm run propose-translations.",
-  "source": "D7 (Van de Velde & Essele Essele, CLÉ 2022) — à transcrire (Q23)",
-  "ignoredWords": [],
-  "rules": []
+  "description": "Règles de formation des phrases transcrites de D7, une par une avec leur page de référence et la validation du responsable (BM3.6, PROJECT_CONTEXT §3.10). Une règle décrit seulement l'ordre des mots : marques du sujet, temps, négation, connectifs et tons restent à la locutrice (R20). Après modification, relancer npm run propose-translations.",
+  "source": "D7 : Mark Van de Velde & Kisito Essele Essele, Dictionnaire éton–français, CLÉ 2022 (CC BY-NC-SA 4.0) ; esquisse grammaticale p. 18-71 et exemples du lexique",
+  "ignoredWords": [
+    {
+      "words": [
+        "le",
+        "la",
+        "l'",
+        "les",
+        "des"
+      ],
+      "ref": "D7 p. 71 (lexique n° 15, exemple « Je vais chez le chef ») ; esquisse grammaticale p. 18-71 (exemples avec « la maison », « une mangue »)",
+      "note": "L'éton n'a pas d'article : dans les phrases d'exemple de D7, le nom figure seul. « un » et « une » ne sont pas ignorés, car ils peuvent signifier le nombre 1 (D7 p. 238, lexique n° 2716). Validé par le responsable le 2026-11-13."
+    }
+  ],
+  "rules": [
+    {
+      "id": "D7-VERBE-NOM",
+      "description": "Verbe suivi de son complément : ordre conservé (sujet – verbe – compléments). Le verbe reste sous sa forme de dictionnaire : marque du sujet, temps ou ton de l'impératif à ajouter par la locutrice. Validé par le responsable le 2026-11-13.",
+      "ref": "D7, esquisse grammaticale p. 18-71 (ordre des mots : le sujet précède le verbe, tout le reste vient après)",
+      "pattern": [
+        "VERBE",
+        "NOM"
+      ],
+      "order": [
+        1,
+        2
+      ]
+    }
+  ]
 }
