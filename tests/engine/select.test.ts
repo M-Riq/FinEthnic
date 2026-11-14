@@ -6,7 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { CorpusEntry } from '../../src/engine/corpus';
 import { createEngine, type EngineResources } from '../../src/engine/engine';
 import { ETON_RULES } from '../../src/engine/eton';
-import { INCOMPLETE_MARKER, type TextResult, type UnitResult } from '../../src/engine/select';
+import { INCOMPLETE_MARKER, onlyFrenchKept, type TextResult, type UnitResult } from '../../src/engine/select';
 import {
   KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
 } from '../../scripts/lib/engine-load';
@@ -206,6 +206,18 @@ describe('select — termes français gardés (M20)', () => {
   it('sinon SUCCESS avec le signal FRENCH_KEPT', () => {
     const u = unit(withKept([entry('X-5', 'Expédier le bordereau', ['envoyer le reçu'])]).translate('Expédier le bordereau'));
     expect(u).toMatchObject({ status: 'SUCCESS', output: 'lóm reçu', reasons: ['FRENCH_KEPT'] });
+  });
+
+  it('un terme gardé seul reste non traduit, signalé ONLY_FRENCH_KEPT pour être compté à part (M25)', () => {
+    const engine = withKept([entry('X-6', 'Le reçu', []), entry('X-7', 'Le reçu du bordereau', [])]);
+    const alone = engine.translate('Le reçu');
+    expect(alone).toMatchObject({ status: 'PARTIAL', output: null });
+    expect(alone.units[0]?.reasons).toContain('ONLY_FRENCH_KEPT');
+    expect(onlyFrenchKept(alone)).toBe(true);
+    const missing = engine.translate('Le reçu du bordereau');
+    expect(missing.status).not.toBe('SUCCESS');
+    expect(missing.units[0]?.reasons).not.toContain('ONLY_FRENCH_KEPT');
+    expect(onlyFrenchKept(missing)).toBe(false);
   });
 
   it('kept-french-terms.json : refuse un terme en double ou à la fois gardé et exclu', () => {
