@@ -11,6 +11,8 @@ export type LogEvent =
   | 'content:settings-changed'
   | 'content:scan'
   | 'content:evaluate'
+  | 'content:render'
+  | 'content:restore'
   | 'popup:open'
   | 'popup:setting-changed'
   | 'popup:diagnostic';

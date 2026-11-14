@@ -15,7 +15,12 @@ export interface DiagnosticRequest {
  * Compteurs du diagnostic. `candidates` est le total des textes à traduire ; `waiting` (pas encore évalués)
  * et les compteurs par statut le répartissent. `numeric` compte à part les textes faits de chiffres sans lettre,
  * `values` les textes avec des lettres protégés par leur position (cellule valeur, écho de saisie : P3).
+ * Affichage (P5, `DISPLAY_KEYS`) : `displayed` textes affichés en éton, dont `displayedUnverified` non vérifiés
+ * (complets ou brouillons) ; `refused` traductions écartées par le contrôle d'intégrité (français conservé).
  */
+export const DISPLAY_KEYS = ['displayed', 'displayedUnverified', 'refused'] as const;
+export type DisplayKey = (typeof DISPLAY_KEYS)[number];
+
 export const COUNT_KEYS = [
   'candidates',
   'numeric',
@@ -28,6 +33,7 @@ export const COUNT_KEYS = [
   'noMatch',
   'ambiguous',
   'protected',
+  ...DISPLAY_KEYS,
 ] as const;
 export type CountKey = (typeof COUNT_KEYS)[number];
 

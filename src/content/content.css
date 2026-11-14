@@ -1,6 +1,6 @@
 /*
- * Surlignage du mode diagnostic (P2.6), injecté par le manifest : il ne vise que les surlignages
- * nommés `finethnic-*` de la CSS Custom Highlight API, donc ni le DOM ni les styles de la page.
+ * Surlignage du mode diagnostic (P2.6) et marqueurs (P5.10), injectés par le manifest : ils ne visent que
+ * les surlignages nommés `finethnic-*` de la CSS Custom Highlight API, donc ni le DOM ni les styles de la page.
  * Chaque catégorie a une forme de trait propre (pas seulement une couleur) ; légende dans le popup.
  */
 ::highlight(finethnic-approved) { text-decoration: underline solid #0b6e4f 2px; }
@@ -13,3 +13,10 @@
 ::highlight(finethnic-waiting) { text-decoration: underline overline dotted #374151 2px; }
 ::highlight(finethnic-numeric) { text-decoration: overline dotted #374151 2px; }
 ::highlight(finethnic-values) { text-decoration: overline double #374151 2px; }
+
+/*
+ * Marqueurs des traductions non vérifiées (P5.10, contrat §5.4-2 et 6), affichés même hors diagnostic :
+ * tirets pour une traduction complète, vagues pour un brouillon. Aucun marqueur sur une traduction validée.
+ */
+::highlight(finethnic-mark-unverified) { text-decoration: underline dashed #1d4ed8 2px; }
+::highlight(finethnic-mark-partial) { text-decoration: underline wavy #1d4ed8 2px; }

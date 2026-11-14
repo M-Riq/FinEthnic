@@ -3,8 +3,8 @@
  *
  * - `checkIntegrity` : avant chaque écriture, les valeurs protégées du texte d'origine doivent se retrouver,
  *   octet par octet et avec la même multiplicité, dans le texte à écrire ; sinon l'écriture est refusée.
- * - `fingerprint` : empreinte (hachage) des valeurs protégées d'un ensemble de textes, seule trace gardée
- *   au niveau de la page pour détecter un écart et revenir en arrière (branché en P5).
+ * - `fingerprint` : empreinte (hachage) des valeurs protégées d'un ensemble de textes, indépendante de leur
+ *   ordre : sert à comparer une page avant traduction, traduite et restaurée (tests de P5).
  *
  * Pur : aucune dépendance au DOM ni à `chrome.*`. Les résultats ne contiennent jamais de texte de la page.
  */
@@ -17,6 +17,8 @@ export type IntegrityFailure =
   | 'protected-changed'
   /** Un segment signalé par le moteur (`protectedSegments`) manque dans le texte à écrire (I5). */
   | 'engine-segment-missing'
+  /** Un segment signalé par le moteur ne figure pas dans le texte d'origine : résultat incohérent (P5.8). */
+  | 'engine-segment-unknown'
   /** Les chiffres diffèrent (I5 : même multiensemble de chiffres). */
   | 'digits-changed';
 
@@ -65,6 +67,7 @@ export function checkIntegrity(
     if (typeof segment === 'string' && segment !== '') expected.set(segment, (expected.get(segment) ?? 0) + 1);
   }
   for (const [segment, count] of expected) {
+    if (occurrences(source, segment) < count) return 'engine-segment-unknown';
     if (occurrences(written, segment) < count) return 'engine-segment-missing';
   }
   return null;
