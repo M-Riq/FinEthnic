@@ -36,6 +36,33 @@
       "reason": "D7 : bán « arrêt, stationnement, gare ». Dans « Opposition », l’arrêt est le blocage de la carte, pas un lieu où l’on s’arrête : « bán ì carte » se lirait « la gare de la carte ». Le synonyme de D8 « arrêter la carte » donne tɛ́lî « arrêter (tr.) » (D7 p. 251, n° 2936).",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-038",
+      "fr": "public",
+      "eto": "ɲ̀-cə̀ŋ",
+      "ref": "D7 p. 220 (lexique n° 2428)",
+      "reason": "D7 : ɲ̀-cə̀ŋ « 1) cour 2) public, audience » est un nom : les gens qui regardent ou écoutent. Dans « Réseau Wi-Fi public », « public » est un adjectif : ouvert à tout le monde. « Réseau Wi-Fi ɲ̀-cə̀ŋ » se lirait « le réseau de l’audience ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-050",
+      "fr": "publics",
+      "eto": "ɲ̀-cə̀ŋ",
+      "ref": "D7 p. 220 (lexique n° 2428)",
+      "reason": "D7 : ɲ̀-cə̀ŋ « 1) cour 2) public, audience » est un nom : les gens qui regardent ou écoutent. Dans « Évitez les réseaux Wi-Fi publics », « public » est un adjectif : ouvert à tout le monde. « Réseau Wi-Fi ɲ̀-cə̀ŋ » se lirait « le réseau de l’audience ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-039",
+      "fr": "nouvelle",
+      "eto": "pɔ́",
+      "ref": "D7 p. 234 (lexique n° 2661)",
+      "reason": "D7 : pɔ́ « nouvelle, information, message » est un nom : une nouvelle qu’on annonce. Dans « Mise à jour de sécurité », le synonyme de D8 « nouvelle version » emploie « nouvelle » comme adjectif (récente) : « pɔ́ version » se lirait « l’information de la version ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
     }
   ]
 }
