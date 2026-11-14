@@ -5,7 +5,8 @@
  * - chaque mot plein est cherché dans D7 (forme du texte, puis lemme de même catégorie) ;
  * - seules les règles de classe A de D7 sont appliquées : ordre sujet – verbe – compléments, articles
  *   ignorés (validé en BM3.6), « də̀ » en tête d'une question oui/non, mot interrogatif laissé en place,
- *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ;
+ *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ; « de » entre
+ *   deux noms, accordé à la classe du premier nom (M26) ;
  * - tout trait qui demande une règle de classe B (inactive par défaut, M10) ou C (non documentée) est
  *   rendu comme un manque, avec la règle et sa référence. Aucun manque → phrase complète.
  *
@@ -62,7 +63,7 @@ export const ETON_RULES = {
   ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd »)', 'Ordre et connectif accordé : un exemple seulement.'),
   INFINITIVE: rule('D7-INFINITIF-PREPOSITION', 'C', 'lexique n° 685 (exemple « ású ɲcígní ɲâg »)', 'Forme du verbe après une préposition (« pour couper ») : préfixe non documenté.'),
   NUMERAL: rule('D7-NOMBRE', 'C', '§1-7', 'Place et accord du nombre par rapport au nom : non documentés.'),
-  CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : accord non documenté.'),
+  CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : premier nom gardé en français ou de classe sans forme sûre dans D7 (2, 3, 4, 3a, 6…), second nom à voyelle ou nasale initiale (fusion non documentée), ou noms juxtaposés sans « de » (M26).'),
   VERB_FORM: rule('D7-FORME-VERBALE', 'C', '§3', 'Participe ou forme conjuguée : D7 ne donne que l’infinitif.'),
 } as const satisfies Record<string, EtonRule>;
 
@@ -83,6 +84,19 @@ export interface Partitive {
   ref: string;
 }
 
+/**
+ * Connectif (grammar-rules.json, `connectives`, M26) : « de », « du », « d' » entre deux noms rendu par la
+ * forme de la classe du premier nom (D7). Ailleurs (classe absente de `forms`, premier nom gardé en
+ * français), « de » reste un manque.
+ */
+export interface Connective {
+  id: string;
+  words: readonly string[];
+  /** Classe nominale du premier nom au singulier (« 9 » pour « 9/10 », « s.g ») → forme éton. */
+  forms: Readonly<Record<string, string>>;
+  ref: string;
+}
+
 export interface EtonOptions {
   guards?: readonly string[];
   lexicon?: Lexicon;
@@ -92,6 +106,8 @@ export interface EtonOptions {
   kept?: readonly string[];
   /** Partitifs supprimés après un verbe (M21). */
   partitives?: readonly Partitive[];
+  /** Connectifs entre deux noms (M26). */
+  connectives?: readonly Connective[];
 }
 
 export type Gap =
@@ -426,6 +442,18 @@ function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undef
   return { rules, irregular: null };
 }
 
+/**
+ * Second nom du connectif commençant par une consonne ordinaire (M26). Devant une voyelle ou une nasale
+ * syllabique, D7 n'écrit pas le connectif à part : son ton se fond dans le nom (ìkǔm í mbâz « souche de
+ * maïs », mais ìkùm ílə́ « souche d'arbre », n° 890 ; ǹtùdà ḿmûŋ, n° 2173), fusion non documentée.
+ */
+function consonantInitial(form: string): boolean {
+  const d = form.normalize('NFD').toLocaleLowerCase('fr');
+  const first = d[0] ?? '';
+  if (/[aeiouɛəɔ]/u.test(first)) return false;
+  return !(/[mnŋɲ]/u.test(first) && /\p{Mn}/u.test(d[1] ?? ''));
+}
+
 const ATTACHED = new Set(['.', ',', '…', ')', '...']);
 
 function join(parts: readonly { text: string; punct: boolean }[]): string {
@@ -457,6 +485,9 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   let total = 0;
   /** Jetons rendus par une entrée de D7 (une expression peut contenir « rien »). */
   const consumed = new Set<number>();
+  /** Classe nominale de D7 des noms rendus, et manque de chaque mot absent (connectif, M26). */
+  const nounClasses = new Map<EtonPiece, string>();
+  const wordGaps = new Map<EtonPiece, Gap>();
   const gap = (fr: string, r: EtonRule): void => {
     if (!gaps.some((g) => g.kind === 'RULE' && g.rule === r && g.fr === fr)) gaps.push({ kind: 'RULE', fr, rule: r });
   };
@@ -540,9 +571,12 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     }
     const fr = tokens.slice(i, hit?.end ?? i + 1).map((x) => x.text).join(' ');
     if (!hit) {
-      pieces.push({ fr, eto: null, source: 'MISSING', ref: null });
+      const missing: EtonPiece = { fr, eto: null, source: 'MISSING', ref: null };
       const rejected = d7.get(t.key).map((x) => ({ eto: x.eto, category: x.category, ref: x.ref }));
-      gaps.push({ kind: 'WORD', fr, rejected });
+      const wordGap: Gap = { kind: 'WORD', fr, rejected };
+      pieces.push(missing);
+      gaps.push(wordGap);
+      wordGaps.set(missing, wordGap);
       i++;
       continue;
     }
@@ -580,6 +614,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       if (highInitial(entry.eto)) piece.downstep = true;
       applied.add(ETON_RULES.PRESENT_PRONOUN);
     }
+    if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
     pieces.push(piece);
     i = hit.end;
   }
@@ -595,6 +630,32 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       delete p.category;
       gaps.push({ kind: 'WORD', fr: p.fr, rejected: [] });
     }
+  }
+
+  // « de » entre deux noms (M26) : forme de la classe du premier nom, rendu par D7 avec sa classe.
+  const connectiveRules = new Map<Connective, EtonRule>();
+  for (let k = 1; k + 1 < pieces.length; k++) {
+    const p = pieces[k] as EtonPiece;
+    const a = pieces[k - 1] as EtonPiece;
+    const b = pieces[k + 1] as EtonPiece;
+    if (p.source !== 'MISSING' || a.source !== 'D7' || a.eto === null || a.category !== 'NOM') continue;
+    if (!(b.source === 'D7' || b.source === 'FRENCH') || b.eto === null || b.category !== 'NOM' || !consonantInitial(b.eto)) continue;
+    const key = p.fr.toLocaleLowerCase('fr').replace(/’/gu, "'");
+    const nounClass = nounClasses.get(a)?.split('/')[0];
+    const c = nounClass === undefined ? undefined : (options.connectives ?? []).find((x) => x.words.includes(key) && x.forms[nounClass] !== undefined);
+    if (c === undefined || nounClass === undefined) continue;
+    p.eto = c.forms[nounClass] as string;
+    p.source = 'RULE';
+    p.ref = c.ref;
+    const g = wordGaps.get(p);
+    if (g) gaps.splice(gaps.indexOf(g), 1);
+    let r = connectiveRules.get(c);
+    if (!r) {
+      r = { id: c.id, ruleClass: 'A', ref: c.ref, description: 'Connectif « de » entre deux noms : forme de la classe du premier nom.' };
+      connectiveRules.set(c, r);
+    }
+    applied.add(r);
+    found++;
   }
 
   // Traits de la phrase.

@@ -11,7 +11,7 @@ import type { WrongSense } from '../../src/engine/select';
 import { parseLexicon } from '../../src/engine/lexicon';
 import { readLibraryEntries } from './data-files';
 import { contractExtras, corpusEntries, criticalEntryIds, guardTexts } from './engine-corpus';
-import { DICTIONARY_PATH, readD7Entries, readIgnoredWords, readPartitives } from './engine-d7';
+import { DICTIONARY_PATH, readConnectives, readD7Entries, readIgnoredWords, readPartitives } from './engine-d7';
 
 export const LEXICON_PATH = 'data/language-resources/lefff/lefff-3.4-finethnic.mlex';
 export const SENSE_REVIEW_PATH = 'data/language-resources/sense-review.json';
@@ -108,6 +108,7 @@ function engineResources(root: string, entries: Parameters<typeof corpusEntries>
     d7,
     ignored: readIgnoredWords(root),
     partitives: readPartitives(root),
+    connectives: readConnectives(root),
     critical: criticalEntryIds(entries),
     wrongSenses: readWrongSenses(root, new Set(corpus.map((e) => e.id))),
     keptFrench: readKeptFrench(root),
