@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { checkCase, loadScenario, scenarioRequest } from '../../scripts/lib/e2e-scenario';
-import { DICTIONARY_PATH } from '../../scripts/lib/engine-d7';
+import { D7_JSON_PATH } from '../../scripts/lib/engine-d7';
 import { loadContractResources } from '../../scripts/lib/engine-load';
 import { createContractEngine } from '../../src/engine/contract-engine';
 import { checkResultShape } from '../contract/conformance';
@@ -20,7 +20,7 @@ describe('scénario de bout en bout : les cas sont valides', () => {
   });
 });
 
-describe.skipIf(!existsSync(join(ROOT, DICTIONARY_PATH)))('scénario de bout en bout — D8 et D7 réels', () => {
+describe.skipIf(!existsSync(join(ROOT, D7_JSON_PATH)))('scénario de bout en bout — D8 et D7 réels', () => {
   const engine = createContractEngine(loadContractResources(ROOT), { cacheSize: 0 });
   it.each(scenario.cases.map((c) => [c.id, c] as const))('%s', (_id, c) => {
     const request = scenarioRequest(c);

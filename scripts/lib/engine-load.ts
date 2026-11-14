@@ -1,6 +1,6 @@
 /**
  * Chargement des ressources du moteur pour les scripts et l'API locale (MOT5).
- * D8 et l'extrait de Lefff sont versionnés ; D7 est lu hors de Git (Q17).
+ * D8, l'extrait de Lefff et la conversion JSON de D7 sont versionnés (Q17 révisée).
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -11,7 +11,7 @@ import type { WrongSense } from '../../src/engine/select';
 import { parseLexicon } from '../../src/engine/lexicon';
 import { readLibraryEntries } from './data-files';
 import { contractExtras, corpusEntries, criticalEntryIds, guardTexts } from './engine-corpus';
-import { DICTIONARY_PATH, readAdjectives, readConnectives, readD7Entries, readIgnoredWords, readPartitives, readPossessives } from './engine-d7';
+import { D7_JSON_PATH, readAdjectives, readConnectives, readD7Entries, readIgnoredWords, readPartitives, readPossessives } from './engine-d7';
 
 export const LEXICON_PATH = 'data/language-resources/lefff/lefff-3.4-finethnic.mlex';
 export const SENSE_REVIEW_PATH = 'data/language-resources/sense-review.json';
@@ -20,7 +20,7 @@ export const SYNONYM_ADDITIONS_PATH = 'data/language-resources/d8-synonym-additi
 
 export class MissingDictionaryError extends Error {
   constructor() {
-    super(`Dictionnaire D7 introuvable (${DICTIONARY_PATH}). Lancez d'abord : npm run import-dictionary`);
+    super(`Dictionnaire D7 introuvable (${D7_JSON_PATH}). Lancez d'abord : npm run convert-d7`);
     this.name = 'MissingDictionaryError';
   }
 }

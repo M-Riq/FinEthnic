@@ -2,5 +2,5 @@ node_modules/
 dist/
 dist-dev/
 coverage/
-# Dictionnaire brut (D7) : jamais versionné (PROJECT_CONTEXT §3.7.4-3, Q17)
+# Dictionnaire brut (D7) : jamais versionné ; sa conversion JSON l'est dans data/language-resources/d7/ (Q17 révisée)
 data/language-resources/raw/

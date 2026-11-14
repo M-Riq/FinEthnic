@@ -5,7 +5,7 @@
  *
  * Les textes qui ne contiennent que des termes gardés en français (« Compte », « Bénéficiaire ») sont
  * comptés à part : ils ne sont pas traduits (aucun mot éton), mais ce n'est pas un échec. `--list` les
- * affiche. D7 doit avoir été importé (npm run import-dictionary).
+ * affiche. D7 est lu dans sa conversion JSON versionnée (npm run convert-d7).
  */
 import { parseArgs } from 'node:util';
 import { createEngine } from '../src/engine/engine';
