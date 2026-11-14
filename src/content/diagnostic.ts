@@ -10,7 +10,7 @@
  * - Marqueurs : chaque traduction non vérifiée affichée (tirets) ou brouillon (vagues), toujours (contrat §5.4-2).
  */
 import type { TranslationResult, TranslationStatus, UnverifiedKind } from '../language/contract';
-import { COUNT_KEYS, DISPLAY_KEYS, type CountKey, type DisplayKey } from '../shared/messages';
+import { COUNT_KEYS, DISPLAY_KEYS, EXTRACTION_KEYS, type CountKey, type DisplayKey, type ExtractionKey, type TextClass } from '../shared/messages';
 import type { Display } from './renderer';
 import type { TextKind } from './scanner';
 
@@ -27,14 +27,19 @@ export interface Tracked {
   shown?: Display | null;
   /** Traduction écartée par le contrôle d'intégrité (P5.8). */
   refused?: boolean;
+  /** Classe du texte à traduire (phase 2), `null` pour une valeur ou un nombre. */
+  textClass?: TextClass | null;
+  /** Texte lu dans un attribut (`placeholder`, `title`, `aria-label`). */
+  attribute?: boolean;
 }
 
-export type DiagnosticClass = Exclude<CountKey, 'candidates' | DisplayKey>;
+export type DiagnosticClass = Exclude<CountKey, 'candidates' | DisplayKey | ExtractionKey>;
 
 const isDisplayKey = (key: CountKey): key is DisplayKey => DISPLAY_KEYS.some((display) => display === key);
+const isExtractionKey = (key: CountKey): key is ExtractionKey => EXTRACTION_KEYS.some((extraction) => extraction === key);
 
 export const DIAGNOSTIC_CLASSES: readonly DiagnosticClass[] = COUNT_KEYS.filter(
-  (key): key is DiagnosticClass => key !== 'candidates' && !isDisplayKey(key),
+  (key): key is DiagnosticClass => key !== 'candidates' && !isDisplayKey(key) && !isExtractionKey(key),
 );
 
 const BY_STATUS: Record<TranslationStatus, DiagnosticClass> = {
@@ -62,6 +67,8 @@ export function countEntries(entries: Iterable<Tracked>): Record<CountKey, numbe
     if (entry.shown) counts.displayed++;
     if (entry.shown === 'unverified' || entry.shown === 'partial') counts.displayedUnverified++;
     if (entry.refused) counts.refused++;
+    if (entry.attribute) counts.attributes++;
+    if (entry.kind === 'candidate' && entry.textClass) counts[entry.textClass]++;
   }
   return counts;
 }

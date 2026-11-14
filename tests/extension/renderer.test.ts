@@ -332,7 +332,7 @@ describe('restauration et options (P5.2, P5.10)', () => {
     expect(textNodes()).toEqual(nodes);
     expect(nodes.map((node) => node.data)).toEqual(texts);
     expect(document.body.innerHTML).toBe(html);
-    expect(named('content:restore')).toEqual([{ restored: 4 }]);
+    expect(named('content:restore')).toEqual([{ restored: 4, attributes: 0 }]);
 
     await update({ enabled: true });
     expect(textNode('⟦FAKE⟧ Continuer')).toBe(nodes[texts.indexOf('Continuer')]);
