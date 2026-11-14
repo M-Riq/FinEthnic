@@ -1,5 +1,5 @@
 {
-  "description": "Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7. Le moteur les lit en plus des synonymes de D8, sans modifier D8. Chaque ajout a été testé dans le moteur et validé par le responsable.",
+  "description": "Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7. Le moteur les lit en plus des synonymes de D8, sans modifier D8. Chaque ajout a été testé dans le moteur et validé par le responsable. « removals » : synonymes de D8 que le moteur n'utilise pas, car ils changent le sens financier (décision du responsable).",
   "additions": [
     {
       "entryId": "ACT-031",
@@ -682,6 +682,17 @@
       "synonym": "prendre",
       "reason": "Sens proche (second lot, M24), validé par le responsable. Moteur : « prendre » → ɲɔ̀ŋ. ɲɔ̀ŋ « prendre, adopter » (D7 p. 226, n° 2526)",
       "ref": "docs/reviews/M22-synonymes-d8.md, second lot (M24)",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    }
+  ],
+  "removals": [
+    {
+      "entryId": "VOC-016",
+      "text": "Argent",
+      "synonym": "richesse",
+      "reason": "« richesse » (à-kúmá) veut dire ce qu'on possède, pas « ce qu'on donne pour acheter ou payer » (définition de D8). Avec « qui » sujet (M30), le moteur choisissait « richesse qui reste » → á-kúmá úꜜtə́ ꜜkáŋâ pour « L'argent qui reste » : contresens présenté comme complet.",
+      "ref": "ROADMAP.md, M30",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
     }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { buildEton, ETON_RULES, type EtonText, subjectClass } from '../../src/engine/eton';
+import { augmented, buildEton, ETON_RULES, type EtonText, subjectClass } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -134,6 +134,24 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
       expect(r.draft, text).not.toMatch(/nə|sə́/u);
     }
     expect(gapIds(run('Il est.'))).toContain(ETON_RULES.PRESENT.id);
+  });
+
+  it('« qui » sujet au présent (M30) : augment + marque de la classe du nom + tə́ + infinitif, « qui » non traduit', () => {
+    const r = run("La personne qui envoie l'argent.");
+    expect(r.eto).toBe('í mód àtə́ ꜜlóm mɔ̀ní.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.RELATIVE_SUBJECT.id);
+    expect(run("L'arbre qui attend.").eto).toBe('í-lə́ íꜜtə́ yàŋà.');
+    expect(augmented('m̀-mú')).toBe('ḿ-mú');
+  });
+
+  it('« qui » sujet : rien n’est produit sans augment ou classe sûrs (autre préfixe, s.g, pluriel, négation, « être », sans antécédent…)', () => {
+    for (const text of ["L'enfant qui mange.", 'Le prix qui attend.', "L'argent qui attend.", 'Les personnes qui mangent.',
+      'La personne qui ne mange pas.', 'La personne qui est ici.', 'Qui mange ?', 'Celui qui mange.', "Le message de l'arbre qui attend."]) {
+      const r = run(text);
+      expect(r.eto, text).toBeNull();
+      expect(r.draft, text).not.toMatch(/tə́|nə/u);
+    }
+    expect(run("La personne qui envoie l'argent attend.").eto).toBeNull();
   });
 
   it('classe d’accord du nom sujet (M28)', () => {
