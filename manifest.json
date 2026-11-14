@@ -24,6 +24,7 @@
     {
       "matches": ["https://safinum.cm/hackathon-test*"],
       "js": ["content.js"],
+      "css": ["content.css"],
       "run_at": "document_idle",
       "all_frames": false
     }

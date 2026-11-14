@@ -1,0 +1,132 @@
+<!doctype html>
+<!--
+  Page de test locale (P2) : imite l'application SAFINUM Pay de l'environnement de test.
+  - Textes : exactement ceux des pages D8 (data/safinum-test-pages/page-1..5.json), un par élément.
+  - Données : toutes fictives (noms, numéros, montants, référence).
+  - Structure (titres h1, application monopage, gabarits <template>) : HYPOTHÈSE, à confirmer sur le DOM
+    réel en P2.0 / Q20. Ne pas en déduire le comportement de safinum.cm.
+  Utilisation : servir ce dossier en local (manifest de développement : http://localhost/*), ou l'importer
+  dans les tests (le script ci-dessous n'y est pas exécuté ; les tests clonent les gabarits eux-mêmes).
+-->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SAFINUM Pay (page de test locale)</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+      dl div { display: flex; justify-content: space-between; gap: 1rem; }
+      dt, dd { margin: 0; }
+      button, input, select, textarea { font: inherit; }
+    </style>
+  </head>
+  <body>
+    <main id="app"></main>
+
+    <template id="step-1">
+      <h1>Votre compte</h1>
+      <p><span>Bonjour</span> <strong>Amina Ngo Bell</strong></p>
+      <p>Consultez votre solde</p>
+      <dl>
+        <div><dt>Solde disponible</dt><dd>250 000 FCFA</dd></div>
+        <div><dt>Numéro de compte</dt><dd>CM 001 2345 6789 01</dd></div>
+      </dl>
+      <p><span>Compte courant</span></p>
+      <button type="button" data-go="2">Effectuer un transfert</button>
+      <a href="#frais" data-go="2">Consulter les frais</a>
+      <h2>Transactions récentes</h2>
+      <ul>
+        <li><span>Paiement marchand</span> <span>-12 500 FCFA</span> <time datetime="2026-11-05">05 nov. 2026</time></li>
+        <li><span>Salaire reçu</span> <span>+180 000 FCFA</span> <time datetime="2026-11-01">01 nov. 2026</time></li>
+        <li><span>Transfert reçu</span> <span>+15 000 FCFA</span> <time datetime="2026-10-28">28 oct. 2026</time></li>
+        <li><span>Facture électricité</span> <span>-9 800 FCFA</span> <time datetime="2026-10-25">25 oct. 2026</time></li>
+      </ul>
+      <h2>Sécurité</h2>
+      <p role="status">Connexion sécurisée</p>
+    </template>
+
+    <template id="step-2">
+      <h1>Frais de transfert</h1>
+      <p>Choisissez le type de transfert</p>
+      <h2>Montant</h2>
+      <label for="amount">Montant à envoyer</label>
+      <input id="amount" name="amount" inputmode="numeric" value="25000" />
+      <fieldset>
+        <legend>Type d'opération</legend>
+        <label><input type="radio" name="operation" value="safinum" checked /> <span>Compte Safinum</span></label>
+        <p>Transfert instantané et gratuit</p>
+      </fieldset>
+      <dl>
+        <div><dt>Frais</dt><dd>Gratuit</dd></div>
+        <div><dt>Total à débiter</dt><dd>25 000 FCFA</dd></div>
+        <div><dt>Solde après opération</dt><dd>225 000 FCFA</dd></div>
+      </dl>
+      <button type="button" data-go="1">Retour</button>
+      <button type="button" data-go="3">Continuer</button>
+    </template>
+
+    <template id="step-3">
+      <h1>Bénéficiaire</h1>
+      <p>Renseignez les informations du destinataire</p>
+      <p>Vérifiez toujours le numéro</p>
+      <div role="alert">Ce bénéficiaire n'a jamais été utilisé sur ce compte</div>
+      <label for="name">Nom du bénéficiaire</label>
+      <input id="name" name="name" autocomplete="off" value="Jean-Paul Mbarga" />
+      <label for="phone">Numéro de téléphone</label>
+      <input id="phone" name="phone" type="tel" value="+237 6 99 12 34 56" />
+      <label for="reason">Motif du transfert</label>
+      <select id="reason" name="reason">
+        <option>Paiement de services</option>
+      </select>
+      <label for="note">Note (optionnel)</label>
+      <textarea id="note" name="note">Loyer de novembre</textarea>
+      <label><input type="checkbox" name="checked-beneficiary" /> <span>J'ai vérifié le nom et le numéro du bénéficiaire</span></label>
+      <button type="button" data-go="2">Retour</button>
+      <button type="button" data-go="4">Continuer</button>
+    </template>
+
+    <template id="step-4">
+      <h1>Récapitulatif</h1>
+      <p>Vérifiez les informations avant de confirmer le transfert</p>
+      <dl>
+        <div><dt>Montant</dt><dd>25 000 FCFA</dd></div>
+        <div><dt>Frais</dt><dd>0 FCFA</dd></div>
+        <div><dt>Total débité</dt><dd>25 000 FCFA</dd></div>
+        <div><dt>Bénéficiaire</dt><dd>Jean-Paul Mbarga</dd></div>
+        <div><dt>Téléphone</dt><dd>+237 6 99 12 34 56</dd></div>
+        <div><dt>Référence</dt><dd>SAF-2026-OTCUQ3</dd></div>
+        <div><dt>Opération</dt><dd>Compte Safinum</dd></div>
+      </dl>
+      <label><input type="checkbox" name="confirm" /> <span>Je confirme que les informations ci-dessus sont correctes</span></label>
+      <button type="button" data-go="3">Modifier</button>
+      <button type="button" data-go="5">Confirmer le transfert</button>
+    </template>
+
+    <template id="step-5">
+      <h1>Transfert effectué</h1>
+      <p role="status">Votre transfert a été envoyé avec succès</p>
+      <dl>
+        <div><dt>Référence</dt><dd>SAF-2026-OTCUQ3</dd></div>
+        <div><dt>Montant</dt><dd>25 000 FCFA</dd></div>
+        <div><dt>Frais</dt><dd>0 FCFA</dd></div>
+        <div><dt>Total débité</dt><dd>25 000 FCFA</dd></div>
+        <div><dt>Bénéficiaire</dt><dd>Jean-Paul Mbarga</dd></div>
+        <div><dt>Statut</dt><dd>Succès</dd></div>
+      </dl>
+      <button type="button" data-go="1">Nouveau transfert</button>
+    </template>
+
+    <script>
+      // Application monopage : chaque étape remplace le contenu de <main>, sans rechargement.
+      const app = document.getElementById('app');
+      const show = (step) => app.replaceChildren(document.getElementById(`step-${step}`).content.cloneNode(true));
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target.closest('[data-go]') : null;
+        if (!target) return;
+        event.preventDefault();
+        show(target.getAttribute('data-go'));
+      });
+      show(1);
+    </script>
+  </body>
+</html>

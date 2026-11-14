@@ -152,7 +152,7 @@ export function buildD7Dictionary(rows: readonly D7Row[], source: string): D7Imp
     const { keys, rejected } = frenchKeys(row.french);
     for (const key of rejected) result.rejectedKeys.push({ row, key });
     if (keys.length === 0) result.noKey.push(row);
-    const nounClass = code === 'NOM' && row.nounClass ? { nounClass: row.nounClass } : {};
+    const nounClass = (code === 'NOM' || code === 'ADJ') && row.nounClass ? { nounClass: row.nounClass } : {};
     for (const fr of keys) entries.push({ fr, eto: row.form, category: code, gloss: row.french, ref: d7Ref(row), ...nounClass });
   }
   return { dictionary: { kind: 'd7', source, entries }, ...result };

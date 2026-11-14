@@ -19,7 +19,8 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('prêt', 'bə̀bə̀', 'ADV', '1) proche 2) prêt', 'D7 p. 85 (lexique n° 203)'),
   e('petit', 'cə̀càd', 'ADV', 'petit, peu', 'D7 p. 97 (lexique n° 370)'),
   e('avec', 'èè', 'PREP', '1) avec 2) et', 'D7 p. 105 (lexique n° 495)'),
-  e('facile', 'ì-bùbû', 'ADJ', 'facile', 'D7 p. 121 (lexique n° 760)'),
+  e('facile', 'ì-bùbû', 'ADJ', 'facile', 'D7 p. 121 (lexique n° 760)', '7/8'),
+  e('vétuste', 'ì-túg', 'ADJ', 'délabré, vétuste', 'D7 p. 140 (lexique n° 1095)', '7/8'),
   e('quand', 'ídɛ́n', 'ADV', 'quand?', 'D7 p. 124 (lexique n° 792)'),
   e('manger', 'dí', 'VERBE', 'manger', 'D7 (lexique n° 428)'),
   e('arbre', 'ì-lə́', 'NOM', 'arbre', 'D7 p. 131 (lexique n° 930)', '7/8'),
@@ -30,6 +31,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('accepter', 'mə̀m', 'VERBE', '1) avouer, accepter 2) professer 3) assumer 4) être prétentieux, être vantard, se dire capable de', 'D7 p. 184 (lexique n° 1793)'),
   e('argent', 'mɔ̀ní', 'NOM', 'argent', 'D7 p. 192 (lexique n° 1919)', 's.g'),
   e('ici', 'mű', 'ADV', 'ici, là', 'D7 p. 194 (lexique n° 1962)'),
+  e('personne', 'm-òd', 'NOM', 'personne, être humain', 'D7 p. 191 (lexique n° 1911)', '1/2'),
   e('enfant', 'm-wán', 'NOM', '1) enfant, fils ou fille d’une personne ou d’un animal 2) neveu, nièce', 'D7 p. 194 (lexique n° 1968)', '1/2'),
   e('langue', 'ŋ̀-kɔ́lɔ̂', 'NOM', '1) langue 2) prise de parole', 'D7 p. 213 (lexique n° 2302)'),
   e('rejeter', 'pàzì', 'VERBE', '1) extraire 2) dégager d’une entrave, libérer en enlevant ce qui le retient 3) rejeter', 'D7 p. 230 (lexique n° 2575)'),
@@ -41,6 +43,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('langue', 'ù-jə́m', 'NOM', '1) langue (organe) 2) caquet, bavardage', 'D7 p. 259 (lexique n° 3060)'),
   e('payer', 'yágnà', 'VERBE', 'payer, récompenser, rémunérer', 'D7 p. 273 (lexique n° 3307)'),
   e('attendre', 'yàŋà', 'VERBE', 'attendre', 'D7 (lexique n° 3312)'),
+  e('monter', 'bɛ́d', 'VERBE', '1) monter, atteindre un niveau supérieur', 'D7 p. 83 (lexique n° 184)'),
   e('faillir', 'yì', 'AUX', '1) vouloir faire quelque chose 2) être probable de se produire 3) faillir', 'D7 p. 274 (lexique n° 3330)'),
 ];
 

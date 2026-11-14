@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { buildEton, ETON_RULES, type EtonText } from '../../src/engine/eton';
+import { type AdjectiveRule, augmented, buildEton, ETON_RULES, type EtonText, finalTone, subjectClass, subjunctiveTu } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -77,13 +77,93 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
     expect(run("J'envoie l'argent.").eto).toBe('mə̀tə́ ꜜlóm mɔ̀ní.');
   });
 
-  it('présent : rien n’est produit pour vous, il, elle, ils, un nom sujet, la négation ou un verbe suivi d’un infinitif', () => {
-    for (const text of ['Vous mangez.', 'Il mange.', 'Elles mangent.', "L'enfant mange.", 'Je ne mange pas.', 'Je veux payer.', 'Je viens payer.', 'Je viens vite payer.', 'Tu veux de l’argent.', 'Mange-t-il ?']) {
+  it('présent avec « il », « elle », « ils », « elles » ou un nom sujet (M28) : marque de la classe du nom (esquisse ex. 19)', () => {
+    const r = run('Il mange.');
+    expect(r.eto).toBe('àtə́ ꜜdí.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.PRESENT_SUBJECT.id);
+    expect(run('Elles mangent.').eto).toBe('bə́ꜜtə́ ꜜdí.');
+    expect(run("L'enfant mange.").eto).toBe('m-wán àtə́ ꜜdí.');
+    expect(run("L'arbre attend.").eto).toBe('ì-lə́ íꜜtə́ yàŋà.');
+    expect(run('Le prix attend.').eto).toBe('táŋ ìtə́ yàŋà.');
+    expect(run("L'argent attend.").eto).toBe('mɔ̀ní àtə́ yàŋà.');
+    expect(run("Est-ce que l'enfant mange ?").eto).toBe('də̀ m-wán àtə́ ꜜdí ?');
+  });
+
+  it('« ne … pas » au présent (M28) : àá après la marque du sujet, formes attestées seulement', () => {
+    const r = run('Je ne mange pas.');
+    expect(r.eto).toBe('màáꜜtə́ ꜜdí.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toEqual(expect.arrayContaining([ETON_RULES.PRESENT_PRONOUN.id, ETON_RULES.NEGATION_PRESENT.id]));
+    expect(run("Tu n'attends pas.").eto).toBe('wàátə́ yàŋà.');
+    expect(run('Il ne mange pas.').eto).toBe('àáꜜtə́ ꜜdí.');
+    expect(run('Ils ne mangent pas.').eto).toBe('bàáꜜtə́ ꜜdí.');
+    expect(run("L'enfant ne mange pas.").eto).toBe('m-wán àáꜜtə́ ꜜdí.');
+  });
+
+  it('présent : rien n’est produit sans forme sûre (vous, négation non attestée, nom pluriel, nom sans classe, infinitif…)', () => {
+    for (const text of ['Vous mangez.', 'Nous ne mangeons pas.', "L'arbre n'attend pas.", 'Les enfants mangent.', 'Le message attend.',
+      'Je ne mange jamais.', "L'argent que tu n'attends pas.", 'Je veux payer.', 'Je viens payer.', 'Je viens vite payer.', 'Tu veux de l’argent.', 'Mange-t-il ?']) {
       const r = run(text);
       expect(r.eto, text).toBeNull();
       expect(r.draft, text).not.toMatch(/tə́/);
     }
-    expect(gapIds(run('Je ne mange pas.'))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+    expect(gapIds(run('Nous ne mangeons pas.'))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+    expect(gapIds(run("L'arbre n'attend pas."))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+  });
+
+  it('« être » au présent (M29) : sujet + nə̀ en une forme, négatif sə́, formes de D7 seulement', () => {
+    const r = run('Je suis ici.');
+    expect(r.eto).toBe('mə̀nə̀ mű.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.COPULA.id);
+    expect(run('Tu es ici.').eto).toBe('ùnə̀ mű.');
+    expect(run('Nous sommes ici.').eto).toBe('ɛ̀nə̀ mű.');
+    expect(run('Elle est ici.').eto).toBe('ànə̀ mű.');
+    expect(run('Ils sont ici.').eto).toBe('bə́nə̂ mű.');
+    expect(run("L'enfant est ici.").eto).toBe('m-wán ànə̀ mű.');
+    expect(run("L'arbre est facile.").eto).toBe('ì-lə́ ínə̂ ì-bùbû.');
+    expect(run('Le prix est ici.').eto).toBe('táŋ ìnə̀ mű.');
+    expect(run('Est-ce que tu es ici ?').eto).toBe('də̀ ùnə̀ mű ?');
+    expect(run("Elle n'est pas ici.").eto).toBe('àsə́ mű.');
+    expect(run('Je ne suis pas ici.').eto).toBe('mə̀sə́ mű.');
+  });
+
+  it('« être » : rien n’est produit sans forme sûre (vous, négation non attestée, c’est, relative, sans complément…)', () => {
+    for (const text of ['Vous êtes ici.', "Tu n'es pas ici.", "L'arbre n'est pas ici.", "C'est ici.", 'Le message est ici.',
+      "L'enfant qui est ici.", "L'argent que tu es.", 'Il est.', 'Il est manger.', 'Je suis en train de manger.']) {
+      const r = run(text);
+      expect(r.eto, text).toBeNull();
+      expect(r.draft, text).not.toMatch(/nə|sə́/u);
+    }
+    expect(gapIds(run('Il est.'))).toContain(ETON_RULES.PRESENT.id);
+  });
+
+  it('« qui » sujet au présent (M30) : augment + marque de la classe du nom + tə́ + infinitif, « qui » non traduit', () => {
+    const r = run("La personne qui envoie l'argent.");
+    expect(r.eto).toBe('í mód àtə́ ꜜlóm mɔ̀ní.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.RELATIVE_SUBJECT.id);
+    expect(run("L'arbre qui attend.").eto).toBe('í-lə́ íꜜtə́ yàŋà.');
+    expect(augmented('m̀-mú')).toBe('ḿ-mú');
+  });
+
+  it('« qui » sujet : rien n’est produit sans augment ou classe sûrs (autre préfixe, s.g, pluriel, négation, « être », sans antécédent…)', () => {
+    for (const text of ["L'enfant qui mange.", 'Le prix qui attend.', "L'argent qui attend.", 'Les personnes qui mangent.',
+      'La personne qui ne mange pas.', 'La personne qui est ici.', 'Qui mange ?', 'Celui qui mange.', "Le message de l'arbre qui attend."]) {
+      const r = run(text);
+      expect(r.eto, text).toBeNull();
+      expect(r.draft, text).not.toMatch(/tə́|nə/u);
+    }
+    expect(run("La personne qui envoie l'argent attend.").eto).toBeNull();
+  });
+
+  it('classe d’accord du nom sujet (M28)', () => {
+    expect(subjectClass('7/8', false)).toBe('7');
+    expect(subjectClass('3a/6', false)).toBe('3');
+    expect(subjectClass('3u/5', false)).toBe('3');
+    expect(subjectClass('s.g', false)).toBe('1');
+    expect(subjectClass('9/10', true)).toBe('10');
+    expect(subjectClass('6', true)).toBe('6');
+    for (const [c, plural] of [['1/2', true], ['s.g', true], ['9', true], ['9/10, s.g', false], ['6 (5)', false]] as const) {
+      expect(subjectClass(c, plural), c).toBeNull();
+    }
   });
 
   it('une expression de D7 l’emporte sur ses mots, même avec « rien » (« pour rien »)', () => {
@@ -168,6 +248,104 @@ describe('buildEton — connectif « de » entre deux noms (M26)', () => {
   });
 });
 
+describe('buildEton — possessif après le nom (M31)', () => {
+  // Extrait des tableaux 11 à 15 de l'esquisse (§8.6.2).
+  const POSSESSIVES = [{
+    id: 'D7-POSSESSIF-CLASSE',
+    persons: [
+      { words: ['mon', 'ma'], afterLow: { '1': 'wàmɔ̀', '7': 'yámâ' }, afterHigh: { '7': 'yâmà' } },
+      { words: ['ton', 'ta', 'votre'], afterLow: { '1': 'wɔ̀', '7': 'yɔ̂', '9': 'yɔ̀' }, afterHigh: { '1': 'wɔ̂', '7': 'yɔ̂', '9': 'yɔ̂' } },
+      { words: ['son', 'sa'], afterLow: { '1': 'wě' }, afterHigh: { '1': 'ꜜwé' } },
+      { words: ['notre'], afterLow: { '7': 'yèèní' }, afterHigh: { '7': 'ꜜyééní' } },
+    ],
+    ref: 'esquisse §8.6.2',
+  }];
+  const CONNECTIVES = [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', 'du', "d'"], forms: { '1': 'à', '9': 'ì', 's.g': 'à' }, ref: 'D7 p. 196 (lexique n° 1991)' }];
+  const poss = (text: string, kept: string[] = []): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, possessives: POSSESSIVES, connectives: CONNECTIVES, kept });
+
+  it('le dernier ton du nom : haut (á, ǎ), bas (à, â), ou inconnu', () => {
+    expect([finalTone('mɔ̀ní'), finalTone('ŋ̀-kwǎl'), finalTone('m-òd'), finalTone('ŋ̀-kɔ́lɔ̂'), finalTone('pa')]).toEqual(['HIGH', 'HIGH', 'LOW', 'LOW', null]);
+  });
+
+  it('après le nom, forme de la classe du nom et de son dernier ton ; terme gardé : classe 1, ton bas', () => {
+    const r = poss('Ton argent attend.');
+    expect(r).toMatchObject({ eto: 'mɔ̀ní wɔ̂ àtə́ yàŋà.', complete: true, gaps: [] });
+    expect(r.sentences.flatMap((x) => x.applied.map((a) => a.id))).toContain('D7-POSSESSIF-CLASSE');
+    expect(poss('Son enfant mange.').eto).toBe('m-wán ꜜwé àtə́ ꜜdí.');
+    expect(poss('Notre arbre attend.').eto).toMatch(/^ì-lə́ ꜜyééní /u);
+    expect(poss('Mon arbre attend.').eto).toMatch(/^ì-lə́ yâmà /u);
+    expect(poss('Votre compte attend.', ['compte']).eto).toBe('compte wɔ̀ àtə́ yàŋà.');
+    expect(poss("L'argent de ton prix").eto).toBeNull();
+  });
+
+  it('reste un manque hors des cas attestés', () => {
+    // « mon » après un nom de classe 1 à ton haut : aucun exemple.
+    expect(gapIds(poss('Envoyer mon argent'))).toEqual(['D7-POSSESSIF']);
+    expect(gapIds(poss('Tes enfants'))).toContain('D7-POSSESSIF');
+    expect(gapIds(poss('Ton message'))).toEqual(['D7-POSSESSIF']);
+    expect(gapIds(poss('Ton arbre facile'))).toContain('D7-POSSESSIF');
+    expect(gapIds(poss('Votre compte'))).toContain('D7-POSSESSIF');
+    expect(poss('Ton arbre qui attend.').eto).toBeNull();
+  });
+
+  it('avec « de » : le possessif devant « de » et le connectif devant un nom possédé restent des manques', () => {
+    const before = poss("Ton prix de l'argent");
+    expect(gapIds(before)).toEqual(['D7-POSSESSIF']);
+    expect(before.draft).toBe('[Ton] táŋ ì mɔ̀ní');
+    const after = poss('Le prix de ton argent');
+    expect(gapIds(after)).toEqual(['WORD:de']);
+    expect(after.draft).toBe('táŋ [de] mɔ̀ní wɔ̂');
+  });
+});
+
+describe('buildEton — « pour » + verbe : ású + subjonctif avec « tu » (M32)', () => {
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('verbe d’une syllabe : ú + ton descendant, quel que soit le ton du verbe (esquisse (167) : jə̀m → újə̂m)', () => {
+    expect(['dí', 'g͡bè', 'tál', 'jə̀m'].map(subjunctiveTu)).toEqual(['údî', 'úg͡bê', 'útâl', 'újə̂m']);
+    expect(['yàŋà', 'ɲíì', 'g͡bɛ̀ɛn ì', 'ì-lə́', 'pa'].map(subjunctiveTu)).toEqual([null, null, null, null, null]);
+  });
+
+  it('« pour manger » → ású údî ; le verbe garde sa forme de D7, seule l’écriture change', () => {
+    const r = run("L'argent pour manger");
+    expect(r).toMatchObject({ eto: 'mɔ̀ní ású údî', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-POUR-SUBJONCTIF');
+    expect(r.sentences[0]?.pieces.find((p) => p.fr === 'manger')).toMatchObject({ eto: 'dí', form: 'údî', source: 'D7' });
+  });
+
+  it('reste un manque : verbe de plusieurs syllabes, « à » + verbe', () => {
+    expect(gapIds(run("L'argent pour payer"))).toEqual(['D7-INFINITIF-PREPOSITION']);
+    expect(applied(run("L'argent à envoyer"))).not.toContain('D7-POUR-SUBJONCTIF');
+    expect(run("L'argent à envoyer").eto).toBeNull();
+  });
+});
+
+describe('buildEton — nom adjectival de classe 7 en tête : adjectif + í + nom (M33)', () => {
+  const ADJECTIVES: AdjectiveRule[] = [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: ['ì-kùŋá'], ref: 'esquisse §8.6.3' }];
+  const adj = (text: string, adjectives = ADJECTIVES): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, kept: ['banque'], adjectives });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('« le prix vétuste » → ì-túg í táŋ (ìtúg í ndá, D7 n° 1095) ; aussi devant un terme gardé et après un verbe', () => {
+    const r = adj('Le prix vétuste');
+    expect(r).toMatchObject({ eto: 'ì-túg í táŋ', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-NOM-ADJECTIVAL-CLASSE');
+    expect(adj('La banque vétuste')).toMatchObject({ eto: 'ì-túg í banque', complete: true });
+    expect(adj('Manger le prix vétuste')).toMatchObject({ eto: 'dí ì-túg í táŋ', complete: true });
+  });
+
+  it('reste un manque : forme écartée, ton final descendant, voyelle initiale, pluriel, sujet, nom suivi de « de »', () => {
+    expect(gapIds(adj('Le prix vétuste', [{ ...ADJECTIVES[0] as AdjectiveRule, excluded: ['ì-túg'] }]))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Le prix facile'))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Un arbre vétuste'))).toContain('D7-NOM-ADJECTIF');
+    expect(gapIds(adj('Les prix vétustes'))).toEqual(['D7-NOM-ADJECTIF']);
+    // Sujet : l'accord suivrait le nom adjectival (ɲ̀ɲòm môd úꜜtə́ kù, D7 n° 2510), non décrit.
+    expect(gapIds(adj('Le prix vétuste mange'))).toEqual(['D7-NOM-ADJECTIF']);
+    expect(gapIds(adj('Le prix vétuste de la banque'))).toContain('D7-NOM-ADJECTIF');
+  });
+});
+
 describe('buildEton — manques signalés, jamais inventés', () => {
   it('un mot absent de D7 donne un brouillon, pas une traduction', () => {
     const r = run('Envoyer le code');
@@ -189,7 +367,7 @@ describe('buildEton — manques signalés, jamais inventés', () => {
   });
 
   it('temps, négation, possessif et pronom complément : règles de classe B ou C', () => {
-    expect(gapIds(run("Il envoie l'argent."))).toEqual([ETON_RULES.PRESENT.id]);
+    expect(gapIds(run("Vous envoyez l'argent."))).toEqual([ETON_RULES.PRESENT.id]);
     expect(gapIds(run("Il va envoyer l'argent."))).toEqual([ETON_RULES.FUTURE.id]);
     expect(gapIds(run("Envoyez l'argent."))).toEqual([ETON_RULES.IMPERATIVE_PLURAL.id]);
     expect(gapIds(run('Ne paie pas.'))).toEqual([ETON_RULES.IMPERATIVE.id, ETON_RULES.NEGATION_IMPERATIVE.id]);
@@ -204,10 +382,15 @@ describe('buildEton — manques signalés, jamais inventés', () => {
     expect(gapIds(r)).toContain(ETON_RULES.VERB_FORM.id);
   });
 
-  it('un auxiliaire de D7 trouvé par le lemme d’une forme non infinitive est un manque (« faux » → faillir ≠ yì)', () => {
+  it('une forme conjuguée de 1re ou 2e personne sans « je » ni « tu » n’est pas un verbe (« faux » ≠ « je faux », faillir → yì)', () => {
     const r = run('faux message');
     expect(r.complete).toBe(false);
-    expect(gapIds(r)).toEqual([ETON_RULES.VERB_FORM.id]);
+    expect(gapIds(r)).toEqual(['WORD:faux']);
+  });
+
+  it('un participe présent est un nom hors de « en … » (« montant » ≠ monter → bɛ́d), un verbe dans un gérondif', () => {
+    expect(gapIds(run('montant'))).toEqual(['WORD:montant']);
+    expect(gapIds(run('en montant'))).toContain(ETON_RULES.VERB_FORM.id);
   });
 
   it('forme liée, nombre devant un nom, préposition devant un infinitif, adverbe de lieu', () => {

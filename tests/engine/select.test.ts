@@ -11,7 +11,7 @@ import {
   KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
 } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
-import { GRAMMAR_RULES_PATH, readConnectives, readPartitives } from '../../scripts/lib/engine-d7';
+import { GRAMMAR_RULES_PATH, readAdjectives, readConnectives, readPartitives, readPossessives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -164,7 +164,7 @@ describe('select — contrôle du sens (M18)', () => {
     }
   });
 
-  it('d8-synonym-additions.json : ajoute le synonyme validé après ceux de D8, refuse un texte changé ou un doublon', () => {
+  it('d8-synonym-additions.json : ajoute le synonyme validé après ceux de D8, retire un synonyme de D8, refuse un texte changé, un doublon ou un retrait inconnu', () => {
     const root = mkdtempSync(join(tmpdir(), 'finethnic-syn-'));
     const add = { entryId: 'VOC-039', text: 'Tarif', synonym: 'coût', reason: 'r', ref: 'M22', decidedBy: 'responsable', date: '2026-11-15' };
     const write = (additions: unknown[]): void => {
@@ -182,6 +182,10 @@ describe('select — contrôle du sens (M18)', () => {
       expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/déjà un synonyme de VOC-039/u);
       write([{ ...add, entryId: 'X-9' }]);
       expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/entrée de D8 inconnue X-9/u);
+      writeFileSync(join(root, SYNONYM_ADDITIONS_PATH), JSON.stringify({ additions: [], removals: [{ ...add, synonym: 'Argent' }] }));
+      expect(withSynonymAdditions(root, RESOURCES.corpus).find((e) => e.id === 'VOC-039')?.synonyms).toEqual(['prix']);
+      writeFileSync(join(root, SYNONYM_ADDITIONS_PATH), JSON.stringify({ additions: [], removals: [{ ...add, synonym: 'coût' }] }));
+      expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/« coût » n'est pas un synonyme de VOC-039 dans D8/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
@@ -261,6 +265,22 @@ describe('readPartitives (M21)', () => {
       expect(readConnectives(root)).toEqual([{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7' }]);
       write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de'], forms: { '9': 'ì mɔ̀ní' }, ref: 'D7' }] });
       expect(() => readConnectives(root)).toThrow(/une forme éton/u);
+      // Possessifs (M31) : chaque mot dans une seule personne, classes de « 1 » à « 10 ».
+      expect(readPossessives(root)).toEqual([]);
+      const person = { person: '2sg', words: ['ton', 'votre'], afterLow: { '1': 'wɔ̀' }, afterHigh: { '1': 'wɔ̂' } };
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [person], ref: 'D7', note: 'n' }] });
+      expect(readPossessives(root)).toEqual([{ id: 'D7-POSSESSIF-CLASSE', persons: [{ words: ['ton', 'votre'], afterLow: { '1': 'wɔ̀' }, afterHigh: { '1': 'wɔ̂' } }], ref: 'D7' }]);
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [person, { ...person, words: ['votre'] }], ref: 'D7' }] });
+      expect(() => readPossessives(root)).toThrow(/une seule personne/u);
+      write({ possessives: [{ id: 'D7-POSSESSIF-CLASSE', persons: [{ ...person, afterLow: { 's.g': 'wɔ̀' } }], ref: 'D7' }] });
+      expect(() => readPossessives(root)).toThrow(/classe nominale/u);
+      // Noms adjectivaux (M33) : formes écartées données avec leur raison.
+      expect(readAdjectives(root)).toEqual([]);
+      const excluded = [{ eto: 'ì-kùŋá', reason: 'sens « sans valeur »' }];
+      write({ adjectives: [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded, ref: 'esquisse', note: 'n' }] });
+      expect(readAdjectives(root)).toEqual([{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: ['ì-kùŋá'], ref: 'esquisse' }]);
+      write({ adjectives: [{ id: 'D7-NOM-ADJECTIVAL-CLASSE', forms: { '7': 'í' }, excluded: [{ eto: 'ì-kùŋá' }], ref: 'esquisse' }] });
+      expect(() => readAdjectives(root)).toThrow(/reason/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

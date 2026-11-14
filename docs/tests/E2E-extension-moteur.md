@@ -37,10 +37,10 @@ Le script envoie chaque cas à `POST /contract/translate`, puis tous les cas en 
 
 | Cas | Texte envoyé | Statut attendu | Traduction attendue (`unverifiedOutput`) | À retenir |
 |---|---|---|---|---|
-| E01 | `Montant` | `PENDING_VALIDATION`, complète | `táŋ` | cas de base |
-| E02 | `  Montant  ` | `PENDING_VALIDATION`, complète | `  táŋ  ` | les espaces du nœud sont gardés |
+| E01 | `Montant` | `PENDING_VALIDATION`, complète | `ɛ̀-bím ɛ́ mɔ̀ní` | cas de base |
+| E02 | `  Montant  ` | `PENDING_VALIDATION`, complète | `  ɛ̀-bím ɛ́ mɔ̀ní  ` | les espaces du nœud sont gardés |
 | E03 | `Solde disponible` | `PENDING_VALIDATION`, complète | `mɔ̀ní á compte` | `keptFrench: ["compte"]` |
-| E04 | `Bonjour` | `PENDING_VALIDATION`, **partielle** | `pwág ì-búg ású kàd [bonjour] á [quelqu'un].` | mots entre crochets = restés en français |
+| E04 | `Bonjour` | `PENDING_VALIDATION`, **partielle** | `pwág ì-búg ású úkâd [bonjour] á [quelqu'un].` | mots entre crochets = restés en français |
 | E05 | `Payer la facture` | `PENDING_VALIDATION`, complète | `yágnà facture` | absent de D8, composé (`entryId: null`), `keptFrench: ["facture"]` |
 | E06 | `Frais de transfert : 0 FCFA` | `PENDING_VALIDATION`, complète | `táŋ : 0 FCFA` | modèle à variable, `0` et `FCFA` protégés |
 | E07 | `Total à débiter : 5 000 FCFA` | `KNOWN_UNTRANSLATED` | — | entrée critique incomplète |
@@ -50,7 +50,7 @@ Le script envoie chaque cas à `POST /contract/translate`, puis tous les cas en 
 | E11 | `Safinum Pay` | `PROTECTED` (`protected-entry`) | — | nom de marque |
 | E12 | `Bienvenue chez nous` | `NO_MATCH` | — | inconnu |
 | E13 | `Amount` (`sourceLang: "en"`) | `NO_MATCH` (`unsupported-language`) | — | anglais pas encore pris en charge (Q15) |
-| E14 | `Montant` (`sourceLang: "auto"`) | `PENDING_VALIDATION` | `táŋ` | `detectedSourceLang: "fr"` |
+| E14 | `Montant` (`sourceLang: "auto"`) | `PENDING_VALIDATION` | `ɛ̀-bím ɛ́ mɔ̀ní` | `detectedSourceLang: "fr"` |
 | E15 | `x` répété 2 001 fois | `NO_MATCH` (`too-long`) | — | plus de 2 000 caractères |
 
 Toutes ces traductions sont **non vérifiées** par une locutrice : aucune n'est `APPROVED` aujourd'hui.
@@ -95,7 +95,7 @@ const r = await fetch('http://127.0.0.1:8787/contract/translate', {
 console.table((await r.json()).results.map((x) => ({ status: x.status, kind: x.unverifiedKind, out: x.unverifiedOutput, kept: (x.keptFrench ?? []).join(', ') })));
 ```
 
-Attendu : trois lignes — `PENDING_VALIDATION · complete · táŋ`, `PENDING_VALIDATION · complete · mɔ̀ní á compte · compte`, `PROTECTED`. Une erreur CORS ou réseau est à noter telle quelle dans le rapport.
+Attendu : trois lignes — `PENDING_VALIDATION · complete · ɛ̀-bím ɛ́ mɔ̀ní`, `PENDING_VALIDATION · complete · mɔ̀ní á compte · compte`, `PROTECTED`. Une erreur CORS ou réseau est à noter telle quelle dans le rapport.
 
 ## Partie C — l'affichage (après P2 et P5)
 

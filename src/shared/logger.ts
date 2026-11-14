@@ -9,8 +9,13 @@
 export type LogEvent =
   | 'content:start'
   | 'content:settings-changed'
+  | 'content:scan'
+  | 'content:evaluate'
+  | 'content:render'
+  | 'content:restore'
   | 'popup:open'
-  | 'popup:setting-changed';
+  | 'popup:setting-changed'
+  | 'popup:diagnostic';
 
 export type LogData = Readonly<Record<string, number | boolean>>;
 

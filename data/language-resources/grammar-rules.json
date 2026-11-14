@@ -50,6 +50,177 @@
       "note": "« de », « du », « d’ » entre deux noms : le connectif s’accorde avec la classe du premier nom (classe au singulier de D7, « 9 » pour « 9/10 »). Formes relevées dans les exemples du lexique de D7 (nom + connectif + nom) : cl. 1 à (3), cl. 5 ɛ́ (4), cl. 7 í (10), cl. 8 bí (2), cl. 9 ì (4), cl. 10 í (3), sans classe à (6) ; ce sont les formes des marques du sujet de l’esquisse §2. Les « á » des mêmes relevés traduisent « sur », « à » (« porter l’enfant sur le dos », n° 213). Classe 6 écartée : mə́ (5 exemples) est contredit par mə̀màn mí sá « la fin du travail » (n° 66). Classes 2, 3, 4, 3a : moins de deux exemples ; dans tous ces cas, « de » reste un manque, comme après un terme gardé en français (classe inconnue). Devant un second nom à voyelle initiale ou à nasale syllabique, le connectif se fond dans ce nom (ìkùm ílə́, n° 890 ; ǹtùdà ḿmûŋ, n° 2173) sans règle écrite : « de » reste un manque. Validé par le responsable le 2026-11-15 (M26)."
     }
   ],
+  "possessives": [
+    {
+      "id": "D7-POSSESSIF-CLASSE",
+      "persons": [
+        {
+          "person": "1sg",
+          "words": [
+            "mon",
+            "ma"
+          ],
+          "afterLow": {
+            "1": "wàmɔ̀",
+            "2": "bámâ",
+            "3": "wámɔ̂",
+            "4": "myámâ",
+            "5": "dámâ",
+            "6": "mámâ",
+            "7": "yámâ",
+            "8": "byámâ",
+            "9": "yàmà",
+            "10": "yámâ"
+          },
+          "afterHigh": {
+            "2": "bâmà",
+            "3": "wâmɔ̀",
+            "4": "myâmà",
+            "5": "dâmà",
+            "6": "mâmà",
+            "7": "yâmà",
+            "8": "byâmà",
+            "10": "yâmà"
+          }
+        },
+        {
+          "person": "2sg",
+          "words": [
+            "ton",
+            "ta",
+            "votre"
+          ],
+          "afterLow": {
+            "1": "wɔ̀",
+            "2": "bɔ̂",
+            "3": "wɔ̂",
+            "4": "myɔ̂",
+            "5": "dɔ̂",
+            "6": "mɔ̂",
+            "7": "yɔ̂",
+            "8": "byɔ̂",
+            "9": "yɔ̀",
+            "10": "yɔ̂"
+          },
+          "afterHigh": {
+            "1": "wɔ̂",
+            "2": "bɔ̂",
+            "3": "wɔ̂",
+            "4": "myɔ̂",
+            "5": "dɔ̂",
+            "6": "mɔ̂",
+            "7": "yɔ̂",
+            "8": "byɔ̂",
+            "9": "yɔ̂",
+            "10": "yɔ̂"
+          }
+        },
+        {
+          "person": "3sg",
+          "words": [
+            "son",
+            "sa"
+          ],
+          "afterLow": {
+            "1": "wě",
+            "2": "bě",
+            "3": "wě",
+            "4": "myě",
+            "5": "dě",
+            "6": "mě",
+            "7": "yě",
+            "8": "byě",
+            "9": "yě",
+            "10": "jě"
+          },
+          "afterHigh": {
+            "1": "ꜜwé",
+            "2": "ꜜbé",
+            "3": "ꜜwé",
+            "4": "ꜜmyé",
+            "5": "ꜜdé",
+            "6": "ꜜmé",
+            "7": "ꜜyé",
+            "8": "ꜜbyé",
+            "9": "ꜜyé",
+            "10": "ꜜjé"
+          }
+        },
+        {
+          "person": "1pl",
+          "words": [
+            "notre"
+          ],
+          "afterLow": {
+            "1": "wèèní",
+            "2": "bèèní",
+            "3": "wèèní",
+            "4": "myèèní",
+            "5": "dèèní",
+            "6": "mèèní",
+            "7": "yèèní",
+            "8": "byèèní",
+            "9": "yèèní",
+            "10": "yèèní"
+          },
+          "afterHigh": {
+            "1": "ꜜwééní",
+            "2": "ꜜbééní",
+            "3": "ꜜwééní",
+            "4": "ꜜmyééní",
+            "5": "ꜜdééní",
+            "6": "ꜜmééní",
+            "7": "ꜜyééní",
+            "8": "ꜜbyééní",
+            "9": "ꜜyééní",
+            "10": "ꜜyééní"
+          }
+        },
+        {
+          "person": "3pl",
+          "words": [
+            "leur"
+          ],
+          "afterLow": {
+            "1": "wɔ̀bní",
+            "2": "bàbní",
+            "3": "wɔ̀bní",
+            "4": "myàbní",
+            "5": "dàbní",
+            "6": "màbní",
+            "7": "yàbní",
+            "8": "byɛ̀àbní",
+            "9": "yàbní",
+            "10": "yàbní"
+          },
+          "afterHigh": {
+            "1": "ꜜwɔ́bní",
+            "2": "ꜜbábní",
+            "3": "ꜜwɔ́bní",
+            "4": "ꜜmyábní",
+            "5": "ꜜdábní",
+            "6": "ꜜmábní",
+            "7": "ꜜyábní",
+            "9": "ꜜyábní",
+            "10": "ꜜyábní"
+          }
+        }
+      ],
+      "ref": "Esquisse grammaticale complète (HAL halshs-03847045), §8.6.2, tableaux 11 à 15 et exemples (56) à (61), (65), (66) ; §8.4.1, exemples (19) et (23) ; accord de classe 1 des emprunts et des noms sans genre (s.g) : §8.4.1",
+      "note": "« mon, ton, son, notre, leur » devant un nom au singulier : le possessif se place après le nom et prend la forme de la classe du nom (classe au singulier de D7 ; s.g et terme gardé en français, des emprunts : classe 1, esquisse §8.4.1 « kálâdà w-àmɔ̀ à-tə́ kù », mon livre tombe). « votre » (une personne, par politesse) est rendu comme « ton » : « notre » et « votre » ont la même forme en éton (wèèní), qui pourrait se lire « notre compte » ; les définitions simples de D8 disent déjà « ton compte ». Le ton du possessif dépend du dernier ton du nom. afterLow : nom finissant par un ton bas ou descendant, ou terme gardé en français : formes des tableaux (kálâdà w-àmɔ̀, kálâdà wèèní, ìnàm yě, bɔ̀ kálâdà bɔ̂, ndɔ́gɔ̂ y-àmà) ; la notation a̋ des tableaux vaut ámâ / ámɔ̂ après ton bas (ǹ-nɔ̀mɔ̀ w-ámɔ̂, m̀pàn wámɔ̂, ɛ̀-kɔ̀ŋ d-ámâ, mì-nɔ̀mɔ̀ my-ámâ, mə̀-kɔ̀ŋ m-ámâ, bə̀-yə́glə̂ b-ámâ, ndɔ́gɔ̂ y-ámâ). afterHigh : nom finissant par un ton haut ou montant : âmà / âmɔ̀ (à-sá w-âmɔ̀, ŋ̀kúl wâmɔ̀, ɛ̀-vón d-âmà, mə̀-sá m-âmà, j-ǎd y-âmà, by-ǎd by-âmà), « ton » ɔ̀ → ɔ̂ (mwán wɔ̂, íꜜsá wɔ̂, kál yɔ̂), « son » ꜜ + ton haut (múŋá ꜜwé), « notre » (ŋ̀kúl ꜜwééní), « leur » (àtán ꜜwɔ́bní). Sans forme (manque) : « mon » après un nom de classe 1 ou 9 à ton haut, « leur » de classe 8 après ton haut (aucun exemple). Hors règle : « mes, tes, ses, nos, vos, leurs » (le moteur n'écrit pas le pluriel des noms), nom précédé d'un adjectif ou suivi d'un adjectif, d'un autre nom ou de « de », nom de D7 sans classe sûre ou sans ton final noté, nom antécédent de « qui ». Validé par le responsable le 2026-11-15."
+    }
+  ],
+  "adjectives": [
+    {
+      "id": "D7-NOM-ADJECTIVAL-CLASSE",
+      "forms": { "7": "í" },
+      "excluded": [
+        { "eto": "ì-kùŋá", "reason": "D7 n° 893 : « 1) petit, court 2) sans valeur, bon à rien » ; « petite banque » pourrait se lire « banque sans valeur ». Écarté par le responsable (M33)." }
+      ],
+      "ref": "Esquisse grammaticale §8.6.3 (85) : ìŋgúŋgwál í môd « un malheureux », ìzə̀zə̀g í pûpó « une papaye sucrée » ; D7, lexique, noms adjectivaux de classe 7 : n° 774 p. 123 (ìbwǎl í tíd), n° 825 (ìjóŋ í môd), n° 848 (ìkáꜜsáŋ í ndɔ́gɔ̂), n° 891 (ìkùn í ndá), n° 900 (ìkpá í ꜜmbóg), n° 951 p. 132 (ìmbón í môd « un dupe »), n° 964 (ìndód í ꜜmúŋó), n° 989 p. 134 (ìŋgúŋgwál í môd), n° 1064 p. 138 (ìtám í môd « un homme seul »), n° 1095 p. 140 (ìtúg í ndá « une maison délabrée »), n° 1100 (ìtùn í môd), n° 1126 (ìvɔ̀ í ndɔ́gɔ̂)",
+      "note": "Nom + adjectif rendu par un nom adjectival de D7 : le nom adjectival se place en tête, suivi du connectif de sa classe, puis du nom (« ì-túg í ndá », une maison délabrée). Classe 7 seulement : plus de dix exemples, nom adjectival inchangé. Restent des manques : nom adjectival d’une autre classe (classe 3 : connectif purement tonal et nom adjectival qui change de ton, ɲ̀ɲǒm → ɲ̀ɲòm môd, n° 2510 ; classe 1 : ǹ-tɔ́gɔ̂ se place après le nom, n° 2163), nom adjectival finissant par un ton descendant (ìbùbû → ìbúbù míŋkàd, n° 760, et ìvə́vɔ̂ → ìvə́vɔ̀ í môd, n° 1115, mais ìvívínî í sá inchangé, n° 1118), nom à voyelle ou nasale syllabique initiale (fusion non documentée : ìbùbùd íꜜnɔ́ŋ, n° 762), nom ou adjectif au pluriel, adverbe entre les deux (« plus facile »), nom suivi d’un autre nom, d’un adjectif, d’un possessif ou de « de », nom sujet d’un verbe (l’accord suit alors le nom adjectival : ɲ̀ɲòm môd úꜜtə́ kù, n° 2510) ou antécédent de « qui ». Le ton du nom après le connectif n’est pas modifié (comme M26). Validé par le responsable (M33)."
+    }
+  ],
   "rules": [
     {
       "id": "D7-VERBE-NOM",

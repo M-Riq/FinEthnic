@@ -3,12 +3,12 @@
  *
  * D7 reste hors de Git (Q17) : le dictionnaire est lu dans data/language-resources/raw/dictionary.json,
  * produit par `npm run import-dictionary`. Les mots ignorés viennent de grammar-rules.json (règle
- * validée en BM3.6), comme les partitifs supprimés après un verbe (M21) et les connectifs (M26).
+ * validée en BM3.6), comme les partitifs supprimés après un verbe (M21), les connectifs (M26) et les possessifs (M31).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { D7Entry } from '../../src/engine/d7';
-import type { Connective, IgnoredWords, Partitive } from '../../src/engine/eton';
+import type { AdjectiveRule, Connective, IgnoredWords, Partitive, Possessive } from '../../src/engine/eton';
 import type { Dictionary } from './cascade';
 
 export const DICTIONARY_PATH = 'data/language-resources/raw/dictionary.json';
@@ -27,6 +27,8 @@ interface GrammarRulesFile {
   ignoredWords?: { words: string[]; ref: string }[];
   partitives?: unknown;
   connectives?: unknown;
+  possessives?: unknown;
+  adjectives?: unknown;
 }
 
 export function readIgnoredWords(root: string): IgnoredWords[] {
@@ -71,5 +73,57 @@ export function readConnectives(root: string): Connective[] {
       throw new Error(`${where}.forms : une forme éton (un mot) par classe nominale`);
     }
     return { id: c.id, words: words as string[], forms: { ...(forms as Record<string, string>) }, ref: c.ref };
+  });
+}
+
+const CLASSES: ReadonlySet<string> = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
+
+function classForms(value: unknown, where: string): Record<string, string> {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)
+    || Object.entries(value).some(([c, f]) => !CLASSES.has(c) || typeof f !== 'string' || f.trim() === '' || /\s/u.test(f))) {
+    throw new Error(`${where} : une forme éton (un mot) par classe nominale, de « 1 » à « 10 »`);
+  }
+  return { ...(value as Record<string, string>) };
+}
+
+/** Possessifs après le nom, par personne, classe du nom et ton final du nom (M31). Lève une erreur lisible si la section est mal formée. */
+export function readPossessives(root: string): Possessive[] {
+  const data = JSON.parse(readFileSync(join(root, GRAMMAR_RULES_PATH), 'utf8')) as GrammarRulesFile;
+  const list = data.possessives ?? [];
+  if (!Array.isArray(list)) throw new Error(`${GRAMMAR_RULES_PATH} : « possessives » doit être une liste`);
+  return list.map((p: Record<string, unknown>, i) => {
+    const where = `${GRAMMAR_RULES_PATH} : possessives[${i}]`;
+    if (typeof p.id !== 'string' || !/^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/.test(p.id)) throw new Error(`${where}.id invalide`);
+    if (typeof p.ref !== 'string' || p.ref.trim() === '') throw new Error(`${where}.ref manquant`);
+    if (!Array.isArray(p.persons) || p.persons.length === 0) throw new Error(`${where}.persons : liste non vide`);
+    const seen = new Set<string>();
+    const persons = p.persons.map((x: Record<string, unknown>, k) => {
+      const at = `${where}.persons[${k}]`;
+      const words = x.words;
+      if (!Array.isArray(words) || words.length === 0 || words.some((w) => typeof w !== 'string' || !/^\p{Ll}+$/u.test(w) || seen.has(w))) {
+        throw new Error(`${at}.words : mots en minuscules, chacun dans une seule personne`);
+      }
+      for (const w of words as string[]) seen.add(w);
+      return { words: words as string[], afterLow: classForms(x.afterLow, `${at}.afterLow`), afterHigh: classForms(x.afterHigh, `${at}.afterHigh`) };
+    });
+    return { id: p.id, persons, ref: p.ref };
+  });
+}
+
+/** Noms adjectivaux en tête, suivis du connectif de leur classe (M33). Lève une erreur lisible si la section est mal formée. */
+export function readAdjectives(root: string): AdjectiveRule[] {
+  const data = JSON.parse(readFileSync(join(root, GRAMMAR_RULES_PATH), 'utf8')) as GrammarRulesFile;
+  const list = data.adjectives ?? [];
+  if (!Array.isArray(list)) throw new Error(`${GRAMMAR_RULES_PATH} : « adjectives » doit être une liste`);
+  return list.map((a: Record<string, unknown>, i) => {
+    const where = `${GRAMMAR_RULES_PATH} : adjectives[${i}]`;
+    if (typeof a.id !== 'string' || !/^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/.test(a.id)) throw new Error(`${where}.id invalide`);
+    if (typeof a.ref !== 'string' || a.ref.trim() === '') throw new Error(`${where}.ref manquant`);
+    const excluded = a.excluded ?? [];
+    if (!Array.isArray(excluded) || excluded.some((x: Record<string, unknown>) => typeof x?.eto !== 'string' || /\s/u.test(x.eto) || x.eto === ''
+      || typeof x.reason !== 'string' || x.reason.trim() === '')) {
+      throw new Error(`${where}.excluded : liste de { eto (un mot), reason }`);
+    }
+    return { id: a.id, forms: classForms(a.forms, `${where}.forms`), excluded: excluded.map((x: { eto: string }) => x.eto.normalize('NFC')), ref: a.ref };
   });
 }

@@ -43,9 +43,10 @@ describe('import du dictionnaire D7 (BM3.3)', () => {
     const asD7: Dictionary = { ...result.dictionary, entries: result.dictionary.entries.map((e) => ({ ...e, eto: 'abc' })) };
     expect(loadSchemaValidators().dictionary(asD7)).toBe(true);
     expect(checkCascadeResources(asD7, NO_RULES)).toEqual([]);
-    // Classe nominale gardée pour les noms seulement (connectif, M26).
-    const classes = buildD7Dictionary(readD7(lexicon([row(1, 'abc', 'nom', 'maison', 12, '9/10'), row(2, 'abd', 'verbe', 'partir', 12, '9'), row(3, 'abe', 'nom', 'argent')])), 'TEST');
-    expect(classes.dictionary.entries.map((e) => e.nounClass)).toEqual(['9/10', undefined, undefined]);
+    // Classe nominale gardée pour les noms et les noms adjectivaux seulement (connectif, M26 ; M33).
+    const classes = buildD7Dictionary(readD7(lexicon([row(1, 'abc', 'nom', 'maison', 12, '9/10'), row(2, 'abd', 'verbe', 'partir', 12, '9'),
+      row(3, 'abe', 'nom', 'argent'), row(4, 'abf', 'nom adjectival', 'vieux', 12, '7/8')])), 'TEST');
+    expect(classes.dictionary.entries.map((e) => e.nounClass)).toEqual(['9/10', undefined, undefined, '7/8']);
     expect(loadSchemaValidators().dictionary(classes.dictionary)).toBe(true);
     // Forme saisie en NFD : stockée en NFC, ton intact.
     const nfd = buildD7Dictionary(readD7(lexicon([row(1, 'a\u0301bc', 'nom', 'argent')])), 'TEST');
