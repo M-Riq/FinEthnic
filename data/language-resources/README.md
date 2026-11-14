@@ -38,6 +38,7 @@ Lit la feuille « Éton → Français » du lexique (une ligne par entrée, avec
 **Règles** (`grammar-rules.schema.json`) :
 - `rules[]` : `id`, `description`, `ref` (référence D7 obligatoire), `pattern` (catégories dans l'ordre français, ex. `["NOM", "ADJ"]`) et `order` (positions de sortie, ex. `[2, 1]`). Une règle décrit **seulement l'ordre des mots** ; tons, classes nominales et accords restent du ressort de la locutrice (R20).
 - `ignoredWords[]` : groupes de mots français (`words`) sans équivalent à traduire (articles…), chaque groupe avec une `ref` et une `note`. Sans entrée ici, ces mots sont signalés comme manquants.
+- `partitives[]` (facultatif, M21) : `id`, `nouns` (liste fermée de noms en minuscules), `ref` et `note`. Le moteur supprime « du », « de l' », « de la » juste après un verbe et devant un de ces noms (« envoyer de l'argent » → lóm mɔ̀ní). Ailleurs, « de » reste un manque.
 
 Le mini-dictionnaire et les règles **de test** sont dans `tests/language/fixtures/cascade/`. Leurs formes sont visiblement fictives (`⟦TEST:…⟧`) et ne doivent jamais entrer dans `data/`.
 

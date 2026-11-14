@@ -122,6 +122,26 @@ describe('buildEton — termes français gardés (M20)', () => {
   });
 });
 
+describe('buildEton — partitif après un verbe (M21)', () => {
+  const PARTITIVES = [{ id: 'D7-PARTITIF', nouns: ['argent', 'sel'], ref: 'D7 p. 81 (lexique n° 153)' }];
+  const part = (text: string): EtonText => buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, partitives: PARTITIVES });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('« de l’ », « du » après un verbe et devant un nom de la liste disparaissent', () => {
+    const r = part("Envoyer de l'argent");
+    expect(r).toMatchObject({ eto: 'lóm mɔ̀ní', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-PARTITIF');
+    expect(gapIds(part('Envoyer du sel'))).toEqual(['WORD:sel']);
+  });
+
+  it('« de » reste un manque ailleurs : nom hors liste, après un nom, en début de phrase', () => {
+    expect(gapIds(part('Retirer du compte'))).toContain('WORD:du');
+    expect(gapIds(part("Le prix de l'argent"))).toEqual(['WORD:de']);
+    expect(gapIds(part("De l'argent"))).toEqual(['WORD:De']);
+    expect(applied(part("Le prix de l'argent"))).not.toContain('D7-PARTITIF');
+  });
+});
+
 describe('buildEton — manques signalés, jamais inventés', () => {
   it('un mot absent de D7 donne un brouillon, pas une traduction', () => {
     const r = run('Envoyer le code');
