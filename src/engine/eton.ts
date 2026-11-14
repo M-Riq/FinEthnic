@@ -63,7 +63,13 @@ export const ETON_RULES = {
     ref: `D7 nə̀ « être » (p. 200), sə́ « ne pas être » (p. 243) ; ${ESQUISSE}, §8.7.9 (171)`,
     description: '« être » au présent suivi d’un complément : marque du sujet + nə̀, en une forme (mə̀nə̀ je, ùnə̀ tu, ɛ̀nə̀ nous, ànə̀ il, elle, classe 1, s.g, bə́nə̂ ils, elles, classe 2, únə̂ cl. 3, mínə̂ cl. 4, ɛ́nə̂ cl. 5, mə́nə̂ cl. 6, ínə̂ cl. 7 et 10, bínə̂ cl. 8, ìnə̀ cl. 9) ; « ne … pas » : sə́ (mə̀sə́ je, àsə́ il, elle, classe 1, úꜜsə́ cl. 3, mə́sə́ cl. 6). Formes des exemples de D7 seulement. Hors règle : « vous », « c’est », relative (nə̌, esquisse (188)), être + participe, « être en train de », « être sur le point de », complément rendu par un verbe de D7. Validé par le responsable (M29).',
   },
-  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, avoir, quasi-auxiliaires et verbe suivi d’un infinitif non couverts ; « être » hors D7-ETRE-PRESENT (« vous », « c’est », relative, forme négative non attestée) (M19, M28, M29).'),
+  RELATIVE_SUBJECT: {
+    id: 'D7-RELATIVE-SUJET',
+    ruleClass: 'A',
+    ref: `${ESQUISSE}, §8.4.2 (24), §8.8 (187) ; D7 p. 229 (« í mód àtə́ kwàm »), p. 190 (« ḿmú úꜜtə́ zù »)`,
+    description: '« NOM qui VERBE » au présent : augment sur le nom + marque de la classe du nom + tə́ + infinitif, comme hors relative ; « qui » n’est pas traduit. Augment : préfixe voyelle ou nasale syllabique à ton bas → ton haut (ì-lə́ → í-lə́) ; m-òd → í mód (D7). Hors règle : autre préfixe (pont tonal non décrit), nom sans classe sûre ou au pluriel, nom gardé en français, « celui qui », « ce qui », « à qui », nom précédé d’un autre nom, négation, « qui est ». Validé par le responsable (M30).',
+  },
+  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, avoir, quasi-auxiliaires et verbe suivi d’un infinitif non couverts ; « être » hors D7-ETRE-PRESENT (« vous », « c’est », relative, forme négative non attestée) ; « qui » hors D7-RELATIVE-SUJET (M19, M28, M29, M30).'),
   SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', '« nous » : ɛ̀ ou bì (seul ɛ̀tə́ est employé au présent) ; classes doubles du lexique (« 9/10, s.g ») non reliées à une marque.'),
   PAST_RECENT_PERFECTIVE: rule('D7-PASSE-RECENT-PERFECTIF', 'C', '§3 Temps', 'MS-H-thème(-H) : tons non documentés.'),
   PAST_RECENT_IMPERFECTIVE: rule('D7-PASSE-RECENT-IMPERFECTIF', 'C', '§3 Temps', 'MS-bə́ + infinitif de la forme G : forme G non documentée.'),
@@ -431,6 +437,20 @@ const RELATIVE_WORDS: ReadonlySet<string> = new Set(['que', "qu'", 'qui', 'où',
   'auquel', 'auxquels', 'auxquelles', 'duquel', 'desquels', 'desquelles']);
 /** Être, avoir et verbes à valeur de quasi-auxiliaire (D7 §5 : « ànə̀ kɔ̀m », « bìtə́ yì nâ ») : construction propre. */
 const PRESENT_EXCLUDED: ReadonlySet<string> = new Set(['être', 'avoir', 'pouvoir', 'vouloir', 'devoir', 'falloir', 'aller', 'savoir']);
+/** Augment attesté dans D7 pour un nom dont le préfixe n'est ni voyelle ni nasale (pont tonal, M30). */
+const AUGMENT_ATTESTED: Readonly<Record<string, string>> = { 'm-òd': 'í mód' };
+
+/**
+ * Nom avec l'augment d'une relative (esquisse §8.4.2) : ton haut flottant sur un préfixe voyelle ou nasale
+ * syllabique à ton bas (ì-lə́ → í-lə́, m̀-mú → ḿ-mú), ou forme attestée dans D7. null ailleurs (M30).
+ */
+export function augmented(eto: string): string | null {
+  const attested = AUGMENT_ATTESTED[eto];
+  if (attested !== undefined) return attested;
+  const d = eto.normalize('NFD');
+  const m = /^([aeiouɛəɔmnŋɲ])\u0300-/u.exec(d);
+  return m ? `${m[1] as string}\u0301-${d.slice(m[0].length)}`.normalize('NFC') : null;
+}
 
 /**
  * Classe d'accord d'un nom sujet d'après sa classe dans D7 : « 7/8 » → 7, « 3a/6 » → 3, nom sans genre (s.g) →
@@ -456,6 +476,8 @@ interface PresentPlan {
   negation: readonly [number, number] | null;
   /** « être » : une seule forme sujet + nə̀ (ou sə́), sans infinitif (M29). */
   copula: boolean;
+  /** Indice de « qui » sujet d'une relative, dont l'antécédent est lu à la construction (M30), ou null. */
+  relative: number | null;
 }
 
 /** Nombre d'un verbe au présent de la 3e personne (Lefff) ; null s'il est inconnu ou ambigu. */
@@ -522,11 +544,15 @@ function presentVerbs(s: SentenceAnalysis, roleList: readonly Role[], lexicon: L
       // « être » dans une relative a une forme propre (nə̌, esquisse (188)) : pas de forme non relative.
       const relative = RELATIVE_WORDS.has(wordAt(tokens, before - 1)?.key ?? '') && roleList[before - 1]?.kind !== 'PARTICLE';
       if ((!negative || (subject.key in negatives && !relative)) && !(copula && relative)) {
-        out.set(v.index, { subject: before, plural: subject.key === 'ils' || subject.key === 'elles', negation: neg, copula });
+        out.set(v.index, { subject: before, plural: subject.key === 'ils' || subject.key === 'elles', negation: neg, copula, relative: null });
       }
+    } else if (subject?.key === 'qui' && roleList[before]?.kind === 'LEX') {
+      // « La personne qui envoie » (M30) : sans négation ni « être » (formes relatives non attestées dans D7).
+      const plural = verbPlural(v.key, lexicon);
+      if (plural === false && !negative && !copula) out.set(v.index, { subject: null, plural, negation: null, copula, relative: before });
     } else if (subject && !subjectPronoun && roleList[before]?.kind === 'LEX' && !RELATIVE_WORDS.has(subject.key)) {
       const plural = verbPlural(v.key, lexicon);
-      if (plural !== null) out.set(v.index, { subject: null, plural, negation: neg, copula });
+      if (plural !== null) out.set(v.index, { subject: null, plural, negation: neg, copula, relative: null });
     }
   }
   return out;
@@ -613,6 +639,11 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const renderedNegation = new Set<number>();
   /** « être » rendu par une forme sujet + nə̀ (M29), confirmé après la phrase s'il a un complément. */
   const copulas: { piece: EtonPiece; subject: EtonPiece | undefined; plan: PresentPlan }[] = [];
+  /** « qui » sujet d'une relative (M30) : indice de « qui », puis antécédent et forme lus à la construction. */
+  const relativeWords = new Set([...present.values()].flatMap((p) => (p.relative === null ? [] : [p.relative])));
+  const relatives = new Map<number, { piece: EtonPiece; antecedent: EtonPiece; augment: string; form: string }>();
+  /** Nom de D7 rendu, par indice du jeton qui le suit. */
+  const endAt = new Map<number, EtonPiece>();
   const pieces: EtonPiece[] = [];
   const gaps: Gap[] = [];
   const applied = new Set<EtonRule>();
@@ -681,9 +712,27 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         break;
     }
 
+    // « qui » sujet (M30) : nom de D7 juste avant, tête de son groupe, de classe sûre au singulier, avec augment sûr.
+    if (relativeWords.has(i)) {
+      const a = endAt.get(i);
+      const prev = a === undefined ? undefined : pieces[pieces.indexOf(a) - 1];
+      const nounClass = a === undefined ? undefined : nounClasses.get(a);
+      const c = nounClass === undefined || nounClass.includes('s.g') ? null : subjectClass(nounClass, false);
+      const augment = a?.eto ? augmented(a.eto) : null;
+      const form = c === null ? undefined : CLASS_PRESENT[c];
+      const headed = !prev || !(prev.category === 'NOM' || (prev.source === 'MISSING' && CONNECTIVE_WORDS.has(prev.fr.toLocaleLowerCase('fr').replace(/’/gu, "'"))));
+      if (a && a === pieces[pieces.length - 1] && augment && form && headed) {
+        const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
+        relatives.set(i, { piece, antecedent: a, augment, form });
+        pieces.push(piece);
+        i++;
+        continue;
+      }
+    }
+
     // Mot plein (ou verbe).
     total++;
-    let marker: { piece: EtonPiece; form: string; rule: EtonRule; insert: boolean; plan: PresentPlan } | undefined;
+    let marker: { piece: EtonPiece; form: string; rule: EtonRule; insert: boolean; plan: PresentPlan; augment?: { piece: EtonPiece; form: string } } | undefined;
     if (role.kind === 'VERB' && role.finite !== null) {
       const plan = present.get(i);
       if (plan?.copula) {
@@ -700,7 +749,10 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
           continue;
         }
       }
-      if (plan?.subject != null && !plan.copula) {
+      const rel = plan?.relative == null ? undefined : relatives.get(plan.relative);
+      if (plan?.relative != null) {
+        if (rel) marker = { piece: rel.piece, form: rel.form, rule: ETON_RULES.RELATIVE_SUBJECT, insert: false, plan, augment: { piece: rel.antecedent, form: rel.augment } };
+      } else if (plan?.subject != null && !plan.copula) {
         const key = (tokens[plan.subject] as Token).key;
         const piece = subjects.get(plan.subject);
         const form = (plan.negation ? NEGATIVE_SUBJECTS : PRESENT_SUBJECTS)[key];
@@ -782,9 +834,11 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         for (const k of marker.plan.negation) renderedNegation.add(k);
         applied.add(ETON_RULES.NEGATION_PRESENT);
       }
+      if (marker.augment) marker.augment.piece.eto = marker.augment.form;
       if (marker.insert) pieces.push(marker.piece);
     }
     if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
+    if (entry.category === 'NOM') endAt.set(hit.end, piece);
     pieces.push(piece);
     i = hit.end;
   }

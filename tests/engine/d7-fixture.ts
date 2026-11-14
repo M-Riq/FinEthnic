@@ -30,6 +30,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('accepter', 'mə̀m', 'VERBE', '1) avouer, accepter 2) professer 3) assumer 4) être prétentieux, être vantard, se dire capable de', 'D7 p. 184 (lexique n° 1793)'),
   e('argent', 'mɔ̀ní', 'NOM', 'argent', 'D7 p. 192 (lexique n° 1919)', 's.g'),
   e('ici', 'mű', 'ADV', 'ici, là', 'D7 p. 194 (lexique n° 1962)'),
+  e('personne', 'm-òd', 'NOM', 'personne, être humain', 'D7 p. 191 (lexique n° 1911)', '1/2'),
   e('enfant', 'm-wán', 'NOM', '1) enfant, fils ou fille d’une personne ou d’un animal 2) neveu, nièce', 'D7 p. 194 (lexique n° 1968)', '1/2'),
   e('langue', 'ŋ̀-kɔ́lɔ̂', 'NOM', '1) langue 2) prise de parole', 'D7 p. 213 (lexique n° 2302)'),
   e('rejeter', 'pàzì', 'VERBE', '1) extraire 2) dégager d’une entrave, libérer en enlevant ce qui le retient 3) rejeter', 'D7 p. 230 (lexique n° 2575)'),
