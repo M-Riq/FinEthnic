@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
-import { buildEton, ETON_RULES, type EtonText } from '../../src/engine/eton';
+import { buildEton, ETON_RULES, type EtonText, subjectClass } from '../../src/engine/eton';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -77,13 +77,49 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
     expect(run("J'envoie l'argent.").eto).toBe('mə̀tə́ ꜜlóm mɔ̀ní.');
   });
 
-  it('présent : rien n’est produit pour vous, il, elle, ils, un nom sujet, la négation ou un verbe suivi d’un infinitif', () => {
-    for (const text of ['Vous mangez.', 'Il mange.', 'Elles mangent.', "L'enfant mange.", 'Je ne mange pas.', 'Je veux payer.', 'Je viens payer.', 'Je viens vite payer.', 'Tu veux de l’argent.', 'Mange-t-il ?']) {
+  it('présent avec « il », « elle », « ils », « elles » ou un nom sujet (M28) : marque de la classe du nom (esquisse ex. 19)', () => {
+    const r = run('Il mange.');
+    expect(r.eto).toBe('àtə́ ꜜdí.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.PRESENT_SUBJECT.id);
+    expect(run('Elles mangent.').eto).toBe('bə́ꜜtə́ ꜜdí.');
+    expect(run("L'enfant mange.").eto).toBe('m-wán àtə́ ꜜdí.');
+    expect(run("L'arbre attend.").eto).toBe('ì-lə́ íꜜtə́ yàŋà.');
+    expect(run('Le prix attend.').eto).toBe('táŋ ìtə́ yàŋà.');
+    expect(run("L'argent attend.").eto).toBe('mɔ̀ní àtə́ yàŋà.');
+    expect(run("Est-ce que l'enfant mange ?").eto).toBe('də̀ m-wán àtə́ ꜜdí ?');
+  });
+
+  it('« ne … pas » au présent (M28) : àá après la marque du sujet, formes attestées seulement', () => {
+    const r = run('Je ne mange pas.');
+    expect(r.eto).toBe('màáꜜtə́ ꜜdí.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toEqual(expect.arrayContaining([ETON_RULES.PRESENT_PRONOUN.id, ETON_RULES.NEGATION_PRESENT.id]));
+    expect(run("Tu n'attends pas.").eto).toBe('wàátə́ yàŋà.');
+    expect(run('Il ne mange pas.').eto).toBe('àáꜜtə́ ꜜdí.');
+    expect(run('Ils ne mangent pas.').eto).toBe('bàáꜜtə́ ꜜdí.');
+    expect(run("L'enfant ne mange pas.").eto).toBe('m-wán àáꜜtə́ ꜜdí.');
+  });
+
+  it('présent : rien n’est produit sans forme sûre (vous, négation non attestée, nom pluriel, nom sans classe, infinitif…)', () => {
+    for (const text of ['Vous mangez.', 'Nous ne mangeons pas.', "L'arbre n'attend pas.", 'Les enfants mangent.', 'Le message attend.',
+      'Je ne mange jamais.', "L'argent que tu n'attends pas.", 'Je veux payer.', 'Je viens payer.', 'Je viens vite payer.', 'Tu veux de l’argent.', 'Mange-t-il ?']) {
       const r = run(text);
       expect(r.eto, text).toBeNull();
       expect(r.draft, text).not.toMatch(/tə́/);
     }
-    expect(gapIds(run('Je ne mange pas.'))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+    expect(gapIds(run('Nous ne mangeons pas.'))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+    expect(gapIds(run("L'arbre n'attend pas."))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
+  });
+
+  it('classe d’accord du nom sujet (M28)', () => {
+    expect(subjectClass('7/8', false)).toBe('7');
+    expect(subjectClass('3a/6', false)).toBe('3');
+    expect(subjectClass('3u/5', false)).toBe('3');
+    expect(subjectClass('s.g', false)).toBe('1');
+    expect(subjectClass('9/10', true)).toBe('10');
+    expect(subjectClass('6', true)).toBe('6');
+    for (const [c, plural] of [['1/2', true], ['s.g', true], ['9', true], ['9/10, s.g', false], ['6 (5)', false]] as const) {
+      expect(subjectClass(c, plural), c).toBeNull();
+    }
   });
 
   it('une expression de D7 l’emporte sur ses mots, même avec « rien » (« pour rien »)', () => {
@@ -189,7 +225,7 @@ describe('buildEton — manques signalés, jamais inventés', () => {
   });
 
   it('temps, négation, possessif et pronom complément : règles de classe B ou C', () => {
-    expect(gapIds(run("Il envoie l'argent."))).toEqual([ETON_RULES.PRESENT.id]);
+    expect(gapIds(run("Vous envoyez l'argent."))).toEqual([ETON_RULES.PRESENT.id]);
     expect(gapIds(run("Il va envoyer l'argent."))).toEqual([ETON_RULES.FUTURE.id]);
     expect(gapIds(run("Envoyez l'argent."))).toEqual([ETON_RULES.IMPERATIVE_PLURAL.id]);
     expect(gapIds(run('Ne paie pas.'))).toEqual([ETON_RULES.IMPERATIVE.id, ETON_RULES.NEGATION_IMPERATIVE.id]);

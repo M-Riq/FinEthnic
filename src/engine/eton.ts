@@ -29,6 +29,8 @@ export interface EtonRule {
 }
 
 const SKETCH = 'D7, esquisse grammaticale p. 18-71';
+/** Texte complet de l'esquisse grammaticale (HAL halshs-03847045), reçu en M28. */
+const ESQUISSE = 'Esquisse grammaticale complète (HAL halshs-03847045)';
 const rule = (id: string, ruleClass: RuleClass, section: string, description: string): EtonRule =>
   ({ id, ruleClass, ref: `${SKETCH}, ${section}`, description });
 
@@ -43,8 +45,20 @@ export const ETON_RULES = {
   IMPERATIVE_IRREGULAR: rule('D7-IMPERATIF-IRREGULIER', 'A', '§4 Impératif irrégulier', '« Va ! » kɛ̀ní, « Viens ! » zùgá.'),
   PRESENT_PRONOUN: rule('D7-PRESENT-PRONOM', 'A', '§2 Marques du sujet, §3 Temps (« mə̀tə́ ꜜdí » je mange)',
     'Présent avec « je », « tu » ou « nous » juste avant le verbe : mə̀tə́, ùtə́, ɛ̀tə́ + infinitif ; ꜜ devant un verbe à ton haut initial (171 exemples de D7 sur 178, aucun devant un autre ton sur 257). Validé par le responsable (M19).'),
-  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), « il », « elle », « ils », « elles » (classe de la chose désignée) et un nom sujet ; négation, être, avoir et verbe suivi d’un infinitif non couverts (M19).'),
-  SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', 'Marque de sujet d’un nom : classes du lexique non reliées au tableau des classes 1–10 ; « nous » : ɛ̀ ou bì.'),
+  PRESENT_SUBJECT: {
+    id: 'D7-PRESENT-SUJET',
+    ruleClass: 'A',
+    ref: `${ESQUISSE}, §8.4.1 ex. (19) et (23), tableau 4 ; §8.7.4`,
+    description: 'Présent avec « il », « elle », « ils », « elles » ou un nom sujet en tête de phrase : marque du sujet de la classe du nom + tə́ (1 àtə́, 2 bə́ꜜtə́, 3 úꜜtə́, 4 míꜜtə́, 5 ɛ́ꜜtə́, 6 mə́ꜜtə́, 7 íꜜtə́, 8 bíꜜtə́, 9 ìtə́, 10 íꜜtə́) + infinitif ; pronom ou nom sans classe (s.g, terme gardé) : accord par défaut àtə́ / bə́ꜜtə́. Validé par le responsable (M28).',
+  },
+  NEGATION_PRESENT: {
+    id: 'D7-NEGATION-PRESENT',
+    ruleClass: 'A',
+    ref: `${ESQUISSE}, §8.7.9 (« àáꜜtə́ ꜜsá ») ; exemples de D7`,
+    description: '« ne … pas » au présent : àá après la marque du sujet. Formes attestées seulement : màáꜜtə́ (je), wàátə́ (tu), àáꜜtə́ (il, elle, classe 1, s.g), bàáꜜtə́ (ils, elles, classe 2), byàáꜜtə́ (classe 8). Pas dans une relative (« que tu ne connais pas ») : forme non décrite. Validé par le responsable (M28).',
+  },
+  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, être, avoir et verbe suivi d’un infinitif non couverts (M19, M28).'),
+  SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', '« nous » : ɛ̀ ou bì (seul ɛ̀tə́ est employé au présent) ; classes doubles du lexique (« 9/10, s.g ») non reliées à une marque.'),
   PAST_RECENT_PERFECTIVE: rule('D7-PASSE-RECENT-PERFECTIF', 'C', '§3 Temps', 'MS-H-thème(-H) : tons non documentés.'),
   PAST_RECENT_IMPERFECTIVE: rule('D7-PASSE-RECENT-IMPERFECTIF', 'C', '§3 Temps', 'MS-bə́ + infinitif de la forme G : forme G non documentée.'),
   FUTURE: rule('D7-FUTUR', 'C', '§3 Temps', 'MS-èèy + infinitif : fusion avec la marque du sujet non documentée.'),
@@ -52,7 +66,7 @@ export const ETON_RULES = {
   SUBJUNCTIVE: rule('D7-SUBJONCTIF', 'C', '§4 Subjonctif', 'Ton haut sur la marque du sujet : non documenté pour chaque marque.'),
   IMPERATIVE: rule('D7-IMPERATIF', 'C', '§4 Impératif', 'Ton haut flottant après la 1re syllabe du thème : non documenté pour chaque verbe.'),
   IMPERATIVE_PLURAL: rule('D7-IMPERATIF-PLURIEL', 'C', '§4 Impératif pluriel', 'Suffixe -(ə́)ŋgán(à) : forme exacte non documentée.'),
-  NEGATION: rule('D7-NEGATION', 'C', '§4 Négation', 'àá après la marque du sujet : fusion des voyelles non documentée.'),
+  NEGATION: rule('D7-NEGATION', 'C', '§4 Négation', 'àá après la marque du sujet : fusion non attestée pour « nous », « vous » et les classes 3 à 7, 9 et 10 ; « jamais », « plus », « rien »… et les autres temps non couverts.'),
   NEGATION_IMPERATIVE: rule('D7-NEGATION-IMPERATIF', 'B', '§4 Négation', 'Auxiliaire bə́ ꜜ + verbe : ton du verbe non documenté.'),
   RESTRICTION: rule('D7-RESTRICTION', 'C', '§4', 'Aucune règle de « ne … que » dans D7.'),
   PASSIVE: rule('D7-PASSIF', 'C', '§6 Dérivation', 'Suffixe -bàn : exemples seulement, pas une règle productive.'),
@@ -378,10 +392,64 @@ function keptMatch(tokens: readonly Token[], i: number, roleList: readonly Role[
 
 /* ------------------------------------------------------------------ phrase */
 
-/** Marques du sujet + tə́ attestées dans D7 (§2, §3) ; « nous » : ɛ̀tə́ (4 exemples), bìtə́ seulement avec yì « vouloir ». */
-const PRESENT_SUBJECTS: Readonly<Record<string, string>> = { je: 'mə̀tə́', "j'": 'mə̀tə́', tu: 'ùtə́', nous: 'ɛ̀tə́' };
+/**
+ * Marques du sujet + tə́ des pronoms. « je », « tu », « nous » : D7 (§2, §3, M19) ; « nous » : ɛ̀tə́ (4 exemples),
+ * bìtə́ seulement avec yì « vouloir ». « il », « elle », « ils », « elles » : accord par défaut (esquisse ex. 23, M28).
+ */
+const PRESENT_SUBJECTS: Readonly<Record<string, string>> = {
+  je: 'mə̀tə́', "j'": 'mə̀tə́', tu: 'ùtə́', nous: 'ɛ̀tə́', il: 'àtə́', elle: 'àtə́', ils: 'bə́ꜜtə́', elles: 'bə́ꜜtə́',
+};
+/** « ne … pas » au présent (esquisse §8.7.9) : formes des exemples de D7 seulement (M28). */
+const NEGATIVE_SUBJECTS: Readonly<Record<string, string>> = {
+  je: 'màáꜜtə́', "j'": 'màáꜜtə́', tu: 'wàátə́', il: 'àáꜜtə́', elle: 'àáꜜtə́', ils: 'bàáꜜtə́', elles: 'bàáꜜtə́',
+};
+const PRONOUN_PRESENT: ReadonlySet<string> = new Set(['je', "j'", 'tu', 'nous']);
+/** Marque du sujet + tə́ de chaque classe (esquisse §8.4.1 ex. 19, tableau 4) et négation attestée (M28). */
+const CLASS_PRESENT: Readonly<Record<string, string>> = {
+  1: 'àtə́', 2: 'bə́ꜜtə́', 3: 'úꜜtə́', 4: 'míꜜtə́', 5: 'ɛ́ꜜtə́', 6: 'mə́ꜜtə́', 7: 'íꜜtə́', 8: 'bíꜜtə́', 9: 'ìtə́', 10: 'íꜜtə́',
+};
+const CLASS_NEGATIVE: Readonly<Record<string, string>> = { 1: 'àáꜜtə́', 2: 'bàáꜜtə́', 8: 'byàáꜜtə́' };
+const SINGULAR_CLASSES: ReadonlySet<string> = new Set(['1', '3', '5', '7', '9']);
+const CONNECTIVE_WORDS: ReadonlySet<string> = new Set(['de', 'du', "d'", 'des']);
+/** Mots qui peuvent ouvrir une relative : la négation en àá ne vaut que hors relative (esquisse §8.7.9). */
+const RELATIVE_WORDS: ReadonlySet<string> = new Set(['que', "qu'", 'qui', 'où', 'dont', 'lequel', 'laquelle', 'lesquels', 'lesquelles',
+  'auquel', 'auxquels', 'auxquelles', 'duquel', 'desquels', 'desquelles']);
 /** Être, avoir et verbes à valeur de quasi-auxiliaire (D7 §5 : « ànə̀ kɔ̀m », « bìtə́ yì nâ ») : construction propre. */
 const PRESENT_EXCLUDED: ReadonlySet<string> = new Set(['être', 'avoir', 'pouvoir', 'vouloir', 'devoir', 'falloir', 'aller', 'savoir']);
+
+/**
+ * Classe d'accord d'un nom sujet d'après sa classe dans D7 : « 7/8 » → 7, « 3a/6 » → 3, nom sans genre (s.g) →
+ * accord par défaut 1 (esquisse ex. 23). Au pluriel, seulement si la forme de D7 est déjà celle du pluriel
+ * (9/10 : même forme ; nom d'une seule classe de pluriel, « 6 » mə̀-ndím) : le moteur n'écrit pas encore le
+ * pluriel des noms (bə̀-, bɔ̀…). null si la classe n'est pas sûre (« 9/10, s.g »).
+ */
+export function subjectClass(nounClass: string, plural: boolean): string | null {
+  const parts = nounClass.split('/').map((x) => x.trim().replace(/^(\d+)[au]$/u, '$1').replace(/^s\.g\.?$/u, 's.g'));
+  if (parts.length > 2 || parts.some((x) => x !== 's.g' && !(x in CLASS_PRESENT))) return null;
+  const [singular, pluralClass] = parts as [string, string | undefined];
+  if (!plural) return singular === 's.g' ? '1' : singular;
+  if (pluralClass === undefined) return singular === 's.g' || SINGULAR_CLASSES.has(singular) ? null : singular;
+  return singular === '9' && pluralClass === '10' ? '10' : null;
+}
+
+/** Verbe au présent rendu par MS-tə́ + infinitif. */
+interface PresentPlan {
+  /** Indice du pronom sujet, ou null : nom sujet en tête de phrase, dont la classe est lue à la construction. */
+  subject: number | null;
+  plural: boolean;
+  /** Indices de « ne » et « pas » rendus par la négation, ou null. */
+  negation: readonly [number, number] | null;
+}
+
+/** Nombre d'un verbe au présent de la 3e personne (Lefff) ; null s'il est inconnu ou ambigu. */
+function verbPlural(key: string, lexicon: Lexicon | undefined): boolean | null {
+  const numbers = new Set((lexicon?.lookup(key) ?? [])
+    .filter((r) => (r.pos === 'VERB' || r.pos === 'AUX') && r.mood === 'INDICATIVE' && r.tense === 'PRESENT' && r.persons.includes(3))
+    .map((r) => r.number));
+  const [n] = numbers;
+  return numbers.size === 1 && n ? n === 'PLURAL' : null;
+}
+
 const VOWELS = new Set('aeiouɛɔəAEIOUƐƆƏ');
 const NASALS = new Set('mnŋMNŊ');
 
@@ -399,26 +467,62 @@ export function highInitial(eto: string): boolean {
   return false;
 }
 
-/** Verbes au présent dont le sujet « je », « tu » ou « nous » le précède directement : index du verbe → index du sujet. */
-function pronounPresent(s: SentenceAnalysis, roleList: readonly Role[], lexicon: Lexicon | undefined): Map<number, number> {
-  const out = new Map<number, number>();
+/**
+ * Verbes au présent rendus par MS-tə́ + infinitif : sujet pronom juste avant le verbe (« je », « il »…), ou nom
+ * sujet en tête de phrase quand la phrase n'a pas de pronom sujet. « ne … pas » autour du verbe, seule négation
+ * de la phrase et hors relative (« que tu ne connais pas »), est rendu avec la marque négative (M28).
+ */
+function presentVerbs(s: SentenceAnalysis, roleList: readonly Role[], lexicon: Lexicon | undefined): Map<number, PresentPlan> {
+  const out = new Map<number, PresentPlan>();
   const { tokens } = s;
-  if (negationIndices(tokens).size > 0 || s.restriction) return out;
+  if (s.restriction) return out;
+  const negation = negationIndices(tokens);
+  const subjectPronoun = roleList.some((r) => r.kind === 'SUBJECT');
   for (const v of s.finiteVerbs) {
-    const subject = wordAt(tokens, v.index - 1);
     const role = roleList[v.index];
-    if (!subject || subject.enclitic || roleList[v.index - 1]?.kind !== 'SUBJECT' || !(subject.key in PRESENT_SUBJECTS)) continue;
     if (role?.kind !== 'VERB' || role.finite !== v.index || PRESENT_EXCLUDED.has(v.features?.lemma ?? '')) continue;
     const { rules, irregular } = verbRules(s, v.index, lexicon);
     if (irregular || rules.length !== 1 || rules[0] !== ETON_RULES.PRESENT) continue;
+    const ne = wordAt(tokens, v.index - 1);
+    const negative = ne !== undefined && NE.has(ne.key) && wordAt(tokens, v.index + 1)?.key === 'pas'
+      && negation.size === 2 && negation.has(v.index - 1) && negation.has(v.index + 1);
+    if (negation.size > 0 && !negative) continue;
     // « Je viens payer », « tu viens le faire » : verbe suivi d'un infinitif, construction non décrite.
     let j = v.index + 1;
     while (roleList[j]?.kind === 'OBJECT' || (wordAt(tokens, j) && (lexicon?.lookup((tokens[j] as Token).key) ?? []).some((r) => r.pos === 'ADV'))) j++;
     const next = wordAt(tokens, j);
     if (next && (lexicon?.lookup(next.key) ?? []).some((r) => r.pos === 'VERB' && r.mood === 'INFINITIVE')) continue;
-    out.set(v.index, v.index - 1);
+    const before = v.index - (negative ? 2 : 1);
+    const subject = wordAt(tokens, before);
+    const neg = negative ? [v.index - 1, v.index + 1] as const : null;
+    if (subject && !subject.enclitic && roleList[before]?.kind === 'SUBJECT' && subject.key in PRESENT_SUBJECTS) {
+      const relative = RELATIVE_WORDS.has(wordAt(tokens, before - 1)?.key ?? '');
+      if (!negative || (subject.key in NEGATIVE_SUBJECTS && !relative)) out.set(v.index, { subject: before, plural: subject.key === 'ils' || subject.key === 'elles', negation: neg });
+    } else if (subject && !subjectPronoun && roleList[before]?.kind === 'LEX') {
+      const plural = verbPlural(v.key, lexicon);
+      if (plural !== null) out.set(v.index, { subject: null, plural, negation: neg });
+    }
   }
   return out;
+}
+
+/**
+ * Classe d'accord du nom sujet en tête de phrase (M28) : premier nom (après adjectifs et possessifs),
+ * suivi seulement de noms, d'adjectifs, de « de » ou d'un possessif. Terme gardé : sans genre (s.g).
+ */
+function nounSubjectClass(pieces: readonly EtonPiece[], grammar: ReadonlyMap<EtonPiece, Role['kind']>,
+  nounClasses: ReadonlyMap<EtonPiece, string>, plural: boolean): string | null {
+  const np = pieces.filter((p) => !(p.source === 'RULE' && p.fr === '') && grammar.get(p) !== 'NEG');
+  const lexical = (p: EtonPiece): boolean => p.source === 'D7' || p.source === 'FRENCH';
+  let k = 0;
+  while (np[k] && ((lexical(np[k] as EtonPiece) && np[k]?.category === 'ADJ') || grammar.get(np[k] as EtonPiece) === 'POSSESSIVE')) k++;
+  const head = np[k];
+  if (!head || !lexical(head) || head.category !== 'NOM') return null;
+  const nounClass = head.source === 'FRENCH' ? 's.g' : nounClasses.get(head);
+  const rest = np.slice(k + 1).every((p) => (lexical(p) && (p.category === 'NOM' || p.category === 'ADJ'))
+    || (p.source === 'MISSING' && CONNECTIVE_WORDS.has(p.fr.toLocaleLowerCase('fr').replace(/’/gu, "'")))
+    || grammar.get(p) === 'POSSESSIVE');
+  return nounClass === undefined || !rest ? null : subjectClass(nounClass, plural);
 }
 
 function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undefined): { rules: EtonRule[]; irregular: string | null } {
@@ -475,8 +579,12 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const { lexicon } = options;
   const ignoredWords = new Set((options.ignored ?? []).flatMap((g) => g.words));
   const roleList = roles(s, lexicon, ignoredWords, options.partitives);
-  const present = pronounPresent(s, roleList, lexicon);
+  const present = presentVerbs(s, roleList, lexicon);
   const subjects = new Map<number, EtonPiece>();
+  /** Rôle des mots grammaticaux, et « ne », « pas » rendus par la négation du présent (M28). */
+  const grammar = new Map<EtonPiece, Role['kind']>();
+  const negPieces = new Map<number, EtonPiece>();
+  const renderedNegation = new Set<number>();
   const pieces: EtonPiece[] = [];
   const gaps: Gap[] = [];
   const applied = new Set<EtonRule>();
@@ -526,26 +634,41 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       case 'AUXILIARY': {
         const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
         if (role.kind === 'SUBJECT') subjects.set(i, piece);
+        if (role.kind === 'NEG') negPieces.set(i, piece);
+        grammar.set(piece, role.kind);
         pieces.push(piece);
         i++;
         continue;
       }
       case 'POSSESSIVE':
-      case 'OBJECT':
-        pieces.push({ fr: t.text, eto: null, source: 'GRAMMAR', ref: null });
+      case 'OBJECT': {
+        const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
+        grammar.set(piece, role.kind);
+        pieces.push(piece);
         gap(t.text, role.kind === 'POSSESSIVE' ? ETON_RULES.POSSESSIVE : ETON_RULES.OBJECT_PRONOUN);
         i++;
         continue;
+      }
       default:
         break;
     }
 
     // Mot plein (ou verbe).
     total++;
-    let presentSubject: EtonPiece | undefined;
+    let marker: { piece: EtonPiece; form: string; rule: EtonRule; insert: boolean; plan: PresentPlan } | undefined;
     if (role.kind === 'VERB' && role.finite !== null) {
-      const subject = present.get(i);
-      presentSubject = subject === undefined ? undefined : subjects.get(subject);
+      const plan = present.get(i);
+      if (plan?.subject != null) {
+        const key = (tokens[plan.subject] as Token).key;
+        const piece = subjects.get(plan.subject);
+        const form = (plan.negation ? NEGATIVE_SUBJECTS : PRESENT_SUBJECTS)[key];
+        const r = PRONOUN_PRESENT.has(key) ? ETON_RULES.PRESENT_PRONOUN : ETON_RULES.PRESENT_SUBJECT;
+        if (piece && form) marker = { piece, form, rule: r, insert: false, plan };
+      } else if (plan) {
+        const c = nounSubjectClass(pieces, grammar, nounClasses, plan.plural);
+        const form = c === null ? undefined : (plan.negation ? CLASS_NEGATIVE : CLASS_PRESENT)[c];
+        if (form) marker = { piece: { fr: '', eto: null, source: 'RULE', ref: null }, form, rule: ETON_RULES.PRESENT_SUBJECT, insert: true, plan };
+      }
       const { rules, irregular } = verbRules(s, role.finite, lexicon);
       if (irregular) {
         pieces.push({ fr: t.text, eto: irregular, source: 'RULE', ref: ETON_RULES.IMPERATIVE_IRREGULAR.ref });
@@ -554,12 +677,12 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         i++;
         continue;
       }
-      for (const r of rules) if (!(presentSubject && r === ETON_RULES.PRESENT)) gap(t.text, r);
+      for (const r of rules) if (!(marker && r === ETON_RULES.PRESENT)) gap(t.text, r);
     }
     const hit = lookup(tokens, i, roleList, d7, lexicon);
-    if (presentSubject && !(hit && hit.end === i + 1 && hit.choice.entry.category === 'VERBE' && !isBoundForm(hit.choice.entry.eto))) {
+    if (marker && !(hit && hit.end === i + 1 && hit.choice.entry.category === 'VERBE' && !isBoundForm(hit.choice.entry.eto))) {
       gap(t.text, ETON_RULES.PRESENT);
-      presentSubject = undefined;
+      marker = undefined;
     }
     // Terme gardé en français (M20) : D7 passe avant, sauf expression plus courte ou verbe pour un nom.
     const keep = keptMatch(tokens, i, roleList, lexicon, terms);
@@ -607,16 +730,27 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       // Participe (« écrit ») ou forme conjuguée non repérée : D7 ne donne que l'infinitif.
       gap(fr, ETON_RULES.VERB_FORM);
     } else found++;
-    if (presentSubject) {
-      presentSubject.eto = PRESENT_SUBJECTS[(tokens[present.get(i) as number] as Token).key] as string;
-      presentSubject.source = 'RULE';
-      presentSubject.ref = ETON_RULES.PRESENT_PRONOUN.ref;
+    if (marker) {
+      marker.piece.eto = marker.form;
+      marker.piece.source = 'RULE';
+      marker.piece.ref = (marker.plan.negation ? ETON_RULES.NEGATION_PRESENT : marker.rule).ref;
       if (highInitial(entry.eto)) piece.downstep = true;
-      applied.add(ETON_RULES.PRESENT_PRONOUN);
+      applied.add(marker.rule);
+      if (marker.plan.negation) {
+        for (const k of marker.plan.negation) renderedNegation.add(k);
+        applied.add(ETON_RULES.NEGATION_PRESENT);
+      }
+      if (marker.insert) pieces.push(marker.piece);
     }
     if (entry.category === 'NOM' && entry.nounClass) nounClasses.set(piece, entry.nounClass);
     pieces.push(piece);
     i = hit.end;
+  }
+
+  // « ne » et « pas » rendus par la marque négative du présent : plus de mot à part.
+  for (const k of renderedNegation) {
+    const p = negPieces.get(k);
+    if (p) pieces.splice(pieces.indexOf(p), 1);
   }
 
   // Phrase sans aucun mot rendu par D7 (« Code PIN ») : les termes gardés redeviennent des manques,
@@ -659,7 +793,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   }
 
   // Traits de la phrase.
-  const negation = [...negationIndices(tokens)].filter((k) => !consumed.has(k));
+  const negation = [...negationIndices(tokens)].filter((k) => !consumed.has(k) && !renderedNegation.has(k));
   if (negation.length > 0) gap(negation.map((k) => (tokens[k] as Token).key).join(' '), s.type === 'IMPERATIVE' ? ETON_RULES.NEGATION_IMPERATIVE : ETON_RULES.NEGATION);
   if (s.restriction) gap('ne … que', ETON_RULES.RESTRICTION);
   const lexical = pieces.filter((p) => p.source === 'D7' || p.source === 'MISSING' || p.source === 'FRENCH');
