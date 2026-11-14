@@ -194,6 +194,8 @@ Revérification manuelle de D4 et D5 : les chiffres de la v0.1 sont confirmés (
    - seules les formes **citées** sont versionnées, avec leur référence (page de D7), comme justification ;
    - aucun import massif dans le dépôt ;
    - les auteurs et la licence sont mentionnés dans `THIRD_PARTY.md` et `data/language-resources/README.md`. Les fichiers qui contiennent des formes de D7 sont diffusés sous CC BY-NC-SA 4.0.
+
+   **Révision du 2026-11-14 (décision du responsable).** Le livrable est une extension qui embarque le moteur : la **conversion JSON complète** de D7 et de son esquisse grammaticale (`data/language-resources/d7/`, `npm run convert-d7`) est versionnée et embarquée, sous CC BY-NC-SA 4.0, avec l'attribution et la liste des modifications (`d7/LICENCE.md`). Le brut reste hors Git. Les colonnes « English » écrites par une IA ne sont pas reprises.
 4. **Qualité de l'extraction (PDF/OCR → JSON).** Risques :
    - tons et diacritiques combinants perdus ou déplacés (U+0300, U+0301, U+0302, U+030C, U+0304) ;
    - ε grec (U+03B5) confondu avec ɛ (U+025B) ;
@@ -367,6 +369,7 @@ FinEthnic/
 │   │   ├── README.md             # provenance, licence, procédure d'extraction (Q17)
 │   │   ├── citations/            # formes citées du dictionnaire + référence (versionnées)
 │   │   ├── grammar-rules.json    # règles de formation des phrases transcrites de D7, chacune avec sa référence (§3.10, Q23)
+│   │   ├── d7/                   # conversion JSON de D7 et de l'esquisse (npm run convert-d7, CC BY-NC-SA 4.0)
 │   │   └── raw/                  # dictionnaire brut — IGNORÉ PAR GIT
 │   ├── schemas/                  # JSON Schema (entrée, lexique, import de relecture)
 │   └── exports/                  # GÉNÉRÉ, jamais édité à la main
@@ -577,5 +580,5 @@ Proposition de structure d'une entrée dans `data/`. Le JSON Schema définitif e
 
 **Nouvelles questions v0.4 (D6), non bloquantes pour S1**
 - **Q15 — Ampleur des sources anglaises (C9)** : D6 exige des sources EN, mais aucune n'existe et SAFINUM est en français. Que couvre-t-on pour la démo : (a) seulement le schéma et le moteur prêts pour EN, avec quelques entrées de test ; (b) les ~53 libellés des pages et les messages SEC critiques en EN ; (c) tout le corpus ? Qui relit la correspondance FR↔EN (sens financier) ? **Recommandation : (b)**, relu par le responsable du projet. Phase BM6.
-- **Q17 — Dictionnaire (D7)** — ✅ **Tranchée (2026-11-13)** : reçu en lexique Markdown (converti depuis Excel), avec les règles de phrase dans le même fichier. Licence CC BY-NC-SA 4.0 (d'après le lexique ; le site de l'auteur n'a pas pu être consulté). D7 reste **hors de Git** ; seules les formes citées, avec leur référence, sont versionnées, avec la mention des auteurs et de la licence (§3.7.4-3). *Point de vigilance : la clause « pas d'usage commercial » est à revoir avant tout usage avec de vrais clients.*
+- **Q17 — Dictionnaire (D7)** — ✅ **Tranchée (2026-11-13)** : reçu en lexique Markdown (converti depuis Excel), avec les règles de phrase dans le même fichier. Licence CC BY-NC-SA 4.0 (d'après le lexique ; le site de l'auteur n'a pas pu être consulté). D7 reste **hors de Git** ; seules les formes citées, avec leur référence, sont versionnées, avec la mention des auteurs et de la licence (§3.7.4-3). **Révisée le 2026-11-14** : la conversion JSON complète (`data/language-resources/d7/`) est versionnée et embarquée dans l'extension ; le brut reste hors Git. *Point de vigilance : la clause « pas d'usage commercial » est à revoir avant tout usage avec de vrais clients.*
 - **Q18 — Double relecture des entrées critiques** : exige-t-on **deux** relectures indépendantes (deux locutrices, ou une locutrice + validation du sens financier par une autre personne) pour les entrées `sensitivity = critical` (SEC, montants, confirmation de transfert) avant `APPROVED` ? **Recommandation : oui**, avec une dérogation **tracée** dans `reviews[]` si une seule locutrice est disponible.

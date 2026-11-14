@@ -5,7 +5,7 @@ import Ajv2020, { type ErrorObject, type ValidateFunction } from 'ajv/dist/2020.
 const SCHEMA_DIR = fileURLToPath(new URL('../../data/schemas/', import.meta.url));
 const SCHEMA_BASE = 'https://finethnic.example/schemas/';
 
-export const SCHEMA_NAMES = ['entry', 'lexicon', 'review-import', 'dictionary', 'grammar-rules'] as const;
+export const SCHEMA_NAMES = ['entry', 'lexicon', 'review-import', 'dictionary', 'grammar-rules', 'd7', 'esquisse'] as const;
 export type SchemaName = (typeof SCHEMA_NAMES)[number];
 
 export type SchemaValidators = Record<SchemaName, ValidateFunction>;

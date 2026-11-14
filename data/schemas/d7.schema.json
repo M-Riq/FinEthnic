@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finethnic.example/schemas/d7.schema.json",
+  "title": "FinEthnic — D7 complet en JSON",
+  "description": "Conversion reproductible du lexique D7 (Van de Velde & Essele Essele, CLÉ 2022, CC BY-NC-SA 4.0) par scripts/convert-d7.ts : entrées du lexique, index français → éton et section « Grammaire & phrases ». Les colonnes « English » (ajoutées par Claude, absentes du livre) ne sont pas reprises.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "source", "readme", "entries", "frenchIndex", "grammar"],
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "source": { "$ref": "#/$defs/source" },
+    "readme": { "type": "array", "items": { "type": "string" } },
+    "entries": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/entry" } },
+    "frenchIndex": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fr", "eto", "category", "classPlural", "n"],
+        "properties": {
+          "fr": { "type": "string" },
+          "eto": { "type": "string" },
+          "category": { "type": "string" },
+          "classPlural": { "type": ["string", "null"] },
+          "n": { "type": "integer", "minimum": 1, "description": "N° de l'entrée dans `entries`." }
+        }
+      }
+    },
+    "grammar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intro", "tables"],
+      "properties": {
+        "intro": { "type": "array", "items": { "type": "string" } },
+        "tables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "columns", "rows"],
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "columns": { "type": "array", "items": { "type": "string", "minLength": 1, "not": { "pattern": "^English" } } },
+              "rows": { "type": "array", "items": { "type": "object", "additionalProperties": { "type": "string" } } }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "authors", "publisher", "year", "hal", "license", "licenseUrl", "file", "sha256", "note"],
+      "properties": {
+        "title": { "type": "string" },
+        "authors": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "publisher": { "type": "string" },
+        "year": { "type": "integer" },
+        "hal": { "type": "string" },
+        "license": { "const": "CC BY-NC-SA 4.0" },
+        "licenseUrl": { "type": "string" },
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "pages": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eto", "fr"],
+      "properties": {
+        "eto": { "type": "string", "minLength": 1 },
+        "fr": { "type": "string", "minLength": 1 },
+        "sense": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n", "headword", "form", "homonym", "variants", "category", "abbreviation", "nounClass", "plural", "french", "page",
+        "senses", "relations", "idioms", "proverbs", "notes", "full", "issues"],
+      "properties": {
+        "n": { "type": "integer", "minimum": 1 },
+        "headword": { "type": "string", "minLength": 1 },
+        "form": { "type": "string", "minLength": 1 },
+        "homonym": { "type": ["integer", "null"] },
+        "variants": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "category": { "type": "string", "minLength": 1 },
+        "abbreviation": { "type": ["string", "null"] },
+        "nounClass": { "type": ["string", "null"] },
+        "plural": { "type": ["string", "null"] },
+        "french": { "type": "string" },
+        "page": { "type": "integer", "minimum": 1 },
+        "senses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["n", "definition", "examples"],
+            "properties": {
+              "n": { "type": ["integer", "null"], "minimum": 1 },
+              "definition": { "type": "string" },
+              "examples": { "type": "array", "items": { "$ref": "#/$defs/example" } }
+            }
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "eto"],
+            "properties": {
+              "type": { "enum": ["synonyme", "antonyme", "voir"] },
+              "eto": { "type": "string", "minLength": 1 },
+              "fr": { "type": "string" },
+              "sense": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "idioms": { "type": "array", "items": { "$ref": "#/$defs/example" } },
+        "proverbs": { "type": "array", "items": { "$ref": "#/$defs/example" } },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "text"],
+            "properties": {
+              "type": { "enum": ["litteral", "usage", "emprunt", "singulatif"] },
+              "text": { "type": "string" },
+              "sense": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "full": { "type": "string", "minLength": 1, "description": "Entrée complète du livre, telle quelle : fait foi en cas de doute sur le découpage." },
+        "issues": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

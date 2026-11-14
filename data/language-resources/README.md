@@ -1,6 +1,6 @@
 # `data/language-resources/` — ressources linguistiques
 
-Ressources utilisées **pendant la préparation** de la bibliothèque. Elles ne sont jamais chargées dans l'extension ni utilisées pendant la navigation (PROJECT_CONTEXT §3.7.4-2).
+Ressources linguistiques du moteur. Depuis la révision de Q17 (2026-11-14), la conversion JSON de D7 (`d7/`) est destinée à être embarquée dans l'extension ; les autres fichiers servent à la préparation et au moteur.
 
 ## Contenu
 
@@ -11,6 +11,7 @@ Ressources utilisées **pendant la préparation** de la bibliothèque. Elles ne 
 | `sense-review.json` | Sens faux relevés (M18) : dans une entrée de D8, une forme éton citée de D7 qui trahit le sens (« Rejeter » → « mettre de côté » → lìŋ « épargner »). Le moteur écarte ces candidats, puis essaie les autres synonymes, la définition, et laisse le français si rien de juste ne reste. Chaque ligne : `entryId`, `fr`, `eto`, `ref` (page et n° de D7), `reason` | Oui | 4 sens relevés : « Rejeter » → lìŋ (2026-11-14), « Retourner » → vyàŋlà, « Institution de microfinance » → ì-zímí (« caisse, cercueil »), « Opposition » → bán (« arrêt, gare ») (2026-11-15) |
 | `kept-french-terms.json` | Termes français gardés tels quels dans la phrase éton (M20) : notions financières et numériques modernes absentes de D7 (compte, code, frais, mot de passe, SMS…), en groupes (`groups[].terms`), avec les mots exclus et leur raison (`excluded`). Gardés seulement comme noms et toujours signalés (`FRENCH_KEPT`) ; une phrase sans aucun mot rendu par D7 n'est pas présentée comme traduite | Oui | 76 termes validés (2026-11-15) |
 | `d8-synonym-additions.json` | Synonymes français simples ajoutés à D8 (M22, M24), écrits seulement avec des constructions attestées par D7 (verbe + nom, nom « á » nom, « pour rien »…). Le moteur les lit après les synonymes de D8, sans modifier D8. Liste `removals` : synonymes de D8 que le moteur n'utilise pas, car ils changent le sens financier (M30 : « richesse » pour « Argent » ; relecture du 2026-11-15 : « prix » pour « Montant », « cacher » pour « Fermer la fenêtre »). Chaque ligne : `entryId`, `text` (texte de D8, vérifié au chargement), `synonym`, `reason`, `ref`, `decidedBy`, `date`. Propositions et décisions : `docs/reviews/M22-synonymes-d8.md` | Oui | 71 synonymes validés : 50 en M22 (groupe A et groupe B), 26 en M24 (second lot), moins 5 retirés à la relecture des synonymes à risque |
+| `d7/` | Conversion JSON complète de D7 (`d7.json` : lexique découpé, index français, tableaux de grammaire) et de l'esquisse grammaticale du livre (`esquisse-grammaticale.json`), produite par `npm run convert-d7`. Formats : `../schemas/d7.schema.json`, `../schemas/esquisse.schema.json`. Licence et attribution : `d7/LICENCE.md` | Oui (Q17 révisée) | Généré le 2026-11-14 ; lu par le moteur |
 | `raw/` | D7 tel que reçu (`dictionnaire_eton_lexique.md`), son extraction `dictionary.json` et les rapports `import-report.md` et `cascade-report.md`. Format de l'extraction : `../schemas/dictionary.schema.json` | **Non** (`.gitignore`) | D7 reçu le 2026-11-13 |
 
 ## Provenance et licence
@@ -18,8 +19,17 @@ Ressources utilisées **pendant la préparation** de la bibliothèque. Elles ne 
 - **D7** : *Dictionnaire éton–français*, Mark Van de Velde & Kisito Essele Essele, Éditions CLÉ, Yaoundé, 2022. Reçu sous la forme d'un lexique Markdown, extrait automatiquement du PDF (369 pages) puis converti depuis Excel par le responsable. SHA-256 du fichier reçu : `2d376352429a3adf8d0417e7948dc3422c0aa17c1e3ad7ba732872ecac062a86`.
 - **Licence** : [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr), d'après le « Lisez-moi » du lexique et une recherche web (le site de l'auteur n'a pas pu être consulté). Citer les auteurs ; pas d'usage commercial ; même licence pour ce qui en dérive.
 - Le lexique contient une colonne « English » écrite par une IA, pas par les auteurs : `import-dictionary` ne la lit pas.
-- **Q17 ✅ (2026-11-13, décision du responsable)** : tout le dictionnaire reste dans `raw/`, hors Git. Seules les formes **citées** entrent dans le dépôt (propositions et `dictionaryEvidence` des entrées), chacune avec sa référence (page de D7). Les fichiers qui en contiennent sont diffusés sous CC BY-NC-SA 4.0, avec la mention des auteurs (`THIRD_PARTY.md`).
-- Aucun import massif du dictionnaire dans le dépôt.
+- ~~**Q17 (2026-11-13)** : tout le dictionnaire reste dans `raw/`, hors Git.~~ **Q17 révisée (2026-11-14, décision du responsable)** : la **conversion JSON complète** de D7 (`d7/`) est versionnée et sera embarquée dans l'extension, sous CC BY-NC-SA 4.0, avec l'attribution et la liste des modifications (`d7/LICENCE.md`, `THIRD_PARTY.md`). Le fichier **brut** reçu reste dans `raw/`, hors Git.
+- **Pourquoi un JSON versionné plutôt que le brut** : le moteur et l'extension ont besoin d'une donnée structurée et stable (sens, exemples, renvois, grammaire) ; un script reproductible (`npm run convert-d7 -- --check`) prouve que le JSON vient du brut sans retouche manuelle ; la colonne « English » écrite par une IA est écartée. Le changement de format ne lève **aucune** obligation de la licence : attribution, pas d'usage commercial, partage dans les mêmes conditions.
+
+## Conversion complète (`npm run convert-d7`)
+
+Lit `raw/dictionnaire_eton_lexique.md` et `docs/sources/grammaire_eton_esquisse_complete.md` (options `--lexique`, `--esquisse`), valide le résultat avec les schémas, puis écrit `d7/d7.json` et `d7/esquisse-grammaticale.json` (sans horodatage : deux exécutions donnent les mêmes octets). `--check` n'écrit rien et échoue si les fichiers versionnés sont périmés.
+
+- **Entrée complète** : mot-vedette, `Variante`, abréviation (`n.`, `v.`, `n adj.`…), `Cl`, `Pl` retirés ; sens « 1) », « 2) » ; étiquettes `Voir`, `Syn`, `Ant`, `Idiom`, `Litt`, `Usage`, `Proverbe`, `Singulatif`, `Empr. de` (hors parenthèses) ; puis définition et exemples éton → français.
+- **Mot éton** : toutes ses voyelles portent un ton (ou nasale syllabique tonalisée), caractères de la liste blanche, sans majuscule ni chiffre ; une forme connue du Lefff du dépôt (« très », « côté ») est française, sauf si elle contient une lettre propre à l'éton (ə, ɛ, ɔ, ŋ, ɲ, ꜜ, caron, macron, double aigu).
+- **Sûreté** : `full` garde l'entrée telle quelle ; ce qui n'est pas classé va dans `issues` (35 entrées sur 3 371), jamais deviné.
+- **Moteur** : `scripts/lib/engine-d7.ts` lit `d7/d7.json` (repli : `raw/dictionary.json`) et en tire exactement les mêmes clés que l'import ci-dessous (5 754).
 
 ## Import (`npm run import-dictionary`, BM3.3)
 

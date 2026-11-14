@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { contractExtras } from '../../scripts/lib/engine-corpus';
-import { DICTIONARY_PATH } from '../../scripts/lib/engine-d7';
+import { D7_JSON_PATH } from '../../scripts/lib/engine-d7';
 import { loadContractResources } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
 import { readLibraryEntries } from '../../scripts/lib/data-files';
@@ -172,7 +172,7 @@ describe('contractExtras — D8 réel', () => {
 });
 
 // D7 n'est pas versionné (Q17) : ce contrôle ne tourne que là où le dictionnaire a été importé.
-describe.skipIf(!existsSync(join(ROOT, DICTIONARY_PATH)))('createContractEngine — D8 et D7 réels', () => {
+describe.skipIf(!existsSync(join(ROOT, D7_JSON_PATH)))('createContractEngine — D8 et D7 réels', () => {
   it('tout texte de D8 (termes, synonymes, définitions) donne un résultat conforme', () => {
     const resources = loadContractResources(ROOT);
     const e = createContractEngine(resources, { cacheSize: 0 });

@@ -1,24 +1,40 @@
 /**
  * Passage des ressources de langue au moteur (src/engine/d7.ts, src/engine/eton.ts).
  *
- * D7 reste hors de Git (Q17) : le dictionnaire est lu dans data/language-resources/raw/dictionary.json,
- * produit par `npm run import-dictionary`. Les mots ignorés viennent de grammar-rules.json (règle
- * validée en BM3.6), comme les partitifs supprimés après un verbe (M21), les connectifs (M26) et les possessifs (M31).
+ * D7 est lu dans sa conversion JSON versionnée (data/language-resources/d7/d7.json, `npm run convert-d7`,
+ * Q17 révisée le 2026-11-14) ; à défaut, dans l'ancien import hors Git raw/dictionary.json. Les deux donnent
+ * les mêmes entrées (même découpage des clés françaises, buildD7Dictionary). Les mots ignorés viennent de
+ * grammar-rules.json (règle validée en BM3.6), comme les partitifs supprimés après un verbe (M21), les
+ * connectifs (M26) et les possessifs (M31).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { D7Entry } from '../../src/engine/d7';
 import type { AdjectiveRule, Connective, IgnoredWords, Partitive, Possessive } from '../../src/engine/eton';
 import type { Dictionary } from './cascade';
+import { rowsFromJson, type D7Json } from './d7-convert';
+import { buildD7Dictionary } from './d7-import';
 
+export const D7_JSON_PATH = 'data/language-resources/d7/d7.json';
 export const DICTIONARY_PATH = 'data/language-resources/raw/dictionary.json';
 export const GRAMMAR_RULES_PATH = 'data/language-resources/grammar-rules.json';
 
-/** Entrées de D7, ou null si le dictionnaire n'a pas été importé. */
-export function readD7Entries(root: string): D7Entry[] | null {
-  const path = join(root, DICTIONARY_PATH);
+/** Dictionnaire de la cascade construit depuis le JSON versionné de D7, ou null s'il est absent. */
+export function readD7Dictionary(root: string): Dictionary | null {
+  const path = join(root, D7_JSON_PATH);
   if (!existsSync(path)) return null;
-  const dictionary = JSON.parse(readFileSync(path, 'utf8')) as Dictionary;
+  const json = JSON.parse(readFileSync(path, 'utf8')) as D7Json;
+  return buildD7Dictionary(rowsFromJson(json), `D7 — ${json.source.title} (${json.source.authors.join(' & ')}, ${json.source.year}), ${D7_JSON_PATH}`).dictionary;
+}
+
+/** Entrées de D7, ou null si ni le JSON versionné ni l'import hors Git ne sont présents. */
+export function readD7Entries(root: string): D7Entry[] | null {
+  let dictionary = readD7Dictionary(root);
+  if (!dictionary) {
+    const path = join(root, DICTIONARY_PATH);
+    if (!existsSync(path)) return null;
+    dictionary = JSON.parse(readFileSync(path, 'utf8')) as Dictionary;
+  }
   return dictionary.entries.map(({ fr, eto, category, gloss, ref, nounClass }) =>
     ({ fr, eto, category, gloss, ref, ...(nounClass ? { nounClass } : {}) }));
 }

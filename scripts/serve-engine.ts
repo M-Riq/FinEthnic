@@ -3,8 +3,8 @@
  *
  *   npm run serve-engine -- [--port <port>]
  *
- * Écoute sur 127.0.0.1 uniquement (port 8787 par défaut, ou variable PORT). D7 doit avoir été importé
- * (npm run import-dictionary) : il reste hors de Git (Q17).
+ * Écoute sur 127.0.0.1 uniquement (port 8787 par défaut, ou variable PORT). D7 est lu dans sa conversion
+ * JSON versionnée (npm run convert-d7, Q17 révisée).
  */
 import { parseArgs } from 'node:util';
 import { createContractEngine } from '../src/engine/contract-engine';
