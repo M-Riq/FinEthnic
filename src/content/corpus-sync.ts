@@ -8,9 +8,10 @@
  * ajoutées au moteur (`extend`), puis la page est réévaluée : un texte nouveau peut alors être traduit
  * par ses variantes.
  *
- * Données personnelles : les valeurs (montants, numéros, téléphones, références, adresses) et les noms
- * propres hors début de phrase sont remplacés par `{valeur}` avant tout stockage (`anonymize`). L'entrée devient un gabarit, comme celles de D8 (« Solde : {solde} ») :
- * elle couvre aussi les autres montants. Hypothèses (ROADMAP, phase 4) :
+ * Valeurs : les montants, numéros, téléphones, références et adresses sont remplacés par `{valeur}`
+ * avant stockage (`templateValues`). L'entrée devient un gabarit, comme celles de D8 (« Solde : {solde} ») :
+ * elle couvre aussi les autres montants, sans créer une entrée par valeur. Les noms restent tels quels
+ * (décision du responsable, phase 5). Hypothèses (ROADMAP, phases 4 et 5) :
  * - un texte dont moins de la moitié des mots sont connus du lexique français n'est pas proposé
  *   (texte d'une autre langue, code produit…) ;
  * - au plus `MAX_STORED_ENTRIES` entrées sont gardées ; les plus anciennes partent les premières.
@@ -85,49 +86,21 @@ export function createChromeCorpusStore(storage: StorageLike, max = MAX_STORED_E
 /** Jetons du moteur qui portent une valeur : montants, nombres, adresses web et électroniques. */
 const VALUE_KINDS: ReadonlySet<TokenKind> = new Set(['amount', 'number', 'url', 'email']);
 
-/**
- * Ce que le lexique sait d'un mot (clé normalisée) : inconnu, connu comme nom propre (parfois aussi
- * comme nom commun : « Marie », « Pierre »), ou seulement comme mot courant.
- */
-export type NameReading = 'unknown' | 'proper' | 'common';
-
-export interface AnonymizeOptions {
+export interface TemplateOptions {
   guards?: readonly string[];
   detect?: ProtectedDetector;
-  /** Lecture d'un mot pour repérer les noms de personnes ou de lieux. Par défaut, aucun nom n'est repéré. */
-  nameReading?: (key: string) => NameReading;
 }
 
 /**
- * Remplace par `{valeur}` les valeurs du texte : jetons de valeur du moteur, motifs protégés de
- * l'extension (téléphones, références…) et noms de personnes ou de lieux. Rien de la valeur n'est gardé.
- * Les noms protégés de D8 (« FCFA », « Safinum ») et les variables déjà présentes (« {nom} ») restent.
- *
- * Un mot à majuscule (ou en capitales) est un nom s'il est inconnu du lexique (« Mbarga », « PAUL »),
- * ou s'il peut être un nom propre (« Marie ») hors début de phrase. En début de phrase, la majuscule ne
- * dit rien (« Frais », « Somme » ont aussi une lecture de nom propre) : il faut une virgule (« Marie, … »)
- * ou un autre nom juste après. « : » sépare un libellé de sa valeur, ce n'est pas un début de phrase.
- * Dans le doute, on anonymise : un mot courant perdu ne coûte qu'une entrée moins utile.
+ * Remplace par `{valeur}` les valeurs du texte : jetons de valeur du moteur (montants, nombres, adresses)
+ * et motifs protégés de l'extension (téléphones, références…). Les noms protégés de D8 (« FCFA »,
+ * « Safinum »), les variables déjà présentes (« {nom} ») et les noms de personnes restent.
  */
-export function anonymize(text: string, options: AnonymizeOptions = {}): string {
-  const { guards = [], detect = detectProtected, nameReading } = options;
+export function templateValues(text: string, options: TemplateOptions = {}): string {
+  const { guards = [], detect = detectProtected } = options;
   const normalized = normalize(text, { guards });
-  const tokens = normalized.tokens;
   const base = normalized.text.replace(/\n/gu, ' ');
-  const spans: [number, number][] = [];
-  const capitalized = (i: number): NameReading | null => {
-    const t = tokens[i];
-    return nameReading !== undefined && t?.kind === 'word' && /^\p{Lu}/u.test(t.text) ? nameReading(t.key) : null;
-  };
-  tokens.forEach((t, i) => {
-    const previous = tokens[i - 1];
-    const sentenceStart = previous === undefined || (previous.kind === 'punct' && /[.!?]/u.test(previous.text));
-    const reading = capitalized(i);
-    const next = tokens[i + 1];
-    const followedByName = next?.text === ',' || (capitalized(i + 1) ?? 'common') !== 'common';
-    const name = reading === 'unknown' || (reading === 'proper' && (!sentenceStart || followedByName));
-    if (VALUE_KINDS.has(t.kind) || name) spans.push([t.start, t.end]);
-  });
+  const spans: [number, number][] = normalized.tokens.filter((t) => VALUE_KINDS.has(t.kind)).map((t) => [t.start, t.end]);
   let at = 0;
   for (const segment of detect(base)) {
     const i = segment === '' ? -1 : base.indexOf(segment, at);
@@ -146,20 +119,20 @@ export function anonymize(text: string, options: AnonymizeOptions = {}): string 
   return (out + base.slice(from)).replace(/ {2,}/gu, ' ').trim();
 }
 
-/** Texte anonymisé à proposer à D8, ou null : texte déjà dans D8, statut sans enrichissement possible, ou texte peu français. */
+/** Texte (valeurs en `{valeur}`) à proposer à D8, ou null : texte déjà dans D8, statut sans enrichissement possible, ou texte peu français. */
 export function corpusText(
   item: EvaluatedText,
   isFrench: (word: string) => boolean,
-  options: { guards?: readonly string[]; nameReading?: (key: string) => NameReading } = {},
+  options: { guards?: readonly string[] } = {},
 ): string | null {
-  const { guards = [], nameReading } = options;
+  const { guards = [] } = options;
   const { result } = item;
   // Un texte rattaché à une entrée de D8 (exacte ou par gabarit) n'en est pas absent : rien à proposer.
   if (result.entryId !== null) return null;
   if (result.status === 'APPROVED' || result.status === 'PROTECTED' || result.reason === 'too-long' || result.reason === 'unsupported-language') {
     return null;
   }
-  const text = anonymize(item.text, { guards, ...(nameReading ? { nameReading } : {}) });
+  const text = templateValues(item.text, { guards });
   const words = normalize(text, { guards }).tokens.filter((t) => t.kind === 'word');
   if (words.length === 0) return null;
   const known = words.filter((t) => isFrench(t.key)).length;
@@ -255,13 +228,8 @@ export function startCorpusSync(options: CorpusSyncOptions): CorpusSync {
     offer(items) {
       if (stopped) return;
       const isFrench = (word: string): boolean => lexicon.lookup(word).length > 0;
-      const nameReading = (key: string): NameReading => {
-        const readings = lexicon.lookup(key);
-        if (readings.length === 0) return 'unknown';
-        return readings.some((r) => r.pos === 'PROPN') ? 'proper' : 'common';
-      };
       for (const item of items) {
-        const text = corpusText(item, isFrench, { guards, nameReading });
+        const text = corpusText(item, isFrench, { guards });
         if (text === null) continue;
         const key = dedupKey(text, guards);
         if (key === '' || offered.has(key)) continue;
