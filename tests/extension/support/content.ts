@@ -3,7 +3,7 @@ import type { HighlightApi } from '../../../src/content/diagnostic';
 import { createFakeEngine } from '../../../src/content/fake-engine';
 import { createSettingsStore, SETTINGS_KEY } from '../../../src/shared/settings';
 import { createFakeStorage } from './fake-storage';
-import { manualFrames, recorder } from './page';
+import { frozenClock, manualFrames, recorder } from './page';
 
 const running: ContentController[] = [];
 
@@ -31,6 +31,7 @@ export async function launch(initial: Record<string, unknown> = {}, page: Partia
     engine: createFakeEngine(),
     schedule: frames.schedule,
     highlights: highlights.api,
+    now: frozenClock,
     ...page,
   });
   running.push(controller);

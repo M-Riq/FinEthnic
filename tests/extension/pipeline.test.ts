@@ -2,9 +2,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createFakeEngine } from '../../src/content/fake-engine';
 import { frameSchedule, topmostRoots, watchMutations } from '../../src/content/observer';
-import { startPipeline, type Pipeline } from '../../src/content/pipeline';
+import { CHUNK, startPipeline, type Pipeline } from '../../src/content/pipeline';
 import type { TranslationEngine, TranslationRequest } from '../../src/language/contract';
-import { loadFixture, manualFrames, recorder, showStep } from './support/page';
+import { frozenClock, loadFixture, manualFrames, recorder, showStep } from './support/page';
 
 let running: Pipeline | null = null;
 afterEach(() => {
@@ -12,7 +12,9 @@ afterEach(() => {
   running = null;
 });
 
-function start(options: { engine?: TranslationEngine | null; budget?: number; step?: number } = {}) {
+function start(
+  options: { engine?: TranslationEngine | null; budget?: number; step?: number; timeSlice?: number; now?: () => number } = {},
+) {
   loadFixture(document, options.step ?? 1);
   const frames = manualFrames();
   const log = recorder();
@@ -24,6 +26,8 @@ function start(options: { engine?: TranslationEngine | null; budget?: number; st
     logger: log.logger,
     onUpdate,
     ...(options.budget === undefined ? {} : { budget: options.budget }),
+    ...(options.timeSlice === undefined ? {} : { timeSlice: options.timeSlice }),
+    now: options.now ?? frozenClock,
   });
   return { pipeline: running, frames, onUpdate, ...log };
 }
@@ -172,6 +176,32 @@ describe('chaîne de lecture (P2.5–P2.8)', () => {
     expect(pipeline.counts().waiting).toBe(total - 5);
     expect(named('content:evaluate')[0]).toEqual({ texts: 5, invalid: 0, remaining: total - 5 });
     expect(await frames.frames()).toBe(Math.ceil(total / 5) - 1);
+    expect(pipeline.counts().waiting).toBe(0);
+  });
+
+  it('T-INE-08 — rend la main dès que la tranche de temps est dépassée, par paquets de CHUNK textes', async () => {
+    // Moteur lent sur une horloge simulée : 1 ms par texte. Tranche de 25 ms : 3 paquets de 10 par trame.
+    let clock = 0;
+    const fake = createFakeEngine();
+    const calls: number[] = [];
+    const slow: TranslationEngine = {
+      ...fake,
+      translateMany: (batch) => {
+        calls.push(batch.length);
+        clock += batch.length;
+        return fake.translateMany(batch);
+      },
+    };
+    const { pipeline, frames, named } = start({ engine: slow, timeSlice: 25, now: () => clock });
+    const main = document.querySelector('main')!;
+    main.append(...Array.from({ length: 95 }, (_, i) => Object.assign(document.createElement('p'), { textContent: `Message numéro ${i}` })));
+    const before = pipeline.counts().candidates;
+    await frames.frames();
+    const added = pipeline.counts().candidates - before;
+    expect(added).toBe(95);
+    expect(Math.max(...calls)).toBeLessThanOrEqual(CHUNK);
+    const perFrame = named('content:evaluate').map((event) => event?.['texts']);
+    expect(perFrame.slice(-4)).toEqual([30, 30, 30, 5]);
     expect(pipeline.counts().waiting).toBe(0);
   });
 

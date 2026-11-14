@@ -12,7 +12,7 @@ import { checkIntegrity, hashText } from '../../src/protection/integrity';
 import { detectProtected, protectedSpans } from '../../src/protection/patterns';
 import { createSettingsStore, SETTINGS_KEY } from '../../src/shared/settings';
 import { createFakeStorage } from './support/fake-storage';
-import { d8Texts, loadFixture, manualFrames, recorder, showStep } from './support/page';
+import { d8Texts, frozenClock, loadFixture, manualFrames, recorder, showStep } from './support/page';
 
 const NBSP = '\u00A0';
 const NNBSP = '\u202F';
@@ -303,7 +303,7 @@ describe('T-PRO-05, T-PRO-06 — noms et cellules valeur', () => {
     for (const step of [1, 4, 5]) {
       const spy = spyEngine();
       loadFixture(document, step);
-      pipeline = startPipeline({ doc: document, engine: spy.engine, schedule: manualFrames().schedule, logger: recorder().logger });
+      pipeline = startPipeline({ doc: document, engine: spy.engine, schedule: manualFrames().schedule, logger: recorder().logger, now: frozenClock });
       for (const dd of document.querySelectorAll('dd')) expect(spy.requested(), `étape ${step}`).not.toContain(dd.textContent!.trim());
       if (step !== 1) expect(spy.requested()).not.toContain('Jean-Paul Mbarga');
       expect(pipeline.counts().values).toBeGreaterThan(0);
@@ -315,7 +315,7 @@ describe('T-PRO-05, T-PRO-06 — noms et cellules valeur', () => {
   it('un nom hors structure n’est pas une entrée : rien n’est écrit, et l’intégrité exige le nom', () => {
     loadFixture(document, 1);
     const spy = spyEngine();
-    pipeline = startPipeline({ doc: document, engine: spy.engine, schedule: manualFrames().schedule, logger: recorder().logger });
+    pipeline = startPipeline({ doc: document, engine: spy.engine, schedule: manualFrames().schedule, logger: recorder().logger, now: frozenClock });
     const statusOf = (text: string) => [...pipeline!.entries()].find(([node]) => node.data.trim() === text)?.[1].status;
     expect(statusOf('Amina Ngo Bell')).toBe('NO_MATCH');
     // Si le moteur signale le prénom, une écriture qui le perd ou l'altère est refusée.
@@ -428,6 +428,7 @@ describe('T-PRO-11 — écho des valeurs saisies (P3.4)', () => {
         engine: spy.engine,
         schedule: frames.schedule,
         highlights: null,
+        now: frozenClock,
       }),
     );
     // L'utilisateur saisit une note, puis clique « Continuer » : l'application affiche l'étape 4.

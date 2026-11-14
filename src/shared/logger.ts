@@ -8,6 +8,7 @@
 
 export type LogEvent =
   | 'content:start'
+  | 'content:engine'
   | 'content:settings-changed'
   | 'content:scan'
   | 'content:evaluate'

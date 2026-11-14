@@ -44,12 +44,15 @@ describe('script de contenu : réglages (P1.5)', () => {
     const { controller, fake, events } = await launch({ enabled: false }, { engine: null, highlights: null });
 
     expect(controller.settings.enabled).toBe(false);
-    expect(events).toEqual([['content:start', { enabled: false, engine: false, fake: false }]]);
+    expect(events).toEqual([
+      ['content:start', { enabled: false }],
+      ['content:engine', { engine: false, fake: false }],
+    ]);
 
     await createSettingsStore(fake.storage).update({ enabled: true, displayMode: 'bilingual' });
     await flush();
     expect(controller.settings).toEqual({ ...DEFAULT_SETTINGS, displayMode: 'bilingual' });
-    expect(events[1]).toEqual([
+    expect(events[2]).toEqual([
       'content:settings-changed',
       { enabled: true, bilingual: true, diagnostic: false, showUnverified: true },
     ]);
@@ -87,6 +90,25 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
 
     await update({ enabled: false });
     expect(controller.snapshot().counts.candidates).toBe(0);
+  });
+
+  it('BM7 — ne construit le moteur qu’à la première activation, et une seule fois', async () => {
+    loadFixture(document, 1);
+    const factory = vi.fn(() => createFakeEngine());
+    const { controller, named, update } = await launch({ enabled: false }, { engine: factory });
+    expect(factory).not.toHaveBeenCalled();
+    expect(controller.snapshot()).toMatchObject({ enabled: false, engine: 'none' });
+
+    await update({ enabled: true });
+    expect(factory).toHaveBeenCalledOnce();
+    expect(named('content:engine')).toEqual([{ engine: true, fake: true }]);
+    expect(controller.snapshot()).toMatchObject({ enabled: true, engine: 'fake' });
+    expect(controller.snapshot().counts.displayed).toBeGreaterThan(0);
+
+    await update({ enabled: false });
+    await update({ enabled: true });
+    expect(factory).toHaveBeenCalledOnce();
+    expect(controller.snapshot().counts.displayed).toBeGreaterThan(0);
   });
 
   it('surligne chaque catégorie en mode diagnostic, sans les espaces de bord', async () => {

@@ -24,6 +24,16 @@ import { classifyText, scanTexts, type EchoCheck, type TextKind } from './scanne
 /** Textes évalués au plus par trame ; le reste passe à la trame suivante. */
 export const DEFAULT_BUDGET = 200;
 
+/**
+ * Temps de calcul visé par trame, en millisecondes. Un texte encore jamais vu coûte quelques millisecondes
+ * au vrai moteur : sans cette limite, une page de plusieurs centaines de textes nouveaux figerait l'onglet
+ * plus d'une demi-seconde (T-INE-08).
+ */
+export const DEFAULT_TIME_SLICE = 30;
+
+/** Textes soumis au moteur en un seul appel, entre deux contrôles du temps écoulé. */
+export const CHUNK = 10;
+
 const STATUSES: ReadonlySet<string> = new Set<TranslationStatus>([
   'APPROVED',
   'KNOWN_UNTRANSLATED',
@@ -46,6 +56,10 @@ export interface PipelineOptions {
   schedule: Schedule;
   logger: Logger;
   budget?: number;
+  /** Temps de calcul visé par trame, en millisecondes (`DEFAULT_TIME_SLICE`). */
+  timeSlice?: number;
+  /** Horloge en millisecondes (`performance.now` par défaut), remplaçable dans les tests. */
+  now?: () => number;
   /** Écho des valeurs saisies (P3.4) : un texte qui reprend une saisie n'est jamais soumis au moteur. */
   isEcho?: EchoCheck;
   /** Appelé après chaque lot (scan ou évaluation), par exemple pour mettre à jour le surlignage. */
@@ -69,6 +83,8 @@ export function startPipeline(options: PipelineOptions): Pipeline {
   const { doc, engine, schedule, logger, render } = options;
   const renderer = render?.renderer ?? null;
   const budget = Math.max(1, options.budget ?? DEFAULT_BUDGET);
+  const timeSlice = options.timeSlice ?? DEFAULT_TIME_SLICE;
+  const now = options.now ?? (() => performance.now());
   const tracked = new Map<Text, Tracked>();
   const queue = new Set<Text>();
   let page: PageContext = {};
@@ -112,14 +128,19 @@ export function startPipeline(options: PipelineOptions): Pipeline {
     }
   };
 
-  const evaluate = (): void => {
-    if (!engine || queue.size === 0) return;
+  /** Retire de la file jusqu'à `count` textes encore présents et suivis. */
+  const take = (count: number): Text[] => {
     const nodes: Text[] = [];
     for (const node of queue) {
+      if (nodes.length >= count) break;
       queue.delete(node);
       if (node.isConnected && tracked.has(node)) nodes.push(node);
-      if (nodes.length >= budget) break;
     }
+    return nodes;
+  };
+
+  /** Soumet un paquet au moteur et affiche ses résultats. */
+  const evaluateChunk = (engine: TranslationEngine, nodes: readonly Text[]) => {
     const requests: TranslationRequest[] = nodes.map((node) => ({
       text: source(node),
       sourceLang: 'auto',
@@ -132,11 +153,9 @@ export function startPipeline(options: PipelineOptions): Pipeline {
     } catch {
       results = [];
     }
-    // Lot incomplet : la correspondance entre requêtes et résultats n'est plus sûre, tout le lot est écarté.
+    // Paquet incomplet : la correspondance entre requêtes et résultats n'est plus sûre, tout le paquet est écarté.
     const aligned = results.length === nodes.length;
-    let invalid = 0;
-    let shown = 0;
-    let refused = 0;
+    const tally = { invalid: 0, shown: 0, refused: 0 };
     nodes.forEach((node, i) => {
       const result = aligned ? results[i] : undefined;
       const entry = tracked.get(node);
@@ -147,14 +166,37 @@ export function startPipeline(options: PipelineOptions): Pipeline {
         entry.result = result;
         entry.evaluated = requests[i]?.text ?? null;
       } else {
-        invalid++;
+        tally.invalid++;
       }
       sync(node, entry);
-      if (entry.shown) shown++;
-      if (entry.refused) refused++;
+      if (entry.shown) tally.shown++;
+      if (entry.refused) tally.refused++;
     });
-    logger.event('content:evaluate', { texts: nodes.length, invalid, remaining: queue.size });
-    if (render) logger.event('content:render', { texts: nodes.length, shown, refused });
+    return tally;
+  };
+
+  /**
+   * Évalue la file par paquets de `CHUNK` textes, dans la limite du budget de la trame en nombre de textes
+   * et en temps de calcul : dès que la tranche de temps est dépassée, le reste passe à la trame suivante.
+   * Un paquet au moins est toujours évalué, pour que la file avance.
+   */
+  const evaluate = (): void => {
+    if (!engine || queue.size === 0) return;
+    const started = now();
+    let texts = 0;
+    const tally = { invalid: 0, shown: 0, refused: 0 };
+    while (queue.size > 0 && texts < budget) {
+      const nodes = take(Math.min(CHUNK, budget - texts));
+      if (nodes.length === 0) continue;
+      texts += nodes.length;
+      const chunk = evaluateChunk(engine, nodes);
+      tally.invalid += chunk.invalid;
+      tally.shown += chunk.shown;
+      tally.refused += chunk.refused;
+      if (now() - started >= timeSlice) break;
+    }
+    logger.event('content:evaluate', { texts, invalid: tally.invalid, remaining: queue.size });
+    if (render) logger.event('content:render', { texts, shown: tally.shown, refused: tally.refused });
     if (queue.size > 0 && !drainScheduled) {
       drainScheduled = true;
       schedule(drain);

@@ -8,6 +8,10 @@
  * P5 : les traductions affichables sont écrites dans la page (`renderer.ts`), les non vérifiées portent un
  * marqueur, et le français s'affiche au survol et au focus (`tooltip.ts`). Désactiver la traduction rend
  * à la page tous ses textes d'origine ; changer une option d'affichage s'applique sans réévaluer.
+ *
+ * Le moteur peut être fourni par une fabrique : il n'est alors construit qu'à la première activation. Le vrai
+ * moteur coûte de l'ordre d'une seconde de calcul au chargement de la page (BM7) : traduction désactivée, la
+ * page n'en paie rien.
  */
 import type { TranslationEngine } from '../language/contract';
 import { createEchoGuard, type EchoGuard } from '../protection/echo';
@@ -22,11 +26,14 @@ import { createTooltip, type Tooltip, type TooltipItem } from './tooltip';
 
 export interface PageDeps {
   doc: Document;
-  engine: TranslationEngine | null;
+  /** Moteur, ou fabrique appelée une seule fois, à la première activation de la traduction. */
+  engine: TranslationEngine | null | (() => TranslationEngine | null);
   schedule: Schedule;
   /** Registre `CSS.highlights`, ou `null` s'il n'est pas pris en charge. */
   highlights: HighlightApi | null;
   budget?: number;
+  /** Horloge de la chaîne de traitement (tranche de temps par trame), remplaçable dans les tests. */
+  now?: () => number;
 }
 
 export interface ContentController {
@@ -58,8 +65,20 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
   let stopped = false;
   /** Options d'affichage appliquées à la page, pour ne réafficher que si elles changent. */
   let shownWith = { showUnverified: settings.showUnverified, displayMode: settings.displayMode };
-  const engine = engineKind(page.engine);
-  logger.event('content:start', { enabled: settings.enabled, engine: engine !== 'none', fake: engine === 'fake' });
+  logger.event('content:start', { enabled: settings.enabled });
+
+  const provide = page.engine;
+  /** Moteur une fois construit, et sa nature ; `undefined` tant que la fabrique n'a pas été appelée. */
+  let built: { engine: TranslationEngine | null; kind: EngineKind } | undefined;
+  const resolveEngine = (): TranslationEngine | null => {
+    if (!built) {
+      const engine = typeof provide === 'function' ? provide() : provide;
+      built = { engine, kind: engineKind(engine) };
+      logger.event('content:engine', { engine: built.kind !== 'none', fake: built.kind === 'fake' });
+    }
+    return built.engine;
+  };
+  if (typeof provide !== 'function') resolveEngine();
 
   const paint = (): void => {
     if (!page.highlights || !pipeline) return;
@@ -98,13 +117,14 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
       renderer = current;
       pipeline = startPipeline({
         doc: page.doc,
-        engine: page.engine,
+        engine: resolveEngine(),
         schedule: page.schedule,
         logger,
         isEcho: echo.isEcho,
         onUpdate: paint,
         render: { renderer: current, settings: () => shownWith },
         ...(page.budget === undefined ? {} : { budget: page.budget }),
+        ...(page.now === undefined ? {} : { now: page.now }),
       });
       tooltip = createTooltip(page.doc, describe);
     } else if (!settings.enabled && pipeline) {
@@ -132,7 +152,7 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
   const snapshot = (): DiagnosticSnapshot => ({
     type: DIAGNOSTIC_RESULT,
     enabled: settings.enabled,
-    engine,
+    engine: built?.kind ?? 'none',
     step: pipeline?.step() ?? 0,
     counts: pipeline ? pipeline.counts() : (Object.fromEntries(COUNT_KEYS.map((key) => [key, 0])) as DiagnosticSnapshot['counts']),
   });

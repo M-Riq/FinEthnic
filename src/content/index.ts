@@ -10,7 +10,8 @@ import { frameSchedule } from './observer';
 
 const ready = startContent(createSettingsStore(chromeStorage()), createLogger('content'), {
   doc: document,
-  engine: provideEngine(),
+  // Fabrique : le moteur n'est construit qu'à la première activation de la traduction.
+  engine: provideEngine,
   schedule: frameSchedule(window),
   highlights: cssHighlights(window),
 });

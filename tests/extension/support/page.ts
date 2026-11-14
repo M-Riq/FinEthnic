@@ -35,6 +35,12 @@ export function loadFixture(doc: Document, step = 1): void {
 export const trimmed = (nodes: Iterable<Text>): string[] => [...nodes].map((node) => node.data.trim());
 
 /** Trames manuelles : les rappels programmés attendent `frames()`. */
+/**
+ * Horloge arrêtée : la tranche de temps par trame n'est jamais dépassée, l'évaluation ne dépend que du budget
+ * en nombre de textes et ne varie pas avec la vitesse de la machine de test.
+ */
+export const frozenClock = (): number => 0;
+
 export function manualFrames() {
   const tasks: Array<() => void> = [];
   const settle = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
