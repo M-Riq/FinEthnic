@@ -15,6 +15,9 @@ Aucun paquet. Le moteur embarque une donnée tierce : l'extrait de Lefff (voir �
 | `ajv` | 8.20.0 | MIT | Validation des schémas JSON (`npm run validate-data`, tests) |
 | `tsx` | 4.23.15 | MIT | Exécution des scripts TypeScript sous Node |
 | `@types/node` | 26.6.6 | MIT | Types de Node pour les scripts et les tests |
+| `esbuild` | 0.28.2 | MIT | Construction de l'extension (`npm run build`) |
+| `@types/chrome` | 0.3.7 | MIT | Types des API `chrome.*` de l'extension |
+| `jsdom` | 31.0.1 | MIT | DOM simulé pour les tests de l'extension (popup) |
 
 Les dépendances indirectes sont figées dans `package-lock.json`.
 

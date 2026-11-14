@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "chrome"],
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": ["src/content", "src/popup", "src/shared", "tests/extension", "build.mjs"],
+  "exclude": []
+}

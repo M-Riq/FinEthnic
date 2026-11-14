@@ -1,0 +1,48 @@
+# Propriétaires du code (PROJECT_CONTEXT §4.2, Q19).
+# GitHub applique la DERNIÈRE règle qui correspond : les règles générales d'abord, la copropriété à la fin.
+# Si l'offre GitHub ne permet pas d'imposer CODEOWNERS sur ce dépôt privé, la relecture se demande
+# à la main : la règle d'équipe (TEAM_WORKFLOW.md §6) fait foi.
+
+# Par défaut : responsable du projet.
+*                                   @M-Riq
+
+# [R] Bibliothèque linguistique, moteur, données et pilotage
+/data/                              @M-Riq
+/scripts/                           @M-Riq
+/src/language/                      @M-Riq
+/tests/language/                    @M-Riq
+/docs/sources/                      @M-Riq
+/docs/validation-linguistique.md    @M-Riq
+/PROJECT_CONTEXT.md                 @M-Riq
+/ROADMAP.md                         @M-Riq
+/TEAM_WORKFLOW.md                   @M-Riq
+
+# [Y] Extension Chrome
+/manifest.json                      @ivan-14-dev
+/manifest.dev.json                  @ivan-14-dev
+/src/content/                       @ivan-14-dev
+/src/protection/                    @ivan-14-dev
+/src/popup/                         @ivan-14-dev
+/src/shared/                        @ivan-14-dev
+/tests/extension/                   @ivan-14-dev
+/icons/                             @ivan-14-dev
+
+# [R+Y] Copropriété : toute modification est relue par l'autre membre
+/README.md                          @ivan-14-dev @M-Riq
+/package.json                       @ivan-14-dev @M-Riq
+/package-lock.json                  @ivan-14-dev @M-Riq
+/tsconfig.json                      @ivan-14-dev @M-Riq
+/tsconfig.extension.json            @ivan-14-dev @M-Riq
+/build.mjs                          @ivan-14-dev @M-Riq
+/.gitignore                         @ivan-14-dev @M-Riq
+/.github/CODEOWNERS                 @ivan-14-dev @M-Riq
+/THIRD_PARTY.md                     @ivan-14-dev @M-Riq
+/INTEGRATION_CONTRACT.md            @ivan-14-dev @M-Riq
+/src/language/contract.ts           @ivan-14-dev @M-Riq
+/tests/contract/                    @ivan-14-dev @M-Riq
+/tests/e2e/                         @ivan-14-dev @M-Riq
+/tests/fixtures/                    @ivan-14-dev @M-Riq
+/docs/architecture.md               @ivan-14-dev @M-Riq
+/docs/note-technique.md             @ivan-14-dev @M-Riq
+/docs/test-report.md                @ivan-14-dev @M-Riq
+/docs/demo/                         @ivan-14-dev @M-Riq
