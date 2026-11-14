@@ -137,6 +137,11 @@ export interface EtonSentence {
   ambiguous: string[];
   /** Termes français gardés dans la phrase (M20). */
   kept: string[];
+  /**
+   * Phrase incomplète seulement parce qu'aucun mot n'est rendu par D7 et que les termes gardés y sont seuls
+   * (« Compte ») : elle serait complète si on acceptait du français seul. Signal pour le bilan (M25).
+   */
+  keptOnly: boolean;
   /** Mots pleins trouvés dans D7 et écrits / mots pleins. */
   found: number;
   total: number;
@@ -151,6 +156,8 @@ export interface EtonText {
   gaps: Gap[];
   ambiguous: string[];
   kept: string[];
+  /** Incomplet, et chaque phrase incomplète l'est seulement faute de mot de D7 à côté des termes gardés (M25). */
+  keptOnly: boolean;
   found: number;
   total: number;
 }
@@ -431,8 +438,11 @@ function join(parts: readonly { text: string; punct: boolean }[]): string {
   return out;
 }
 
-/** Construit la phrase éton d'une phrase française analysée. */
-export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOptions = {}): EtonSentence {
+/**
+ * Construit la phrase éton d'une phrase française analysée. `keptAlone` (interne) : accepter une phrase
+ * sans mot de D7, pour savoir si les termes gardés seuls sont le seul manque (`keptOnly`).
+ */
+export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOptions = {}, keptAlone = false): EtonSentence {
   const { tokens } = s;
   const { lexicon } = options;
   const ignoredWords = new Set((options.ignored ?? []).flatMap((g) => g.words));
@@ -576,7 +586,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
 
   // Phrase sans aucun mot rendu par D7 (« Code PIN ») : les termes gardés redeviennent des manques,
   // pour ne pas présenter du français comme une traduction.
-  if (found === 0) {
+  const keptWithoutD7 = found === 0 && pieces.some((p) => p.source === 'FRENCH');
+  if (keptWithoutD7 && !keptAlone) {
     for (const p of pieces) {
       if (p.source !== 'FRENCH') continue;
       p.source = 'MISSING';
@@ -629,6 +640,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     gaps,
     ambiguous: pieces.filter((p) => p.source === 'D7' && ((p.senses ?? 1) > 1 || p.qualifier || p.homograph)).map((p) => p.fr),
     kept: pieces.filter((p) => p.source === 'FRENCH').map((p) => p.fr),
+    keptOnly: keptWithoutD7 && !keptAlone && buildSentence(s, d7, options, true).eto !== null,
     found,
     total,
   };
@@ -647,6 +659,7 @@ export function buildEton(text: string, d7: D7Index, options: EtonOptions = {}):
     gaps: sentences.flatMap((s) => s.gaps),
     ambiguous: sentences.flatMap((s) => s.ambiguous),
     kept: sentences.flatMap((s) => s.kept),
+    keptOnly: !complete && sentences.every((s) => s.eto !== null || s.keptOnly),
     found: sentences.reduce((n, s) => n + s.found, 0),
     total: sentences.reduce((n, s) => n + s.total, 0),
   };

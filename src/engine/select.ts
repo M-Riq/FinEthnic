@@ -41,7 +41,7 @@ export type EngineStatus = 'SUCCESS' | 'PARTIAL' | 'FALLBACK' | 'PENDING' | 'PAS
 
 /**
  * Raisons d'un statut autre que SUCCESS, ou signaux sans effet sur le statut (AMBIGUOUS,
- * SENSE_UNCONFIRMED, FRENCH_KEPT ; NOT_IN_D8 avec SUCCESS).
+ * SENSE_UNCONFIRMED, FRENCH_KEPT, ONLY_FRENCH_KEPT ; NOT_IN_D8 avec SUCCESS).
  */
 export type Reason =
   | 'GAPS'
@@ -53,7 +53,12 @@ export type Reason =
   | 'SENSE_UNCONFIRMED'
   | 'WRONG_SENSE'
   /** Termes français gardés dans la phrase éton (M20) ; signal sans effet sur le statut. */
-  | 'FRENCH_KEPT';
+  | 'FRENCH_KEPT'
+  /**
+   * Unité non complète seulement parce qu'un candidat n'a que des termes gardés, sans mot de D7
+   * (« Compte ») : à compter à part dans le bilan, ni traduite ni en échec (M25). Sans effet sur le statut.
+   */
+  | 'ONLY_FRENCH_KEPT';
 
 /** Marqueur affiché devant un brouillon (M7). */
 export const INCOMPLETE_MARKER = 'traduction incomplète';
@@ -260,6 +265,7 @@ export function selectUnit(unit: SimplifiedUnit, d7: D7Index, options: SelectOpt
   if (eton.ambiguous.length > 0) reasons.push('AMBIGUOUS');
   if (chosen.unconfirmed.length > 0) reasons.push('SENSE_UNCONFIRMED');
   if (eton.kept.length > 0) reasons.push('FRENCH_KEPT');
+  if (status !== 'SUCCESS' && [chosen, ...alternatives].some((c) => c.eton.keptOnly)) reasons.push('ONLY_FRENCH_KEPT');
 
   const output = status === 'SUCCESS' ? eton.eto : status === 'PARTIAL' ? eton.draft : null;
   return { ...base, status, reasons, output, chosen, alternatives, discarded, excluded };
@@ -277,6 +283,15 @@ export function textStatus(units: readonly UnitResult[]): EngineStatus {
   if (translatable.every((u) => u.status === 'SUCCESS')) return 'SUCCESS';
   if (translatable.every((u) => u.status === 'PENDING')) return 'PENDING';
   return 'PARTIAL';
+}
+
+/**
+ * Texte non traduit seulement parce que ses unités incomplètes n'ont que des termes gardés en français
+ * (« Compte », « Bénéficiaire ») : compté à part dans le bilan, ni comme traduit ni comme échec (M25).
+ */
+export function onlyFrenchKept(r: TextResult): boolean {
+  const open = r.units.filter((u) => u.status !== 'SUCCESS' && u.status !== 'PASSTHROUGH');
+  return open.length > 0 && open.every((u) => u.reasons.includes('ONLY_FRENCH_KEPT'));
 }
 
 /** Choisit la traduction de chaque unité d'un texte simplifié et donne le statut du texte. */
