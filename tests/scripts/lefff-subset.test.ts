@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { LEFFF_SOURCE, selectLefff, wordsOf } from '../../scripts/lib/lefff-subset';
 import { LEXICON_PATH } from '../engine/support';
@@ -21,6 +22,6 @@ describe('extrait de Lefff (moteur, PR 2)', () => {
     expect(header).toContain('Extrait MODIFIÉ de Lefff 3.4 — licence LGPL-LR');
     expect(header).toContain(LEFFF_SOURCE.sha256);
     expect(header).toMatch(/Modifié le \d{4}-\d{2}-\d{2}/u);
-    expect(existsSync(new URL('LICENSE-LGPL-LR.txt', LEXICON_PATH))).toBe(true);
+    expect(existsSync(join(dirname(LEXICON_PATH), 'LICENSE-LGPL-LR.txt'))).toBe(true);
   });
 });

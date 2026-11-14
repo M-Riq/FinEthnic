@@ -31,7 +31,7 @@
         <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
       </button>
       <p class="state" id="showUnverified-state" aria-live="polite"
-        data-on="Affichées et soulignées : en tirets, traductions automatiques pas encore vérifiées par une locutrice ; en vagues, brouillons incomplets."
+        data-on="Affichées et soulignées en tirets : traductions automatiques complètes, pas encore vérifiées par une locutrice. Les brouillons incomplets restent en français."
         data-off="Masquées : ces textes restent en français.">Chargement…</p>
     </section>
 
@@ -73,7 +73,7 @@
         <div><dt>Textes à traduire</dt><dd data-count="candidates">0</dd></div>
         <div class="sub"><dt><span class="key key-approved" aria-hidden="true"></span>Traduits (approuvés)</dt><dd data-count="approved">0</dd></div>
         <div class="sub"><dt><span class="key key-unverified" aria-hidden="true"></span>Non vérifiés</dt><dd data-count="unverified">0</dd></div>
-        <div class="sub"><dt><span class="key key-partial" aria-hidden="true"></span>Brouillons incomplets</dt><dd data-count="partial">0</dd></div>
+        <div class="sub"><dt><span class="key key-partial" aria-hidden="true"></span>Brouillons incomplets (non affichés)</dt><dd data-count="partial">0</dd></div>
         <div class="sub"><dt><span class="key key-untranslated" aria-hidden="true"></span>Connus, pas encore traduits</dt><dd data-count="untranslated">0</dd></div>
         <div class="sub"><dt><span class="key key-no-match" aria-hidden="true"></span>Inconnus</dt><dd data-count="noMatch">0</dd></div>
         <div class="sub"><dt><span class="key key-ambiguous" aria-hidden="true"></span>Ambigus</dt><dd data-count="ambiguous">0</dd></div>
@@ -93,13 +93,13 @@
         <div class="sub"><dt>Consignes (impératif)</dt><dd data-count="imperatif">0</dd></div>
         <div class="sub"><dt>Paragraphes (plusieurs phrases)</dt><dd data-count="paragraphe">0</dd></div>
       </dl>
-      <p class="note">« Non vérifiés » et « brouillons » : traductions automatiques, pas encore vérifiées par une locutrice.</p>
+      <p class="note">« Non vérifiés » : traductions automatiques, pas encore vérifiées par une locutrice. Les brouillons ne sont jamais affichés.</p>
       <button type="button" class="action" id="report-refresh">Actualiser</button>
     </section>
 
     <footer>
       <p>Fonctionne seulement sur l'environnement de test SAFINUM Pay.</p>
-      <p>Aucune donnée de la page n'est envoyée ni enregistrée.</p>
+      <p>Rien n'est envoyé. Les textes nouveaux de la page, sans leurs valeurs (montants, numéros), sont gardés sur cet appareil pour enrichir le corpus.</p>
     </footer>
   </main>
   <script src="popup.js"></script>

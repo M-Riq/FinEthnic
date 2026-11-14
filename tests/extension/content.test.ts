@@ -3,7 +3,9 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DIAGNOSTIC_CLASSES, highlightName, MARK_NAMES } from '../../src/content/diagnostic';
+import { createChromeCorpusStore, startCorpusSync } from '../../src/content/corpus-sync';
 import { acceptEngine, provideEngine } from '../../src/content/engine-provider';
+import { createContractEngine } from '../../src/engine/contract-engine';
 import { createFakeEngine } from '../../src/content/fake-engine';
 import { createMessageListener } from '../../src/content/messaging';
 import { CONTRACT_VERSION } from '../../src/language/contract';
@@ -11,7 +13,8 @@ import { createLogger } from '../../src/shared/logger';
 import { DIAGNOSTIC_REQUEST, isDiagnosticSnapshot } from '../../src/shared/messages';
 import { createSettingsStore, DEFAULT_SETTINGS, SETTINGS_KEY } from '../../src/shared/settings';
 import { launch, stopAll } from './support/content';
-import { flush } from './support/fake-storage';
+import { createFakeStorage, flush } from './support/fake-storage';
+import { MOT_TEST_RESOURCES } from '../contract/fixtures/mot-engine';
 import { d8Texts, loadFixture, showStep } from './support/page';
 
 afterEach(stopAll);
@@ -117,10 +120,10 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
     // Le surlignage suit la page monopage, puis disparaît avec le mode diagnostic ; les marqueurs restent (P5.10).
     showStep(document, 1);
     await update({});
-    expect(highlights.texts('finethnic-partial')).toEqual(['⟦FAKE⟧ Consultez [votre solde]', '⟦FAKE⟧ Effectuer [un transfert]']);
+    // Brouillons incomplets : comptés et surlignés, mais gardés en français (phase 4), donc sans marqueur.
+    expect(highlights.texts('finethnic-partial')).toEqual(['Consultez votre solde', 'Effectuer un transfert']);
     await update({ diagnostic: false });
-    expect([...highlights.registry.keys()].sort()).toEqual([MARK_NAMES.partial]);
-    expect(highlights.texts(MARK_NAMES.partial)).toEqual(['⟦FAKE⟧ Consultez [votre solde]', '⟦FAKE⟧ Effectuer [un transfert]']);
+    expect([...highlights.registry.keys()]).toEqual([]);
   });
 
   it('retire tout surlignage quand la traduction est désactivée, même en mode diagnostic', async () => {
@@ -253,8 +256,35 @@ describe('choix du moteur (P2.8)', () => {
     expect(fake.info().contractVersion).toBe(CONTRACT_VERSION);
   });
 
-  it('ne fournit aucun moteur hors construction de développement', () => {
-    expect(provideEngine()).toBeNull();
+  it('sans ressources lisibles, ne fournit aucun moteur hors construction de développement', () => {
+    expect(provideEngine()).toEqual({ engine: null, loaded: null });
+    expect(provideEngine({ resources: '{"format":0}', lefff: '' })).toEqual({ engine: null, loaded: null });
+    expect(provideEngine({ resources: 'pas du JSON', lefff: '' })).toEqual({ engine: null, loaded: null });
+  });
+});
+
+describe('moteur et corpus D8 enrichi (phase 4)', () => {
+  it('un texte absent de D8 est enrichi, appris, puis affiché en éton sans recharger la page', async () => {
+    document.body.innerHTML = '<main><h1>Tarif</h1><p>Montant</p></main>';
+    const engine = createContractEngine(MOT_TEST_RESOURCES, { cacheSize: 0 });
+    const corpus = startCorpusSync({
+      loaded: { engine, resources: MOT_TEST_RESOURCES },
+      store: createChromeCorpusStore(createFakeStorage().storage),
+      simplifier: {
+        name: 'test',
+        simplifyWord: async () => ({ synonymes: ['somme'], definition_simple: null, sources: [] }),
+        simplifyPhrase: async () => null,
+      },
+    });
+    const { frames } = await launch({}, { engine, corpus, lexicon: MOT_TEST_RESOURCES.lexicon });
+    const h1 = document.querySelector('h1')!;
+    expect(h1.textContent).toBe('Tarif');
+    expect(document.querySelector('p')!.textContent).toBe('⟦TEST:somme⟧');
+
+    await corpus.flush();
+    await frames.frames();
+    expect(h1.textContent).toBe('⟦TEST:somme⟧');
+    corpus.stop();
   });
 });
 

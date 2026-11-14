@@ -82,9 +82,9 @@ describe('décision d’affichage (P5.6, P5.8, P5.9)', () => {
     expect(decide('Frais', result({ status: 'APPROVED', output: 'Mbo' }), SHOW)).toEqual({ action: 'write', text: 'Mbo', display: 'approved' });
     const pending = result({ status: 'PENDING_VALIDATION', unverifiedOutput: 'Mbo', unverifiedKind: 'complete' });
     expect(decide('Frais', pending, SHOW)).toEqual({ action: 'write', text: 'Mbo', display: 'unverified' });
-    expect(decide('Frais', { ...pending, unverifiedKind: 'partial' }, SHOW)).toMatchObject({ display: 'partial' });
-    // Nature inconnue : jamais présentée comme complète (contrat §2-1).
-    expect(decide('Frais', { ...pending, unverifiedKind: null }, SHOW)).toMatchObject({ display: 'partial' });
+    // Phase 4 : un brouillon incomplet, ou de nature inconnue (contrat §2-1), n'est jamais affiché.
+    expect(decide('Frais', { ...pending, unverifiedKind: 'partial' }, SHOW)).toEqual({ action: 'keep' });
+    expect(decide('Frais', { ...pending, unverifiedKind: null }, SHOW)).toEqual({ action: 'keep' });
     expect(decide('Frais', pending, { ...SHOW, showUnverified: false })).toEqual({ action: 'keep' });
   });
 

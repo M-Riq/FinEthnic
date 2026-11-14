@@ -16,7 +16,12 @@
  *   mêmes règles de protection, d'anti-boucle et de restauration, rendu par un second `Renderer` (attributs) ;
  * - chaque texte à traduire reçoit une classe (`classification.ts`), comptée par le diagnostic.
  * `entries()` ne donne que les nœuds texte (surlignage, infobulle) ; `counts()` compte aussi les attributs.
+ *
+ * Phase 4 : la classification utilise le lexique du moteur s'il est fourni ; chaque lot évalué est passé à
+ * `onEvaluated` (couche corpus D8, `corpus-sync.ts`) ; `reevaluate()` soumet de nouveau au moteur les textes
+ * qui ne sont pas encore traduits entièrement, quand le moteur a appris de nouvelles entrées.
  */
+import type { Lexicon } from '../engine/lexicon';
 import type { TranslationEngine, TranslationRequest, TranslationResult, TranslationStatus } from '../language/contract';
 import { isInExcludedRegion } from '../protection/dom-guard';
 import type { Logger } from '../shared/logger';
@@ -66,6 +71,10 @@ export interface PipelineOptions {
   onUpdate?: () => void;
   /** Rendu des traductions (P5) ; sans rendu, la page n'est jamais modifiée. */
   render?: RenderTarget;
+  /** Lexique français (Lefff) du moteur, pour classer les textes (verbes reconnus). */
+  lexicon?: Lexicon;
+  /** Textes évalués et résultats valides de chaque lot (couche corpus D8). */
+  onEvaluated?: (items: readonly { text: string; result: TranslationResult }[]) => void;
 }
 
 export interface Pipeline {
@@ -75,6 +84,8 @@ export interface Pipeline {
   step(): Step | undefined;
   /** Réapplique les options d'affichage aux textes déjà évalués, sans les réévaluer (P5.10). */
   refresh(): void;
+  /** Réévalue les textes qui ne sont pas encore traduits entièrement (le moteur a de nouvelles entrées). */
+  reevaluate(): void;
   /** Arrête la chaîne et rend à la page tous les textes d'origine. */
   stop(): void;
 }
@@ -107,7 +118,7 @@ export function startPipeline(options: PipelineOptions): Pipeline {
   const register = (target: Target, kind: TextKind): void => {
     const entry: Tracked = {
       kind, status: null, unverifiedKind: null, result: null, evaluated: null, shown: null, refused: false,
-      textClass: kind === 'candidate' ? classifyPageText(source(target)).classe : null,
+      textClass: kind === 'candidate' ? classifyPageText(source(target), options.lexicon).classe : null,
       attribute: isSlot(target),
     };
     if (isSlot(target)) trackedAttributes.set(target, entry);
@@ -182,6 +193,7 @@ export function startPipeline(options: PipelineOptions): Pipeline {
     let invalid = 0;
     let shown = 0;
     let refused = 0;
+    const evaluated: { text: string; result: TranslationResult }[] = [];
     nodes.forEach((node, i) => {
       const result = aligned ? results[i] : undefined;
       const entry = entryOf(node);
@@ -191,6 +203,7 @@ export function startPipeline(options: PipelineOptions): Pipeline {
         entry.unverifiedKind = result.status === 'PENDING_VALIDATION' ? result.unverifiedKind : null;
         entry.result = result;
         entry.evaluated = requests[i]?.text ?? null;
+        if (entry.evaluated !== null) evaluated.push({ text: entry.evaluated, result });
       } else {
         invalid++;
       }
@@ -199,6 +212,13 @@ export function startPipeline(options: PipelineOptions): Pipeline {
       if (entry.refused) refused++;
     });
     logger.event('content:evaluate', { texts: nodes.length, invalid, remaining: queue.size });
+    if (evaluated.length > 0 && options.onEvaluated) {
+      try {
+        options.onEvaluated(evaluated);
+      } catch {
+        // La couche corpus ne doit jamais empêcher l'affichage.
+      }
+    }
     if (render) logger.event('content:render', { texts: nodes.length, shown, refused });
     if (queue.size > 0 && !drainScheduled) {
       drainScheduled = true;
@@ -287,6 +307,18 @@ export function startPipeline(options: PipelineOptions): Pipeline {
       for (const [node, entry] of tracked) if (node.isConnected) sync(node, entry);
       for (const [slot, entry] of trackedAttributes) if (slot.element.isConnected) sync(slot, entry);
       options.onUpdate?.();
+    },
+    reevaluate() {
+      if (!active || !engine) return;
+      // Traduits entièrement, validés ou protégés : un nouvel apprentissage n'y change rien.
+      const settled = (entry: Tracked): boolean =>
+        entry.status === 'APPROVED' || entry.status === 'PROTECTED' || (entry.status === 'PENDING_VALIDATION' && entry.unverifiedKind === 'complete');
+      for (const [node, entry] of tracked) if (entry.kind === 'candidate' && !settled(entry)) queue.add(node);
+      for (const [slot, entry] of trackedAttributes) if (entry.kind === 'candidate' && !settled(entry)) queue.add(slot);
+      if (queue.size > 0 && !drainScheduled) {
+        drainScheduled = true;
+        schedule(drain);
+      }
     },
     stop() {
       active = false;

@@ -6,7 +6,7 @@ Documents de référence : [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md), [`ROADMAP
 
 ## Extension Chrome
 
-> **État : phase 5 (affichage et restauration), avec le faux moteur.** L'extension détecte les textes de la page, met à part les valeurs à ne jamais traduire (montants, références, noms, saisies réaffichées…), puis **remplace** les libellés traduits par le moteur, sans toucher à la structure de la page. Les traductions non vérifiées portent un marqueur, le français reste lisible au survol et au focus (ou en mode bilingue), et désactiver la traduction rend la page à l'identique. La version de production n'a pas encore de moteur de traduction (inclusion à décider, BM7) : elle compte les textes sans rien afficher.
+> **État : moteur MOT embarqué (mission phase 4).** L'extension détecte les textes de la page, met à part les valeurs à ne jamais traduire (montants, références, noms, saisies réaffichées…), puis **remplace** les libellés traduits par le moteur, sans toucher à la structure de la page. Les traductions non vérifiées portent un marqueur (les brouillons incomplets restent en français), le français reste lisible au survol et au focus (ou en mode bilingue), et désactiver la traduction rend la page à l'identique. Le moteur et ses ressources (D7, D8, grammaire, Lefff) sont inclus dans `content.js` ; les textes absents de D8 sont enrichis et gardés sur l'appareil, sans leurs valeurs.
 
 ### Installation
 
@@ -83,7 +83,7 @@ Dans les autres textes, `src/protection/patterns.ts` repère les valeurs protég
 npm run build:dev    # construit dans dist-dev/
 ```
 
-La construction de développement charge aussi le script sur `http://localhost` et `http://127.0.0.1` (pages de test locales) et utilise le **faux moteur** (`src/content/fake-engine.ts`, contrat §9) : ses « traductions » commencent par `⟦FAKE⟧` et ne sont pas de l'éton. Elle écrit dans la console des événements sans aucun texte de page, par exemple `[FinEthnic:content] content:scan {roots: 1, candidates: 26, …}`. **Ne distribuez jamais `dist-dev/`.**
+La construction de développement charge aussi le script sur `http://localhost` et `http://127.0.0.1` (pages de test locales) et utilise le même moteur que la production (le **faux moteur**, `src/content/fake-engine.ts`, contrat §9, n'y sert que de secours si les ressources sont illisibles : ses « traductions » commencent par `⟦FAKE⟧`). Elle écrit dans la console des événements sans aucun texte de page, par exemple `[FinEthnic:content] content:scan {roots: 1, candidates: 26, …}`. **Ne distribuez jamais `dist-dev/`.**
 
 Page de test locale (5 étapes, données fictives, structure supposée en attendant le relevé du DOM réel, Q20) :
 

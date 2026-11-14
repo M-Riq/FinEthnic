@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createFakeEngine } from '../../src/content/fake-engine';
 import { frameSchedule, topmostRoots, watchMutations } from '../../src/content/observer';
-import { startPipeline, type Pipeline } from '../../src/content/pipeline';
+import { startPipeline, type Pipeline, type PipelineOptions } from '../../src/content/pipeline';
 import type { TranslationEngine, TranslationRequest } from '../../src/language/contract';
 import { loadFixture, manualFrames, recorder, showStep } from './support/page';
 
@@ -12,7 +12,9 @@ afterEach(() => {
   running = null;
 });
 
-function start(options: { engine?: TranslationEngine | null; budget?: number; step?: number } = {}) {
+function start(
+  options: { engine?: TranslationEngine | null; budget?: number; step?: number; onEvaluated?: PipelineOptions['onEvaluated'] } = {},
+) {
   loadFixture(document, options.step ?? 1);
   const frames = manualFrames();
   const log = recorder();
@@ -24,6 +26,7 @@ function start(options: { engine?: TranslationEngine | null; budget?: number; st
     logger: log.logger,
     onUpdate,
     ...(options.budget === undefined ? {} : { budget: options.budget }),
+    ...(options.onEvaluated ? { onEvaluated: options.onEvaluated } : {}),
   });
   return { pipeline: running, frames, onUpdate, ...log };
 }
@@ -200,6 +203,27 @@ describe('chaîne de lecture (P2.5–P2.8)', () => {
       },
     };
     expect(() => start({ engine: throwing })).not.toThrow();
+  });
+
+  it('phase 4 — passe chaque lot évalué à la couche corpus, puis réévalue seulement les textes pas encore traduits', async () => {
+    const spy = spyEngine();
+    const onEvaluated = vi.fn();
+    const { pipeline, frames } = start({ engine: spy.engine, onEvaluated });
+    const offered = onEvaluated.mock.calls.flatMap(([items]) => items as Array<{ text: string; result: { status: string } }>);
+    expect(offered.map((i) => i.text)).toEqual(spy.requests.map((r) => r.text));
+    expect(offered.find((i) => i.text === 'Votre compte')?.result.status).toBe('APPROVED');
+
+    const before = spy.requests.length;
+    pipeline.reevaluate();
+    await frames.frames();
+    const again = spy.requests.slice(before).map((r) => r.text);
+    expect(again).toContain('Bonjour');
+    // Validés ou traduits entièrement : un nouvel apprentissage n'y change rien.
+    const settled = [...pipeline.entries()]
+      .filter(([, e]) => e.status === 'APPROVED' || (e.status === 'PENDING_VALIDATION' && e.unverifiedKind === 'complete'))
+      .map(([node]) => node.data.trim());
+    expect(settled.length).toBeGreaterThan(0);
+    expect(again.filter((t) => settled.includes(t))).toEqual([]);
   });
 
   it('s’arrête : plus aucun scan ni évaluation', async () => {
