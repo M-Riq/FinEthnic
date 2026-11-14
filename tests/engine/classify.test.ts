@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { classify, type SentenceAnalysis } from '../../src/engine/classify';
+import { LEXICON } from './support';
 
 const GUARDS = ['Safinum', 'Safinum Pay', 'FCFA', 'XAF'];
 
@@ -55,7 +56,31 @@ describe('classify — textes réels de D8 (moteur, PR 1)', () => {
     ]);
   });
 
-  it.todo('MSG-018 « Le montant saisi dépasse votre solde disponible. » → SIMPLE_SENTENCE (verbe lexical : lemmatiseur, PR 2)');
+});
+
+describe('classify — avec le lexique de Lefff (moteur, PR 2)', () => {
+  const withLexicon = (text: string): SentenceAnalysis[] => classify(text, { guards: GUARDS, lexicon: LEXICON }).sentences;
+
+  it('MSG-018 : reconnaît un verbe lexical sans autre indice', () => {
+    const [s] = withLexicon('Le montant saisi dépasse votre solde disponible.');
+    expect(summary(s as SentenceAnalysis)).toBe('SIMPLE_SENTENCE STATEMENT');
+    expect(s?.finiteVerbs.map((v) => [v.key, v.features?.lemma, v.features?.time])).toEqual([['dépasse', 'dépasser', 'PRESENT']]);
+    expect(summary(classify('Le montant saisi dépasse votre solde disponible.').sentences[0] as SentenceAnalysis)).toBe('EXPRESSION -');
+  });
+
+  it('une forme seulement verbale en tête de proposition est un impératif ; après un déterminant, ce n’est pas un verbe', () => {
+    expect(withLexicon('Envoie le code.').map(summary)).toEqual(['SIMPLE_SENTENCE IMPERATIVE']);
+    expect(withLexicon('Les sommes envoyées').map(summary)).toEqual(['EXPRESSION -']);
+  });
+
+  it('une forme coordonnée après un verbe à l’indicatif n’est pas un impératif', () => {
+    expect(withLexicon('Le système vérifie et envoie le code.').map(summary)).toEqual(['COMPLEX_SENTENCE STATEMENT']);
+    expect(withLexicon('Saisissez le montant et confirmez.').map(summary)).toEqual(['COMPLEX_SENTENCE IMPERATIVE']);
+  });
+
+  it('sans lexique, les verbes n’ont pas de traits', () => {
+    expect(classify('Votre compte est actif.').sentences[0]?.finiteVerbs.map((v) => v.features)).toEqual([null]);
+  });
 });
 
 describe('classify — questions, négation, impératif', () => {
@@ -101,7 +126,7 @@ describe('classify — questions, négation, impératif', () => {
   it('signale l’exclamation et garde le détail des verbes', () => {
     const [s] = classify('Envoyez-le à Paul !').sentences;
     expect(s?.exclamative).toBe(true);
-    expect(s?.finiteVerbs).toEqual([{ index: 0, key: 'envoyez', imperative: true }]);
+    expect(s?.finiteVerbs).toEqual([{ index: 0, key: 'envoyez', imperative: true, features: null }]);
   });
 
   it('un texte sans mot à traduire n’est pas traduisible', () => {

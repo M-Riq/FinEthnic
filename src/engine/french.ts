@@ -3,7 +3,7 @@
  *
  * Ce sont des faits de grammaire FRANÇAISE, pas des données éton : aucune forme éton ici.
  * Les listes sont volontairement courtes. Les verbes lexicaux (« dépasse », « envoie »…)
- * seront reconnus par le lemmatiseur (PR 2), pas par ces listes.
+ * sont reconnus grâce au lexique de Lefff (lexicon.ts, verbs.ts), pas par ces listes.
  */
 
 const set = (words: string): ReadonlySet<string> => new Set(words.trim().split(/\s+/u));
@@ -70,6 +70,18 @@ export const QUESTION_WORDS_IN_SITU = set(`
 `);
 /** Prépositions qui peuvent précéder le mot interrogatif (« À qui… ? »). */
 export const PREPOSITIONS = set('à de d\' pour avec par en chez depuis dans sur sous vers contre');
+
+/**
+ * Verbes dont les temps composés se forment avec « être » (« il est arrivé » = passé). Avec les
+ * autres verbes, « être » + participe passé est un passif (« le paiement est envoyé » = présent).
+ */
+export const ETRE_VERBS = set(`
+  aller arriver venir revenir devenir parvenir intervenir survenir partir repartir entrer rentrer
+  sortir monter remonter descendre redescendre naître mourir décéder rester tomber retomber retourner passer
+`);
+
+/** Pronoms réfléchis devant l'auxiliaire : avec eux, « être » forme un temps composé (« il s'est connecté »). */
+export const REFLEXIVE_CLITICS = set("me m' te t' se s'");
 
 /** Mots qui introduisent une proposition subordonnée. */
 export const SUBORDINATORS = set("que qu' qui dont lorsque lorsqu' quand puisque puisqu' parce quoique quoiqu' où");

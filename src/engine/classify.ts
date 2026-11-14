@@ -9,11 +9,12 @@
  * - les traits à conserver jusqu'à la traduction : négation, restriction (« ne … que »), type de
  *   question (oui/non ou partielle) et exclamation.
  *
- * Seuls des indices de grammaire française sont utilisés : mots grammaticaux, auxiliaires,
- * pronoms sujets, impératifs en « -ez » et pronoms liés par un trait d'union. Un verbe lexical sans
- * aucun de ces indices (« Le montant saisi dépasse votre solde. ») n'est pas encore reconnu : ce sera
- * le rôle du lemmatiseur (PR 2). Dans le doute, la négation est signalée, car l'oublier inverserait
- * le sens de la phrase.
+ * Les verbes conjugués sont repérés par des indices de grammaire française (mots grammaticaux,
+ * auxiliaires, pronoms sujets, impératifs en « -ez », pronoms liés par un trait d'union) et, si un
+ * lexique est fourni (option `lexicon`, PR 2), par les mots que Lefff ne connaît que comme formes
+ * conjuguées (« Le montant saisi dépasse votre solde. »). Avec le lexique, chaque verbe conjugué reçoit
+ * aussi ses traits : lemme, mode, temps, moment et aspect (verbs.ts). Dans le doute, la négation est
+ * signalée, car l'oublier inverserait le sens de la phrase.
  *
  * Module pur, sans dépendance à Node.
  */
@@ -22,7 +23,9 @@ import {
   NEGATION_AFTER_NE, NEGATION_STANDALONE, NOT_VERBS_EZ, NOUS_IRREGULAR, OBJECT_CLITICS, PREPOSITIONS,
   QUESTION_WORDS, QUESTION_WORDS_IN_SITU, SUBJECT_CLITICS, SUBORDINATORS, VOUS_IRREGULAR,
 } from './french';
+import { isFinite, type Lexicon } from './lexicon';
 import { normalize, type NormalizeOptions, type NormalizedText, type Token } from './normalize';
+import { describeVerb, type VerbFeatures } from './verbs';
 
 export type TextForm = 'WORD' | 'EXPRESSION' | 'SIMPLE_SENTENCE' | 'COMPLEX_SENTENCE';
 export type SentenceType = 'QUESTION' | 'IMPERATIVE' | 'STATEMENT';
@@ -33,6 +36,8 @@ export interface FiniteVerb {
   index: number;
   key: string;
   imperative: boolean;
+  /** null sans lexique, ou si le lexique ne connaît pas ce mot comme verbe conjugué. */
+  features: VerbFeatures | null;
 }
 
 export interface SentenceAnalysis {
@@ -60,12 +65,16 @@ export interface TextAnalysis {
   translatable: boolean;
 }
 
-export type ClassifyOptions = NormalizeOptions;
+export interface ClassifyOptions extends NormalizeOptions {
+  /** Lexique morphologique (extrait de Lefff) : reconnaissance des verbes lexicaux et de leurs traits. */
+  lexicon?: Lexicon;
+}
 
 const isWord = (t: Token | undefined, keys?: ReadonlySet<string>): boolean =>
   t !== undefined && t.kind === 'word' && (keys === undefined || keys.has(t.key));
 const NE: ReadonlySet<string> = new Set(['ne', "n'"]);
 const isNe = (t: Token | undefined): boolean => isWord(t, NE);
+const COORDINATORS: ReadonlySet<string> = new Set(['et', 'ou', 'mais', 'puis']);
 const SENTENCE_END = /^(?:[.!?…]+|\.{3})$/u;
 
 /** Découpe les jetons en phrases : après . ! ? … suivis d'un autre jeton, et à chaque saut de ligne. */
@@ -106,10 +115,18 @@ function atClauseStart(tokens: Token[], i: number): boolean {
   return isWord(prev, CLAUSE_LINKERS);
 }
 
-function findFiniteVerbs(tokens: Token[]): FiniteVerb[] {
+function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<FiniteVerb, 'features'>[] {
   const found = new Map<number, boolean>();
   const add = (index: number, imperative: boolean): void => {
     if (index >= 0) found.set(index, (found.get(index) ?? false) || imperative);
+  };
+  // « Le système vérifie et envoie le code » : coordonnée à un verbe conjugué non impératif, la forme
+  // partage son sujet ; ce n'est pas un impératif (« Quand vous payez, vérifiez… » en reste un).
+  const imperativeSlot = (i: number): boolean => {
+    if (!atClauseStart(tokens, i)) return false;
+    let j = i - 1;
+    while (isNe(tokens[j])) j--;
+    return !(isWord(tokens[j], COORDINATORS) && [...found].some(([k, imperative]) => k < j && !imperative));
   };
   tokens.forEach((t, i) => {
     if (t.kind !== 'word' || t.enclitic) return;
@@ -134,7 +151,13 @@ function findFiniteVerbs(tokens: Token[]): FiniteVerb[] {
     // Verbe suivi d'un pronom lié (« Connectez-vous », « Voulez-vous », « est-ce », « a-t-il »).
     if (next?.enclitic) add(i, ENCLITIC_OBJECTS.has(next.key) && atClauseStart(tokens, i));
     // Impératif en « -ez » en tête de proposition (« Vérifiez… », « …, contactez-nous »).
-    if (t.key.endsWith('ez') && !NOT_VERBS_EZ.has(t.key) && atClauseStart(tokens, i)) add(i, true);
+    if (t.key.endsWith('ez') && !NOT_VERBS_EZ.has(t.key) && imperativeSlot(i)) add(i, true);
+    // Mot que le lexique ne connaît que comme forme conjuguée (« dépasse », « envoyons »), sauf après un
+    // déterminant. En tête de proposition, sans sujet, une forme d'impératif marque un impératif.
+    const readings = lexicon?.lookup(t.key) ?? [];
+    if (readings.length > 0 && readings.every(isFinite) && !isWord(prev, DETERMINERS)) {
+      add(i, imperativeSlot(i) && readings.some((r) => r.mood === 'IMPERATIVE'));
+    }
   });
   return [...found.entries()]
     .sort(([a], [b]) => a - b)
@@ -215,7 +238,7 @@ function findSubordinators(tokens: Token[], ignored: Set<number>): string[] {
     .map(([t]) => t.key);
 }
 
-export function analyzeSentence(tokens: Token[], text: string): SentenceAnalysis {
+export function analyzeSentence(tokens: Token[], text: string, lexicon?: Lexicon): SentenceAnalysis {
   const words = tokens.filter((t) => t.kind === 'word');
   const question = findQuestion(tokens);
   const { negation, restriction, restrictiveQue } = findNegation(tokens);
@@ -230,9 +253,12 @@ export function analyzeSentence(tokens: Token[], text: string): SentenceAnalysis
     });
   }
   const subordinators = findSubordinators(tokens, ignored);
-  const finiteVerbs = findFiniteVerbs(tokens)
+  const finiteVerbs: FiniteVerb[] = findFiniteVerbs(tokens, lexicon)
     .filter((v) => !particle.has(v.index))
-    .map((v) => (question ? { ...v, imperative: false } : v));
+    .map((v) => {
+      const imperative = v.imperative && !question;
+      return { ...v, imperative, features: lexicon ? describeVerb(tokens, v.index, lexicon, imperative) : null };
+    });
 
   let form: TextForm | null;
   if (words.length === 0) form = null;
@@ -266,7 +292,7 @@ export function classify(input: string, options: ClassifyOptions = {}): TextAnal
   const sentences = splitSentences(normalized).map((tokens) => {
     const first = tokens[0] as Token;
     const last = tokens[tokens.length - 1] as Token;
-    return analyzeSentence(tokens, normalized.text.slice(first.start, last.end));
+    return analyzeSentence(tokens, normalized.text.slice(first.start, last.end), options.lexicon);
   });
   return { normalized, sentences, translatable: sentences.some((s) => s.form !== null) };
 }
