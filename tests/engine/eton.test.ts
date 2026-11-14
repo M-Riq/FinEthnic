@@ -1,37 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { buildD7Index, chooseEntry, type D7Entry, isBoundForm, senseOf } from '../../src/engine/d7';
 import { buildEton, ETON_RULES, type EtonText } from '../../src/engine/eton';
+import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
-/**
- * Quelques entrées citées de D7 (Van de Velde & Essele Essele, CLÉ 2022, CC BY-NC-SA 4.0), avec leur
- * référence. Le dictionnaire complet reste hors de Git (Q17).
- */
-const e = (fr: string, eto: string, category: string, gloss: string, ref: string): D7Entry => ({ fr, eto, category, gloss, ref });
-const D7 = buildD7Index([
-  e('à', 'á', 'PREP', 'dans, à', 'D7 p. 71 (lexique n° 1)'),
-  e('pour rien', 'á pûpùd', 'ADV', 'pour rien, à fonds perdu', 'D7 p. 71 (lexique n° 3)'),
-  e('sous', 'á sí', 'ADV', 'dessous, en bas, sous', 'D7 p. 71 (lexique n° 4)'),
-  e('chez', 'ábɔ̂', 'PREP', 'chez', 'D7 p. 71 (lexique n° 15)'),
-  e('combien', '-áŋ', 'ADJ', 'combien', 'D7 p. 76 (lexique n° 78)'),
-  e('pour', 'ású', 'PREP', '1) pour, destiné à 2) pour, afin de', 'D7 p. 77 (lexique n° 105)'),
-  e('prêt', 'bə̀bə̀', 'ADV', '1) proche 2) prêt', 'D7 p. 85 (lexique n° 203)'),
-  e('avec', 'èè', 'PREP', '1) avec 2) et', 'D7 p. 105 (lexique n° 495)'),
-  e('quand', 'ídɛ́n', 'ADV', 'quand?', 'D7 p. 124 (lexique n° 792)'),
-  e('arbre', 'ì-lə́', 'NOM', 'arbre', 'D7 p. 131 (lexique n° 930)'),
-  e('voler', 'jíb', 'VERBE', 'voler, commettre un vol', 'D7 p. 147 (lexique n° 1209)'),
-  e('compter', 'láŋ', 'VERBE', '1) lire 2) compter, calculer', 'D7 p. 169 (lexique n° 1558)'),
-  e('envoyer', 'lóm', 'VERBE', 'envoyer', 'D7 p. 174 (lexique n° 1616)'),
-  e('argent', 'mɔ̀ní', 'NOM', 'argent', 'D7 p. 192 (lexique n° 1919)'),
-  e('ici', 'mű', 'ADV', 'ici, là', 'D7 p. 194 (lexique n° 1962)'),
-  e('enfant', 'm-wán', 'NOM', '1) enfant, fils ou fille d’une personne ou d’un animal 2) neveu, nièce', 'D7 p. 194 (lexique n° 1968)'),
-  e('langue', 'ŋ̀-kɔ́lɔ̂', 'NOM', '1) langue 2) prise de parole', 'D7 p. 213 (lexique n° 2302)'),
-  e('un', 'pwág', 'NUM', 'un', 'D7 p. 238 (lexique n° 2716)'),
-  e('venir', 'sɔ́', 'VERBE', 'venir', 'D7 p. 248 (lexique n° 2867)'),
-  e('langue', 'ù-jə́m', 'NOM', '1) langue (organe) 2) caquet, bavardage', 'D7 p. 259 (lexique n° 3060)'),
-  e('payer', 'yágnà', 'VERBE', 'payer, récompenser, rémunérer', 'D7 p. 273 (lexique n° 3307)'),
-]);
-const IGNORED = [{ id: 'D7-MOTS-IGNORES-1', words: ['le', 'la', "l'", 'les', 'des'], ref: 'D7 p. 71 (lexique n° 15)' }];
+const D7 = buildD7Index(D7_ENTRIES);
 const GUARDS = ['Safinum', 'FCFA'];
 const run = (text: string): EtonText => buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED });
 const gapIds = (r: EtonText): string[] => r.gaps.map((g) => (g.kind === 'WORD' ? `WORD:${g.fr}` : g.rule.id));
@@ -123,6 +96,12 @@ describe('buildEton — manques signalés, jamais inventés', () => {
     expect(r.eto).toBeNull();
     expect(gapIds(r)).toContain(ETON_RULES.NEGATION.id);
     expect(gapIds(r)).toContain(ETON_RULES.VERB_FORM.id);
+  });
+
+  it('un auxiliaire de D7 trouvé par le lemme d’une forme non infinitive est un manque (« faux » → faillir ≠ yì)', () => {
+    const r = run('faux message');
+    expect(r.complete).toBe(false);
+    expect(gapIds(r)).toEqual([ETON_RULES.VERB_FORM.id]);
   });
 
   it('forme liée, nombre devant un nom, préposition devant un infinitif, adverbe de lieu', () => {

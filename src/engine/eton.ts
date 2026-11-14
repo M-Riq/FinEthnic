@@ -408,7 +408,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       gap(fr, ETON_RULES.AGREEMENT);
     } else if (hit.end === i + 1 && PREPOSITIONS.has(t.key) && entry.category === 'ADV') {
       gap(fr, ETON_RULES.POSTPOSITION);
-    } else if (role.kind === 'LEX' && entry.category === 'VERBE' && hit.end === i + 1
+    } else if (role.kind === 'LEX' && (entry.category === 'VERBE' || entry.category === 'AUX') && hit.end === i + 1
       && !(lexicon?.lookup(t.key) ?? []).some((r) => r.mood === 'INFINITIVE')) {
       // Participe (« écrit ») ou forme conjuguée non repérée : D7 ne donne que l'infinitif.
       gap(fr, ETON_RULES.VERB_FORM);

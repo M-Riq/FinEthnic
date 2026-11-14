@@ -16,7 +16,8 @@
     "export-l1": "tsx scripts/export-l1.ts",
     "import-dictionary": "tsx scripts/import-dictionary.ts",
     "propose-translations": "tsx scripts/propose-translations.ts",
-    "build-lefff": "tsx scripts/build-lefff.ts"
+    "build-lefff": "tsx scripts/build-lefff.ts",
+    "serve-engine": "tsx scripts/serve-engine.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",
