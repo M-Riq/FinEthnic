@@ -92,6 +92,36 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
   });
 });
 
+describe('buildEton — termes français gardés (M20)', () => {
+  const KEPT = ['compte', 'code', 'code secret', 'reçu', 'argent'];
+  const kept = (text: string): EtonText => buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, kept: KEPT });
+
+  it('un nom de la liste reste en français, signalé, et la phrase est complète', () => {
+    const r = kept('Envoyer le code');
+    expect(r).toMatchObject({ eto: 'lóm code', complete: true, kept: ['code'], gaps: [], found: 1, total: 2 });
+    expect(r.sentences[0]?.pieces.at(-1)).toMatchObject({ fr: 'code', eto: 'code', source: 'FRENCH', ref: null });
+  });
+
+  it('terme de plusieurs mots (le plus long d’abord) et pluriel par le lemme', () => {
+    expect(kept('Envoyer le code secret')).toMatchObject({ eto: 'lóm code secret', kept: ['code secret'] });
+    expect(kept('Envoyer les comptes')).toMatchObject({ eto: 'lóm comptes', kept: ['comptes'] });
+  });
+
+  it('D7 passe avant la liste ; un verbe ou un participe n’est pas gardé', () => {
+    expect(kept("Envoyer l'argent")).toMatchObject({ eto: 'lóm mɔ̀ní', kept: [] });
+    expect(kept("Je compte l'argent")).toMatchObject({ eto: 'mə̀tə́ ꜜláŋ mɔ̀ní', kept: [] });
+    const received = kept("L'argent reçu");
+    expect(received.kept).toEqual([]);
+    expect(gapIds(received)).toContain('WORD:reçu');
+  });
+
+  it('une phrase sans aucun mot rendu par D7 n’est pas présentée comme traduite', () => {
+    const r = kept('Le compte');
+    expect(r).toMatchObject({ eto: null, complete: false, kept: [], draft: '[compte]' });
+    expect(gapIds(r)).toEqual(['WORD:compte']);
+  });
+});
+
 describe('buildEton — manques signalés, jamais inventés', () => {
   it('un mot absent de D7 donne un brouillon, pas une traduction', () => {
     const r = run('Envoyer le code');

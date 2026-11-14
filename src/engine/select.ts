@@ -41,7 +41,7 @@ export type EngineStatus = 'SUCCESS' | 'PARTIAL' | 'FALLBACK' | 'PENDING' | 'PAS
 
 /**
  * Raisons d'un statut autre que SUCCESS, ou signaux sans effet sur le statut (AMBIGUOUS,
- * SENSE_UNCONFIRMED ; NOT_IN_D8 avec SUCCESS).
+ * SENSE_UNCONFIRMED, FRENCH_KEPT ; NOT_IN_D8 avec SUCCESS).
  */
 export type Reason =
   | 'GAPS'
@@ -51,7 +51,9 @@ export type Reason =
   | 'NOTHING_TO_TRANSLATE'
   | 'AMBIGUOUS'
   | 'SENSE_UNCONFIRMED'
-  | 'WRONG_SENSE';
+  | 'WRONG_SENSE'
+  /** Termes français gardés dans la phrase éton (M20) ; signal sans effet sur le statut. */
+  | 'FRENCH_KEPT';
 
 /** Marqueur affiché devant un brouillon (M7). */
 export const INCOMPLETE_MARKER = 'traduction incomplète';
@@ -173,6 +175,8 @@ function rankKey(c: CandidateResult, index: number): number[] {
   const complete = eton.complete;
   return [
     complete ? 0 : 1,
+    // M20 : un candidat entièrement en éton passe avant un candidat qui garde du français.
+    complete ? eton.kept.length : 0,
     hasNegationGap(eton) ? 1 : 0,
     complete ? c.unconfirmed.length : 0,
     complete ? eton.ambiguous.length : 0,
@@ -255,6 +259,7 @@ export function selectUnit(unit: SimplifiedUnit, d7: D7Index, options: SelectOpt
   }
   if (eton.ambiguous.length > 0) reasons.push('AMBIGUOUS');
   if (chosen.unconfirmed.length > 0) reasons.push('SENSE_UNCONFIRMED');
+  if (eton.kept.length > 0) reasons.push('FRENCH_KEPT');
 
   const output = status === 'SUCCESS' ? eton.eto : status === 'PARTIAL' ? eton.draft : null;
   return { ...base, status, reasons, output, chosen, alternatives, discarded, excluded };

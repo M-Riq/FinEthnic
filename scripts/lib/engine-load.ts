@@ -14,6 +14,7 @@ import { DICTIONARY_PATH, readD7Entries, readIgnoredWords } from './engine-d7';
 
 export const LEXICON_PATH = 'data/language-resources/lefff/lefff-3.4-finethnic.mlex';
 export const SENSE_REVIEW_PATH = 'data/language-resources/sense-review.json';
+export const KEPT_FRENCH_PATH = 'data/language-resources/kept-french-terms.json';
 
 export class MissingDictionaryError extends Error {
   constructor() {
@@ -35,6 +36,28 @@ export function readWrongSenses(root: string, knownIds: ReadonlySet<string>): Wr
     if (!knownIds.has(w.entryId as string)) throw new Error(`${SENSE_REVIEW_PATH} : wrongSenses[${i}] : entrée de D8 inconnue ${String(w.entryId)}`);
     return { entryId: w.entryId, fr: w.fr, eto: w.eto, ref: w.ref, reason: w.reason } as WrongSense;
   });
+}
+
+/** Termes français gardés dans la phrase éton (M20). Lève une erreur lisible si le fichier est mal formé. */
+export function readKeptFrench(root: string): string[] {
+  const data = JSON.parse(readFileSync(join(root, KEPT_FRENCH_PATH), 'utf8')) as { groups?: unknown; excluded?: unknown };
+  if (!Array.isArray(data.groups)) throw new Error(`${KEPT_FRENCH_PATH} : « groups » doit être une liste`);
+  const excluded = new Set((Array.isArray(data.excluded) ? data.excluded : [])
+    .map((x: { fr?: unknown }) => (typeof x.fr === 'string' ? x.fr.toLocaleLowerCase('fr') : '')));
+  const seen = new Set<string>();
+  const out: string[] = [];
+  data.groups.forEach((g: { terms?: unknown }, i) => {
+    if (!Array.isArray(g.terms)) throw new Error(`${KEPT_FRENCH_PATH} : groups[${i}].terms doit être une liste`);
+    for (const t of g.terms as unknown[]) {
+      if (typeof t !== 'string' || t.trim() === '') throw new Error(`${KEPT_FRENCH_PATH} : groups[${i}] : terme vide`);
+      const key = t.trim().toLocaleLowerCase('fr');
+      if (seen.has(key)) throw new Error(`${KEPT_FRENCH_PATH} : terme en double « ${t} »`);
+      if (excluded.has(key)) throw new Error(`${KEPT_FRENCH_PATH} : « ${t} » est à la fois gardé et exclu`);
+      seen.add(key);
+      out.push(t.trim());
+    }
+  });
+  return out;
 }
 
 export function loadEngineResources(root: string): EngineResources {
@@ -59,5 +82,6 @@ function engineResources(root: string, entries: Parameters<typeof corpusEntries>
     ignored: readIgnoredWords(root),
     critical: criticalEntryIds(entries),
     wrongSenses: readWrongSenses(root, new Set(corpus.map((e) => e.id))),
+    keptFrench: readKeptFrench(root),
   };
 }

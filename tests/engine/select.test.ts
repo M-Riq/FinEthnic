@@ -7,7 +7,7 @@ import type { CorpusEntry } from '../../src/engine/corpus';
 import { createEngine, type EngineResources } from '../../src/engine/engine';
 import { ETON_RULES } from '../../src/engine/eton';
 import { INCOMPLETE_MARKER, type TextResult, type UnitResult } from '../../src/engine/select';
-import { readWrongSenses, SENSE_REVIEW_PATH } from '../../scripts/lib/engine-load';
+import { KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
@@ -164,6 +164,40 @@ describe('select — contrôle du sens (M18)', () => {
   it('un sens faux relevé ne concerne que son entrée de D8', () => {
     const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'])], [LIN]).translate('Écarter'));
     expect(u).toMatchObject({ status: 'SUCCESS', output: 'lìŋ', excluded: [] });
+  });
+});
+
+describe('select — termes français gardés (M20)', () => {
+  const withKept = (corpus: CorpusEntry[]): ReturnType<typeof createEngine> =>
+    createEngine({ ...RESOURCES, corpus, critical: [], keptFrench: ['reçu'] });
+
+  it('un candidat entièrement en éton passe avant un candidat qui garde du français', () => {
+    const u = unit(withKept([entry('X-4', 'Expédier le bordereau', ['envoyer le reçu', "envoyer l'argent"])]).translate('Expédier le bordereau'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'lóm mɔ̀ní', reasons: [] });
+    expect(u.alternatives[0]).toMatchObject({ text: 'envoyer le reçu', eton: { complete: true, kept: ['reçu'] } });
+  });
+
+  it('sinon SUCCESS avec le signal FRENCH_KEPT', () => {
+    const u = unit(withKept([entry('X-5', 'Expédier le bordereau', ['envoyer le reçu'])]).translate('Expédier le bordereau'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'lóm reçu', reasons: ['FRENCH_KEPT'] });
+  });
+
+  it('kept-french-terms.json : refuse un terme en double ou à la fois gardé et exclu', () => {
+    const root = mkdtempSync(join(tmpdir(), 'finethnic-kept-'));
+    const write = (data: unknown): void => {
+      mkdirSync(join(root, 'data/language-resources'), { recursive: true });
+      writeFileSync(join(root, KEPT_FRENCH_PATH), JSON.stringify(data));
+    };
+    try {
+      write({ groups: [{ terms: ['compte', ' mot de passe '] }], excluded: [{ fr: 'case' }] });
+      expect(readKeptFrench(root)).toEqual(['compte', 'mot de passe']);
+      write({ groups: [{ terms: ['compte'] }, { terms: ['Compte'] }] });
+      expect(() => readKeptFrench(root)).toThrow(/terme en double « Compte »/u);
+      write({ groups: [{ terms: ['case'] }], excluded: [{ fr: 'case' }] });
+      expect(() => readKeptFrench(root)).toThrow(/à la fois gardé et exclu/u);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 });
 

@@ -16,7 +16,7 @@ import { classify, negationIndices, questionParticleIndices, restrictionIndices,
 import { chooseEntry, type D7Entry, type D7Index, isBoundForm, senseOf } from './d7';
 import { DETERMINERS, OBJECT_CLITICS, PREPOSITIONS, SUBJECT_CLITICS } from './french';
 import type { Lexicon, Pos } from './lexicon';
-import type { Token } from './normalize';
+import { normalize, type Token } from './normalize';
 
 export type RuleClass = 'A' | 'B' | 'C';
 
@@ -78,6 +78,8 @@ export interface EtonOptions {
   lexicon?: Lexicon;
   /** Articles ignorés (règle validée en BM3.6). Sans cette option, les articles sont cherchés dans D7. */
   ignored?: readonly IgnoredWords[];
+  /** Termes français gardés tels quels quand D7 ne les a pas (M20), employés comme noms. */
+  kept?: readonly string[];
 }
 
 export type Gap =
@@ -90,7 +92,8 @@ export interface EtonPiece {
   fr: string;
   /** Forme éton, ou null si elle manque ou ne peut pas être écrite seule. */
   eto: string | null;
-  source: 'D7' | 'RULE' | 'PROTECTED' | 'PUNCT' | 'GRAMMAR' | 'MISSING';
+  /** FRENCH : terme français gardé (M20), `eto` est le texte français. */
+  source: 'D7' | 'RULE' | 'PROTECTED' | 'PUNCT' | 'GRAMMAR' | 'MISSING' | 'FRENCH';
   ref: string | null;
   /** D7 : trouvé par la forme du texte ou par le lemme. */
   by?: 'FORM' | 'LEMMA';
@@ -120,6 +123,8 @@ export interface EtonSentence {
   gaps: Gap[];
   /** Mots dont le sens est à confirmer : entrée de D7 à plusieurs sens ou à sens précisé, homographe. */
   ambiguous: string[];
+  /** Termes français gardés dans la phrase (M20). */
+  kept: string[];
   /** Mots pleins trouvés dans D7 et écrits / mots pleins. */
   found: number;
   total: number;
@@ -133,6 +138,7 @@ export interface EtonText {
   complete: boolean;
   gaps: Gap[];
   ambiguous: string[];
+  kept: string[];
   found: number;
   total: number;
 }
@@ -275,6 +281,53 @@ function lookup(tokens: readonly Token[], i: number, roleList: readonly Role[], 
   return null;
 }
 
+/* ------------------------------------------------------------------ termes gardés (M20) */
+
+const PARTICIPLES: ReadonlySet<string> = new Set(['PAST_PARTICIPLE', 'PRESENT_PARTICIPLE']);
+const keptCache = new WeakMap<readonly string[], string[][]>();
+
+/** Termes gardés découpés en mots, du plus long au plus court. */
+function keptTerms(kept: readonly string[]): string[][] {
+  let terms = keptCache.get(kept);
+  if (!terms) {
+    terms = kept.map((k) => normalize(k).tokens.filter((t) => t.kind === 'word').map((t) => t.key))
+      .filter((w) => w.length > 0).sort((a, b) => b.length - a.length);
+    keptCache.set(kept, terms);
+  }
+  return terms;
+}
+
+const nounLemmas = (key: string, lexicon: Lexicon | undefined): string[] =>
+  (lexicon?.lookup(key) ?? []).filter((r) => r.pos === 'NOUN').map((r) => r.lemma.toLocaleLowerCase('fr'));
+
+/** Le mot du texte est-il le mot du terme gardé (même forme ou même lemme de nom : « comptes » → « compte ») ? */
+function sameNoun(key: string, word: string, lexicon: Lexicon | undefined): boolean {
+  if (key === word) return true;
+  const lemmas = new Set(nounLemmas(key, lexicon));
+  return lemmas.has(word) || nounLemmas(word, lexicon).some((l) => lemmas.has(l));
+}
+
+/**
+ * Terme gardé qui commence au mot i : seulement un mot plein employé comme nom (pas un participe :
+ * « l'argent reçu » ≠ « le reçu »). Renvoie la fin du terme.
+ */
+function keptMatch(tokens: readonly Token[], i: number, roleList: readonly Role[], lexicon: Lexicon | undefined, terms: readonly string[][]): number | null {
+  const role = roleList[i] as Role;
+  if (role.kind !== 'LEX' || terms.length === 0) return null;
+  const pos = contextPos(tokens, i, lexicon, role);
+  if (pos.size > 0 && !pos.has('NOUN')) return null;
+  const key = (tokens[i] as Token).key;
+  if (pos.has('VERB') && (lexicon?.lookup(key) ?? []).some((r) => r.pos === 'VERB' && PARTICIPLES.has(r.mood ?? ''))) return null;
+  for (const words of terms) {
+    const ok = words.every((w, k) => {
+      const t = wordAt(tokens, i + k);
+      return t !== undefined && roleList[i + k]?.kind === 'LEX' && sameNoun(t.key, w, lexicon);
+    });
+    if (ok) return i + words.length;
+  }
+  return null;
+}
+
 /* ------------------------------------------------------------------ phrase */
 
 /** Marques du sujet + tə́ attestées dans D7 (§2, §3) ; « nous » : ɛ̀tə́ (4 exemples), bìtə́ seulement avec yì « vouloir ». */
@@ -364,6 +417,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const pieces: EtonPiece[] = [];
   const gaps: Gap[] = [];
   const applied = new Set<EtonRule>();
+  const terms = keptTerms(options.kept ?? []);
   let found = 0;
   let total = 0;
   /** Jetons rendus par une entrée de D7 (une expression peut contenir « rien »). */
@@ -440,6 +494,14 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       gap(t.text, ETON_RULES.PRESENT);
       presentSubject = undefined;
     }
+    // Terme gardé en français (M20) : D7 passe avant, sauf expression plus courte ou verbe pour un nom.
+    const keep = keptMatch(tokens, i, roleList, lexicon, terms);
+    if (keep !== null && (!hit || keep > hit.end || (keep === hit.end && ['VERBE', 'AUX'].includes(hit.choice.entry.category)))) {
+      const text = tokens.slice(i, keep).map((x) => x.text).join(' ');
+      pieces.push({ fr: text, eto: text, source: 'FRENCH', ref: null, category: 'NOM' });
+      i = keep;
+      continue;
+    }
     const fr = tokens.slice(i, hit?.end ?? i + 1).map((x) => x.text).join(' ');
     if (!hit) {
       pieces.push({ fr, eto: null, source: 'MISSING', ref: null });
@@ -486,15 +548,28 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     i = hit.end;
   }
 
+  // Phrase sans aucun mot rendu par D7 (« Code PIN ») : les termes gardés redeviennent des manques,
+  // pour ne pas présenter du français comme une traduction.
+  if (found === 0) {
+    for (const p of pieces) {
+      if (p.source !== 'FRENCH') continue;
+      p.source = 'MISSING';
+      p.eto = null;
+      delete p.category;
+      gaps.push({ kind: 'WORD', fr: p.fr, rejected: [] });
+    }
+  }
+
   // Traits de la phrase.
   const negation = [...negationIndices(tokens)].filter((k) => !consumed.has(k));
   if (negation.length > 0) gap(negation.map((k) => (tokens[k] as Token).key).join(' '), s.type === 'IMPERATIVE' ? ETON_RULES.NEGATION_IMPERATIVE : ETON_RULES.NEGATION);
   if (s.restriction) gap('ne … que', ETON_RULES.RESTRICTION);
-  const lexical = pieces.filter((p) => p.source === 'D7' || p.source === 'MISSING');
+  const lexical = pieces.filter((p) => p.source === 'D7' || p.source === 'MISSING' || p.source === 'FRENCH');
   for (let k = 1; k < pieces.length; k++) {
     const a = pieces[k - 1] as EtonPiece;
     const b = pieces[k] as EtonPiece;
-    if (a.source !== 'D7' || b.source !== 'D7') continue;
+    // Un terme gardé est un nom : « frais » + adjectif de D7 demande aussi la règle d'accord.
+    if ((a.source !== 'D7' && a.source !== 'FRENCH') || (b.source !== 'D7' && b.source !== 'FRENCH')) continue;
     const pair = [a.category, b.category];
     if (pair.includes('NOM') && pair.includes('ADJ')) gap(`${a.fr} ${b.fr}`, ETON_RULES.ADJECTIVE);
     else if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
@@ -512,6 +587,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     applied: [...applied],
     gaps,
     ambiguous: pieces.filter((p) => p.source === 'D7' && ((p.senses ?? 1) > 1 || p.qualifier || p.homograph)).map((p) => p.fr),
+    kept: pieces.filter((p) => p.source === 'FRENCH').map((p) => p.fr),
     found,
     total,
   };
@@ -529,6 +605,7 @@ export function buildEton(text: string, d7: D7Index, options: EtonOptions = {}):
     complete,
     gaps: sentences.flatMap((s) => s.gaps),
     ambiguous: sentences.flatMap((s) => s.ambiguous),
+    kept: sentences.flatMap((s) => s.kept),
     found: sentences.reduce((n, s) => n + s.found, 0),
     total: sentences.reduce((n, s) => n + s.total, 0),
   };

@@ -29,6 +29,8 @@ export interface EngineResources {
   critical: readonly string[];
   /** Sens faux relevés (M18) : data/language-resources/sense-review.json. */
   wrongSenses?: readonly WrongSense[];
+  /** Termes français gardés dans la phrase éton (M20) : data/language-resources/kept-french-terms.json. */
+  keptFrench?: readonly string[];
 }
 
 export interface EngineInfo {
@@ -40,6 +42,8 @@ export interface EngineInfo {
   criticalEntries: number;
   /** Sens faux relevés (M18). */
   wrongSenses: number;
+  /** Termes français gardés (M20). */
+  keptFrench: number;
   /** Règles de D7 appliquées (classe A). Les classes B et C sont rendues comme des manques. */
   activeRules: string[];
 }
@@ -62,6 +66,7 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
   const references = new Map(resources.corpus.map((e) => [e.id, [e.text, ...e.synonyms, e.definition ?? ''].join(' . ')] as const));
   const options: SelectOptions = {
     guards, lexicon, ignored, critical: new Set(resources.critical), references, wrongSenses: resources.wrongSenses ?? [],
+    kept: resources.keptFrench ?? [],
   };
   const cacheSize = engineOptions.cacheSize ?? 1000;
   const cache = new Map<string, TextResult>();
@@ -74,6 +79,7 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
     lexiconForms: lexicon.size,
     criticalEntries: options.critical?.size ?? 0,
     wrongSenses: options.wrongSenses?.length ?? 0,
+    keptFrench: options.kept?.length ?? 0,
     activeRules: Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id),
   };
 

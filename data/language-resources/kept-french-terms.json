@@ -1,0 +1,107 @@
+{
+  "description": "Termes français gardés tels quels dans la phrase éton (décision M20). Notions financières et numériques modernes absentes de D7 : le moteur ne les invente pas en éton. Un terme n'est gardé que s'il est employé comme nom ; il est signalé à chaque fois (liste « kept ») ; une phrase dont aucun mot n'est rendu par D7 n'est pas présentée comme traduite ; un candidat entièrement en éton passe avant un candidat qui garde du français. Les mots courants (secret, aide, sécurité, erreur…) n'y sont pas : ils restent signalés comme manquants.",
+  "decidedBy": "responsable du projet",
+  "date": "2026-11-15",
+  "groups": [
+    {
+      "domain": "finance",
+      "terms": [
+        "compte",
+        "code",
+        "code secret",
+        "frais",
+        "transfert",
+        "carte",
+        "solde",
+        "bénéficiaire",
+        "reçu",
+        "montant",
+        "paiement",
+        "transaction",
+        "total",
+        "sous-total",
+        "somme",
+        "banque",
+        "crédit",
+        "contrat",
+        "retrait",
+        "assurance",
+        "facture",
+        "taux",
+        "intérêt",
+        "pourcentage",
+        "devise",
+        "euro",
+        "impôt",
+        "virement",
+        "dépôt",
+        "débit",
+        "chèque",
+        "échéance",
+        "mensualité",
+        "investissement",
+        "microfinance",
+        "plafond",
+        "relevé",
+        "portefeuille",
+        "agence",
+        "distributeur",
+        "DAB",
+        "agent",
+        "opérateur",
+        "service",
+        "service client",
+        "mobile money"
+      ]
+    },
+    {
+      "domain": "numérique",
+      "terms": [
+        "internet",
+        "connexion",
+        "lien",
+        "page",
+        "bouton",
+        "application",
+        "appli",
+        "session",
+        "écran",
+        "site",
+        "SMS",
+        "wi-fi",
+        "mobile",
+        "version",
+        "logiciel",
+        "virus",
+        "réseau",
+        "OTP",
+        "PIN",
+        "USSD",
+        "QR",
+        "CNI",
+        "identifiant",
+        "mot de passe",
+        "notification",
+        "paramètres",
+        "réglages",
+        "authentification",
+        "hameçonnage",
+        "phishing"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "fr": "case",
+      "reason": "Au Cameroun, « case » veut d'abord dire « maison » : garder le mot tromperait le lecteur."
+    },
+    {
+      "fr": "prêt",
+      "reason": "D7 a ndóŋ « prêt » (catégorie à vérifier à part) : ne pas garder le français tant que ce point n'est pas tranché."
+    },
+    {
+      "fr": "identité",
+      "reason": "D7 a « carte d'identité » (ì-dàŋdìtê)."
+    }
+  ]
+}
