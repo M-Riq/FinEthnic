@@ -78,11 +78,16 @@ describe('select — statuts (M2, M4, M7)', () => {
     expect(u.chosen?.eton.gaps.map((g) => (g.kind === 'RULE' ? g.rule.id : g.fr))).toContain(ETON_RULES.NEGATION_IMPERATIVE.id);
   });
 
-  it('PENDING : texte sans rien de D8, même si D7 le rendrait (M4) ; à journaliser', () => {
-    const r = ENGINE.translate('Viens ici !');
-    expect(r).toMatchObject({ status: 'PENDING', output: null, pending: ['Viens ici !'] });
+  it('PENDING : texte sans rien de D8 que D7 ne rend pas entièrement → français seul, à journaliser (M4)', () => {
+    const r = ENGINE.translate('Merci');
+    expect(r).toMatchObject({ status: 'PENDING', output: null, draft: null, pending: ['Merci'] });
     expect(unit(r)).toMatchObject({ reasons: ['NOT_IN_D8'], logged: true, output: null });
-    expect(unit(r).chosen?.eton.eto).toBe('zùgá mű !');
+  });
+
+  it('SUCCESS : texte sans rien de D8 que D7 rend entièrement, journalisé quand même (M16)', () => {
+    const r = ENGINE.translate('Viens ici !');
+    expect(r).toMatchObject({ status: 'SUCCESS', output: 'zùgá mű !', pending: ['Viens ici !'] });
+    expect(unit(r)).toMatchObject({ match: 'NONE', reasons: ['NOT_IN_D8'], logged: true });
   });
 
   it('PASSTHROUGH : rien à traduire, le texte reçu est rendu tel quel', () => {
@@ -90,9 +95,9 @@ describe('select — statuts (M2, M4, M7)', () => {
   });
 
   it('texte de plusieurs phrases : une phrase en attente rend le texte PARTIAL, une FALLBACK le rend FALLBACK', () => {
-    const mixed = ENGINE.translate('Envoyer. Viens ici !');
+    const mixed = ENGINE.translate('Envoyer. Merci.');
     expect(mixed.units.map((u) => u.status)).toEqual(['SUCCESS', 'PENDING']);
-    expect(mixed).toMatchObject({ status: 'PARTIAL', output: null, draft: 'lóm. [Viens ici !]', marker: INCOMPLETE_MARKER });
+    expect(mixed).toMatchObject({ status: 'PARTIAL', output: null, draft: 'lóm. [Merci.]', marker: INCOMPLETE_MARKER });
     expect(ENGINE.translate('Envoyer. Ne payez pas.').status).toBe('FALLBACK');
   });
 });
@@ -128,7 +133,7 @@ describe('API HTTP locale (M3)', () => {
     const one = await post({ text: 'Transférer', sourceLang: 'fr', targetLang: 'eto' });
     expect(one.status).toBe(200);
     expect(((await one.json()) as { result: TextResult }).result).toMatchObject({ status: 'SUCCESS', output: 'lóm' });
-    const many = (await (await post({ texts: ['Envoyer', 'Viens ici !'] })).json()) as { results: TextResult[] };
+    const many = (await (await post({ texts: ['Envoyer', 'Merci'] })).json()) as { results: TextResult[] };
     expect(many.results.map((r) => r.status)).toEqual(['SUCCESS', 'PENDING']);
   });
 

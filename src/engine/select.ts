@@ -13,10 +13,11 @@
  * 5. moins de mots ambigus ; puis original, synonyme, définition, substitution ; puis ordre de D8.
  *
  * Statut d'une unité :
- * - SUCCESS : le candidat retenu est complet (M2) ;
+ * - SUCCESS : le candidat retenu est complet (M2) ; aussi pour une unité sans rien de D8 que D7 rend
+ *   entièrement (M16 : « Viens ici ! » → zùgá mű !), toujours journalisée ;
  * - PARTIAL : brouillon avec la liste exacte des manques, affiché avec le marqueur (M7) ;
  * - FALLBACK : négation non rendue, ou entrée critique non rendue → français seul (M7) ;
- * - PENDING : unité absente de D8 sans terme de D8 → français seul, à journaliser (M4) ;
+ * - PENDING : unité sans rien de D8 que D7 ne rend pas entièrement → français seul, à journaliser (M4) ;
  * - PASSTHROUGH : rien à traduire (valeurs protégées, ponctuation) → texte reçu tel quel.
  * Un mot ambigu est signalé sans dégrader le statut (M15).
  *
@@ -28,7 +29,7 @@ import type { Candidate, CandidateSource, MatchKind, Simplification, SimplifiedU
 
 export type EngineStatus = 'SUCCESS' | 'PARTIAL' | 'FALLBACK' | 'PENDING' | 'PASSTHROUGH';
 
-/** Raisons d'un statut autre que SUCCESS (ou signal sans effet sur le statut : AMBIGUOUS). */
+/** Raisons d'un statut autre que SUCCESS, ou signaux sans effet sur le statut (AMBIGUOUS ; NOT_IN_D8 avec SUCCESS). */
 export type Reason =
   | 'GAPS'
   | 'NEGATION_NOT_RENDERED'
@@ -142,16 +143,17 @@ export function selectUnit(unit: SimplifiedUnit, d7: D7Index, options: SelectOpt
   const reasons: Reason[] = [];
   let status: EngineStatus;
 
-  if (unit.match === 'NONE') {
-    status = 'PENDING';
-    reasons.push('NOT_IN_D8');
-  } else if (eton.complete) {
+  if (unit.match === 'NONE') reasons.push('NOT_IN_D8');
+  if (eton.complete) {
     status = 'SUCCESS';
+  } else if (unit.match === 'NONE') {
+    status = 'PENDING';
   } else {
+    const negation = hasNegationGap(eton);
     reasons.push('GAPS');
-    if (hasNegationGap(eton)) reasons.push('NEGATION_NOT_RENDERED');
+    if (negation) reasons.push('NEGATION_NOT_RENDERED');
     if (critical.length > 0) reasons.push('CRITICAL_NOT_RENDERED');
-    status = reasons.length > 1 ? 'FALLBACK' : 'PARTIAL';
+    status = negation || critical.length > 0 ? 'FALLBACK' : 'PARTIAL';
   }
   if (eton.ambiguous.length > 0) reasons.push('AMBIGUOUS');
 
