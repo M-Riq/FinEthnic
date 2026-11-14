@@ -1,0 +1,2843 @@
+[
+  {
+    "id": "SEC-001",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Code PIN",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "code secret",
+            "chiffres secrets"
+          ],
+          "definition": "Un petit code secret que toi seul connais pour dire oui à une opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-002",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mot de passe",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mot secret",
+            "code d'entrée"
+          ],
+          "definition": "Un mot secret pour entrer dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-003",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Code de vérification",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "code envoyé",
+            "code temporaire",
+            "OTP"
+          ],
+          "definition": "Un code envoyé pour un moment, pour prouver que c'est bien toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-004",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Authentification",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "preuve que c'est toi",
+            "montrer qui tu es"
+          ],
+          "definition": "Montrer que c'est bien toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-005",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Authentification à deux facteurs",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "deux preuves",
+            "double contrôle"
+          ],
+          "definition": "Montrer que c'est toi avec deux choses : mot secret et code reçu."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-006",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Identifiant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "nom pour entrer",
+            "numéro pour entrer"
+          ],
+          "definition": "Le nom ou le numéro qu'on utilise pour entrer dans son compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-007",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Session",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "temps de connexion",
+            "temps où on est dedans"
+          ],
+          "definition": "Le temps où tu es entré dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-008",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Connexion sécurisée",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "lien protégé",
+            "entrée protégée",
+            "liaison sûre"
+          ],
+          "definition": "Un lien protégé entre ton téléphone et le service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-15"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-009",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Chiffrement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "code secret des données",
+            "cacher les informations"
+          ],
+          "definition": "Une façon de cacher les informations pour que les autres ne puissent pas les lire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-010",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Données personnelles",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "informations sur toi",
+            "tes informations"
+          ],
+          "definition": "Les informations qui disent qui tu es."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-011",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vie privée",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "ce qui est à toi seul",
+            "secret personnel"
+          ],
+          "definition": "Le droit de garder tes informations pour toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-012",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Fraude",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "tromperie",
+            "vol par ruse",
+            "mensonge pour voler"
+          ],
+          "definition": "Tromper quelqu'un pour voler son argent ou ses informations."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-013",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Hameçonnage",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "faux message",
+            "message piège",
+            "phishing"
+          ],
+          "definition": "Un faux message qui veut voler tes informations."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-014",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Arnaque",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "tromperie",
+            "escroquerie",
+            "mensonge pour prendre l'argent"
+          ],
+          "definition": "Tromper quelqu'un pour qu'il donne son argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-015",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Usurpation d'identité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "faire semblant d'être toi",
+            "prendre ta place"
+          ],
+          "definition": "Quelqu'un fait semblant d'être une autre personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-016",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transaction suspecte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "opération bizarre",
+            "opération douteuse"
+          ],
+          "definition": "Une opération qui semble bizarre et qu'il faut contrôler."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-017",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Activité inhabituelle",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "chose bizarre",
+            "chose pas comme d'habitude"
+          ],
+          "definition": "Quelque chose de différent de ce que tu fais d'habitude."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-018",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Accès non autorisé",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "entrée interdite",
+            "entrée sans permission"
+          ],
+          "definition": "Quelqu'un entre dans un compte sans en avoir le droit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-019",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte compromis",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte en danger",
+            "compte pas sûr"
+          ],
+          "definition": "Un compte qui n'est plus sûr."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-020",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vol",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "prendre sans permission",
+            "voler"
+          ],
+          "definition": "Prendre une chose qui n'est pas à soi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-021",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Perte du téléphone",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "téléphone perdu",
+            "téléphone disparu"
+          ],
+          "definition": "Le téléphone du compte est perdu."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-022",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Faux agent",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "faux employé",
+            "menteur",
+            "personne qui fait semblant"
+          ],
+          "definition": "Une personne qui dit qu'elle travaille pour le service, mais c'est faux."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-023",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Lien frauduleux",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "lien piège",
+            "faux lien",
+            "adresse piège"
+          ],
+          "definition": "Une adresse internet piège qui mène à un faux site."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-024",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Logiciel malveillant",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "programme méchant",
+            "virus"
+          ],
+          "definition": "Un programme fait pour faire du mal ou voler des informations."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-025",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Alerte de sécurité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "avertissement",
+            "message de danger",
+            "signal de danger"
+          ],
+          "definition": "Un message qui dit qu'il y a un danger."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-026",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mise en garde",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "conseil de faire attention",
+            "avertissement"
+          ],
+          "definition": "Un message qui dit de faire attention."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-027",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérification d'identité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "contrôle de qui tu es",
+            "preuve de qui tu es"
+          ],
+          "definition": "Un contrôle pour savoir que c'est bien toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-028",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Blocage temporaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "arrêt pour un temps",
+            "fermeture courte"
+          ],
+          "definition": "Le compte est fermé pour peu de temps pour la sécurité."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-029",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Tentative de connexion",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "essai d'entrée",
+            "essai de connexion"
+          ],
+          "definition": "Quelqu'un essaie d'entrer dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-030",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Verrouillage du compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte fermé après erreurs",
+            "compte arrêté"
+          ],
+          "definition": "Le compte est fermé après trop d'erreurs pour entrer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-031",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Journal d'activité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "liste des actions",
+            "liste de ce qui s'est passé"
+          ],
+          "definition": "La liste de ce qui a été fait dans le compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-032",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Opposition",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "demande d'arrêt de la carte",
+            "arrêt de la carte"
+          ],
+          "definition": "Demander de bloquer une carte ou un compte perdu ou volé."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-033",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Signalement",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "message d'alerte",
+            "information sur un problème"
+          ],
+          "definition": "Dire au service qu'il y a un problème."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-034",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Preuve de transaction",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier de preuve",
+            "preuve d'envoi"
+          ],
+          "definition": "Une chose qui montre que l'opération a bien eu lieu."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-035",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Intégrité des données",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "informations non changées",
+            "informations intactes"
+          ],
+          "definition": "Les informations n'ont pas été changées."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-036",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Expiration de session",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "fin de connexion",
+            "sortie automatique"
+          ],
+          "definition": "Tu sors tout seul du compte après un temps sans rien faire."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-037",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Appareil de confiance",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "téléphone connu",
+            "téléphone sûr"
+          ],
+          "definition": "Un téléphone que le service connaît et trouve sûr."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-038",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Réseau Wi-Fi public",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "internet de tout le monde",
+            "internet ouvert"
+          ],
+          "definition": "Un internet ouvert à tous, moins sûr."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-039",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mise à jour de sécurité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "nouvelle version",
+            "réparation de sécurité"
+          ],
+          "definition": "Une nouvelle version qui répare les failles de sécurité."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-040",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Termes de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Mot de passe oublié",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "mot secret perdu",
+            "je ne me souviens plus du mot secret"
+          ],
+          "definition": "On ne se souvient plus de son mot secret et il faut le retrouver."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "SEC-041",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ne communiquez jamais votre code PIN à personne.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ne dis jamais ton code secret à personne."
+          ],
+          "definition": "Ton code secret est pour toi seul. Ne le dis à personne, jamais."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Ne pas affaiblir « jamais »."
+  },
+  {
+    "id": "SEC-042",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Nous ne vous demanderons jamais votre code de vérification.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Nous ne te demandons jamais ton code reçu, jamais."
+          ],
+          "definition": "Le service ne te demande jamais le code reçu par SMS."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Ne pas affaiblir « jamais »."
+  },
+  {
+    "id": "SEC-043",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ne cliquez pas sur les liens reçus d'expéditeurs inconnus.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ne touche pas les liens envoyés par des gens que tu ne connais pas."
+          ],
+          "definition": "Un lien envoyé par un inconnu peut être un piège. Ne le touche pas."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Négation à conserver."
+  },
+  {
+    "id": "SEC-044",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez toujours le nom du bénéficiaire avant de confirmer.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Regarde bien le nom de celui qui reçoit avant de dire oui."
+          ],
+          "definition": "Regarde le nom, puis dis oui. Pas l'inverse."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Garder l'ordre : vérifier puis confirmer."
+  },
+  {
+    "id": "SEC-045",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Cette opération est irréversible.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Cette opération ne peut pas être reprise.",
+            "On ne peut pas revenir en arrière."
+          ],
+          "definition": "Quand c'est fait, on ne peut plus revenir en arrière."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Alerte critique. Ne pas traduire par « difficile à annuler »."
+  },
+  {
+    "id": "SEC-046",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Une activité inhabituelle a été détectée sur votre compte.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Nous avons vu quelque chose de bizarre sur ton compte."
+          ],
+          "definition": "Il y a une chose pas normale sur ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Alerte critique. Ton clair, sans minimiser."
+  },
+  {
+    "id": "SEC-047",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre compte a été temporairement bloqué par sécurité.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ton compte est fermé pour un petit temps pour te protéger."
+          ],
+          "definition": "Le compte est arrêté pour un temps, pour ta sécurité."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Alerte critique. Garder « temporairement »."
+  },
+  {
+    "id": "SEC-048",
+    "kind": "template",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre session va expirer dans {durée}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Tu vas sortir de ton compte dans {durée}."
+          ],
+          "definition": "La connexion va se fermer bientôt."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "durée",
+        "type": "duration"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Information. Variables à ne pas traduire : {durée}"
+  },
+  {
+    "id": "SEC-049",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Connectez-vous uniquement depuis un appareil de confiance.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Entre dans ton compte seulement avec un téléphone sûr."
+          ],
+          "definition": "Utilise seulement un téléphone que tu connais et qui est sûr."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Garder « uniquement »."
+  },
+  {
+    "id": "SEC-050",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Évitez les réseaux Wi-Fi publics pour vos opérations financières.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "N'utilise pas l'internet de tout le monde pour tes opérations d'argent."
+          ],
+          "definition": "L'internet ouvert à tous n'est pas sûr pour l'argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Conseil de prudence."
+  },
+  {
+    "id": "SEC-051",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Si vous n'êtes pas à l'origine de cette opération, contactez-nous immédiatement.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Si ce n'est pas toi qui as fait cette opération, appelle-nous tout de suite."
+          ],
+          "definition": "Si ce n'est pas toi, préviens-nous tout de suite."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Alerte critique. Garder « immédiatement »."
+  },
+  {
+    "id": "SEC-052",
+    "kind": "template",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Un code de vérification a été envoyé au {numéro}.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Un code a été envoyé au {numéro}."
+          ],
+          "definition": "Un code est envoyé sur ce numéro."
+        }
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "numéro",
+        "type": "phone"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Information. Variables à ne pas traduire : {numéro}"
+  },
+  {
+    "id": "SEC-053",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Le code saisi est incorrect ou a expiré.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Le code écrit est faux ou trop vieux."
+          ],
+          "definition": "Le code est faux, ou le temps est fini."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Information. Garder les deux causes."
+  },
+  {
+    "id": "SEC-054",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Trop de tentatives échouées. Réessayez plus tard.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Trop d'essais ratés. Essaie encore plus tard."
+          ],
+          "definition": "Tu as essayé trop de fois. Attends puis recommence."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Message en deux phrases."
+  },
+  {
+    "id": "SEC-055",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Changez votre mot de passe régulièrement.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Change ton mot secret souvent."
+          ],
+          "definition": "Change ton mot secret de temps en temps."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Conseil de prudence."
+  },
+  {
+    "id": "SEC-056",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ne partagez pas vos identifiants avec un tiers.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Ne donne pas tes noms et mots secrets à une autre personne."
+          ],
+          "definition": "Garde tes informations d'entrée pour toi."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Négation à conserver."
+  },
+  {
+    "id": "SEC-057",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Méfiez-vous des appels qui vous demandent de transférer de l'argent en urgence.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Fais attention aux appels qui te disent d'envoyer de l'argent vite."
+          ],
+          "definition": "Quand quelqu'un te dit d'envoyer de l'argent vite par téléphone, fais attention."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Alerte critique. Garder l'idée d'urgence suspecte."
+  },
+  {
+    "id": "SEC-058",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez l'adresse du site avant de saisir vos informations.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Regarde l'adresse du site avant d'écrire tes informations."
+          ],
+          "definition": "Regarde l'adresse, puis écris tes informations."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Garder l'ordre : vérifier puis saisir."
+  },
+  {
+    "id": "SEC-059",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Signalez toute opération que vous ne reconnaissez pas.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Dis-nous toute opération que tu ne connais pas."
+          ],
+          "definition": "Si une opération n'est pas la tienne, dis-le."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Garder « toute »."
+  },
+  {
+    "id": "SEC-060",
+    "kind": "security",
+    "category": "Sécurité financière",
+    "subcategory": "Alertes et messages de sécurité",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Déconnectez-vous après chaque utilisation.",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "Sors de ton compte chaque fois que tu as fini."
+          ],
+          "definition": "Sors du compte à chaque fin d'utilisation."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Avertissement. Conseil de prudence."
+  }
+]

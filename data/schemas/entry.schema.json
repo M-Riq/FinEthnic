@@ -1,0 +1,612 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finethnic.example/schemas/entry.schema.json",
+  "title": "FinEthnic — entrée de la bibliothèque linguistique",
+  "description": "Une entrée de data/financial-corpus/ ou de data/safinum-test-pages/ (PROJECT_CONTEXT §4.5). Chaque fichier de données contient un tableau JSON de ces entrées. Les contrôles qui portent sur plusieurs champs ou plusieurs entrées (NFC, variables, jeu de caractères, cohérence des statuts, ID uniques, liens) sont faits par scripts/validate-data.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "disposition",
+    "sensitivity",
+    "source",
+    "variables",
+    "target",
+    "links",
+    "deprecated"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/entryId",
+      "description": "Stable : jamais réutilisé ni renommé. Les ID de D8 sont repris tels quels (VOC-001, P1-1…)."
+    },
+    "kind": {
+      "enum": [
+        "term",
+        "action",
+        "security",
+        "message",
+        "template",
+        "guard",
+        "page"
+      ],
+      "description": "page = texte exact d'une des 5 étapes SAFINUM (P1–P5). Valeur ajoutée en BM1 pour les entrées de page (§3.9-1), à valider en S1."
+    },
+    "category": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subcategory": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disposition": {
+      "enum": [
+        "TRANSLATABLE",
+        "PROTECTED",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "sensitivity": {
+      "enum": [
+        "critical",
+        "high",
+        "standard",
+        null
+      ],
+      "description": "null = non renseignée (D8 ne la donne que pour les ACT)."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fr",
+        "en"
+      ],
+      "properties": {
+        "fr": {
+          "$ref": "#/$defs/sourceFr"
+        },
+        "en": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/sourceEn"
+            }
+          ]
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/variable"
+      },
+      "description": "Variables {nom} de la source. Elles doivent se retrouver à l'identique dans toute cible."
+    },
+    "context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "example": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contextHints": {
+      "$ref": "#/$defs/contextHints"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eto"
+      ],
+      "properties": {
+        "eto": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/etoTarget"
+            }
+          ]
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpusRef",
+        "pageRefs",
+        "templateRefs",
+        "duplicateOf",
+        "relatedTo"
+      ],
+      "properties": {
+        "corpusRef": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/entryId"
+                },
+                "type": {
+                  "enum": [
+                    "exact",
+                    "meaning"
+                  ],
+                  "description": "exact : traduction partagée avec l'entrée du corpus. meaning : lien de sens seulement, traduction distincte validée séparément (§3.9-1)."
+                }
+              }
+            }
+          ]
+        },
+        "pageRefs": {
+          "$ref": "#/$defs/idList"
+        },
+        "templateRefs": {
+          "$ref": "#/$defs/idList"
+        },
+        "duplicateOf": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/entryId"
+            }
+          ]
+        },
+        "relatedTo": {
+          "$ref": "#/$defs/idList"
+        },
+        "mergedFrom": {
+          "$ref": "#/$defs/idList",
+          "description": "ID fusionnés dans cette entrée par D8 (ex. MSG-025 dans VOC-078). Ces ID n'existent plus."
+        }
+      }
+    },
+    "deprecated": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "const": "TRANSLATABLE"
+          }
+        },
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "target": {
+            "properties": {
+              "eto": {
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "else": {
+        "properties": {
+          "target": {
+            "properties": {
+              "eto": {
+                "type": "null"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  ],
+  "$defs": {
+    "entryId": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*-[0-9]{1,3}$"
+    },
+    "idList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/entryId"
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "textList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "reviewState": {
+      "enum": [
+        "PENDING",
+        "VALIDATED",
+        "REJECTED"
+      ]
+    },
+    "translationStatus": {
+      "enum": [
+        "SOURCE_EXTRACTED",
+        "TRANSLATION_PENDING",
+        "DICTIONARY_ATTESTED",
+        "CONTEXT_PENDING",
+        "REVIEW_PENDING",
+        "VALIDATED_OBALA"
+      ],
+      "description": "Statuts de traduction de D5. OUT_OF_SCOPE de D5 est porté par `disposition`. Liste à confronter au D5 original (Q21)."
+    },
+    "textRole": {
+      "enum": [
+        "heading",
+        "label",
+        "button",
+        "link",
+        "message",
+        "status",
+        "option",
+        "placeholder",
+        "aria-label",
+        "title",
+        "unknown"
+      ],
+      "description": "Identique à TextRole du contrat (§4)."
+    },
+    "contextHints": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Indices servant UNIQUEMENT à départager plusieurs entrées de même texte (contrat §5.3, étape 4). Ils ne rendent jamais une entrée APPROVED.",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/textRole"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        }
+      }
+    },
+    "variable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^\\p{Ll}[\\p{Ll}\\p{Nd}_]*$",
+          "description": "Nom tel qu'il apparaît entre accolades dans D8 (ex. montant, nom_bénéficiaire)."
+        },
+        "type": {
+          "enum": [
+            "amount",
+            "currency",
+            "date",
+            "time",
+            "duration",
+            "name",
+            "phone",
+            "account-number",
+            "reference",
+            "number",
+            "brand",
+            "other"
+          ]
+        }
+      }
+    },
+    "sourceFr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "variants",
+        "origin"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/text",
+          "description": "Immuable. Pour une entrée de page : le texte EXACT de la page."
+        },
+        "variants": {
+          "$ref": "#/$defs/textList",
+          "description": "Autres formes reconnues sur la page. Jamais les synonymes."
+        },
+        "origin": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Document d'origine (ex. D8)."
+        },
+        "simple": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "synonyms",
+                "definition"
+              ],
+              "description": "D8 : niveaux 2 et 3 de la cascade de traduction (§3.10). Jamais des clés de recherche (§3.9-2).",
+              "properties": {
+                "synonyms": {
+                  "$ref": "#/$defs/textList"
+                },
+                "definition": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/$defs/text"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "sourceEn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "variants",
+        "origin",
+        "mappingReview"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "variants": {
+          "$ref": "#/$defs/textList"
+        },
+        "origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mappingReview": {
+          "$ref": "#/$defs/reviewState",
+          "description": "Relecture de la correspondance FR↔EN (sens financier, §3.7.4-7)."
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer",
+        "date",
+        "aspect",
+        "decision"
+      ],
+      "properties": {
+        "reviewer": {
+          "$ref": "#/$defs/reviewerCode"
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "aspect": {
+          "enum": [
+            "linguistic",
+            "financialMeaning"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "VALIDATED",
+            "CORRECTED",
+            "REJECTED"
+          ]
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewerCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{3,4}-[0-9]{2}$",
+      "description": "Code du relecteur (ex. LOC-01). La correspondance code ↔ nom reste hors du dépôt (§3.7.4-6)."
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+    },
+    "etoTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "variety",
+        "text",
+        "variants",
+        "translationStatus",
+        "dictionaryEvidence",
+        "proposals",
+        "validation"
+      ],
+      "properties": {
+        "variety": {
+          "const": "obala"
+        },
+        "text": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/text"
+            }
+          ],
+          "description": "Forme proposée par une locutrice ou forme validée. Exportée dans le lexique comme traduction approuvée, ou comme traduction non vérifiée tant qu'elle est en attente (Q9). Jamais exportée si elle est rejetée."
+        },
+        "variants": {
+          "$ref": "#/$defs/textList"
+        },
+        "translationStatus": {
+          "$ref": "#/$defs/translationStatus"
+        },
+        "dictionaryEvidence": {
+          "type": "array",
+          "description": "Justification tirée du dictionnaire D7. Jamais une traduction.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "form",
+              "gloss",
+              "ref"
+            ],
+            "properties": {
+              "form": {
+                "$ref": "#/$defs/text"
+              },
+              "gloss": {
+                "$ref": "#/$defs/text"
+              },
+              "ref": {
+                "$ref": "#/$defs/text",
+                "description": "Référence dans D7 (page, entrée)."
+              }
+            }
+          }
+        },
+        "proposals": {
+          "type": "array",
+          "description": "Propositions de la cascade (§3.10). Si text est vide et que l'entrée n'est pas rejetée, la première est exportée dans le lexique comme traduction non vérifiée et affichée avec un marqueur (Q9, contrat §5.2 et §5.4). Les suivantes ne sont jamais exportées.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "method",
+              "from",
+              "rules",
+              "missing",
+              "generatedBy"
+            ],
+            "properties": {
+              "text": {
+                "$ref": "#/$defs/text"
+              },
+              "method": {
+                "enum": [
+                  "direct",
+                  "synonym",
+                  "definition"
+                ]
+              },
+              "from": {
+                "$ref": "#/$defs/text",
+                "description": "Texte français utilisé : le terme, le synonyme ou la définition."
+              },
+              "rules": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "ID des règles de grammar-rules.json appliquées."
+              },
+              "missing": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Mots non trouvés dans D7 dans les textes essayés AVANT celui-ci (terme, synonymes) : ils expliquent le niveau utilisé. Vide pour method « direct »."
+              },
+              "generatedBy": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Script et version (ex. propose-translations@0.1.0)."
+              }
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "linguistic",
+            "financialMeaning",
+            "reviews"
+          ],
+          "properties": {
+            "linguistic": {
+              "$ref": "#/$defs/reviewState"
+            },
+            "financialMeaning": {
+              "$ref": "#/$defs/reviewState"
+            },
+            "reviews": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/review"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

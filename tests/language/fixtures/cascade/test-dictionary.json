@@ -1,0 +1,104 @@
+{
+  "kind": "test",
+  "source": "Mini-dictionnaire de TEST (formes fictives, aucune valeur pour l’Éton)",
+  "entries": [
+    {
+      "fr": "argent",
+      "eto": "⟦TEST:argent⟧",
+      "category": "NOM",
+      "gloss": "argent",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "envoyer",
+      "eto": "⟦TEST:envoyer⟧",
+      "category": "VERBE",
+      "gloss": "envoyer",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "payer",
+      "eto": "⟦TEST:payer⟧",
+      "category": "VERBE",
+      "gloss": "payer",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "portefeuille",
+      "eto": "⟦TEST:portefeuille⟧",
+      "category": "NOM",
+      "gloss": "portefeuille",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "envoi",
+      "eto": "⟦TEST:envoi⟧",
+      "category": "NOM",
+      "gloss": "envoi",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "opération",
+      "eto": "⟦TEST:opération⟧",
+      "category": "NOM",
+      "gloss": "opération",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "restant",
+      "eto": "⟦TEST:restant⟧",
+      "category": "ADJ",
+      "gloss": "restant",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "tu",
+      "eto": "⟦TEST:tu⟧",
+      "category": "PRON",
+      "gloss": "tu",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "peux",
+      "eto": "⟦TEST:peux⟧",
+      "category": "VERBE",
+      "gloss": "peux",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "utiliser",
+      "eto": "⟦TEST:utiliser⟧",
+      "category": "VERBE",
+      "gloss": "utiliser",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "bonjour",
+      "eto": "⟦TEST:bonjour⟧",
+      "category": "EXCL",
+      "gloss": "bonjour",
+      "ref": "TEST p. 1"
+    },
+    {
+      "fr": "compte",
+      "eto": "⟦TEST:compte-1⟧",
+      "category": "NOM",
+      "gloss": "compte (en banque)",
+      "ref": "TEST p. 2"
+    },
+    {
+      "fr": "compte",
+      "eto": "⟦TEST:compte-2⟧",
+      "category": "NOM",
+      "gloss": "compte (calcul)",
+      "ref": "TEST p. 3"
+    },
+    {
+      "fr": "mot de passe",
+      "eto": "⟦TEST:mot de passe⟧",
+      "category": "NOM",
+      "gloss": "mot de passe",
+      "ref": "TEST p. 1"
+    }
+  ]
+}

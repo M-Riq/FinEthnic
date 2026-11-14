@@ -274,7 +274,7 @@ Le membre qui propose le changement doit prévenir l'autre membre, expliquer les
 - Aucune donnée réelle de client dans les tests.
 - Aucun envoi de données financières à un service externe.
 - Aucun stockage inutile de données personnelles.
-- Aucun affichage d'une traduction non approuvée.
+- Aucun affichage d'une traduction non approuvée sans marqueur visible. Dans l'environnement de test, une traduction non vérifiée par une locutrice est signalée comme telle, et le français reste accessible (décision Q9 du 2026-11-13, `INTEGRATION_CONTRACT.md` §5.4).
 - Aucune modification des valeurs financières.
 - Aucun contournement du parcours SAFINUM.
 - Aucun changement du code source de l'application de test.

@@ -1,0 +1,166 @@
+{
+  "description": "Lexique de TEST : hypothèses de bibliothèque du contrat §12. Les cibles sont des marqueurs ⟦TEST:<id>⟧, PAS des traductions Éton. Utilisé par la suite de conformité du vrai moteur (BM5).",
+  "contractVersion": "0.2.0",
+  "libraryVersion": "0.0.0-test.contract-examples",
+  "targetLang": "eto",
+  "variety": "obala",
+  "entries": [
+    {
+      "id": "P2-001",
+      "status": "approved",
+      "sources": {
+        "fr": {
+          "text": "Frais de transfert",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": "⟦TEST:P2-001⟧",
+      "unverifiedTarget": null
+    },
+    {
+      "id": "VOC-028",
+      "status": "approved",
+      "sources": {
+        "fr": {
+          "text": "Frais",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": "⟦TEST:VOC-028⟧",
+      "unverifiedTarget": null
+    },
+    {
+      "id": "VOC-023",
+      "status": "untranslated",
+      "sources": {
+        "fr": {
+          "text": "Montant",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": null
+    },
+    {
+      "id": "P4-012",
+      "status": "pending",
+      "sources": {
+        "fr": {
+          "text": "Confirmer le transfert",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": "⟦TEST:P4-012⟧"
+    },
+    {
+      "id": "VOC-034",
+      "status": "pending",
+      "sources": {
+        "fr": {
+          "text": "Total",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": "⟦TEST:VOC-034⟧"
+    },
+    {
+      "id": "GUARD-001",
+      "status": "protected",
+      "sources": {
+        "fr": {
+          "text": "Safinum Pay",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": null
+    },
+    {
+      "id": "P5-002",
+      "status": "approved",
+      "sources": {
+        "fr": {
+          "text": "Votre transfert a été envoyé avec succès.",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": "⟦TEST:P5-002⟧",
+      "unverifiedTarget": null
+    },
+    {
+      "id": "TST-001",
+      "status": "approved",
+      "sources": {
+        "fr": {
+          "text": "Retour",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "contextHints": {
+        "roles": [
+          "button"
+        ]
+      },
+      "target": "⟦TEST:TST-001⟧",
+      "unverifiedTarget": null
+    },
+    {
+      "id": "TST-002",
+      "status": "approved",
+      "sources": {
+        "fr": {
+          "text": "Retour",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "contextHints": {
+        "roles": [
+          "link"
+        ]
+      },
+      "target": "⟦TEST:TST-002⟧",
+      "unverifiedTarget": null
+    },
+    {
+      "id": "VOC-008",
+      "status": "untranslated",
+      "sources": {
+        "fr": {
+          "text": "Solde disponible",
+          "variants": []
+        },
+        "en": {
+          "text": "Available balance",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": null
+    },
+    {
+      "id": "TST-003",
+      "status": "out-of-scope",
+      "sources": {
+        "fr": {
+          "text": "Points de fidélité",
+          "variants": []
+        }
+      },
+      "variables": [],
+      "target": null,
+      "unverifiedTarget": null
+    }
+  ]
+}

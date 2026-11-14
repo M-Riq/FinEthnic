@@ -1,0 +1,27 @@
+{
+  "name": "finethnic",
+  "version": "0.0.0",
+  "private": true,
+  "description": "FinEthnic — prototype SAFINUM Éton : bibliothèque linguistique, moteur local et extension Chrome",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "validate-data": "tsx scripts/validate-data.ts",
+    "import-sources": "tsx scripts/import-sources.ts",
+    "check-duplicates": "tsx scripts/check-duplicates.ts",
+    "export-l1": "tsx scripts/export-l1.ts",
+    "import-dictionary": "tsx scripts/import-dictionary.ts",
+    "propose-translations": "tsx scripts/propose-translations.ts"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "ajv": "8.20.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  }
+}

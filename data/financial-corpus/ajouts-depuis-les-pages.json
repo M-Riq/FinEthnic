@@ -1,0 +1,834 @@
+[
+  {
+    "id": "PAG-001",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Bonjour",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "salut",
+            "bonne journée"
+          ],
+          "definition": "Un mot pour dire bonjour à quelqu'un."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-2"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-002",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Consulter les frais",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "voir les frais",
+            "regarder le prix"
+          ],
+          "definition": "Regarder combien on paye en plus."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-8"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-003",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Paiement marchand",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "payer chez un vendeur",
+            "payer à la boutique"
+          ],
+          "definition": "Payer de l'argent à un vendeur pour ce qu'on achète."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-10"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-004",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Salaire reçu",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "paye reçue",
+            "argent du travail reçu"
+          ],
+          "definition": "L'argent du travail qui est arrivé dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-11"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-005",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transfert reçu",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent reçu",
+            "envoi reçu"
+          ],
+          "definition": "De l'argent envoyé par quelqu'un est arrivé dans ton compte."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-12"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-006",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Facture électricité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "papier du courant",
+            "note de la lumière"
+          ],
+          "definition": "Papier qui dit combien payer pour le courant."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-13"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-007",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 1",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Sécurité",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "protection",
+            "être à l'abri",
+            "sûreté"
+          ],
+          "definition": "Être protégé pour que personne ne vole ton argent."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P1-14"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-008",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 2",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant à envoyer",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent à envoyer",
+            "combien tu envoies"
+          ],
+          "definition": "Combien d'argent tu veux envoyer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-4"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-009",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 2",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Type d'opération",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "sorte d'opération",
+            "genre d'opération"
+          ],
+          "definition": "Ce qu'on veut faire avec l'argent (envoyer, payer...)."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-5"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-010",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 2",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Compte Safinum",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "compte de l'application Safinum"
+          ],
+          "definition": "Ton compte dans l'application Safinum."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-6"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": [
+        "GUARD-001"
+      ]
+    },
+    "deprecated": false,
+    "notes": "Nom de marque « Safinum » : ne pas traduire."
+  },
+  {
+    "id": "PAG-011",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 2",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Transfert instantané et gratuit",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "envoi tout de suite et sans frais",
+            "vite et pour rien"
+          ],
+          "definition": "L'argent arrive tout de suite et tu ne payes rien."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-7"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-012",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 2",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde après opération",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "argent qui reste après",
+            "argent restant"
+          ],
+          "definition": "L'argent qui reste dans ton compte après l'opération."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P2-11"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-013",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 3",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Renseignez les informations du destinataire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "écris les informations de celui qui reçoit"
+          ],
+          "definition": "Écris le nom et le numéro de celui qui reçoit."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-2"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-014",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 3",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Vérifiez toujours le numéro",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "regarde toujours bien le numéro"
+          ],
+          "definition": "Regarde bien le numéro pour ne pas te tromper."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-3"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-015",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 3",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Ce bénéficiaire n'a jamais été utilisé sur ce compte",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "tu n'as jamais envoyé à cette personne avec ce compte"
+          ],
+          "definition": "C'est la première fois que tu envoies à cette personne."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-4"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-016",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 3",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Paiement de services",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "payer un service",
+            "payer le travail de quelqu'un"
+          ],
+          "definition": "Raison de l'envoi : payer un service."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-8"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "PAG-017",
+    "kind": "message",
+    "category": "Ajout depuis les pages",
+    "subcategory": "Page 3",
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "J'ai vérifié le nom et le numéro du bénéficiaire",
+        "variants": [],
+        "origin": "D8",
+        "simple": {
+          "synonyms": [
+            "j'ai bien regardé le nom et le numéro de celui qui reçoit"
+          ],
+          "definition": "Case pour dire que tu as bien regardé le nom et le numéro."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P3-10"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  }
+]

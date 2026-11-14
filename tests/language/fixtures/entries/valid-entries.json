@@ -1,0 +1,310 @@
+[
+  {
+    "id": "VOC-023",
+    "kind": "term",
+    "category": null,
+    "subcategory": null,
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant",
+        "variants": [],
+        "origin": "TEST",
+        "simple": {
+          "synonyms": [
+            "somme"
+          ],
+          "definition": "La somme d'argent à envoyer."
+        }
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [
+        "P4-3"
+      ],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "P4-3",
+    "kind": "page",
+    "category": null,
+    "subcategory": null,
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Montant",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": {
+        "id": "VOC-023",
+        "type": "exact"
+      },
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "TST-010",
+    "kind": "template",
+    "category": null,
+    "subcategory": null,
+    "disposition": "TRANSLATABLE",
+    "sensitivity": "critical",
+    "source": {
+      "fr": {
+        "text": "Frais : {montant} {devise}",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": null
+    },
+    "variables": [
+      {
+        "name": "montant",
+        "type": "amount"
+      },
+      {
+        "name": "devise",
+        "type": "currency"
+      }
+    ],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": "⟦TEST:TST-010⟧ {montant} {devise}",
+        "variants": [],
+        "translationStatus": "VALIDATED_OBALA",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "VALIDATED",
+          "financialMeaning": "VALIDATED",
+          "reviews": [
+            {
+              "reviewer": "LOC-01",
+              "date": "2026-11-20",
+              "aspect": "linguistic",
+              "decision": "VALIDATED"
+            },
+            {
+              "reviewer": "FIN-01",
+              "date": "2026-11-21",
+              "aspect": "financialMeaning",
+              "decision": "VALIDATED"
+            }
+          ]
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "TST-011",
+    "kind": "message",
+    "category": null,
+    "subcategory": null,
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Votre transfert est envoyé.",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "REVIEW_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [
+          {
+            "text": "⟦TEST:TST-011⟧",
+            "method": "definition",
+            "from": "Votre argent est parti.",
+            "rules": [
+              "TEST-R1"
+            ],
+            "missing": [
+              "parti"
+            ],
+            "generatedBy": "test-fixture@0.0.0"
+          }
+        ],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Proposition de cascade FICTIVE (marqueur de test), pas une traduction."
+  },
+  {
+    "id": "GUARD-001",
+    "kind": "guard",
+    "category": null,
+    "subcategory": null,
+    "disposition": "PROTECTED",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Safinum Pay",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "VOC-008",
+    "kind": "term",
+    "category": null,
+    "subcategory": null,
+    "disposition": "TRANSLATABLE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Solde disponible",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": {
+        "text": "Available balance",
+        "variants": [],
+        "origin": "TEST",
+        "mappingReview": "PENDING"
+      }
+    },
+    "variables": [],
+    "target": {
+      "eto": {
+        "variety": "obala",
+        "text": null,
+        "variants": [],
+        "translationStatus": "TRANSLATION_PENDING",
+        "dictionaryEvidence": [],
+        "proposals": [],
+        "validation": {
+          "linguistic": "PENDING",
+          "financialMeaning": "PENDING",
+          "reviews": []
+        }
+      }
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  },
+  {
+    "id": "TST-012",
+    "kind": "term",
+    "category": null,
+    "subcategory": null,
+    "disposition": "OUT_OF_SCOPE",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Points de fidélité",
+        "variants": [],
+        "origin": "TEST"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finethnic.example/schemas/dictionary.schema.json",
+  "title": "FinEthnic — dictionnaire de la cascade",
+  "description": "Index français → Éton lu par propose-translations (BM3.7, PROJECT_CONTEXT §3.10). Le vrai fichier sera produit par import-dictionary à partir de D7, hors Git (BM3.3). Tant que D7 n'est pas reçu, seul un mini-dictionnaire de test existe (kind « test », formes ⟦TEST:…⟧). Format PROVISOIRE, à revoir avec D7 (Q17, Q23).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "source", "entries"],
+  "properties": {
+    "kind": {
+      "enum": ["test", "d7"],
+      "description": "« test » : formes fictives ⟦TEST:…⟧, jamais écrites dans data/. « d7 » : formes tirées de D7, sans aucun marqueur de test."
+    },
+    "source": { "$ref": "#/$defs/text", "description": "Provenance (ex. « D7, édition 2022 » ou « mini-dictionnaire de test »)." },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fr", "eto", "category", "gloss", "ref"],
+        "properties": {
+          "fr": { "$ref": "#/$defs/text", "description": "Mot ou expression français cherché (forme de base, ex. « argent », « mot de passe »)." },
+          "eto": { "$ref": "#/$defs/text", "description": "Forme Éton telle qu'écrite dans D7 (NFC)." },
+          "category": { "$ref": "#/$defs/text", "description": "Catégorie grammaticale, utilisée par les motifs de grammar-rules.json (ex. NOM, VERBE). Vocabulaire fixé avec D7." },
+          "gloss": { "$ref": "#/$defs/text", "description": "Glose française donnée par D7." },
+          "ref": { "$ref": "#/$defs/text", "description": "Référence dans D7 (page, entrée)." }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "id": "GUARD-001",
+    "kind": "guard",
+    "category": null,
+    "subcategory": null,
+    "disposition": "PROTECTED",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Safinum",
+        "variants": [],
+        "origin": "FinEthnic (ROADMAP BM2.3)"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Nom de marque : ne jamais traduire (D8 PAG-010, PROJECT_CONTEXT §3.6-3)."
+  },
+  {
+    "id": "GUARD-002",
+    "kind": "guard",
+    "category": null,
+    "subcategory": null,
+    "disposition": "PROTECTED",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "Safinum Pay",
+        "variants": [],
+        "origin": "FinEthnic (ROADMAP BM2.3)"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Nom de marque : ne jamais traduire (PROJECT_CONTEXT §3.6-3)."
+  },
+  {
+    "id": "GUARD-003",
+    "kind": "guard",
+    "category": null,
+    "subcategory": null,
+    "disposition": "PROTECTED",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "FCFA",
+        "variants": [],
+        "origin": "FinEthnic (ROADMAP BM2.3)"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Code de devise : toujours protégé, même dans « Franc CFA (FCFA) » (PROJECT_CONTEXT §3.3)."
+  },
+  {
+    "id": "GUARD-004",
+    "kind": "guard",
+    "category": null,
+    "subcategory": null,
+    "disposition": "PROTECTED",
+    "sensitivity": null,
+    "source": {
+      "fr": {
+        "text": "XAF",
+        "variants": [],
+        "origin": "FinEthnic (ROADMAP BM2.3)"
+      },
+      "en": null
+    },
+    "variables": [],
+    "target": {
+      "eto": null
+    },
+    "links": {
+      "corpusRef": null,
+      "pageRefs": [],
+      "templateRefs": [],
+      "duplicateOf": null,
+      "relatedTo": []
+    },
+    "deprecated": false,
+    "notes": "Code de devise ISO 4217 : toujours protégé."
+  }
+]

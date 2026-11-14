@@ -1,0 +1,49 @@
+{
+  "description": "Règles FICTIVES pour les tests de la cascade : aucune valeur pour la grammaire de l’Éton.",
+  "source": "TEST",
+  "ignoredWords": [
+    {
+      "words": [
+        "le",
+        "la",
+        "les",
+        "l'",
+        "un",
+        "une",
+        "des"
+      ],
+      "ref": "TEST",
+      "note": "Liste FICTIVE de test : articles non cherchés."
+    }
+  ],
+  "rules": [
+    {
+      "id": "TEST-R1",
+      "description": "Règle FICTIVE : pronom + verbe + verbe, ordre conservé.",
+      "ref": "TEST",
+      "pattern": [
+        "PRON",
+        "VERBE",
+        "VERBE"
+      ],
+      "order": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "TEST-R2",
+      "description": "Règle FICTIVE : nom + adjectif, ordre inversé.",
+      "ref": "TEST",
+      "pattern": [
+        "NOM",
+        "ADJ"
+      ],
+      "order": [
+        2,
+        1
+      ]
+    }
+  ]
+}
