@@ -1,6 +1,6 @@
 # M22 — Synonymes de D8 compatibles avec D7 (rapport à valider)
 
-**Statut : en attente de validation par le responsable.** Rien n'est encore ajouté aux données ; D8 n'est pas modifié.
+**Statut :** groupe A (15) validé par le responsable le 2026-11-15 et ajouté dans `data/language-resources/d8-synonym-additions.json` (105 → 120 entrées complètes). Le groupe B (35) est en relecture. Le fichier source de D8 n'est pas modifié.
 
 ## Pourquoi
 
@@ -21,27 +21,27 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 
 105 → 155 entrées complètes sur 375 (+50). Les textes de page (P1 à P5) sont comptés à part, car ils n'ont pas de synonymes propres aujourd'hui.
 
-**Colonne « Décision »** : écrire **oui** ou **non** (ou une autre formulation). Le groupe A garde le sens ; le groupe B le rapproche (un mot perdu, un verbe à la place d'un nom, une glose à double sens) et demande votre jugement.
+**Colonne « Décision »** : écrire **oui** ou **non** (ou une autre formulation). Le groupe A garde le sens (validé en bloc) ; le groupe B le rapproche (un mot perdu, un verbe à la place d'un nom, une glose à double sens) et demande votre jugement.
 
 ### A. Sens fidèle (15)
 
 | Sens | ID | Texte de D8 | Synonyme proposé | Éton obtenu | Remarque | Décision |
 |---|---|---|---|---|---|---|
-| ✅ | ACT-031 | Ouvrir un compte | ouvrir le compte | yázî compte | — |  |
-| ✅ | ACT-035 | Ajouter un bénéficiaire | ajouter le bénéficiaire | bág bénéficiaire | « un » bloquait (règle du nombre) |  |
-| ✅ | ACT-043 | Demander un code de vérification | demander le code | bólô code | — |  |
-| ✅ | ACT-053 | Précédent | revenir | dúgnì | — |  |
-| ✅ | VOC-004 | Portefeuille électronique | argent dans le téléphone | mɔ̀ní á ŋ̀-kwǎl | reprend la définition de D8 |  |
-| ✅ | VOC-018 | Devise | monnaie | cáz | entrée cáz1 « monnaie » ; homonymes cáz2–4 (tacle, contrôler) écrits pareil |  |
-| ✅ | VOC-054 | En attente | attendre | yàŋà | D8 : « il faut attendre » |  |
-| ✅ | MSG-021 | Ce service est gratuit. | Service pour rien. | Service á pûpùd. | á pûpùd « pour rien » |  |
-| ✅ | MSG-037 | Frais : {frais} {devise} | Prix : {frais} {devise} | táŋ : {frais} {devise} | D8 : « Prix du service » |  |
-| ✅ | MSG-050 | Numéro de référence : {référence} | Numéro : {référence} | nwàmɔ̀ : {référence} | — |  |
-| ✅ | MSG-078 | Notifications | messages | pɔ́ | pɔ́ « nouvelle, information, message » |  |
-| ✅ | PAG-016 | Paiement de services | payer le service | yágnà service | — |  |
-| ✅ | P2-12 | Retour | revenir | dúgnì | — |  |
-| ✅ | P3-8 | Paiement de services | payer le service | yágnà service | — |  |
-| ✅ | P5-8 | Statut | état | ì-tə́ | — |  |
+| ✅ | ACT-031 | Ouvrir un compte | ouvrir le compte | yázî compte | — | oui (2026-11-15) |
+| ✅ | ACT-035 | Ajouter un bénéficiaire | ajouter le bénéficiaire | bág bénéficiaire | « un » bloquait (règle du nombre) | oui (2026-11-15) |
+| ✅ | ACT-043 | Demander un code de vérification | demander le code | bólô code | — | oui (2026-11-15) |
+| ✅ | ACT-053 | Précédent | revenir | dúgnì | — | oui (2026-11-15) |
+| ✅ | VOC-004 | Portefeuille électronique | argent dans le téléphone | mɔ̀ní á ŋ̀-kwǎl | reprend la définition de D8 | oui (2026-11-15) |
+| ✅ | VOC-018 | Devise | monnaie | cáz | entrée cáz1 « monnaie » ; homonymes cáz2–4 (tacle, contrôler) écrits pareil | oui (2026-11-15) |
+| ✅ | VOC-054 | En attente | attendre | yàŋà | D8 : « il faut attendre » | oui (2026-11-15) |
+| ✅ | MSG-021 | Ce service est gratuit. | Service pour rien. | Service á pûpùd. | á pûpùd « pour rien » | oui (2026-11-15) |
+| ✅ | MSG-037 | Frais : {frais} {devise} | Prix : {frais} {devise} | táŋ : {frais} {devise} | D8 : « Prix du service » | oui (2026-11-15) |
+| ✅ | MSG-050 | Numéro de référence : {référence} | Numéro : {référence} | nwàmɔ̀ : {référence} | — | oui (2026-11-15) |
+| ✅ | MSG-078 | Notifications | messages | pɔ́ | pɔ́ « nouvelle, information, message » | oui (2026-11-15) |
+| ✅ | PAG-016 | Paiement de services | payer le service | yágnà service | — | oui (2026-11-15) |
+| ✅ | P2-12 | Retour | revenir | dúgnì | — | oui (2026-11-15) |
+| ✅ | P3-8 | Paiement de services | payer le service | yágnà service | — | oui (2026-11-15) |
+| ✅ | P5-8 | Statut | état | ì-tə́ | — | oui (2026-11-15) |
 
 ### B. Sens proche, à juger (35)
 
@@ -100,6 +100,6 @@ Aucune reformulation attestée n'a été trouvée. Principaux obstacles, mesuré
 2. **« caisse » → ì-zímí** veut aussi dire « cercueil » : non proposé pour « Compte ».
 3. **« Fermer un compte » → màn compte** (màn = « finir »), alors que « fermer le compte » donnerait dìb compte (dìb = « trouver ; boucher, fermer »). Les deux sont ambigus : à laisser tel quel.
 
-## Après validation
+## Mise en place
 
-Les synonymes validés iront dans un fichier séparé (`data/language-resources/d8-synonym-additions.json`, avec la date de validation), lu par le moteur en plus de D8. Le fichier source de D8 reste intact, et chaque ajout reste traçable.
+Les synonymes validés vont dans `data/language-resources/d8-synonym-additions.json`, avec la date de validation. Le moteur les lit après les synonymes de D8. Au chargement, il vérifie que l'entrée existe, que son texte n'a pas changé dans D8 et que le synonyme est nouveau. Le fichier source de D8 reste intact, et chaque ajout reste traçable.
