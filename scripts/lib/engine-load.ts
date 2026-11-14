@@ -5,6 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ContractResources } from '../../src/engine/contract-engine';
+import type { CorpusEntry } from '../../src/engine/corpus';
 import type { EngineResources } from '../../src/engine/engine';
 import type { WrongSense } from '../../src/engine/select';
 import { parseLexicon } from '../../src/engine/lexicon';
@@ -15,6 +16,7 @@ import { DICTIONARY_PATH, readD7Entries, readIgnoredWords, readPartitives } from
 export const LEXICON_PATH = 'data/language-resources/lefff/lefff-3.4-finethnic.mlex';
 export const SENSE_REVIEW_PATH = 'data/language-resources/sense-review.json';
 export const KEPT_FRENCH_PATH = 'data/language-resources/kept-french-terms.json';
+export const SYNONYM_ADDITIONS_PATH = 'data/language-resources/d8-synonym-additions.json';
 
 export class MissingDictionaryError extends Error {
   constructor() {
@@ -60,6 +62,31 @@ export function readKeptFrench(root: string): string[] {
   return out;
 }
 
+/**
+ * Synonymes validés ajoutés à D8 (M22), placés après ceux de D8. Lève une erreur lisible si un champ manque,
+ * si l'entrée est inconnue, si son texte ne correspond plus à D8 ou si le synonyme est déjà connu.
+ */
+export function withSynonymAdditions(root: string, corpus: readonly CorpusEntry[]): CorpusEntry[] {
+  const data = JSON.parse(readFileSync(join(root, SYNONYM_ADDITIONS_PATH), 'utf8')) as { additions?: unknown };
+  if (!Array.isArray(data.additions)) throw new Error(`${SYNONYM_ADDITIONS_PATH} : « additions » doit être une liste`);
+  const byId = new Map(corpus.map((e) => [e.id, { ...e, synonyms: [...e.synonyms] }]));
+  const key = (t: string): string => t.trim().toLocaleLowerCase('fr');
+  data.additions.forEach((a: Record<string, unknown>, i) => {
+    for (const field of ['entryId', 'text', 'synonym', 'reason', 'ref', 'decidedBy', 'date'] as const) {
+      if (typeof a[field] !== 'string' || (a[field] as string).trim() === '') {
+        throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}].${field} manquant`);
+      }
+    }
+    const e = byId.get(a.entryId as string);
+    if (e === undefined) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : entrée de D8 inconnue ${String(a.entryId)}`);
+    if (e.text !== a.text) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : le texte de ${e.id} est « ${e.text} » dans D8`);
+    const synonym = (a.synonym as string).trim();
+    if (e.synonyms.some((x) => key(x) === key(synonym))) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : « ${synonym} » est déjà un synonyme de ${e.id}`);
+    e.synonyms.push(synonym);
+  });
+  return corpus.map((e) => byId.get(e.id) as CorpusEntry);
+}
+
 export function loadEngineResources(root: string): EngineResources {
   return engineResources(root, readLibraryEntries(root).entries);
 }
@@ -73,7 +100,7 @@ export function loadContractResources(root: string): ContractResources {
 function engineResources(root: string, entries: Parameters<typeof corpusEntries>[0]): EngineResources {
   const d7 = readD7Entries(root);
   if (d7 === null) throw new MissingDictionaryError();
-  const corpus = corpusEntries(entries);
+  const corpus = withSynonymAdditions(root, corpusEntries(entries));
   return {
     corpus,
     guards: guardTexts(entries),

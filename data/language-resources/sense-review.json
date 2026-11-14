@@ -9,6 +9,15 @@
       "reason": "D7 : lìŋ « épargner, mettre de côté ». Dans « Rejeter », « mettre de côté » veut dire écarter une demande, pas épargner de l'argent.",
       "decidedBy": "responsable du projet",
       "date": "2026-11-14"
+    },
+    {
+      "entryId": "ACT-051",
+      "fr": "Retourner",
+      "eto": "vyàŋlà",
+      "ref": "D7 p. 269 (lexique n° 3258)",
+      "reason": "D7 : vyàŋlà « retourner, renverser » (« Elle a retourné son enfant dans le lit »). Le bouton « Retourner » veut dire revenir à l'écran d'avant (D8), pas renverser un objet. Le synonyme de D8 « revenir » donne dúgnì « revenir, rentrer » (D7 p. 104, n° 483).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
     }
   ]
 }
