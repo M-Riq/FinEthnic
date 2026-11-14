@@ -79,11 +79,21 @@ export function chooseEntry(entries: readonly D7Entry[], preferred: ReadonlySet<
 }
 
 export interface D7Sense {
-  /** Nombre de sens numérotés de l'entrée (« 1) signe, preuve 2) symbole » : 2). */
+  /**
+   * Nombre de sens numérotés de l'entrée (« 1) signe, preuve 2) symbole » : 2). 1 si chaque sens
+   * contient la clé (« 1) refuser, ne pas accorder… 2) refuser, ne pas accepter »).
+   */
   senses: number;
   /** Précision entre parenthèses qui suit le mot dans la glose (« langue (organe) » : « organe »). */
   qualifier: string | null;
+  /**
+   * La clé ouvre la glose ou l'un de ses sens numérotés : c'est le sens premier du mot éton. Faux pour
+   * « lìŋ : épargner, mettre de côté » cherché par « mettre de côté » (le mot veut d'abord dire « épargner »).
+   */
+  primary: boolean;
 }
+
+const SENSE_NUMBER = /(?:^|\s)\d+\)\s*/u;
 
 /**
  * Sens d'une entrée pour une clé française. D7 regroupe plusieurs sens par entrée : le moteur ne peut
@@ -91,10 +101,14 @@ export interface D7Sense {
  */
 export function senseOf(entry: D7Entry, key: string): D7Sense {
   const gloss = entry.gloss.replace(/[’‘]/gu, "'");
-  const senses = Math.max(1, (gloss.match(/(?:^|\s)\d+\)/gu) ?? []).length);
+  const parts = gloss.split(new RegExp(SENSE_NUMBER.source, 'gu')).filter((p) => p.trim() !== '');
+  const keys = parts.map((p) => ` ${frenchKey(p)} `);
+  const numbered = Math.max(1, (gloss.match(/(?:^|\s)\d+\)/gu) ?? []).length);
+  const senses = numbered > 1 && keys.every((k) => k.includes(` ${key} `)) ? 1 : numbered;
   const lower = gloss.toLocaleLowerCase('fr');
   const at = lower.indexOf(key);
   const after = at < 0 ? '' : gloss.slice(at + key.length);
   const qualifier = /^\s*\(([^)]*)\)/u.exec(after)?.[1]?.trim() ?? null;
-  return { senses, qualifier };
+  const primary = parts.some((p) => frenchKey((p.split(/[,;]/u)[0] ?? '').replace(/\([^)]*\)/gu, ' ')) === key);
+  return { senses, qualifier, primary };
 }

@@ -8,6 +8,7 @@ Ressources utilisées **pendant la préparation** de la bibliothèque. Elles ne 
 |---|---|---|---|
 | `duplicate-review.json` | Listes tenues à la main pour le rapport de doublons (BM2.4) | Oui | BM2 |
 | `grammar-rules.json` | Règles de formation des phrases de D7, utilisées par la cascade (BM3.6, §3.10). Format : `../schemas/grammar-rules.schema.json` | Oui | **Vide** jusqu'à Q23 (règles à transcrire) |
+| `sense-review.json` | Sens faux relevés (M18) : dans une entrée de D8, une forme éton citée de D7 qui trahit le sens (« Rejeter » → « mettre de côté » → lìŋ « épargner »). Le moteur écarte ces candidats, puis essaie les autres synonymes, la définition, et laisse le français si rien de juste ne reste. Chaque ligne : `entryId`, `fr`, `eto`, `ref` (page et n° de D7), `reason` | Oui | 1 sens relevé (2026-11-14) |
 | `raw/` | D7 tel que reçu (`dictionnaire_eton_lexique.md`), son extraction `dictionary.json` et les rapports `import-report.md` et `cascade-report.md`. Format de l'extraction : `../schemas/dictionary.schema.json` | **Non** (`.gitignore`) | D7 reçu le 2026-11-13 |
 
 ## Provenance et licence

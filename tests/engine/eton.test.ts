@@ -12,7 +12,7 @@ const gapIds = (r: EtonText): string[] => r.gaps.map((g) => (g.kind === 'WORD' ?
 describe('d7 — index et choix (M6)', () => {
   it('cherche par clé normalisée, y compris les expressions de plusieurs mots', () => {
     expect(D7.get('pour rien').map((x) => x.eto)).toEqual(['á pûpùd']);
-    expect(D7.maxWords).toBe(2);
+    expect(D7.maxWords).toBe(3);
   });
 
   it('préfère la catégorie attendue, puis une forme libre, puis la plus courte, et garde les autres', () => {
@@ -23,10 +23,20 @@ describe('d7 — index et choix (M6)', () => {
     expect(isBoundForm('m-wán')).toBe(false);
   });
 
-  it('décrit le sens : nombre de sens numérotés et précision entre parenthèses', () => {
+  it('décrit le sens : nombre de sens numérotés, précision entre parenthèses, sens premier', () => {
     const [organ] = D7.get('langue').filter((x) => x.eto === 'ù-jə́m');
-    expect(senseOf(organ as D7Entry, 'langue')).toEqual({ senses: 2, qualifier: 'organe' });
-    expect(senseOf(D7.get('argent')[0] as D7Entry, 'argent')).toEqual({ senses: 1, qualifier: null });
+    expect(senseOf(organ as D7Entry, 'langue')).toEqual({ senses: 2, qualifier: 'organe', primary: true });
+    expect(senseOf(D7.get('argent')[0] as D7Entry, 'argent')).toEqual({ senses: 1, qualifier: null, primary: true });
+    // « rejeter » ouvre le 3e sens de pàzì : sens premier de ce sens, mais mot à plusieurs sens.
+    expect(senseOf(D7.get('rejeter')[0] as D7Entry, 'rejeter')).toEqual({ senses: 3, qualifier: null, primary: true });
+  });
+
+  it('un seul sens si chaque sens numéroté contient la clé (bɛ̀n : « 1) refuser… 2) refuser… »)', () => {
+    expect(senseOf(D7.get('refuser')[0] as D7Entry, 'refuser')).toMatchObject({ senses: 1, primary: true });
+  });
+
+  it('sens second : lìŋ veut d’abord dire « épargner », pas « mettre de côté »', () => {
+    expect(senseOf(D7.get('mettre de côté')[0] as D7Entry, 'mettre de côté')).toEqual({ senses: 1, qualifier: null, primary: false });
   });
 });
 

@@ -1,0 +1,14 @@
+{
+  "description": "Sens faux relevés (décision M18). Dans l'entrée de D8 « entryId », la forme éton « eto », obtenue par les mots « fr », trahit le sens financier : le moteur écarte les candidats qui l'utilisent, essaie les autres synonymes puis la définition, et laisse le texte en français si rien de juste ne reste.",
+  "wrongSenses": [
+    {
+      "entryId": "ACT-022",
+      "fr": "mettre de côté",
+      "eto": "lìŋ",
+      "ref": "D7 p. 173 (lexique n° 1606)",
+      "reason": "D7 : lìŋ « épargner, mettre de côté ». Dans « Rejeter », « mettre de côté » veut dire écarter une demande, pas épargner de l'argent.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-14"
+    }
+  ]
+}

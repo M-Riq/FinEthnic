@@ -10,7 +10,7 @@ import { buildCorpus, type CorpusEntry } from './corpus';
 import { buildD7Index, type D7Entry } from './d7';
 import { ETON_RULES, type IgnoredWords } from './eton';
 import type { Lexicon } from './lexicon';
-import { type SelectOptions, selectText, type TextResult } from './select';
+import { type SelectOptions, selectText, type TextResult, type WrongSense } from './select';
 import { simplify } from './simplify';
 
 export const ENGINE_VERSION = '0.1.0';
@@ -27,6 +27,8 @@ export interface EngineResources {
   ignored: readonly IgnoredWords[];
   /** Identifiants des entrées critiques de D8. */
   critical: readonly string[];
+  /** Sens faux relevés (M18) : data/language-resources/sense-review.json. */
+  wrongSenses?: readonly WrongSense[];
 }
 
 export interface EngineInfo {
@@ -36,6 +38,8 @@ export interface EngineInfo {
   d7Keys: number;
   lexiconForms: number;
   criticalEntries: number;
+  /** Sens faux relevés (M18). */
+  wrongSenses: number;
   /** Règles de D7 appliquées (classe A). Les classes B et C sont rendues comme des manques. */
   activeRules: string[];
 }
@@ -55,7 +59,10 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
   const { guards, lexicon, ignored } = resources;
   const corpus = buildCorpus(resources.corpus, { guards, lexicon });
   const d7 = buildD7Index(resources.d7);
-  const options: SelectOptions = { guards, lexicon, ignored, critical: new Set(resources.critical) };
+  const references = new Map(resources.corpus.map((e) => [e.id, [e.text, ...e.synonyms, e.definition ?? ''].join(' . ')] as const));
+  const options: SelectOptions = {
+    guards, lexicon, ignored, critical: new Set(resources.critical), references, wrongSenses: resources.wrongSenses ?? [],
+  };
   const cacheSize = engineOptions.cacheSize ?? 1000;
   const cache = new Map<string, TextResult>();
 
@@ -66,6 +73,7 @@ export function createEngine(resources: EngineResources, engineOptions: EngineOp
     d7Keys: d7.size,
     lexiconForms: lexicon.size,
     criticalEntries: options.critical?.size ?? 0,
+    wrongSenses: options.wrongSenses?.length ?? 0,
     activeRules: Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id),
   };
 

@@ -1,9 +1,13 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import type { AddressInfo } from 'node:net';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { CorpusEntry } from '../../src/engine/corpus';
 import { createEngine, type EngineResources } from '../../src/engine/engine';
 import { ETON_RULES } from '../../src/engine/eton';
 import { INCOMPLETE_MARKER, type TextResult, type UnitResult } from '../../src/engine/select';
+import { readWrongSenses, SENSE_REVIEW_PATH } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
@@ -102,9 +106,70 @@ describe('select — statuts (M2, M4, M7)', () => {
   });
 });
 
+describe('select — contrôle du sens (M18)', () => {
+  const REJETER = entry('ACT-022', 'Rejeter', ['mettre de côté', 'refuser'], 'Ne pas accepter une demande.');
+  const LIN = { entryId: 'ACT-022', fr: 'mettre de côté', eto: 'lìŋ', ref: 'D7 p. 173 (lexique n° 1606)', reason: 'lìŋ veut dire épargner' };
+  const withEntries = (corpus: CorpusEntry[], wrongSenses: EngineResources['wrongSenses'] = []): ReturnType<typeof createEngine> =>
+    createEngine({ ...RESOURCES, corpus, critical: [], wrongSenses });
+
+  it('« Rejeter » : préfère le synonyme confirmé bɛ̀n (refuser) à lìŋ, qui veut d’abord dire « épargner »', () => {
+    const u = unit(withEntries([REJETER]).translate('Rejeter'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'bɛ̀n', reasons: [] });
+    expect(u.chosen).toMatchObject({ source: 'SYNONYM', text: 'refuser', unconfirmed: [] });
+    expect(u.alternatives.find((c) => c.text === 'mettre de côté')).toMatchObject({ eton: { complete: true }, unconfirmed: ['mettre de côté'] });
+  });
+
+  it('un sens second confirmé par l’entrée de D8 n’est pas signalé', () => {
+    const u = unit(withEntries([entry('X-1', 'Économiser', ['mettre de côté'], "Épargner de l'argent.")]).translate('Économiser'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'lìŋ', reasons: [] });
+  });
+
+  it('sans autre candidat complet, le signal ne bloque pas : SUCCESS avec SENSE_UNCONFIRMED', () => {
+    const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'])]).translate('Écarter'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'lìŋ', reasons: ['SENSE_UNCONFIRMED'] });
+  });
+
+  it('sens faux relevé : le synonyme est écarté, la définition prend le relais', () => {
+    const wrong = { ...LIN, entryId: 'X-2' };
+    const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'], 'Refuser.')], [wrong]).translate('Écarter'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'bɛ̀n.' });
+    expect(u.chosen?.source).toBe('DEFINITION');
+    expect(u.excluded.map((c) => c.text)).toEqual(['mettre de côté']);
+  });
+
+  it('sens faux relevé et rien d’autre : le texte reste en français (FALLBACK, WRONG_SENSE)', () => {
+    const r = withEntries([entry('X-3', 'Mettre de côté')], [{ ...LIN, entryId: 'X-3' }]).translate('Mettre de côté');
+    expect(r).toMatchObject({ status: 'FALLBACK', output: null, draft: null });
+    expect(unit(r)).toMatchObject({ reasons: ['WRONG_SENSE'], chosen: null, output: null });
+    expect(unit(r).excluded.map((c) => c.eton.eto)).toEqual(['lìŋ']);
+  });
+
+  it('sense-review.json : refuse une entrée de D8 inconnue ou un champ manquant', () => {
+    const root = mkdtempSync(join(tmpdir(), 'finethnic-sense-'));
+    const write = (wrongSenses: unknown[]): void => {
+      mkdirSync(join(root, 'data/language-resources'), { recursive: true });
+      writeFileSync(join(root, SENSE_REVIEW_PATH), JSON.stringify({ wrongSenses }));
+    };
+    try {
+      write([LIN]);
+      expect(readWrongSenses(root, new Set(['ACT-022']))).toEqual([LIN]);
+      expect(() => readWrongSenses(root, new Set(['ACT-001']))).toThrow(/entrée de D8 inconnue ACT-022/u);
+      write([{ ...LIN, reason: '' }]);
+      expect(() => readWrongSenses(root, new Set(['ACT-022']))).toThrow(/wrongSenses\[0\]\.reason manquant/u);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it('un sens faux relevé ne concerne que son entrée de D8', () => {
+    const u = unit(withEntries([entry('X-2', 'Écarter', ['mettre de côté'])], [LIN]).translate('Écarter'));
+    expect(u).toMatchObject({ status: 'SUCCESS', output: 'lìŋ', excluded: [] });
+  });
+});
+
 describe('createEngine', () => {
   it('décrit ses ressources et n’applique que les règles de classe A', () => {
-    expect(ENGINE.info()).toMatchObject({ d8Entries: 5, d7Entries: D7_ENTRIES.length, criticalEntries: 1 });
+    expect(ENGINE.info()).toMatchObject({ d8Entries: 5, d7Entries: D7_ENTRIES.length, criticalEntries: 1, wrongSenses: 0 });
     expect(ENGINE.info().activeRules).toEqual(Object.values(ETON_RULES).filter((r) => r.ruleClass === 'A').map((r) => r.id));
   });
 

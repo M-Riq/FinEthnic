@@ -98,6 +98,8 @@ export interface EtonPiece {
   /** Sens de l'entrée : plusieurs sens ou une précision → mot signalé comme ambigu. */
   senses?: number;
   qualifier?: string | null;
+  /** La clé est le sens premier de l'entrée (voir senseOf). */
+  primary?: boolean;
   /** Mot français de plusieurs natures que le contexte ne départage pas → signalé comme ambigu. */
   homograph?: boolean;
   alternatives?: { eto: string; ref: string }[];
@@ -388,7 +390,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       continue;
     }
     const { entry, alternatives } = hit.choice;
-    const { senses, qualifier } = senseOf(entry, hit.key);
+    const { senses, qualifier, primary } = senseOf(entry, hit.key);
     const piece: EtonPiece = {
       fr,
       eto: entry.eto,
@@ -399,6 +401,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       gloss: entry.gloss,
       senses,
       qualifier,
+      primary,
       homograph: hit.homograph,
       alternatives: alternatives.map((a) => ({ eto: a.eto, ref: a.ref })),
     };
