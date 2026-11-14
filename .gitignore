@@ -1,6 +1,8 @@
 node_modules/
 dist/
 dist-dev/
+# Paquets .zip de l'extension (npm run package)
+release/
 coverage/
 # Dictionnaire brut (D7) : jamais versionné ; sa conversion JSON l'est dans data/language-resources/d7/ (Q17 révisée)
 data/language-resources/raw/

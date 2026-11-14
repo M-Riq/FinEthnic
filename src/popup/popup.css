@@ -131,3 +131,4 @@ h1 { margin: 0; font-size: 1.25rem; }
 
 footer { margin-top: 12px; color: var(--muted); font-size: 0.875rem; }
 footer p { margin: 0 0 4px; }
+.credits { font-size: 0.75rem; }

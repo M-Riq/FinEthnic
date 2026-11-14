@@ -4,7 +4,7 @@ Fichier partagé [R+Y] (PROJECT_CONTEXT §4.2). Version initiale (BM1), complét
 
 ## Dépendances d'exécution
 
-Aucun paquet. Le moteur embarque une donnée tierce : l'extrait de Lefff (voir « Sources linguistiques »).
+Aucun paquet. L'extension embarque des données tierces (voir « Sources linguistiques ») : l'adaptation JSON de D7 et de son esquisse grammaticale, et l'extrait de Lefff. Leurs licences sont copiées dans le dossier `licences/` du paquet (`npm run package`), et le popup cite les auteurs.
 
 ## Outils de développement (`devDependencies`, absents du livrable)
 

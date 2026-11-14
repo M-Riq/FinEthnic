@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.extension.json",
     "build": "node build.mjs",
     "build:dev": "node build.mjs --dev",
+    "package": "node build.mjs --zip",
     "validate-data": "tsx scripts/validate-data.ts",
     "import-sources": "tsx scripts/import-sources.ts",
     "check-duplicates": "tsx scripts/check-duplicates.ts",
