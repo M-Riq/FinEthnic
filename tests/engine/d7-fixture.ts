@@ -18,6 +18,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('prêt', 'bə̀bə̀', 'ADV', '1) proche 2) prêt', 'D7 p. 85 (lexique n° 203)'),
   e('avec', 'èè', 'PREP', '1) avec 2) et', 'D7 p. 105 (lexique n° 495)'),
   e('quand', 'ídɛ́n', 'ADV', 'quand?', 'D7 p. 124 (lexique n° 792)'),
+  e('manger', 'dí', 'VERBE', 'manger', 'D7 (lexique n° 428)'),
   e('arbre', 'ì-lə́', 'NOM', 'arbre', 'D7 p. 131 (lexique n° 930)'),
   e('voler', 'jíb', 'VERBE', 'voler, commettre un vol', 'D7 p. 147 (lexique n° 1209)'),
   e('compter', 'láŋ', 'VERBE', '1) lire 2) compter, calculer', 'D7 p. 169 (lexique n° 1558)'),
@@ -35,6 +36,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('prix', 'táŋ', 'NOM', '1) calcul 2) nombre 3) prix, coût', 'D7 p. 251 (lexique n° 2931)'),
   e('langue', 'ù-jə́m', 'NOM', '1) langue (organe) 2) caquet, bavardage', 'D7 p. 259 (lexique n° 3060)'),
   e('payer', 'yágnà', 'VERBE', 'payer, récompenser, rémunérer', 'D7 p. 273 (lexique n° 3307)'),
+  e('attendre', 'yàŋà', 'VERBE', 'attendre', 'D7 (lexique n° 3312)'),
   e('faillir', 'yì', 'AUX', '1) vouloir faire quelque chose 2) être probable de se produire 3) faillir', 'D7 p. 274 (lexique n° 3330)'),
 ];
 

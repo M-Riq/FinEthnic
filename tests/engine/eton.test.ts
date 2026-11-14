@@ -61,9 +61,29 @@ describe('buildEton — traduction complète (règles de classe A seulement)', (
 
   it('question oui/non : « də̀ » en tête ; mot interrogatif laissé à sa place', () => {
     expect(run('Quand ?').eto).toBe('ídɛ́n ?');
-    const r = run("Est-ce que tu envoies l'argent ?");
-    expect(r.draft).toBe('də̀ [tu] lóm mɔ̀ní ?');
+    const r = run("Est-ce que vous envoyez l'argent ?");
+    expect(r.draft).toBe('də̀ [vous] lóm mɔ̀ní ?');
     expect(gapIds(r)).toEqual([ETON_RULES.PRESENT.id]);
+    expect(run("Est-ce que tu envoies l'argent ?").eto).toBe('də̀ ùtə́ ꜜlóm mɔ̀ní ?');
+  });
+
+  it('présent avec « je », « tu », « nous » (M19) : reproduit « mə̀tə́ ꜜdí » de D7 ; ꜜ seulement devant un ton haut', () => {
+    const r = run('Je mange.');
+    expect(r.eto).toBe('mə̀tə́ ꜜdí.');
+    expect(r.sentences[0]?.applied.map((x) => x.id)).toContain(ETON_RULES.PRESENT_PRONOUN.id);
+    expect(r.sentences[0]?.pieces.find((p) => p.fr === 'mange')?.eto).toBe('dí');
+    expect(run('Tu attends.').eto).toBe('ùtə́ yàŋà.');
+    expect(run("Nous envoyons l'argent.").eto).toBe('ɛ̀tə́ ꜜlóm mɔ̀ní.');
+    expect(run("J'envoie l'argent.").eto).toBe('mə̀tə́ ꜜlóm mɔ̀ní.');
+  });
+
+  it('présent : rien n’est produit pour vous, il, elle, ils, un nom sujet, la négation ou un verbe suivi d’un infinitif', () => {
+    for (const text of ['Vous mangez.', 'Il mange.', 'Elles mangent.', "L'enfant mange.", 'Je ne mange pas.', 'Je veux payer.', 'Je viens payer.', 'Je viens vite payer.', 'Tu veux de l’argent.', 'Mange-t-il ?']) {
+      const r = run(text);
+      expect(r.eto, text).toBeNull();
+      expect(r.draft, text).not.toMatch(/tə́/);
+    }
+    expect(gapIds(run('Je ne mange pas.'))).toEqual([ETON_RULES.PRESENT.id, ETON_RULES.NEGATION.id]);
   });
 
   it('une expression de D7 l’emporte sur ses mots, même avec « rien » (« pour rien »)', () => {

@@ -5,7 +5,7 @@
  * - chaque mot plein est cherché dans D7 (forme du texte, puis lemme de même catégorie) ;
  * - seules les règles de classe A de D7 sont appliquées : ordre sujet – verbe – compléments, articles
  *   ignorés (validé en BM3.6), « də̀ » en tête d'une question oui/non, mot interrogatif laissé en place,
- *   impératifs irréguliers kɛ̀ní / zùgá ;
+ *   impératifs irréguliers kɛ̀ní / zùgá ; présent avec « je », « tu » ou « nous » sujet (M19) ;
  * - tout trait qui demande une règle de classe B (inactive par défaut, M10) ou C (non documentée) est
  *   rendu comme un manque, avec la règle et sa référence. Aucun manque → phrase complète.
  *
@@ -40,7 +40,9 @@ export const ETON_RULES = {
   YES_NO: rule('D7-QUESTION-OUI-NON', 'A', '§4 Questions', '« də̀ » en début de phrase.'),
   WH: rule('D7-QUESTION-PARTIELLE', 'A', '§4 Questions', 'Le mot interrogatif reste à sa place.'),
   IMPERATIVE_IRREGULAR: rule('D7-IMPERATIF-IRREGULIER', 'A', '§4 Impératif irrégulier', '« Va ! » kɛ̀ní, « Viens ! » zùgá.'),
-  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif précédé d’un ton bas flottant : notation du ton déduite des exemples seulement.'),
+  PRESENT_PRONOUN: rule('D7-PRESENT-PRONOM', 'A', '§2 Marques du sujet, §3 Temps (« mə̀tə́ ꜜdí » je mange)',
+    'Présent avec « je », « tu » ou « nous » juste avant le verbe : mə̀tə́, ùtə́, ɛ̀tə́ + infinitif ; ꜜ devant un verbe à ton haut initial (171 exemples de D7 sur 178, aucun devant un autre ton sur 257). Validé par le responsable (M19).'),
+  PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), « il », « elle », « ils », « elles » (classe de la chose désignée) et un nom sujet ; négation, être, avoir et verbe suivi d’un infinitif non couverts (M19).'),
   SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', 'Marque de sujet d’un nom : classes du lexique non reliées au tableau des classes 1–10 ; « nous » : ɛ̀ ou bì.'),
   PAST_RECENT_PERFECTIVE: rule('D7-PASSE-RECENT-PERFECTIF', 'C', '§3 Temps', 'MS-H-thème(-H) : tons non documentés.'),
   PAST_RECENT_IMPERFECTIVE: rule('D7-PASSE-RECENT-IMPERFECTIF', 'C', '§3 Temps', 'MS-bə́ + infinitif de la forme G : forme G non documentée.'),
@@ -102,6 +104,8 @@ export interface EtonPiece {
   primary?: boolean;
   /** Mot français de plusieurs natures que le contexte ne départage pas → signalé comme ambigu. */
   homograph?: boolean;
+  /** Ton bas flottant noté ꜜ devant la forme (présent, M19) ; `eto` reste la forme de D7. */
+  downstep?: boolean;
   alternatives?: { eto: string; ref: string }[];
 }
 
@@ -273,6 +277,49 @@ function lookup(tokens: readonly Token[], i: number, roleList: readonly Role[], 
 
 /* ------------------------------------------------------------------ phrase */
 
+/** Marques du sujet + tə́ attestées dans D7 (§2, §3) ; « nous » : ɛ̀tə́ (4 exemples), bìtə́ seulement avec yì « vouloir ». */
+const PRESENT_SUBJECTS: Readonly<Record<string, string>> = { je: 'mə̀tə́', "j'": 'mə̀tə́', tu: 'ùtə́', nous: 'ɛ̀tə́' };
+/** Être, avoir et verbes à valeur de quasi-auxiliaire (D7 §5 : « ànə̀ kɔ̀m », « bìtə́ yì nâ ») : construction propre. */
+const PRESENT_EXCLUDED: ReadonlySet<string> = new Set(['être', 'avoir', 'pouvoir', 'vouloir', 'devoir', 'falloir', 'aller', 'savoir']);
+const VOWELS = new Set('aeiouɛɔəAEIOUƐƆƏ');
+const NASALS = new Set('mnŋMNŊ');
+
+/** Premier porteur de ton de la forme éton : ton haut seul (accent aigu) ? */
+export function highInitial(eto: string): boolean {
+  const chars = [...eto.normalize('NFD')];
+  for (let i = 0; i < chars.length; i++) {
+    const c = chars[i] as string;
+    let j = i + 1;
+    const marks: string[] = [];
+    while (j < chars.length && /\p{M}/u.test(chars[j] as string)) marks.push(chars[j++] as string);
+    const toned = marks.some((m) => '\u0300\u0301\u0302\u030C'.includes(m));
+    if (VOWELS.has(c) || (NASALS.has(c) && toned)) return marks.includes('\u0301') && !marks.some((m) => '\u0300\u0302\u030C'.includes(m));
+  }
+  return false;
+}
+
+/** Verbes au présent dont le sujet « je », « tu » ou « nous » le précède directement : index du verbe → index du sujet. */
+function pronounPresent(s: SentenceAnalysis, roleList: readonly Role[], lexicon: Lexicon | undefined): Map<number, number> {
+  const out = new Map<number, number>();
+  const { tokens } = s;
+  if (negationIndices(tokens).size > 0 || s.restriction) return out;
+  for (const v of s.finiteVerbs) {
+    const subject = wordAt(tokens, v.index - 1);
+    const role = roleList[v.index];
+    if (!subject || subject.enclitic || roleList[v.index - 1]?.kind !== 'SUBJECT' || !(subject.key in PRESENT_SUBJECTS)) continue;
+    if (role?.kind !== 'VERB' || role.finite !== v.index || PRESENT_EXCLUDED.has(v.features?.lemma ?? '')) continue;
+    const { rules, irregular } = verbRules(s, v.index, lexicon);
+    if (irregular || rules.length !== 1 || rules[0] !== ETON_RULES.PRESENT) continue;
+    // « Je viens payer », « tu viens le faire » : verbe suivi d'un infinitif, construction non décrite.
+    let j = v.index + 1;
+    while (roleList[j]?.kind === 'OBJECT' || (wordAt(tokens, j) && (lexicon?.lookup((tokens[j] as Token).key) ?? []).some((r) => r.pos === 'ADV'))) j++;
+    const next = wordAt(tokens, j);
+    if (next && (lexicon?.lookup(next.key) ?? []).some((r) => r.pos === 'VERB' && r.mood === 'INFINITIVE')) continue;
+    out.set(v.index, v.index - 1);
+  }
+  return out;
+}
+
 function verbRules(s: SentenceAnalysis, finite: number, lexicon: Lexicon | undefined): { rules: EtonRule[]; irregular: string | null } {
   const v = s.finiteVerbs.find((x) => x.index === finite);
   const f = v?.features ?? null;
@@ -312,6 +359,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const { lexicon } = options;
   const ignoredWords = new Set((options.ignored ?? []).flatMap((g) => g.words));
   const roleList = roles(s, lexicon, ignoredWords);
+  const present = pronounPresent(s, roleList, lexicon);
+  const subjects = new Map<number, EtonPiece>();
   const pieces: EtonPiece[] = [];
   const gaps: Gap[] = [];
   const applied = new Set<EtonRule>();
@@ -353,10 +402,13 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       case 'NEG':
       case 'RESTRICT':
       case 'SUBJECT':
-      case 'AUXILIARY':
-        pieces.push({ fr: t.text, eto: null, source: 'GRAMMAR', ref: null });
+      case 'AUXILIARY': {
+        const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
+        if (role.kind === 'SUBJECT') subjects.set(i, piece);
+        pieces.push(piece);
         i++;
         continue;
+      }
       case 'POSSESSIVE':
       case 'OBJECT':
         pieces.push({ fr: t.text, eto: null, source: 'GRAMMAR', ref: null });
@@ -369,7 +421,10 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
 
     // Mot plein (ou verbe).
     total++;
+    let presentSubject: EtonPiece | undefined;
     if (role.kind === 'VERB' && role.finite !== null) {
+      const subject = present.get(i);
+      presentSubject = subject === undefined ? undefined : subjects.get(subject);
       const { rules, irregular } = verbRules(s, role.finite, lexicon);
       if (irregular) {
         pieces.push({ fr: t.text, eto: irregular, source: 'RULE', ref: ETON_RULES.IMPERATIVE_IRREGULAR.ref });
@@ -378,9 +433,13 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         i++;
         continue;
       }
-      for (const r of rules) gap(t.text, r);
+      for (const r of rules) if (!(presentSubject && r === ETON_RULES.PRESENT)) gap(t.text, r);
     }
     const hit = lookup(tokens, i, roleList, d7, lexicon);
+    if (presentSubject && !(hit && hit.end === i + 1 && hit.choice.entry.category === 'VERBE' && !isBoundForm(hit.choice.entry.eto))) {
+      gap(t.text, ETON_RULES.PRESENT);
+      presentSubject = undefined;
+    }
     const fr = tokens.slice(i, hit?.end ?? i + 1).map((x) => x.text).join(' ');
     if (!hit) {
       pieces.push({ fr, eto: null, source: 'MISSING', ref: null });
@@ -416,6 +475,13 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       // Participe (« écrit ») ou forme conjuguée non repérée : D7 ne donne que l'infinitif.
       gap(fr, ETON_RULES.VERB_FORM);
     } else found++;
+    if (presentSubject) {
+      presentSubject.eto = PRESENT_SUBJECTS[(tokens[present.get(i) as number] as Token).key] as string;
+      presentSubject.source = 'RULE';
+      presentSubject.ref = ETON_RULES.PRESENT_PRONOUN.ref;
+      if (highInitial(entry.eto)) piece.downstep = true;
+      applied.add(ETON_RULES.PRESENT_PRONOUN);
+    }
     pieces.push(piece);
     i = hit.end;
   }
@@ -437,7 +503,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   }
   if (lexical.length >= 2) applied.add(ETON_RULES.ORDER);
 
-  const parts = pieces.map((p) => ({ text: p.eto ?? `[${p.fr}]`, punct: p.source === 'PUNCT' }));
+  const parts = pieces.map((p) => ({ text: p.eto === null ? `[${p.fr}]` : `${p.downstep ? 'ꜜ' : ''}${p.eto}`, punct: p.source === 'PUNCT' }));
   return {
     fr: s.text,
     pieces,
