@@ -16,7 +16,11 @@ export const CONTRACT_EXAMPLE_SAMPLES: ConformanceSamples = {
       { text: '  Montant  ', sourceLang: 'fr', targetLang: 'eto' },
       { text: 'Available balance', sourceLang: 'auto', targetLang: 'eto' },
     ],
-    PENDING_VALIDATION: [{ text: 'Confirmer le transfert', sourceLang: 'fr', targetLang: 'eto' }],
+    PENDING_VALIDATION: [
+      { text: 'Confirmer le transfert', sourceLang: 'fr', targetLang: 'eto' },
+      // Texte absent de la bibliothèque, composé par le moteur : brouillon (contrat v0.3.0, I7 et §5.4).
+      { text: "Envoyer de l'argent", sourceLang: 'fr', targetLang: 'eto' },
+    ],
     NO_MATCH: [{ text: 'Votre paiement a été envoyé avec succès.', sourceLang: 'fr', targetLang: 'eto' }],
     AMBIGUOUS: [{ text: 'Retour', sourceLang: 'fr', targetLang: 'eto' }],
     PROTECTED: [

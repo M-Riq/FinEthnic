@@ -10,7 +10,7 @@
  */
 
 // --- Transcription exacte de INTEGRATION_CONTRACT.md §4 ---
-export const CONTRACT_VERSION = '0.2.0';
+export const CONTRACT_VERSION = '0.3.0';
 
 export type SourceLang = 'fr' | 'en';
 export type TargetLang = 'eto';
@@ -47,7 +47,18 @@ export type TranslationStatus =
   | 'AMBIGUOUS'           // plusieurs correspondances, impossible de trancher
   | 'PROTECTED';          // texte qui ne doit pas être traduit
 
-export type MatchKind = 'exact' | 'normalized' | 'variant' | 'template' | 'label-value';
+/**
+ * 'composed' : texte absent de la bibliothèque, que le moteur compose à partir des entrées du corpus et
+ * du dictionnaire (I7). Jamais APPROVED ; entryId vaut alors null.
+ */
+export type MatchKind = 'exact' | 'normalized' | 'variant' | 'template' | 'label-value' | 'composed';
+
+/**
+ * Nature d'une traduction non vérifiée (§5.4) :
+ * - 'complete' : tout le texte est rendu ;
+ * - 'partial'  : brouillon ; les mots que le moteur ne sait pas rendre restent en français, entre crochets.
+ */
+export type UnverifiedKind = 'complete' | 'partial';
 
 export type ResultReason =
   | 'protected-entry'      // entrée de la bibliothèque marquée protégée (ex. "Safinum Pay", "FCFA")
@@ -64,10 +75,12 @@ export interface TranslationResult {
   output: string | null;
   /**
    * Non nul SI ET SEULEMENT SI status === 'PENDING_VALIDATION'. Traduction NON VÉRIFIÉE par une locutrice,
-   * texte complet. Affichée seulement avec le marqueur et le texte original au survol (§5.4).
+   * pour tout le texte. Affichée seulement avec le marqueur et le texte original au survol (§5.4).
    */
   unverifiedOutput: string | null;
-  /** ID stable de l'unité de traduction (ex. "VOC-023", "P4-012", "GUARD-001"), sinon null. */
+  /** Non nul SI ET SEULEMENT SI status === 'PENDING_VALIDATION'. 'partial' : brouillon, signalé comme incomplet (§5.4). */
+  unverifiedKind: UnverifiedKind | null;
+  /** ID stable de l'unité de traduction (ex. "VOC-023", "P4-012", "GUARD-001"), sinon null (dont matchKind 'composed'). */
   entryId: string | null;
   /** AMBIGUOUS uniquement : ID des entrées candidates. Sinon []. */
   candidateIds: string[];
@@ -87,6 +100,12 @@ export interface EngineInfo {
   /** Statistiques de la bibliothèque embarquée (aucune donnée de page). */
   entryCounts: { approved: number; pending: number; untranslated: number; protected: number };
 }
+
+/**
+ * Détection des valeurs protégées fournie par l'extension (Q14 révisée, §8) : renvoie, dans l'ordre du
+ * texte, les segments à ne jamais traduire. Le moteur l'ajoute à sa propre détection.
+ */
+export type ProtectedDetector = (text: string) => readonly string[];
 
 export interface TranslationEngine {
   info(): EngineInfo;

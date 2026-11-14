@@ -4,11 +4,12 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import type { ContractResources } from '../../src/engine/contract-engine';
 import type { EngineResources } from '../../src/engine/engine';
 import type { WrongSense } from '../../src/engine/select';
 import { parseLexicon } from '../../src/engine/lexicon';
 import { readLibraryEntries } from './data-files';
-import { corpusEntries, criticalEntryIds, guardTexts } from './engine-corpus';
+import { contractExtras, corpusEntries, criticalEntryIds, guardTexts } from './engine-corpus';
 import { DICTIONARY_PATH, readD7Entries, readIgnoredWords } from './engine-d7';
 
 export const LEXICON_PATH = 'data/language-resources/lefff/lefff-3.4-finethnic.mlex';
@@ -37,9 +38,18 @@ export function readWrongSenses(root: string, knownIds: ReadonlySet<string>): Wr
 }
 
 export function loadEngineResources(root: string): EngineResources {
+  return engineResources(root, readLibraryEntries(root).entries);
+}
+
+/** Ressources du moteur derrière le contrat (MOT6) : celles du moteur, plus les données propres au contrat. */
+export function loadContractResources(root: string): ContractResources {
+  const { entries } = readLibraryEntries(root);
+  return { ...engineResources(root, entries), ...contractExtras(entries) };
+}
+
+function engineResources(root: string, entries: Parameters<typeof corpusEntries>[0]): EngineResources {
   const d7 = readD7Entries(root);
   if (d7 === null) throw new MissingDictionaryError();
-  const { entries } = readLibraryEntries(root);
   const corpus = corpusEntries(entries);
   return {
     corpus,

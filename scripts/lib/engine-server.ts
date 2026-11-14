@@ -6,11 +6,18 @@
  *                      ou `{ "texts": ["…", …] }` → `{ "results": [ … ] }`.
  *   `sourceLang` ('fr' | 'auto') et `targetLang` ('eto') sont acceptés, comme dans la requête du contrat.
  *
+ * Interface du contrat d'intégration (MOT6, INTEGRATION_CONTRACT.md v0.3.0), si un moteur contrat est fourni :
+ * - GET  /contract/info       → EngineInfo ;
+ * - POST /contract/translate  → une TranslationRequest → une TranslationResult,
+ *                               ou `{ "requests": [ … ] }` → `{ "results": [ … ] }`.
+ *   Les requêtes mal formées ne sont pas refusées : le moteur répond NO_MATCH (I2), comme en local.
+ *
  * Le serveur n'écoute que sur l'interface locale (voir scripts/serve-engine.ts). CORS n'est ouvert
  * qu'aux extensions Chrome et aux pages de localhost.
  */
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
 import type { Engine } from '../../src/engine/engine';
+import type { TranslationEngine, TranslationRequest } from '../../src/language/contract';
 
 export const MAX_BODY_BYTES = 1024 * 1024;
 export const MAX_TEXTS = 500;
@@ -71,7 +78,23 @@ export function parseTranslateBody(raw: string): { text: string } | { texts: str
   return { texts: b.texts.map((t, i) => checkText(t, `texts[${i}]`)) };
 }
 
-async function handle(engine: Engine, req: IncomingMessage, res: ServerResponse): Promise<void> {
+/** Valide le corps de POST /contract/translate : une requête du contrat ou `{ requests: [...] }`. */
+export function parseContractBody(raw: string): { request: TranslationRequest } | { requests: TranslationRequest[] } {
+  let body: unknown;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    throw new HttpError(400, 'INVALID_JSON', 'Le corps doit être du JSON.');
+  }
+  if (typeof body !== 'object' || body === null || Array.isArray(body)) throw new HttpError(400, 'INVALID_BODY', 'Le corps doit être un objet JSON.');
+  const b = body as Record<string, unknown>;
+  if (b.requests === undefined) return { request: b as unknown as TranslationRequest };
+  if (!Array.isArray(b.requests)) throw new HttpError(400, 'INVALID_BODY', '« requests » doit être une liste.');
+  if (b.requests.length > MAX_TEXTS) throw new HttpError(400, 'TOO_MANY_TEXTS', `Au plus ${MAX_TEXTS} requêtes par appel.`);
+  return { requests: b.requests as TranslationRequest[] };
+}
+
+async function handle(engine: Engine, contract: TranslationEngine | null, req: IncomingMessage, res: ServerResponse): Promise<void> {
   const origin = req.headers.origin;
   if (origin !== undefined && ALLOWED_ORIGIN.test(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -94,12 +117,23 @@ async function handle(engine: Engine, req: IncomingMessage, res: ServerResponse)
     send(res, 200, 'text' in body ? { result: engine.translate(body.text) } : { results: engine.translateMany(body.texts) });
     return;
   }
+  if (contract !== null && path === '/contract/info') {
+    if (req.method !== 'GET') throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'Utilisez GET.');
+    send(res, 200, contract.info());
+    return;
+  }
+  if (contract !== null && path === '/contract/translate') {
+    if (req.method !== 'POST') throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'Utilisez POST.');
+    const body = parseContractBody(await readBody(req));
+    send(res, 200, 'request' in body ? contract.translate(body.request) : { results: contract.translateMany(body.requests) });
+    return;
+  }
   throw new HttpError(404, 'NOT_FOUND', `Route inconnue : ${path}`);
 }
 
-export function createEngineServer(engine: Engine): Server {
+export function createEngineServer(engine: Engine, contract: TranslationEngine | null = null): Server {
   return createServer((req, res) => {
-    handle(engine, req, res).catch((error: unknown) => {
+    handle(engine, contract, req, res).catch((error: unknown) => {
       if (res.headersSent) return;
       if (error instanceof HttpError) send(res, error.status, { error: error.code, message: error.message });
       else send(res, 500, { error: 'INTERNAL', message: 'Erreur interne du moteur.' });

@@ -61,6 +61,9 @@ export function comparedTokens(tokens: readonly Token[]): Token[] {
 }
 
 const keyOf = (tokens: readonly Token[]): string => tokens.map((t) => t.key).join(' ');
+
+/** Clé de comparaison d'un texte de D8 : deux entrées de même clé ont le même texte pour le moteur. */
+export const textKey = (text: string, guards: readonly string[] = []): string => keyOf(comparedTokens(normalize(text, { guards }).tokens));
 const isWordLike = (t: Token): boolean => t.kind === 'word' || t.kind === 'guard';
 
 /**
