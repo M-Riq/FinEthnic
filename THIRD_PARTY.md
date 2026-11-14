@@ -4,7 +4,7 @@ Fichier partagé [R+Y] (PROJECT_CONTEXT §4.2). Version initiale (BM1), complét
 
 ## Dépendances d'exécution
 
-Aucune. La bibliothèque et le moteur ne dépendent d'aucun paquet à l'exécution.
+Aucun paquet. Le moteur embarque une donnée tierce : l'extrait de Lefff (voir « Sources linguistiques »).
 
 ## Outils de développement (`devDependencies`, absents du livrable)
 
@@ -26,6 +26,7 @@ Les dépendances indirectes sont figées dans `package-lock.json`.
 | Source | Usage | Licence / citation |
 |---|---|---|
 | Corpus fusionné D8 (`docs/sources/`) | Textes français, synonymes et définitions simples | Document du projet |
+| Lefff 3.4 (*Lexique des formes fléchies du français*), Benoît Sagot, « The Lefff, a freely available and large-coverage morphological and syntactic lexicon for French », LREC 2010 | Lemmes, modes, temps et personnes des mots français (moteur, MOT2). **Extrait modifié** versionné dans `data/language-resources/lefff/` et embarqué par le moteur. Source : copie GitHub [ClaudeCoulombe/FrenchLefffLemmatizer](https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer) @ `bc0ebd0`, `lefff-3.4.mlex`, SHA-256 `f3da25e5…`; régénération : `npm run build-lefff` | [LGPL-LR](data/language-resources/lefff/LICENSE-LGPL-LR.txt) : l'extrait reste sous LGPL-LR, avec la licence et un avis de modification daté en tête du fichier (M12) |
 | *Dictionnaire éton–français* (D7), Mark Van de Velde & Kisito Essele Essele, Éditions CLÉ, Yaoundé, 2022 | Propositions de la cascade et leur justification (BM3). Hors Git ; seules les formes citées sont versionnées, avec leur page | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr) : les fichiers qui contiennent des formes de D7 sont diffusés sous la même licence (Q17) |
 
 ## Outils d'IA

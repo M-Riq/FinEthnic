@@ -162,4 +162,29 @@ describe('la suite de conformité détecte les moteurs non conformes', () => {
     const samples = { ...CONTRACT_EXAMPLE_SAMPLES, byStatus: { ...CONTRACT_EXAMPLE_SAMPLES.byStatus, AMBIGUOUS: [] } };
     expect(failingChecks(engineWith(translateWithTable), samples)).toContain('T-CON-01');
   });
+
+  it('T-CON-02 : un brouillon sans unverifiedKind, présenté comme complet par défaut (I3)', () => {
+    const unlabeled = engineWith((req) => ({ ...translateWithTable(req), unverifiedKind: null }));
+    expect(failingChecks(unlabeled)).toEqual(['T-CON-02']);
+  });
+
+  it('T-CON-02 : un texte composé approuvé ou rattaché à une entrée (I7)', () => {
+    const approvesComposed = engineWith((req) => {
+      const r = translateWithTable(req);
+      return r.matchKind === 'composed' ? { ...r, entryId: 'P5-002' } : r;
+    });
+    expect(failingChecks(approvesComposed)).toEqual(['T-CON-02']);
+  });
+
+  it('T-CON-01 et T-CON-02 : un statut déclaré jamais renvoyé', () => {
+    const { AMBIGUOUS: _ambiguous, ...rest } = CONTRACT_EXAMPLE_SAMPLES.byStatus;
+    const declared = { ...CONTRACT_EXAMPLE_SAMPLES, byStatus: { ...rest, AMBIGUOUS: [] }, neverReturned: { AMBIGUOUS: 'test' } };
+    const noAmbiguous = (req: TranslationRequest): TranslationResult =>
+      translateWithTable(req.text === 'Retour' ? { ...req, text: 'inconnu' } : req);
+    expect(failingChecks(engineWith(noAmbiguous), declared)).toEqual([]);
+    // Déclaration fausse : AMBIGUOUS sur une chaîne sonde.
+    const liar = engineWith((req) => (req.text === '__proto__' ? translateWithTable({ ...req, text: 'Retour', sourceLang: 'fr' }) : noAmbiguous(req)));
+    expect(failingChecks(liar, declared)).toEqual(['T-CON-02']);
+    expect(failingChecks(engineWith(noAmbiguous), { ...declared, neverReturned: { APPROVED: 'test', AMBIGUOUS: 'test' } })).toContain('T-CON-01');
+  });
 });

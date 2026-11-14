@@ -31,7 +31,7 @@ export const STATUSES = [
 const exhaustive: Exclude<TranslationStatus, (typeof STATUSES)[number]> extends never ? true : never = true;
 void exhaustive;
 
-const MATCH_KINDS: readonly (MatchKind | null)[] = ['exact', 'normalized', 'variant', 'template', 'label-value', null];
+const MATCH_KINDS: readonly (MatchKind | null)[] = ['exact', 'normalized', 'variant', 'template', 'label-value', 'composed', null];
 
 /** Raisons admises pour chaque statut (commentaires de ResultReason, contrat §4). */
 const REASONS_BY_STATUS: Record<TranslationStatus, readonly (ResultReason | null)[]> = {
@@ -47,8 +47,14 @@ const REASONS_BY_STATUS: Record<TranslationStatus, readonly (ResultReason | null
 export const MAX_TEXT_LENGTH = 2000;
 
 export interface ConformanceSamples {
-  /** Au moins une requête par statut (T-CON-01). */
+  /** Au moins une requête par statut (T-CON-01), sauf pour les statuts déclarés dans `neverReturned`. */
   byStatus: Record<TranslationStatus, readonly TranslationRequest[]>;
+  /**
+   * Statuts que le moteur ne renvoie jamais, avec la raison (ex. le moteur MOT ne produit pas AMBIGUOUS :
+   * D8 garde une seule entrée par texte). Aucun échantillon n'est alors demandé, et la suite vérifie que
+   * le statut n'apparaît sur aucune requête. APPROVED et PENDING_VALIDATION ne peuvent pas y figurer (cas de bord).
+   */
+  neverReturned?: Partial<Record<TranslationStatus, string>>;
   /**
    * Cas de bord APPROVED (T-CON-04) : espaces au début ET à la fin, et valeurs protégées connues
    * dans l'ordre du texte, ex. { request: "  Frais : 0 FCFA ", protectedSegments: ["0", "FCFA"] }.
@@ -192,7 +198,15 @@ export function checkResultShape(req: TranslationRequest, res: unknown): string[
   } else if (r.status === 'AMBIGUOUS' ? r.candidateIds.length < 2 : r.candidateIds.length !== 0) {
     out.push(`${where} : ${r.status} avec ${r.candidateIds.length} candidat(s) (≥ 2 si AMBIGUOUS, sinon [])`);
   }
-  const needsEntry = r.status === 'APPROVED' || r.status === 'KNOWN_UNTRANSLATED' || r.status === 'PENDING_VALIDATION';
+  if (r.status === 'PENDING_VALIDATION' ? r.unverifiedKind !== 'complete' && r.unverifiedKind !== 'partial' : r.unverifiedKind !== null) {
+    out.push(`${where} : ${r.status} avec unverifiedKind ${JSON.stringify(r.unverifiedKind)} (I3 : 'complete' ou 'partial' ⇔ PENDING_VALIDATION)`);
+  }
+  // I7 : un texte composé par le moteur n'est jamais APPROVED et ne renvoie à aucune entrée.
+  const composed = r.matchKind === 'composed';
+  if (composed && (r.status !== 'PENDING_VALIDATION' || r.entryId !== null)) {
+    out.push(`${where} : matchKind "composed" avec ${r.status} et entryId ${JSON.stringify(r.entryId)} (attendu : PENDING_VALIDATION, entryId null)`);
+  }
+  const needsEntry = r.status === 'APPROVED' || r.status === 'KNOWN_UNTRANSLATED' || (r.status === 'PENDING_VALIDATION' && !composed);
   if (needsEntry && (typeof r.entryId !== 'string' || r.entryId.length === 0)) {
     out.push(`${where} : ${r.status} sans entryId`);
   }
@@ -292,8 +306,16 @@ export const CONFORMANCE_CHECKS: readonly ConformanceCheck[] = [
     title: 'un cas par statut : les 6 statuts sont obtenus',
     run(engine, samples) {
       const out: string[] = [];
+      const never = samples.neverReturned ?? {};
+      for (const status of ['APPROVED', 'PENDING_VALIDATION'] as const) {
+        if (never[status] !== undefined) out.push(`${status} ne peut pas être déclaré jamais renvoyé (cas de bord obligatoire)`);
+      }
       for (const status of STATUSES) {
         const reqs = samples.byStatus[status] ?? [];
+        if (never[status] !== undefined) {
+          if (reqs.length > 0) out.push(`${status} est déclaré jamais renvoyé, mais a des échantillons`);
+          continue;
+        }
         if (reqs.length === 0) out.push(`aucun échantillon pour ${status}`);
         for (const req of reqs.map(deepFreeze)) {
           const res = call(engine, req, out);
@@ -305,12 +327,14 @@ export const CONFORMANCE_CHECKS: readonly ConformanceCheck[] = [
   },
   {
     id: 'T-CON-02',
-    title: 'forme des résultats et I3 (output ⇔ APPROVED, unverifiedOutput ⇔ PENDING_VALIDATION)',
+    title: 'forme des résultats et I3 (output ⇔ APPROVED, unverifiedOutput et unverifiedKind ⇔ PENDING_VALIDATION), I7',
     run(engine, samples) {
       const out: string[] = [];
+      const never = samples.neverReturned ?? {};
       for (const req of [...allSamples(samples), ...probes()]) {
         const res = call(engine, req, out);
         if (res) out.push(...checkResultShape(req, res));
+        if (res && never[res.status] !== undefined) out.push(`${label(req)} : ${res.status}, déclaré jamais renvoyé`);
       }
       return out;
     },
