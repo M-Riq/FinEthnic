@@ -142,6 +142,32 @@ describe('buildEton — partitif après un verbe (M21)', () => {
   });
 });
 
+describe('buildEton — connectif « de » entre deux noms (M26)', () => {
+  const CONNECTIVES = [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', 'du', "d'"], forms: { '1': 'à', '9': 'ì', 's.g': 'à' }, ref: 'D7 p. 196 (lexique n° 1991)' }];
+  const conn = (text: string, kept: string[] = []): EtonText =>
+    buildEton(text, D7, { guards: GUARDS, lexicon: LEXICON, ignored: IGNORED, connectives: CONNECTIVES, kept });
+  const applied = (r: EtonText): string[] => r.sentences.flatMap((x) => x.applied.map((a) => a.id));
+
+  it('la forme suit la classe du premier nom de D7 ; le second peut être un terme gardé', () => {
+    const r = conn("Le prix de l'argent");
+    expect(r).toMatchObject({ eto: 'táŋ ì mɔ̀ní', complete: true, gaps: [] });
+    expect(applied(r)).toContain('D7-CONNECTIF-CLASSE');
+    expect(conn("L'enfant du prix").eto).toBe('m-wán à táŋ');
+    expect(conn("L'argent du compte", ['compte']).eto).toBe('mɔ̀ní à compte');
+  });
+
+  it('« de » reste un manque : classe sans forme, premier nom gardé en français, pas entre deux noms', () => {
+    expect(gapIds(conn("L'arbre de l'argent"))).toEqual(['WORD:de']);
+    expect(gapIds(conn("Le compte de l'argent", ['compte']))).toEqual(['WORD:de']);
+    expect(gapIds(conn("Envoyer de l'argent"))).toEqual(['WORD:de']);
+    expect(applied(conn("L'arbre de l'argent"))).not.toContain('D7-CONNECTIF-CLASSE');
+  });
+
+  it('pas de connectif séparé devant un second nom à voyelle initiale : la fusion n’est pas documentée', () => {
+    expect(gapIds(conn("L'enfant de l'arbre"))).toEqual(['WORD:de']);
+  });
+});
+
 describe('buildEton — manques signalés, jamais inventés', () => {
   it('un mot absent de D7 donne un brouillon, pas une traduction', () => {
     const r = run('Envoyer le code');

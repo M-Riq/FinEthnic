@@ -50,6 +50,8 @@ export interface D7Row {
   form: string;
   homonym: number | null;
   category: string;
+  /** Colonne « Classe nominale » (« 9/10 », « s.g »…), ou null si vide. */
+  nounClass: string | null;
   french: string;
   page: number;
 }
@@ -71,7 +73,7 @@ export function readD7(markdown: string): D7Row[] {
   }
   const problems: string[] = [];
   const rows = table.rows.map(({ line, cells }, i): D7Row => {
-    const [n, headword, , category, , , french, , page] = cells as string[];
+    const [n, headword, , category, nounClass, , french, , page] = cells as string[];
     if (n !== String(i + 1)) problems.push(`ligne ${line} : N° « ${n} » au lieu de ${i + 1}`);
     if (!/^[1-9]\d*$/u.test(page ?? '')) problems.push(`ligne ${line} : page « ${page} » invalide`);
     if (!headword) problems.push(`ligne ${line} : mot éton vide`);
@@ -82,6 +84,7 @@ export function readD7(markdown: string): D7Row[] {
       form: homonym ? (homonym[1] as string) : headword ?? '',
       homonym: homonym ? Number(homonym[2]) : null,
       category: category ?? '',
+      nounClass: nounClass ? nounClass : null,
       french: french ?? '',
       page: Number(page),
     };
@@ -149,7 +152,8 @@ export function buildD7Dictionary(rows: readonly D7Row[], source: string): D7Imp
     const { keys, rejected } = frenchKeys(row.french);
     for (const key of rejected) result.rejectedKeys.push({ row, key });
     if (keys.length === 0) result.noKey.push(row);
-    for (const fr of keys) entries.push({ fr, eto: row.form, category: code, gloss: row.french, ref: d7Ref(row) });
+    const nounClass = code === 'NOM' && row.nounClass ? { nounClass: row.nounClass } : {};
+    for (const fr of keys) entries.push({ fr, eto: row.form, category: code, gloss: row.french, ref: d7Ref(row), ...nounClass });
   }
   return { dictionary: { kind: 'd7', source, entries }, ...result };
 }

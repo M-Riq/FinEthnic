@@ -25,6 +25,8 @@ export interface D7Entry {
   gloss: string;
   /** « D7 p. 238 (lexique n° 2716) ». */
   ref: string;
+  /** Classe nominale de D7 (« 9/10 », « s.g »), noms seulement : accord du connectif (M26). */
+  nounClass?: string;
 }
 
 export interface D7Index {

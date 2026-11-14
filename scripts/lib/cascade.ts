@@ -24,6 +24,8 @@ export interface DictionaryEntry {
   category: string;
   gloss: string;
   ref: string;
+  /** Classe nominale de D7 (« 9/10 », « s.g »), noms seulement (M26). */
+  nounClass?: string;
 }
 
 export interface Dictionary {

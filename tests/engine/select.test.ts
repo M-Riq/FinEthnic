@@ -11,7 +11,7 @@ import {
   KEPT_FRENCH_PATH, readKeptFrench, readWrongSenses, SENSE_REVIEW_PATH, SYNONYM_ADDITIONS_PATH, withSynonymAdditions,
 } from '../../scripts/lib/engine-load';
 import { createEngineServer } from '../../scripts/lib/engine-server';
-import { GRAMMAR_RULES_PATH, readPartitives } from '../../scripts/lib/engine-d7';
+import { GRAMMAR_RULES_PATH, readConnectives, readPartitives } from '../../scripts/lib/engine-d7';
 import { D7_ENTRIES, IGNORED } from './d7-fixture';
 import { LEXICON } from './support';
 
@@ -255,6 +255,12 @@ describe('readPartitives (M21)', () => {
       expect(() => readPartitives(root)).toThrow(/doublon/u);
       write({ partitives: [{ id: 'D7-PARTITIF', nouns: ['Argent liquide'], ref: 'D7' }] });
       expect(() => readPartitives(root)).toThrow(/minuscules/u);
+      // Connectifs (M26) : une forme d'un seul mot par classe.
+      expect(readConnectives(root)).toEqual([]);
+      write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7', note: 'n' }] });
+      expect(readConnectives(root)).toEqual([{ id: 'D7-CONNECTIF-CLASSE', words: ['de', "d'"], forms: { '9': 'ì' }, ref: 'D7' }]);
+      write({ connectives: [{ id: 'D7-CONNECTIF-CLASSE', words: ['de'], forms: { '9': 'ì mɔ̀ní' }, ref: 'D7' }] });
+      expect(() => readConnectives(root)).toThrow(/une forme éton/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

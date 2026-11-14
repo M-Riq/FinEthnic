@@ -38,6 +38,22 @@
         }
       }
     },
+    "connectives": {
+      "type": "array",
+      "description": "Connectifs (M26) : « de », « du », « d’ » entre deux noms rendus par la forme de la classe nominale du premier nom (classe au singulier de D7, « 9 » pour « 9/10 »). Classe absente de `forms` ou premier nom gardé en français : « de » reste un mot manquant.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "words", "forms", "ref", "note"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$" },
+          "words": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-zà-öø-ÿœæ']+$" } },
+          "forms": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "pattern": "^\\S+$" } },
+          "ref": { "$ref": "#/$defs/text" },
+          "note": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
     "rules": {
       "type": "array",
       "items": {
