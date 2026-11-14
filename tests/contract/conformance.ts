@@ -235,7 +235,28 @@ export function checkResultShape(req: TranslationRequest, res: unknown): string[
       from = at + segment.length;
     }
   }
+  out.push(...checkKeptFrench(where, r));
   return out;
+}
+
+/** I12 (v0.4.0) : termes français gardés, facultatifs ; seulement en PENDING_VALIDATION, présents dans l'ordre. */
+function checkKeptFrench(where: string, r: TranslationResult): string[] {
+  const kept: unknown = r.keptFrench;
+  if (kept === undefined) return [];
+  if (!Array.isArray(kept) || kept.some((t) => typeof t !== 'string' || t.trim().length === 0)) {
+    return [`${where} : keptFrench doit être un tableau de chaînes non vides (I12)`];
+  }
+  if (kept.length === 0) return [];
+  if (r.status !== 'PENDING_VALIDATION' || typeof r.unverifiedOutput !== 'string') {
+    return [`${where} : ${r.status} avec keptFrench ${JSON.stringify(kept)} (I12 : seulement en PENDING_VALIDATION)`];
+  }
+  let from = 0;
+  for (const term of kept as string[]) {
+    const at = r.unverifiedOutput.indexOf(term, from);
+    if (at < 0) return [`${where} : terme gardé ${JSON.stringify(term)} absent de unverifiedOutput, ou dans le désordre (I12)`];
+    from = at + term.length;
+  }
+  return [];
 }
 
 /** Texte affichable d'un résultat : `output` (APPROVED) ou `unverifiedOutput` (PENDING_VALIDATION, §5.4). */
@@ -327,7 +348,7 @@ export const CONFORMANCE_CHECKS: readonly ConformanceCheck[] = [
   },
   {
     id: 'T-CON-02',
-    title: 'forme des résultats et I3 (output ⇔ APPROVED, unverifiedOutput et unverifiedKind ⇔ PENDING_VALIDATION), I7',
+    title: 'forme des résultats et I3 (output ⇔ APPROVED, unverifiedOutput et unverifiedKind ⇔ PENDING_VALIDATION), I7, I12',
     run(engine, samples) {
       const out: string[] = [];
       const never = samples.neverReturned ?? {};

@@ -73,6 +73,16 @@ export interface IgnoredWords {
   ref: string;
 }
 
+/**
+ * Partitif supprimé (grammar-rules.json, `partitives`, M21) : « du », « de l' », « de la » juste après
+ * un verbe et devant un nom de la liste fermée `nouns`. Ailleurs, « de » reste un manque.
+ */
+export interface Partitive {
+  id: string;
+  nouns: readonly string[];
+  ref: string;
+}
+
 export interface EtonOptions {
   guards?: readonly string[];
   lexicon?: Lexicon;
@@ -80,6 +90,8 @@ export interface EtonOptions {
   ignored?: readonly IgnoredWords[];
   /** Termes français gardés tels quels quand D7 ne les a pas (M20), employés comme noms. */
   kept?: readonly string[];
+  /** Partitifs supprimés après un verbe (M21). */
+  partitives?: readonly Partitive[];
 }
 
 export type Gap =
@@ -160,7 +172,8 @@ const IRREGULAR_IMPERATIVES: Readonly<Record<string, string>> = { aller: 'kɛ̀n
 type Role =
   | { kind: 'LEX' }
   | { kind: 'VERB'; lemma: string | null; finite: number | null }
-  | { kind: 'PUNCT' | 'PROTECTED' | 'DROP' | 'PARTICLE' | 'NEG' | 'RESTRICT' | 'SUBJECT' | 'AUXILIARY' | 'POSSESSIVE' | 'OBJECT' };
+  | { kind: 'DROP'; rule?: EtonRule }
+  | { kind: 'PUNCT' | 'PROTECTED' | 'PARTICLE' | 'NEG' | 'RESTRICT' | 'SUBJECT' | 'AUXILIARY' | 'POSSESSIVE' | 'OBJECT' };
 
 function wordAt(tokens: readonly Token[], i: number): Token | undefined {
   const t = tokens[i];
@@ -168,7 +181,7 @@ function wordAt(tokens: readonly Token[], i: number): Token | undefined {
 }
 
 /** Rôle de chaque jeton : mot à chercher dans D7, mot grammatical rendu par une règle, valeur protégée… */
-function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: ReadonlySet<string>): Role[] {
+function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: ReadonlySet<string>, partitives: readonly Partitive[] = []): Role[] {
   const { tokens } = s;
   const out: Role[] = tokens.map((t) => (t.kind === 'punct' ? { kind: 'PUNCT' } : t.kind === 'word' ? { kind: 'LEX' } : { kind: 'PROTECTED' }));
   const set = (i: number, role: Role): void => {
@@ -196,6 +209,18 @@ function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: Reado
       }
       set(main.index, { kind: 'VERB', lemma: main.lemma, finite: v.index });
     } else set(v.index, { kind: 'VERB', lemma: v.features?.lemma ?? null, finite: v.index });
+  }
+  for (const p of partitives) {
+    const rule: EtonRule = { id: p.id, ruleClass: 'A', ref: p.ref, description: 'Partitif après un verbe (« du », « de l’ », « de la ») : absent en éton.' };
+    tokens.forEach((t, i) => {
+      if (t.kind !== 'word' || out[i]?.kind !== 'LEX') return;
+      const article = t.key === 'de' ? wordAt(tokens, i + 1) : undefined;
+      const span = t.key === 'du' ? 1 : article && (article.key === "l'" || article.key === 'la') ? 2 : 0;
+      const noun = wordAt(tokens, i + span);
+      const before = out[i - 1]?.kind === 'VERB' || verbal(i - 1);
+      if (span === 0 || !noun || !p.nouns.includes(noun.key) || !before) return;
+      for (let k = i; k < i + span; k++) set(k, { kind: 'DROP', rule });
+    });
   }
   tokens.forEach((t, i) => {
     if (t.kind !== 'word') return;
@@ -411,7 +436,7 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   const { tokens } = s;
   const { lexicon } = options;
   const ignoredWords = new Set((options.ignored ?? []).flatMap((g) => g.words));
-  const roleList = roles(s, lexicon, ignoredWords);
+  const roleList = roles(s, lexicon, ignoredWords, options.partitives);
   const present = pronounPresent(s, roleList, lexicon);
   const subjects = new Map<number, EtonPiece>();
   const pieces: EtonPiece[] = [];
@@ -446,7 +471,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         continue;
       case 'DROP': {
         const g = (options.ignored ?? []).find((x) => x.words.includes(t.key));
-        if (g) applied.add({ id: g.id, ruleClass: 'A', ref: g.ref, description: 'Mot ignoré : l’éton n’a pas d’article.' });
+        if (role.rule) applied.add(role.rule);
+        else if (g) applied.add({ id: g.id, ruleClass: 'A', ref: g.ref, description: 'Mot ignoré : l’éton n’a pas d’article.' });
         i++;
         continue;
       }

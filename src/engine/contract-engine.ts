@@ -1,5 +1,5 @@
 /**
- * Moteur MOT derrière l'interface du contrat d'intégration (MOT6, INTEGRATION_CONTRACT.md v0.3.0).
+ * Moteur MOT derrière l'interface du contrat d'intégration (MOT6, INTEGRATION_CONTRACT.md v0.4.0).
  *
  * Correspondance des statuts (M17, §5.2 du contrat) :
  * - SUCCESS     → PENDING_VALIDATION, unverifiedKind 'complete' (aucune locutrice n'a vérifié) ;
@@ -13,6 +13,9 @@
  * à une seule entrée de D8, l'entrée canonique du corpus. Les décisions des locutrices portées par les
  * autres entrées de même texte (libellés de pages) comptent aussi : un rejet suffit ; une validation
  * n'est retenue que si toutes les validations du texte concordent.
+ *
+ * Les termes français gardés tels quels (M20 : « compte », « mot de passe »…) sont listés dans
+ * `keptFrench`, dans l'ordre de `unverifiedOutput` (I12).
  *
  * Les segments protégés sont rendus octet pour octet (I5) : le moteur travaille sur le texte normalisé
  * (espaces insécables unifiées), l'adaptateur remet les octets d'origine, puis vérifie l'intégrité.
@@ -218,6 +221,10 @@ function entryMatch(core: string, r: TextResult, corpusText: ReadonlyMap<string,
 /** Ponctuation finale (« ? », « . », « … ») ignorée par la comparaison à D8. */
 const finalPunctuation = (s: string): string => (/[.!?…\s]*$/u.exec(s)?.[0] ?? '').replace(/\s/gu, '');
 
+/** Termes français gardés dans la sortie (M20), dans l'ordre des unités. */
+const keptTerms = (r: TextResult): string[] =>
+  r.units.flatMap((u) => (u.status === 'SUCCESS' || u.status === 'PARTIAL' ? (u.chosen?.eton.kept ?? []) : []));
+
 /** Nombre de mots rendus en éton dans le texte. */
 const etonWords = (r: TextResult): number =>
   r.units.reduce((n, u) => n + (u.status === 'SUCCESS' || u.status === 'PARTIAL' ? (u.chosen?.eton.found ?? 0) : 0), 0);
@@ -301,6 +308,7 @@ export function createContractEngine(resources: ContractResources, options: Cont
       unverifiedKind: r.status === 'SUCCESS' ? 'complete' : 'partial',
       entryId: entry?.entryId ?? null,
       matchKind: entry?.kind ?? 'composed',
+      keptFrench: keptTerms(r),
     };
   }
 
@@ -324,7 +332,7 @@ export function createContractEngine(resources: ContractResources, options: Cont
       else counts.untranslated += 1;
     }
     const library = JSON.stringify([
-      resources.corpus, resources.guards, resources.d7, resources.ignored, resources.critical, resources.wrongSenses ?? [],
+      resources.corpus, resources.guards, resources.d7, resources.ignored, resources.critical, resources.wrongSenses ?? [], resources.keptFrench ?? [], resources.partitives ?? [],
       protectedEntries, [...approved], [...rejected], resources.lexicon.size,
     ]);
     return {
