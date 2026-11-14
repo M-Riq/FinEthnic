@@ -22,7 +22,8 @@
     "serve-engine": "tsx scripts/serve-engine.ts",
     "engine-report": "tsx scripts/engine-report.ts",
     "e2e-check": "tsx scripts/e2e-check.ts",
-    "e2e-extension": "tsx scripts/e2e-extension.ts"
+    "e2e-extension": "tsx scripts/e2e-extension.ts",
+    "package": "node build.mjs && tsx scripts/package-extension.ts"
   },
   "devDependencies": {
     "@types/chrome": "0.3.7",

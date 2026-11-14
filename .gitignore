@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-dev/
+release/
 coverage/
 # Dictionnaire brut (D7) : jamais versionné (PROJECT_CONTEXT §3.7.4-3, Q17)
 data/language-resources/raw/
