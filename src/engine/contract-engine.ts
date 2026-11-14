@@ -332,7 +332,7 @@ export function createContractEngine(resources: ContractResources, options: Cont
       else counts.untranslated += 1;
     }
     const library = JSON.stringify([
-      resources.corpus, resources.guards, resources.d7, resources.ignored, resources.critical, resources.wrongSenses ?? [], resources.keptFrench ?? [], resources.partitives ?? [], resources.connectives ?? [],
+      resources.corpus, resources.guards, resources.d7, resources.ignored, resources.critical, resources.wrongSenses ?? [], resources.keptFrench ?? [], resources.partitives ?? [], resources.connectives ?? [], resources.possessives ?? [],
       protectedEntries, [...approved], [...rejected], resources.lexicon.size,
     ]);
     return {

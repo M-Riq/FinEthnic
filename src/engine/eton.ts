@@ -83,7 +83,7 @@ export const ETON_RULES = {
   RESTRICTION: rule('D7-RESTRICTION', 'C', '§4', 'Aucune règle de « ne … que » dans D7.'),
   PASSIVE: rule('D7-PASSIF', 'C', '§6 Dérivation', 'Suffixe -bàn : exemples seulement, pas une règle productive.'),
   POSTPOSITION: rule('D7-LOCATIF-APRES-NOM', 'B', '§7 (exemple « íꜜlə́ á sí » sous l’arbre)', 'Préposition française rendue par un adverbe de lieu de D7, placé après le nom : un exemple seulement.'),
-  POSSESSIVE: rule('D7-POSSESSIF', 'C', 'lexique (radicaux -a̋mà, -ɔ̀, -ě, -èèní, -àbní)', 'Préfixe d’accord et tons non documentés.'),
+  POSSESSIVE: rule('D7-POSSESSIF', 'C', '§8.6.2 de l’esquisse complète, tableaux 11 à 15', 'Possessif hors D7-POSSESSIF-CLASSE (M31) : « mes, tes, ses, nos, vos, leurs » (le moteur n’écrit pas le pluriel des noms), nom précédé ou suivi d’un adjectif, suivi d’un autre nom, de « de » ou d’un mot manquant, nom sans classe sûre ou sans ton final noté, antécédent de « qui », « mon » après un nom de classe 1 ou 9 à ton haut (aucun exemple).'),
   OBJECT_PRONOUN: rule('D7-PRONOM-OBJET', 'B', '§3 (exemple « mə̀tə́ wɔ̂ yɛ́n »)', 'Place et forme du pronom complément : un exemple seulement.'),
   AGREEMENT: rule('D7-ACCORD', 'C', 'lexique (radicaux liés « -… »)', 'Radical lié : préfixe d’accord non documenté.'),
   ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd »)', 'Ordre et connectif accordé : un exemple seulement.'),
@@ -123,6 +123,22 @@ export interface Connective {
   ref: string;
 }
 
+/**
+ * Possessif (grammar-rules.json, `possessives`, M31) : « ton », « votre »… devant un nom au singulier, rendu
+ * après le nom par la forme de la classe du nom (s.g et terme gardé : classe 1), selon le dernier ton du nom.
+ */
+export interface Possessive {
+  id: string;
+  persons: readonly {
+    words: readonly string[];
+    /** Nom finissant par un ton bas ou descendant, ou terme gardé en français : classe → forme. */
+    afterLow: Readonly<Record<string, string>>;
+    /** Nom finissant par un ton haut ou montant : classe → forme. */
+    afterHigh: Readonly<Record<string, string>>;
+  }[];
+  ref: string;
+}
+
 export interface EtonOptions {
   guards?: readonly string[];
   lexicon?: Lexicon;
@@ -134,6 +150,8 @@ export interface EtonOptions {
   partitives?: readonly Partitive[];
   /** Connectifs entre deux noms (M26). */
   connectives?: readonly Connective[];
+  /** Possessifs après le nom (M31). */
+  possessives?: readonly Possessive[];
 }
 
 export type Gap =
@@ -467,6 +485,18 @@ export function subjectClass(nounClass: string, plural: boolean): string | null 
   return singular === '9' && pluralClass === '10' ? '10' : null;
 }
 
+/**
+ * Dernier ton d'une forme de D7 (M31) : haut pour á, ǎ ; bas pour à, â (le ton descendant finit bas).
+ * null si la dernière voyelle n'a pas de ton noté.
+ */
+export function finalTone(eto: string): 'HIGH' | 'LOW' | null {
+  const m = /([aeiouɛəɔ])(\p{Mn}*)[^aeiouɛəɔ]*$/iu.exec(eto.normalize('NFD'));
+  const marks = m?.[2] ?? '';
+  if (marks === '\u0301' || marks === '\u030C') return 'HIGH';
+  if (marks === '\u0300' || marks === '\u0302') return 'LOW';
+  return null;
+}
+
 /** Verbe au présent rendu par MS-tə́ + infinitif. */
 interface PresentPlan {
   /** Indice du pronom sujet, ou null : nom sujet en tête de phrase, dont la classe est lue à la construction. */
@@ -642,6 +672,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
   /** « qui » sujet d'une relative (M30) : indice de « qui », puis antécédent et forme lus à la construction. */
   const relativeWords = new Set([...present.values()].flatMap((p) => (p.relative === null ? [] : [p.relative])));
   const relatives = new Map<number, { piece: EtonPiece; antecedent: EtonPiece; augment: string; form: string }>();
+  /** Possessifs (M31), placés après leur nom une fois la phrase construite. */
+  const possessivePieces = new Map<EtonPiece, string>();
   /** Nom de D7 rendu, par indice du jeton qui le suit. */
   const endAt = new Map<number, EtonPiece>();
   const pieces: EtonPiece[] = [];
@@ -704,7 +736,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
         const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
         grammar.set(piece, role.kind);
         pieces.push(piece);
-        gap(t.text, role.kind === 'POSSESSIVE' ? ETON_RULES.POSSESSIVE : ETON_RULES.OBJECT_PRONOUN);
+        if (role.kind === 'POSSESSIVE') possessivePieces.set(piece, t.key);
+        else gap(t.text, ETON_RULES.OBJECT_PRONOUN);
         i++;
         continue;
       }
@@ -720,7 +753,8 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
       const c = nounClass === undefined || nounClass.includes('s.g') ? null : subjectClass(nounClass, false);
       const augment = a?.eto ? augmented(a.eto) : null;
       const form = c === null ? undefined : CLASS_PRESENT[c];
-      const headed = !prev || !(prev.category === 'NOM' || (prev.source === 'MISSING' && CONNECTIVE_WORDS.has(prev.fr.toLocaleLowerCase('fr').replace(/’/gu, "'"))));
+      // Augment et possessif ensemble (« ton arbre qui… ») : aucun exemple.
+      const headed = !prev || !(prev.category === 'NOM' || grammar.get(prev) === 'POSSESSIVE' || (prev.source === 'MISSING' && CONNECTIVE_WORDS.has(prev.fr.toLocaleLowerCase('fr').replace(/’/gu, "'"))));
       if (a && a === pieces[pieces.length - 1] && augment && form && headed) {
         const piece: EtonPiece = { fr: t.text, eto: null, source: 'GRAMMAR', ref: null };
         relatives.set(i, { piece, antecedent: a, augment, form });
@@ -878,6 +912,40 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     }
   }
 
+  // Possessif (M31) : après un nom au singulier rendu (D7 ou terme gardé), forme de la classe et du dernier ton du nom.
+  const possessiveRules = new Map<Possessive, EtonRule>();
+  for (const [p, key] of possessivePieces) {
+    const k = pieces.indexOf(p);
+    const noun = pieces[k + 1];
+    const after = pieces[k + 2];
+    const def = (options.possessives ?? []).find((x) => x.persons.some((y) => y.words.includes(key)));
+    const person = def?.persons.find((y) => y.words.includes(key));
+    const isNoun = noun !== undefined && noun.category === 'NOM' && noun.eto !== null && (noun.source === 'D7' || noun.source === 'FRENCH');
+    // Après le nom : seulement une fin de phrase, un verbe ou un mot qui n'est ni nom, ni adjectif, ni nombre, ni « de ».
+    const free = after === undefined || after.source === 'PUNCT' || after.source === 'RULE' || after.source === 'GRAMMAR'
+      || (after.source === 'D7' && !['NOM', 'ADJ', 'NUM'].includes(after.category ?? '')
+        && !(lexicon?.lookup(after.fr.toLocaleLowerCase('fr')) ?? []).some((r) => r.pos === 'ADJ' || r.pos === 'NOUN'));
+    const nounClass = !isNoun ? null : noun.source === 'FRENCH' ? '1' : ((c) => (c === undefined ? null : subjectClass(c, false)))(nounClasses.get(noun));
+    const tone = !isNoun ? null : noun.source === 'FRENCH' ? 'LOW' : finalTone(noun.eto as string);
+    const form = nounClass === null || tone === null || !person || !free || CONNECTIVE_WORDS.has(after?.fr.toLocaleLowerCase('fr').replace(/’/gu, "'") ?? '')
+      ? undefined : (tone === 'HIGH' ? person.afterHigh : person.afterLow)[nounClass];
+    if (!def || form === undefined) {
+      gap(p.fr, ETON_RULES.POSSESSIVE);
+      continue;
+    }
+    p.eto = form;
+    p.source = 'RULE';
+    p.ref = def.ref;
+    pieces.splice(k, 1);
+    pieces.splice(k + 1, 0, p);
+    let r = possessiveRules.get(def);
+    if (!r) {
+      r = { id: def.id, ruleClass: 'A', ref: def.ref, description: 'Possessif après le nom : forme de la classe du nom et de son dernier ton.' };
+      possessiveRules.set(def, r);
+    }
+    applied.add(r);
+  }
+
   // « de » entre deux noms (M26) : forme de la classe du premier nom, rendu par D7 avec sa classe.
   const connectiveRules = new Map<Connective, EtonRule>();
   for (let k = 1; k + 1 < pieces.length; k++) {
@@ -886,6 +954,9 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     const b = pieces[k + 1] as EtonPiece;
     if (p.source !== 'MISSING' || a.source !== 'D7' || a.eto === null || a.category !== 'NOM') continue;
     if (!(b.source === 'D7' || b.source === 'FRENCH') || b.eto === null || b.category !== 'NOM' || !consonantInitial(b.eto)) continue;
+    // Second nom avec un possessif (« le prix de ton argent ») : aucun exemple.
+    const n = pieces[k + 2];
+    if (n !== undefined && grammar.get(n) === 'POSSESSIVE') continue;
     const key = p.fr.toLocaleLowerCase('fr').replace(/’/gu, "'");
     const nounClass = nounClasses.get(a)?.split('/')[0];
     const c = nounClass === undefined ? undefined : (options.connectives ?? []).find((x) => x.words.includes(key) && x.forms[nounClass] !== undefined);
