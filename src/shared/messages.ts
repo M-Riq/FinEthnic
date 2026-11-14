@@ -13,11 +13,13 @@ export interface DiagnosticRequest {
 
 /**
  * Compteurs du diagnostic. `candidates` est le total des textes à traduire ; `waiting` (pas encore évalués)
- * et les compteurs par statut le répartissent. `numeric` compte à part les textes faits de chiffres sans lettre.
+ * et les compteurs par statut le répartissent. `numeric` compte à part les textes faits de chiffres sans lettre,
+ * `values` les textes avec des lettres protégés par leur position (cellule valeur, écho de saisie : P3).
  */
 export const COUNT_KEYS = [
   'candidates',
   'numeric',
+  'values',
   'waiting',
   'approved',
   'unverified',

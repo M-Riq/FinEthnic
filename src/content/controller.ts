@@ -4,8 +4,10 @@
  * P2 (lecture seule) : quand la traduction est activée, la page est scannée puis observée, chaque texte
  * est évalué par le moteur fourni (faux moteur en développement) et compté par statut. Le mode
  * diagnostic surligne les textes sans toucher au DOM. Rien n'est écrit dans la page avant P5.
+ * P3 : les textes en position « valeur » et les échos de saisie ne sont jamais soumis au moteur.
  */
 import type { TranslationEngine } from '../language/contract';
+import { createEchoGuard, type EchoGuard } from '../protection/echo';
 import type { Logger } from '../shared/logger';
 import { COUNT_KEYS, DIAGNOSTIC_RESULT, type DiagnosticSnapshot, type EngineKind } from '../shared/messages';
 import type { Settings, SettingsStore } from '../shared/settings';
@@ -45,6 +47,7 @@ function engineKind(engine: TranslationEngine | null): EngineKind {
 export async function startContent(store: SettingsStore, logger: Logger, page: PageDeps): Promise<ContentController> {
   let settings = await store.load();
   let pipeline: Pipeline | null = null;
+  let echo: EchoGuard | null = null;
   let stopped = false;
   const engine = engineKind(page.engine);
   logger.event('content:start', { enabled: settings.enabled, engine: engine !== 'none', fake: engine === 'fake' });
@@ -53,19 +56,27 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
     if (page.highlights && pipeline && settings.diagnostic) paintHighlights(page.highlights, pipeline.entries());
   };
 
+  const halt = (): void => {
+    pipeline?.stop();
+    pipeline = null;
+    echo?.stop();
+    echo = null;
+  };
+
   const apply = (): void => {
     if (settings.enabled && !pipeline) {
+      echo = createEchoGuard(page.doc);
       pipeline = startPipeline({
         doc: page.doc,
         engine: page.engine,
         schedule: page.schedule,
         logger,
+        isEcho: echo.isEcho,
         onUpdate: paint,
         ...(page.budget === undefined ? {} : { budget: page.budget }),
       });
     } else if (!settings.enabled && pipeline) {
-      pipeline.stop();
-      pipeline = null;
+      halt();
     }
     if (pipeline && settings.diagnostic) paint();
     else if (page.highlights) clearHighlights(page.highlights);
@@ -108,8 +119,7 @@ export async function startContent(store: SettingsStore, logger: Logger, page: P
     stop() {
       stopped = true;
       unsubscribe();
-      pipeline?.stop();
-      pipeline = null;
+      halt();
       if (page.highlights) clearHighlights(page.highlights);
     },
   };

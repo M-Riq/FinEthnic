@@ -125,8 +125,16 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
     expect(highlights.texts('finethnic-unverified')).toEqual(['Montant', 'Total débité', 'Bénéficiaire', 'Confirmer le transfert']);
     expect(highlights.texts('finethnic-untranslated')).toEqual(['Récapitulatif', 'Référence']);
     expect(highlights.texts('finethnic-numeric')).toEqual(['+237 6 99 12 34 56']);
-    expect(highlights.texts('finethnic-protected')).toEqual(expect.arrayContaining(['25 000 FCFA', 'SAF-2026-OTCUQ3']));
-    expect(highlights.texts('finethnic-no-match')).toContain('Jean-Paul Mbarga');
+    // Cellules valeur (`dd`) : protégées par leur position, jamais soumises au moteur (P3.3).
+    expect(highlights.texts('finethnic-values')).toEqual([
+      '25 000 FCFA',
+      '0 FCFA',
+      '25 000 FCFA',
+      'Jean-Paul Mbarga',
+      'SAF-2026-OTCUQ3',
+      'Compte Safinum',
+    ]);
+    expect(highlights.registry.has('finethnic-protected')).toBe(false);
     expect(highlights.registry.has('finethnic-partial')).toBe(false);
 
     // Le surlignage suit la page monopage, puis disparaît avec le mode diagnostic.

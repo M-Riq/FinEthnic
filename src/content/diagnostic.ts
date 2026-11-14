@@ -35,6 +35,7 @@ const BY_STATUS: Record<TranslationStatus, DiagnosticClass> = {
 
 export function classOf(entry: Tracked): DiagnosticClass {
   if (entry.kind === 'numeric-like') return 'numeric';
+  if (entry.kind === 'value') return 'values';
   if (entry.status === null) return 'waiting';
   if (entry.status === 'PENDING_VALIDATION' && entry.unverifiedKind === 'partial') return 'partial';
   return BY_STATUS[entry.status];

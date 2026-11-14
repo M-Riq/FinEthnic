@@ -6,7 +6,7 @@ Documents de référence : [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md), [`ROADMAP
 
 ## Extension Chrome
 
-> **État : phase 2 (lecture seule).** L'extension s'installe, son popup règle l'activation, et elle **détecte** les textes de la page, sans jamais la modifier. Un mode diagnostic les surligne et les compte. L'affichage en éton arrive en phase 5. La version de production n'a pas encore de moteur de traduction (inclusion à décider, BM7) : elle compte les textes sans les évaluer.
+> **État : phase 3 (lecture seule, protection des données).** L'extension s'installe, son popup règle l'activation, et elle **détecte** les textes de la page, sans jamais la modifier. Elle met à part les valeurs à ne jamais traduire (montants, références, noms, saisies réaffichées…). Un mode diagnostic les surligne et les compte. L'affichage en éton arrive en phase 5. La version de production n'a pas encore de moteur de traduction (inclusion à décider, BM7) : elle compte les textes sans les évaluer.
 
 ### Installation
 
@@ -49,8 +49,18 @@ Le surlignage passe par la *CSS Custom Highlight API* : **aucun nœud, attribut 
 | Surligné plein, gris | Protégé (jamais traduit) |
 | Souligné et surligné en pointillés, gris | Pas encore évalué (ou aucun moteur) |
 | Surligné en pointillés, gris | Valeur faite de chiffres, sans lettre |
+| Surligné double, gris foncé | Valeur protégée par sa place (voir ci-dessous) |
 
 Sont ignorés : champs de saisie et listes déroulantes (`select`, Q8), zones modifiables, code, scripts, contenus masqués (`hidden`, `aria-hidden`), images vectorielles et médias. Le popup ne reçoit que des compteurs, jamais de texte.
+
+### Protection des données
+
+Règle : mieux vaut ne pas traduire un libellé que modifier une valeur. Un texte n'est jamais envoyé au moteur s'il est :
+
+- **une valeur par sa place** : cellule `dd`, seconde cellule d'une ligne de deux, élément qui suit un libellé terminé par « : », `output`, `time`, `data`, `meter`, `progress`, lien `tel:`, `mailto:` ou `sms:`, ou élément dont la classe, l'`id`, le `name`, l'`itemprop` ou le `data-testid` contient un mot comme `amount`, `montant`, `balance`, `solde`, `name`, `nom`, `ref`, `phone`, `email` ou `value`. Ces indices ne servent qu'à exclure, jamais à autoriser une traduction ;
+- **l'écho d'une saisie** : texte identique à une valeur de champ (ex. un motif tapé à l'étape 3 et réaffiché à l'étape 4). Seules des empreintes de ces valeurs sont gardées, en mémoire ; les mots de passe ne sont jamais lus.
+
+Dans les autres textes, `src/protection/patterns.ts` repère les valeurs protégées : montants (espaces normales ou insécables, signes `+`, `-`, `−`), devises, pourcentages, dates, heures, téléphones, comptes, références, e-mails, URL, marques `Safinum` et `Safinum Pay`, et tout mot qui contient un chiffre. Le moteur reçoit ce module (`detectProtected`). Avant toute écriture (phase 5), `src/protection/integrity.ts` vérifiera que ces valeurs restent identiques octet par octet, sinon l'écriture sera refusée.
 
 ### Développement
 
@@ -95,10 +105,12 @@ src/content/          script de contenu : index.ts (point d'entrée), controller
                       scanner.ts, observer.ts, context.ts, pipeline.ts (lecture et évaluation),
                       diagnostic.ts et content.css (compteurs, surlignage), messaging.ts (popup),
                       engine-provider.ts (seul choix du moteur), fake-engine.ts (développement)
-src/protection/       dom-guard.ts : régions de la page jamais lues
+src/protection/       dom-guard.ts (régions jamais lues, positions « valeur »), patterns.ts (valeurs protégées,
+                      module pur partagé avec le moteur), echo.ts (saisies réaffichées), integrity.ts (contrôle
+                      avant écriture, empreinte de page)
 src/popup/            popup (HTML, CSS, logique)
 src/shared/           réglages, accès à chrome.storage, journal sans données, messages popup ⇄ page
-tests/extension/      tests Vitest sous jsdom (détection, observation, diagnostic, popup, manifest, construction)
+tests/extension/      tests Vitest (détection, observation, diagnostic, protection, intégrité, popup, manifest, construction)
 tests/fixtures/       page de test locale SAFINUM (5 étapes, données fictives)
 ```
 
