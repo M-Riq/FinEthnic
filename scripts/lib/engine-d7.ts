@@ -8,7 +8,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { D7Entry } from '../../src/engine/d7';
-import type { Connective, IgnoredWords, Partitive, Possessive } from '../../src/engine/eton';
+import type { AdjectiveRule, Connective, IgnoredWords, Partitive, Possessive } from '../../src/engine/eton';
 import type { Dictionary } from './cascade';
 
 export const DICTIONARY_PATH = 'data/language-resources/raw/dictionary.json';
@@ -28,6 +28,7 @@ interface GrammarRulesFile {
   partitives?: unknown;
   connectives?: unknown;
   possessives?: unknown;
+  adjectives?: unknown;
 }
 
 export function readIgnoredWords(root: string): IgnoredWords[] {
@@ -106,5 +107,23 @@ export function readPossessives(root: string): Possessive[] {
       return { words: words as string[], afterLow: classForms(x.afterLow, `${at}.afterLow`), afterHigh: classForms(x.afterHigh, `${at}.afterHigh`) };
     });
     return { id: p.id, persons, ref: p.ref };
+  });
+}
+
+/** Noms adjectivaux en tête, suivis du connectif de leur classe (M33). Lève une erreur lisible si la section est mal formée. */
+export function readAdjectives(root: string): AdjectiveRule[] {
+  const data = JSON.parse(readFileSync(join(root, GRAMMAR_RULES_PATH), 'utf8')) as GrammarRulesFile;
+  const list = data.adjectives ?? [];
+  if (!Array.isArray(list)) throw new Error(`${GRAMMAR_RULES_PATH} : « adjectives » doit être une liste`);
+  return list.map((a: Record<string, unknown>, i) => {
+    const where = `${GRAMMAR_RULES_PATH} : adjectives[${i}]`;
+    if (typeof a.id !== 'string' || !/^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/.test(a.id)) throw new Error(`${where}.id invalide`);
+    if (typeof a.ref !== 'string' || a.ref.trim() === '') throw new Error(`${where}.ref manquant`);
+    const excluded = a.excluded ?? [];
+    if (!Array.isArray(excluded) || excluded.some((x: Record<string, unknown>) => typeof x?.eto !== 'string' || /\s/u.test(x.eto) || x.eto === ''
+      || typeof x.reason !== 'string' || x.reason.trim() === '')) {
+      throw new Error(`${where}.excluded : liste de { eto (un mot), reason }`);
+    }
+    return { id: a.id, forms: classForms(a.forms, `${where}.forms`), excluded: excluded.map((x: { eto: string }) => x.eto.normalize('NFC')), ref: a.ref };
   });
 }

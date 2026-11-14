@@ -83,6 +83,33 @@
         }
       }
     },
+    "adjectives": {
+      "type": "array",
+      "description": "Noms adjectivaux (M33) : nom + adjectif rendu par un nom adjectival de D7 en tête, suivi du connectif de sa classe (`forms`, classe au singulier de D7), puis du nom. Classe absente de `forms` ou forme de `excluded` : l'adjectif reste un manque.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "forms", "excluded", "ref", "note"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$" },
+          "forms": { "$ref": "#/$defs/classForms" },
+          "excluded": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["eto", "reason"],
+              "properties": {
+                "eto": { "type": "string", "pattern": "^\\S+$" },
+                "reason": { "$ref": "#/$defs/text" }
+              }
+            }
+          },
+          "ref": { "$ref": "#/$defs/text" },
+          "note": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
     "rules": {
       "type": "array",
       "items": {
