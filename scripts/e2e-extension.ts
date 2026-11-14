@@ -550,6 +550,42 @@ async function runLoad(bench: Bench): Promise<void> {
   }
 }
 
+/** P7.1 : le script de démonstration `docs/demo/inject-samples.js`, collé tel quel dans la page. */
+async function runDemo(bench: Bench): Promise<void> {
+  console.log('\n— P7.1 : script de démonstration (docs/demo/inject-samples.js) —');
+  const script = await readFile(path.join(ROOT, 'docs/demo/inject-samples.js'), 'utf8');
+  const tab = await bench.openPage();
+  const before = await bench.settle(tab);
+  await tab.evaluate(script);
+  await tab.evaluate('finethnicDemo.tout()');
+  await tab.evaluate('void finethnicDemo.dialogue()');
+  const after = await bench.settle(tab);
+  const items = await tab.evaluate<Item[]>(`__probe.items('#finethnic-demo p, #finethnic-demo [data-live], #finethnic-demo dialog button')`);
+  const texts = await tab.evaluate<string[]>(
+    `Array.from(document.querySelectorAll('#finethnic-demo p, #finethnic-demo [data-live]'), (e) => e.textContent)`,
+  );
+  const written = items.filter((item) => item.firstWriteAt !== null);
+  const unmarked = written.filter((item) => !item.mark);
+  check(
+    'P7.1',
+    'Script de démonstration : chaque message détecté et évalué, aucune traduction sans marqueur',
+    after.counts.waiting === 0 && after.counts.candidates - before.counts.candidates >= items.length && unmarked.length === 0,
+    `${items.length} message(s), ${written.length} affiché(s) en éton, ${items.length - written.length} laissé(s) en français`,
+  );
+  const dynamic = texts.filter((text) => /SAF-2026-|FCFA/u.test(text ?? ''));
+  check(
+    'P7.1b',
+    'Démonstration : texte proche laissé en français ; montant et référence intacts',
+    texts.includes('Votre paiement a été envoyé avec succès.') &&
+      dynamic.length === 2 &&
+      dynamic.every((text) => /\d{1,3} 000 FCFA|SAF-2026-[A-Z0-9]{6}/u.test(text ?? '')),
+    dynamic.join(' | '),
+  );
+  const load = await tab.evaluate<{ ms: number; writes: number }>('finethnicDemo.charge(500)');
+  metric(`Démonstration finethnicDemo.charge(500) : ${load.writes} texte(s) écrit(s), dernière écriture à ${ms(load.ms)}`);
+  await tab.close();
+}
+
 async function runAudit(bench: Bench, origin: string): Promise<void> {
   console.log('\n— P8.4 : réseau, stockage, erreurs —');
   const foreign = bench.requests.filter((url) => !url.startsWith(`${origin}/`));
@@ -587,6 +623,7 @@ async function main(): Promise<number> {
     await runJourney(bench);
     await runInjections(bench);
     await runLoad(bench);
+    await runDemo(bench);
     await bench.settings({});
     await runAudit(bench, origin);
   } finally {
