@@ -1,0 +1,99 @@
+{
+  "description": "Scénario de bout en bout extension ↔ moteur (docs/tests/E2E-extension-moteur.md). Résultats attendus de l'API locale (npm run serve-engine), contrat v0.4.0, avec D7 importé. Un champ absent de « expect » n'est pas vérifié.",
+  "contractVersion": "0.4.0",
+  "cases": [
+    {
+      "id": "E01",
+      "text": "Montant",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "táŋ", "keptFrench": [] },
+      "display": "Traduction non vérifiée : « táŋ » avec le marqueur, « Montant » au survol."
+    },
+    {
+      "id": "E02",
+      "text": "  Montant  ",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "  táŋ  " },
+      "display": "Comme E01 ; les espaces du nœud sont gardés."
+    },
+    {
+      "id": "E03",
+      "text": "Solde disponible",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "mɔ̀ní á compte", "keptFrench": ["compte"] },
+      "display": "Complète, avec le marqueur ; « compte » est un terme gardé en français (keptFrench), pas un manque."
+    },
+    {
+      "id": "E04",
+      "text": "Bonjour",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "partial", "unverifiedOutput": "pwág ì-búg ású kàd [bonjour] á [quelqu'un]." },
+      "display": "Brouillon : marqueur « partiel » distinct ; les mots entre crochets sont restés en français."
+    },
+    {
+      "id": "E05",
+      "text": "Payer la facture",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "composed", "entryId": null, "unverifiedKind": "complete", "unverifiedOutput": "yágnà facture", "keptFrench": ["facture"] },
+      "display": "Texte absent de D8, composé par le moteur ; affiché avec le marqueur."
+    },
+    {
+      "id": "E06",
+      "text": "Frais de transfert : 0 FCFA",
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "template", "unverifiedKind": "complete", "unverifiedOutput": "táŋ : 0 FCFA", "protectedSegments": ["0", "FCFA"] },
+      "display": "Modèle à variable : le libellé est traduit, « 0 FCFA » reste identique."
+    },
+    {
+      "id": "E07",
+      "text": "Total à débiter : 5 000 FCFA",
+      "expect": { "status": "KNOWN_UNTRANSLATED", "matchKind": "template", "unverifiedOutput": null, "protectedSegments": ["5 000", "FCFA"] },
+      "display": "Entrée critique incomplète : le texte original reste en place."
+    },
+    {
+      "id": "E08",
+      "text": "Votre compte",
+      "expect": { "status": "KNOWN_UNTRANSLATED", "matchKind": "exact", "unverifiedOutput": null },
+      "display": "Aucun mot rendu en éton : le texte original reste en place."
+    },
+    {
+      "id": "E09",
+      "text": "Montant ?",
+      "expect": { "status": "KNOWN_UNTRANSLATED", "matchKind": "normalized", "unverifiedOutput": null },
+      "display": "Question : aucun candidat ne garde la question, l'original reste en place."
+    },
+    {
+      "id": "E10",
+      "text": "5 000 FCFA",
+      "expect": { "status": "PROTECTED", "reason": "protected-value", "protectedSegments": ["5 000", "FCFA"] },
+      "display": "Valeur protégée : ne rien faire."
+    },
+    {
+      "id": "E11",
+      "text": "Safinum Pay",
+      "expect": { "status": "PROTECTED", "reason": "protected-entry" },
+      "display": "Nom de marque : ne rien faire."
+    },
+    {
+      "id": "E12",
+      "text": "Bienvenue chez nous",
+      "expect": { "status": "NO_MATCH", "matchKind": null, "unverifiedOutput": null },
+      "display": "Inconnu : le texte original reste en place."
+    },
+    {
+      "id": "E13",
+      "text": "Amount",
+      "sourceLang": "en",
+      "expect": { "status": "NO_MATCH", "reason": "unsupported-language" },
+      "display": "Anglais non pris en charge (Q15) : le texte original reste en place."
+    },
+    {
+      "id": "E14",
+      "text": "Montant",
+      "sourceLang": "auto",
+      "expect": { "status": "PENDING_VALIDATION", "detectedSourceLang": "fr", "unverifiedOutput": "táŋ" },
+      "display": "Langue « auto » : détectée comme du français."
+    },
+    {
+      "id": "E15",
+      "text": "x",
+      "repeat": 2001,
+      "expect": { "status": "NO_MATCH", "reason": "too-long" },
+      "display": "Texte de plus de 2 000 caractères : refusé sans analyse."
+    }
+  ]
+}
