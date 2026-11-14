@@ -135,6 +135,321 @@
       "ref": "docs/reviews/M22-synonymes-d8.md, groupe A",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-016",
+      "text": "Confirmer",
+      "synonym": "accepter",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter » → mə̀m. Mə̀m « avouer, accepter » ; même forme que Valider.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-020",
+      "text": "Autoriser",
+      "synonym": "accepter",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter » → mə̀m. « permettre » absent de D7.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-023",
+      "text": "Accepter les conditions",
+      "synonym": "accepter la loi",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter la loi » → mə̀m mbɛ́ní. Mbɛ́ní « loi, interdiction » ; « règles » absent de D7.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-025",
+      "text": "Contester",
+      "synonym": "refuser l'opération",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « refuser l'opération » → bɛ̀n ì-sàlgà. Contester ≈ refuser.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-034",
+      "text": "Débloquer",
+      "synonym": "ouvrir le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « ouvrir le compte » → yázî compte. D8 : « rouvrir », « permettre encore d'utiliser un compte ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-039",
+      "text": "Réinitialiser",
+      "synonym": "changer le code",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « changer le code » → cɛ́nî code. D8 : « remettre comme au début (mot de passe, code secret) ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-008",
+      "text": "Solde disponible",
+      "synonym": "argent dans le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent dans le compte » → mɔ̀ní á compte. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-013",
+      "text": "Plafond",
+      "synonym": "limite",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « limite » → ɲ̀-ɲə̀. Ɲ̀-ɲə̀ « limite ; époque ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-024",
+      "text": "Somme",
+      "synonym": "argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent » → mɔ̀ní. Somme = quantité d'argent.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-043",
+      "text": "Virement",
+      "synonym": "envoyer de l'argent à la banque",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « envoyer de l'argent à la banque » → lóm mɔ̀ní á banque. Verbe à la place du nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-048",
+      "text": "Crédit",
+      "synonym": "ajouter de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « ajouter de l'argent » → bág mɔ̀ní. Verbe à la place du nom (= Créditer).",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-049",
+      "text": "Débit",
+      "synonym": "enlever de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « enlever de l'argent » → sóg mɔ̀ní. Verbe à la place du nom (= Débiter).",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-050",
+      "text": "Reçu",
+      "synonym": "preuve",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « preuve » → ndə̀m. Ndə̀m « signe, preuve ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-052",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀. D8 : « numéro de l'opération ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-053",
+      "text": "Statut de la transaction",
+      "synonym": "état",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « état » → ì-tə́. Perd « de la transaction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-080",
+      "text": "Prêt",
+      "synonym": "dette",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « dette » → ì-kòló. Point de vue de celui qui emprunte.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-097",
+      "text": "Conditions générales",
+      "synonym": "loi",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « loi » → mbɛ́ní. Mbɛ́ní « loi, interdiction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-002",
+      "text": "Votre solde disponible est de {montant} {devise}.",
+      "synonym": "Argent dans le compte : {montant} {devise}.",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Argent dans le compte : {montant} {devise}. » → mɔ̀ní á compte : {montant} {devise}.. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-003",
+      "text": "Numéro de compte : {numéro_compte}",
+      "synonym": "Numéro : {numéro_compte}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Numéro : {numéro_compte} » → nwàmɔ̀ : {numéro_compte}. Perd « de compte ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-009",
+      "text": "Voir toutes les transactions",
+      "synonym": "voir les opérations",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « voir les opérations » → yɛ́n ì-sàlgà. Perd « toutes ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-013",
+      "text": "Frais de transfert : {frais} {devise}",
+      "synonym": "Prix : {frais} {devise}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Prix : {frais} {devise} » → táŋ : {frais} {devise}. Perd « de transfert ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-040",
+      "text": "Référence : {référence}",
+      "synonym": "Numéro : {référence}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Numéro : {référence} » → nwàmɔ̀ : {référence}. D8 : « Code ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-046",
+      "text": "Date de l'opération : {date}",
+      "synonym": "Jour : {date}",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « Jour : {date} » → à-mǒz : {date}. Perd « de l'opération ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-062",
+      "text": "Chargement en cours...",
+      "synonym": "attendre",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « attendre » → yàŋà.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-079",
+      "text": "Aide et assistance",
+      "synonym": "aider",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « aider » → kà. Verbe à la place du nom.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-032",
+      "text": "Opposition",
+      "synonym": "arrêter la carte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « arrêter la carte » → tɛ́lî carte. Tɛ́lî « placer ; arrêter ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "SEC-034",
+      "text": "Preuve de transaction",
+      "synonym": "preuve",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « preuve » → ndə̀m. Perd « de transaction ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-004",
+      "text": "Salaire reçu",
+      "synonym": "recevoir le salaire",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir le salaire » → g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn. Verbe à la place de « reçu ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "PAG-005",
+      "text": "Transfert reçu",
+      "synonym": "recevoir de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir de l'argent » → g͡bɛ̀ɛn ̀ ì mɔ̀ní. Verbe à la place de « reçu ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-4",
+      "text": "Solde disponible",
+      "synonym": "argent dans le compte",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « argent dans le compte » → mɔ̀ní á compte. Perd « disponible ».",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-11",
+      "text": "Salaire reçu",
+      "synonym": "recevoir le salaire",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir le salaire » → g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P1-12",
+      "text": "Transfert reçu",
+      "synonym": "recevoir de l'argent",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « recevoir de l'argent » → g͡bɛ̀ɛn ̀ ì mɔ̀ní.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P4-8",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P4-12",
+      "text": "Confirmer le transfert",
+      "synonym": "accepter le transfert",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « accepter le transfert » → mə̀m transfert. Confirmer ≈ accepter.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "P5-3",
+      "text": "Référence",
+      "synonym": "numéro",
+      "reason": "Sens proche (groupe B), jugé assez juste par le responsable. Moteur : « numéro » → nwàmɔ̀.",
+      "ref": "docs/reviews/M22-synonymes-d8.md, groupe B",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
     }
   ]
 }

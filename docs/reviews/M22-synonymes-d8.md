@@ -1,6 +1,6 @@
 # M22 — Synonymes de D8 compatibles avec D7 (rapport à valider)
 
-**Statut :** groupe A (15) validé par le responsable le 2026-11-15 et ajouté dans `data/language-resources/d8-synonym-additions.json` (105 → 120 entrées complètes). Le groupe B (35) est en relecture. Le fichier source de D8 n'est pas modifié.
+**Statut :** les 50 propositions sont validées par le responsable : le 2026-11-15 (groupe A, 15, en bloc ; groupe B, 35, une par une). Elles sont ajoutées dans `data/language-resources/d8-synonym-additions.json` : 105 → 155 entrées complètes. Le fichier source de D8 n'est pas modifié.
 
 ## Pourquoi
 
@@ -21,7 +21,7 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 
 105 → 155 entrées complètes sur 375 (+50). Les textes de page (P1 à P5) sont comptés à part, car ils n'ont pas de synonymes propres aujourd'hui.
 
-**Colonne « Décision »** : écrire **oui** ou **non** (ou une autre formulation). Le groupe A garde le sens (validé en bloc) ; le groupe B le rapproche (un mot perdu, un verbe à la place d'un nom, une glose à double sens) et demande votre jugement.
+**Colonne « Décision »** : écrire **oui** ou **non** (ou une autre formulation). Le groupe A garde le sens (validé en bloc) ; le groupe B (validé ligne par ligne) le rapproche (un mot perdu, un verbe à la place d'un nom, une glose à double sens) et demande votre jugement.
 
 ### A. Sens fidèle (15)
 
@@ -47,41 +47,41 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 
 | Sens | ID | Texte de D8 | Synonyme proposé | Éton obtenu | Remarque | Décision |
 |---|---|---|---|---|---|---|
-| ≈ | ACT-016 | Confirmer | accepter | mə̀m | mə̀m « avouer, accepter » ; même forme que Valider |  |
-| ≈ | ACT-020 | Autoriser | accepter | mə̀m | « permettre » absent de D7 |  |
-| ≈ | ACT-023 | Accepter les conditions | accepter la loi | mə̀m mbɛ́ní | mbɛ́ní « loi, interdiction » ; « règles » absent de D7 |  |
-| ≈ | ACT-025 | Contester | refuser l'opération | bɛ̀n ì-sàlgà | contester ≈ refuser |  |
-| ≈ | ACT-034 | Débloquer | ouvrir le compte | yázî compte | D8 : « rouvrir », « permettre encore d'utiliser un compte » |  |
-| ≈ | ACT-039 | Réinitialiser | changer le code | cɛ́nî code | D8 : « remettre comme au début (mot de passe, code secret) » |  |
-| ≈ | VOC-008 | Solde disponible | argent dans le compte | mɔ̀ní á compte | perd « disponible » |  |
-| ≈ | VOC-013 | Plafond | limite | ɲ̀-ɲə̀ | ɲ̀-ɲə̀ « limite ; époque » |  |
-| ≈ | VOC-024 | Somme | argent | mɔ̀ní | somme = quantité d'argent |  |
-| ≈ | VOC-043 | Virement | envoyer de l'argent à la banque | lóm mɔ̀ní á banque | verbe à la place du nom |  |
-| ≈ | VOC-048 | Crédit | ajouter de l'argent | bág mɔ̀ní | verbe à la place du nom (= Créditer) |  |
-| ≈ | VOC-049 | Débit | enlever de l'argent | sóg mɔ̀ní | verbe à la place du nom (= Débiter) |  |
-| ≈ | VOC-050 | Reçu | preuve | ndə̀m | ndə̀m « signe, preuve » |  |
-| ≈ | VOC-052 | Référence | numéro | nwàmɔ̀ | D8 : « numéro de l'opération » |  |
-| ≈ | VOC-053 | Statut de la transaction | état | ì-tə́ | perd « de la transaction » |  |
-| ≈ | VOC-080 | Prêt | dette | ì-kòló | point de vue de celui qui emprunte |  |
-| ≈ | VOC-097 | Conditions générales | loi | mbɛ́ní | mbɛ́ní « loi, interdiction » |  |
-| ≈ | MSG-002 | Votre solde disponible est de {montant} {devise}. | Argent dans le compte : {montant} {devise}. | mɔ̀ní á compte : {montant} {devise}. | perd « disponible » |  |
-| ≈ | MSG-003 | Numéro de compte : {numéro_compte} | Numéro : {numéro_compte} | nwàmɔ̀ : {numéro_compte} | perd « de compte » |  |
-| ≈ | MSG-009 | Voir toutes les transactions | voir les opérations | yɛ́n ì-sàlgà | perd « toutes » |  |
-| ≈ | MSG-013 | Frais de transfert : {frais} {devise} | Prix : {frais} {devise} | táŋ : {frais} {devise} | perd « de transfert » |  |
-| ≈ | MSG-040 | Référence : {référence} | Numéro : {référence} | nwàmɔ̀ : {référence} | D8 : « Code » |  |
-| ≈ | MSG-046 | Date de l'opération : {date} | Jour : {date} | à-mǒz : {date} | perd « de l'opération » |  |
-| ≈ | MSG-062 | Chargement en cours... | attendre | yàŋà | — |  |
-| ≈ | MSG-079 | Aide et assistance | aider | kà | verbe à la place du nom |  |
-| ≈ | SEC-032 | Opposition | arrêter la carte | tɛ́lî carte | tɛ́lî « placer ; arrêter » |  |
-| ≈ | SEC-034 | Preuve de transaction | preuve | ndə̀m | perd « de transaction » |  |
-| ≈ | PAG-004 | Salaire reçu | recevoir le salaire | g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn | verbe à la place de « reçu » |  |
-| ≈ | PAG-005 | Transfert reçu | recevoir de l'argent | g͡bɛ̀ɛn ̀ ì mɔ̀ní | verbe à la place de « reçu » |  |
-| ≈ | P1-4 | Solde disponible | argent dans le compte | mɔ̀ní á compte | perd « disponible » |  |
-| ≈ | P1-11 | Salaire reçu | recevoir le salaire | g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn | — |  |
-| ≈ | P1-12 | Transfert reçu | recevoir de l'argent | g͡bɛ̀ɛn ̀ ì mɔ̀ní | — |  |
-| ≈ | P4-8 | Référence | numéro | nwàmɔ̀ | — |  |
-| ≈ | P4-12 | Confirmer le transfert | accepter le transfert | mə̀m transfert | confirmer ≈ accepter |  |
-| ≈ | P5-3 | Référence | numéro | nwàmɔ̀ | — |  |
+| ≈ | ACT-016 | Confirmer | accepter | mə̀m | mə̀m « avouer, accepter » ; même forme que Valider | oui (2026-11-15) |
+| ≈ | ACT-020 | Autoriser | accepter | mə̀m | « permettre » absent de D7 | oui (2026-11-15) |
+| ≈ | ACT-023 | Accepter les conditions | accepter la loi | mə̀m mbɛ́ní | mbɛ́ní « loi, interdiction » ; « règles » absent de D7 | oui (2026-11-15) |
+| ≈ | ACT-025 | Contester | refuser l'opération | bɛ̀n ì-sàlgà | contester ≈ refuser | oui (2026-11-15) |
+| ≈ | ACT-034 | Débloquer | ouvrir le compte | yázî compte | D8 : « rouvrir », « permettre encore d'utiliser un compte » | oui (2026-11-15) |
+| ≈ | ACT-039 | Réinitialiser | changer le code | cɛ́nî code | D8 : « remettre comme au début (mot de passe, code secret) » | oui (2026-11-15) |
+| ≈ | VOC-008 | Solde disponible | argent dans le compte | mɔ̀ní á compte | perd « disponible » | oui (2026-11-15) |
+| ≈ | VOC-013 | Plafond | limite | ɲ̀-ɲə̀ | ɲ̀-ɲə̀ « limite ; époque » | oui (2026-11-15) |
+| ≈ | VOC-024 | Somme | argent | mɔ̀ní | somme = quantité d'argent | oui (2026-11-15) |
+| ≈ | VOC-043 | Virement | envoyer de l'argent à la banque | lóm mɔ̀ní á banque | verbe à la place du nom | oui (2026-11-15) |
+| ≈ | VOC-048 | Crédit | ajouter de l'argent | bág mɔ̀ní | verbe à la place du nom (= Créditer) | oui (2026-11-15) |
+| ≈ | VOC-049 | Débit | enlever de l'argent | sóg mɔ̀ní | verbe à la place du nom (= Débiter) | oui (2026-11-15) |
+| ≈ | VOC-050 | Reçu | preuve | ndə̀m | ndə̀m « signe, preuve » | oui (2026-11-15) |
+| ≈ | VOC-052 | Référence | numéro | nwàmɔ̀ | D8 : « numéro de l'opération » | oui (2026-11-15) |
+| ≈ | VOC-053 | Statut de la transaction | état | ì-tə́ | perd « de la transaction » | oui (2026-11-15) |
+| ≈ | VOC-080 | Prêt | dette | ì-kòló | point de vue de celui qui emprunte | oui (2026-11-15) |
+| ≈ | VOC-097 | Conditions générales | loi | mbɛ́ní | mbɛ́ní « loi, interdiction » | oui (2026-11-15) |
+| ≈ | MSG-002 | Votre solde disponible est de {montant} {devise}. | Argent dans le compte : {montant} {devise}. | mɔ̀ní á compte : {montant} {devise}. | perd « disponible » | oui (2026-11-15) |
+| ≈ | MSG-003 | Numéro de compte : {numéro_compte} | Numéro : {numéro_compte} | nwàmɔ̀ : {numéro_compte} | perd « de compte » | oui (2026-11-15) |
+| ≈ | MSG-009 | Voir toutes les transactions | voir les opérations | yɛ́n ì-sàlgà | perd « toutes » | oui (2026-11-15) |
+| ≈ | MSG-013 | Frais de transfert : {frais} {devise} | Prix : {frais} {devise} | táŋ : {frais} {devise} | perd « de transfert » | oui (2026-11-15) |
+| ≈ | MSG-040 | Référence : {référence} | Numéro : {référence} | nwàmɔ̀ : {référence} | D8 : « Code » | oui (2026-11-15) |
+| ≈ | MSG-046 | Date de l'opération : {date} | Jour : {date} | à-mǒz : {date} | perd « de l'opération » | oui (2026-11-15) |
+| ≈ | MSG-062 | Chargement en cours... | attendre | yàŋà | — | oui (2026-11-15) |
+| ≈ | MSG-079 | Aide et assistance | aider | kà | verbe à la place du nom | oui (2026-11-15) |
+| ≈ | SEC-032 | Opposition | arrêter la carte | tɛ́lî carte | tɛ́lî « placer ; arrêter » | oui (2026-11-15) |
+| ≈ | SEC-034 | Preuve de transaction | preuve | ndə̀m | perd « de transaction » | oui (2026-11-15) |
+| ≈ | PAG-004 | Salaire reçu | recevoir le salaire | g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn | verbe à la place de « reçu » | oui (2026-11-15) |
+| ≈ | PAG-005 | Transfert reçu | recevoir de l'argent | g͡bɛ̀ɛn ̀ ì mɔ̀ní | verbe à la place de « reçu » | oui (2026-11-15) |
+| ≈ | P1-4 | Solde disponible | argent dans le compte | mɔ̀ní á compte | perd « disponible » | oui (2026-11-15) |
+| ≈ | P1-11 | Salaire reçu | recevoir le salaire | g͡bɛ̀ɛn ̀ ì mwàní à ŋgwàn | — | oui (2026-11-15) |
+| ≈ | P1-12 | Transfert reçu | recevoir de l'argent | g͡bɛ̀ɛn ̀ ì mɔ̀ní | — | oui (2026-11-15) |
+| ≈ | P4-8 | Référence | numéro | nwàmɔ̀ | — | oui (2026-11-15) |
+| ≈ | P4-12 | Confirmer le transfert | accepter le transfert | mə̀m transfert | confirmer ≈ accepter | oui (2026-11-15) |
+| ≈ | P5-3 | Référence | numéro | nwàmɔ̀ | — | oui (2026-11-15) |
 
 ## Entrées sans proposition (220 sur 270)
 
