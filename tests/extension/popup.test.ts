@@ -132,6 +132,13 @@ describe('popup — rapport de diagnostic (P2.6)', () => {
       displayed: 7,
       displayedUnverified: 3,
       refused: 0,
+      attributes: 2,
+      mot: 6,
+      phrase_affirmation: 2,
+      phrase_interrogation: 1,
+      exclamation: 1,
+      imperatif: 1,
+      paragraphe: 1,
     },
     ...patch,
   });
@@ -198,6 +205,9 @@ describe('popup — rapport de diagnostic (P2.6)', () => {
     expect(cell('displayed')).toBe('7');
     expect(cell('displayedUnverified')).toBe('3');
     expect(cell('refused')).toBe('0');
+    expect(cell('attributes')).toBe('2');
+    expect(cell('mot')).toBe('6');
+    expect(cell('phrase_interrogation')).toBe('1');
     expect(named('popup:diagnostic')).toEqual([{ available: true }, { available: true }]);
   });
 

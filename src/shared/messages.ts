@@ -21,6 +21,20 @@ export interface DiagnosticRequest {
 export const DISPLAY_KEYS = ['displayed', 'displayedUnverified', 'refused'] as const;
 export type DisplayKey = (typeof DISPLAY_KEYS)[number];
 
+/**
+ * Classes des textes à traduire (phase 2, `content/classification.ts`) : une seule par texte. `paragraphe` :
+ * plusieurs phrases. Définies ici pour que le popup n'importe pas le classifieur.
+ */
+export const TEXT_CLASSES = ['mot', 'phrase_affirmation', 'phrase_interrogation', 'exclamation', 'imperatif', 'paragraphe'] as const;
+export type TextClass = (typeof TEXT_CLASSES)[number];
+
+/**
+ * Extraction (phase 2) : `attributes` textes lus dans `placeholder`, `title` ou `aria-label` (comptés aussi
+ * dans les autres compteurs), puis la répartition des textes à traduire par classe.
+ */
+export const EXTRACTION_KEYS = ['attributes', ...TEXT_CLASSES] as const;
+export type ExtractionKey = (typeof EXTRACTION_KEYS)[number];
+
 export const COUNT_KEYS = [
   'candidates',
   'numeric',
@@ -34,6 +48,7 @@ export const COUNT_KEYS = [
   'ambiguous',
   'protected',
   ...DISPLAY_KEYS,
+  ...EXTRACTION_KEYS,
 ] as const;
 export type CountKey = (typeof COUNT_KEYS)[number];
 

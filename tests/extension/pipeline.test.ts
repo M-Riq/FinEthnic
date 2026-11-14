@@ -107,7 +107,7 @@ describe('chaîne de lecture (P2.5–P2.8)', () => {
     // Valeurs protégées par leur position : 2 `dd` (solde, compte) et 4 dates dans des `<time>`.
     expect(counts.values).toBe(6);
     expect(named('content:scan')).toEqual([
-      { roots: 1, candidates: counts.candidates, numeric: 0, values: 6, tracked: counts.candidates + 6, step: 1 },
+      { roots: 1, candidates: counts.candidates, numeric: 0, values: 6, tracked: counts.candidates + 6, attributes: 0, step: 1 },
     ]);
     for (const [, data] of events) for (const value of Object.values(data ?? {})) expect(typeof value).not.toBe('string');
   });

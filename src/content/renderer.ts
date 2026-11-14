@@ -13,6 +13,10 @@
  * Les nœuds écrits sont rangés dans une `Map` plutôt qu'une `WeakMap` (5.1) : il faut pouvoir tous les
  * restaurer à la désactivation. La chaîne de lecture restaure et oublie un nœud dès qu'il quitte la page :
  * aucun nœud retiré n'est retenu, et un nœud remis plus tard dans la page revient en français.
+ *
+ * Phase 2 (mission §3.1) : la même logique sert aux attributs `placeholder`, `title` et `aria-label`
+ * (`attributes.ts`). Le rendu est donc paramétré par un accès en lecture et en écriture (`ValueAccess`) :
+ * `Text.data` par défaut, `getAttribute`/`setAttribute` pour un attribut. Rien d'autre n'est jamais écrit.
  */
 import type { ProtectedDetector, TranslationResult } from '../language/contract';
 import { checkIntegrity, type IntegrityFailure } from '../protection/integrity';
@@ -91,46 +95,61 @@ export interface Written {
  */
 export type Ownership = 'ours' | 'changed' | null;
 
-export interface Renderer {
+export interface Renderer<T = Text> {
   /** Écrit `text` dans le nœud. L'original est gardé à la première écriture, ou repris si l'application l'a changé. */
-  write(node: Text, text: string, display: Display): void;
+  write(node: T, text: string, display: Display): void;
   /** Rend le nœud : remet l'original s'il contient encore notre écriture, puis l'oublie. Vrai si l'original a été remis. */
-  restore(node: Text): boolean;
+  restore(node: T): boolean;
   /** Rend tous les nœuds écrits ; renvoie le nombre d'originaux remis. */
   restoreAll(): number;
   /** Oublie le nœud sans y toucher (l'application a remplacé notre écriture). */
-  release(node: Text): void;
-  ownership(node: Text): Ownership;
+  release(node: T): void;
+  ownership(node: T): Ownership;
   /** Texte d'origine d'un nœud qui contient notre écriture, sinon son texte actuel. */
-  sourceOf(node: Text): string;
+  sourceOf(node: T): string;
   /** Nœuds qui contiennent encore notre écriture, dans l'ordre des écritures. */
-  entries(): Generator<readonly [Text, Written]>;
+  entries(): Generator<readonly [T, Written]>;
 }
 
-export function createRenderer(): Renderer {
-  const written = new Map<Text, Written>();
+/** Lecture et écriture de la valeur d'une cible (nœud texte, attribut…). */
+export interface ValueAccess<T> {
+  read(target: T): string;
+  write(target: T, value: string): void;
+}
 
-  const ownership = (node: Text): Ownership => {
+export const TEXT_ACCESS: ValueAccess<Text> = {
+  read: (node) => node.data,
+  write: (node, value) => {
+    node.data = value;
+  },
+};
+
+export function createRenderer(): Renderer;
+export function createRenderer<T extends object>(access: ValueAccess<T>): Renderer<T>;
+export function createRenderer<T extends object>(access: ValueAccess<T> = TEXT_ACCESS as unknown as ValueAccess<T>): Renderer<T> {
+  const written = new Map<T, Written>();
+
+  const ownership = (node: T): Ownership => {
     const current = written.get(node);
     if (!current) return null;
-    return node.data === current.text ? 'ours' : 'changed';
+    return access.read(node) === current.text ? 'ours' : 'changed';
   };
 
-  const restore = (node: Text): boolean => {
+  const restore = (node: T): boolean => {
     const current = written.get(node);
     if (!current) return false;
     written.delete(node);
-    if (node.data !== current.text) return false;
-    if (node.data !== current.original) node.data = current.original;
+    if (access.read(node) !== current.text) return false;
+    if (access.read(node) !== current.original) access.write(node, current.original);
     return true;
   };
 
   return {
     write(node, text, display) {
       const current = written.get(node);
-      const original = current && node.data === current.text ? current.original : node.data;
+      const original = current && access.read(node) === current.text ? current.original : access.read(node);
       // Écrire la même valeur créerait quand même une mutation : on l'évite.
-      if (node.data !== text) node.data = text;
+      if (access.read(node) !== text) access.write(node, text);
       written.set(node, { original, text, display });
     },
     restore,
@@ -145,10 +164,10 @@ export function createRenderer(): Renderer {
     ownership,
     sourceOf(node) {
       const current = written.get(node);
-      return current && node.data === current.text ? current.original : node.data;
+      return current && access.read(node) === current.text ? current.original : access.read(node);
     },
     *entries() {
-      for (const [node, entry] of written) if (node.data === entry.text) yield [node, entry] as const;
+      for (const [node, entry] of written) if (access.read(node) === entry.text) yield [node, entry] as const;
     },
   };
 }

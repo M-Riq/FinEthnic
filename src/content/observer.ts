@@ -5,7 +5,11 @@
  * Les nœuds ajoutés et les textes modifiés sont accumulés, puis livrés en **un seul lot** par trame
  * (`requestAnimationFrame` par défaut). Un nœud dont un ancêtre est déjà dans le lot n'est pas répété,
  * et un nœud retiré de la page entre-temps est ignoré.
+ *
+ * Phase 2 : les attributs traduits (`placeholder`, `title`, `aria-label`) sont aussi observés. Un élément dont
+ * seul un de ces attributs a changé est livré à part (`attributeTargets`), pour ne relire que ses attributs.
  */
+import { isTranslatedAttribute, TRANSLATED_ATTRIBUTES } from './attributes';
 
 /** Programme un rappel (une trame plus tard par défaut ; remplaçable dans les tests). */
 export type Schedule = (callback: () => void) => void;
@@ -42,10 +46,17 @@ export function topmostRoots(nodes: Iterable<Node>, scope: Node): Node[] {
   return roots;
 }
 
-export function watchMutations(scope: Node, onBatch: (roots: Node[]) => void, schedule: Schedule): MutationWatcher {
+/**
+ * `roots` : sous-arbres à relire ; `attributeTargets` : éléments dont seul un attribut traduit a changé
+ * (sans ceux déjà couverts par `roots`).
+ */
+export type BatchHandler = (roots: Node[], attributeTargets: Element[]) => void;
+
+export function watchMutations(scope: Node, onBatch: BatchHandler, schedule: Schedule): MutationWatcher {
   const win = scope.ownerDocument?.defaultView;
   if (!win) throw new Error('watchMutations : nœud hors fenêtre');
   const dirty = new Set<Node>();
+  const dirtyAttributes = new Set<Element>();
   let changed = false;
   let scheduled = false;
   let active = true;
@@ -55,6 +66,7 @@ export function watchMutations(scope: Node, onBatch: (roots: Node[]) => void, sc
     for (const record of records) {
       changed = true;
       if (record.type === 'childList') record.addedNodes.forEach((node) => dirty.add(node));
+      else if (record.type === 'attributes' && isTranslatedAttribute(record.attributeName)) dirtyAttributes.add(record.target as Element);
       else dirty.add(record.target);
     }
   };
@@ -64,10 +76,12 @@ export function watchMutations(scope: Node, onBatch: (roots: Node[]) => void, sc
     if (!active) return;
     collect(observer.takeRecords());
     const roots = topmostRoots(dirty, scope);
+    const attributeTargets = [...dirtyAttributes].filter((element) => scope.contains(element) && !roots.some((root) => root.contains(element)));
     dirty.clear();
+    dirtyAttributes.clear();
     if (changed) {
       changed = false;
-      onBatch(roots);
+      onBatch(roots, attributeTargets);
     }
   };
 
@@ -83,7 +97,7 @@ export function watchMutations(scope: Node, onBatch: (roots: Node[]) => void, sc
     characterData: true,
     subtree: true,
     attributes: true,
-    attributeFilter: [...WATCHED_ATTRIBUTES],
+    attributeFilter: [...WATCHED_ATTRIBUTES, ...TRANSLATED_ATTRIBUTES],
   });
 
   return {
@@ -91,6 +105,7 @@ export function watchMutations(scope: Node, onBatch: (roots: Node[]) => void, sc
       active = false;
       observer.disconnect();
       dirty.clear();
+      dirtyAttributes.clear();
       changed = false;
     },
   };
