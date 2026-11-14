@@ -20,7 +20,8 @@
     "propose-translations": "tsx scripts/propose-translations.ts",
     "build-lefff": "tsx scripts/build-lefff.ts",
     "serve-engine": "tsx scripts/serve-engine.ts",
-    "engine-report": "tsx scripts/engine-report.ts"
+    "engine-report": "tsx scripts/engine-report.ts",
+    "e2e-check": "tsx scripts/e2e-check.ts"
   },
   "devDependencies": {
     "@types/chrome": "0.3.7",
