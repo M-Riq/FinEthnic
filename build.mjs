@@ -2,17 +2,22 @@
 /**
  * Construction de l'extension (P1.1).
  *
- *   node build.mjs              → dist/      (production : manifest.json, sans journal ni faux moteur)
- *   node build.mjs --dev        → dist-dev/  (développement : manifest.dev.json, journal actif)
- *   node build.mjs --out <dir>  → autre dossier de sortie (tests)
+ *   node build.mjs                  → dist/      (production : manifest.json, vrai moteur, sans journal)
+ *   node build.mjs --dev            → dist-dev/  (développement : manifest.dev.json, faux moteur, journal actif)
+ *   node build.mjs --engine <choix> → moteur embarqué : real, fake (développement seulement) ou none
+ *   node build.mjs --out <dir>      → autre dossier de sortie (tests)
+ *
+ * Avec le vrai moteur (BM7), ses ressources sont lues sur le poste qui construit, D7 compris (hors Git,
+ * Q17 : `npm run import-dictionary` d'abord), et embarquées dans `content.js`.
  *
  * Le code produit est vérifié **avant** d'être écrit : la construction échoue s'il contient un accès
  * réseau, une évaluation de code, une injection HTML ou, en production, le faux moteur (contrat §9).
  */
 import { build } from 'esbuild';
-import { copyFile, lstat, mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { copyFile, lstat, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { tsImport } from 'tsx/esm/api';
 
 export const ROOT = path.dirname(fileURLToPath(import.meta.url));
 
@@ -54,21 +59,70 @@ export function findForbidden(code, { production }) {
   return rules.filter(({ pattern }) => pattern.test(code)).map(({ label }) => label);
 }
 
+/** @typedef {'real' | 'fake' | 'none'} EngineChoice */
+/** @typedef {{ dev: boolean, outDir: string, engine?: EngineChoice }} BuildOptions */
+
+/** @type {readonly EngineChoice[]} */
+const ENGINE_CHOICES = ['real', 'fake', 'none'];
+
+/**
+ * Moteur retenu : `real` en production, `fake` en développement, sauf choix explicite.
+ * Le faux moteur est refusé en production (contrat §9).
+ * @param {BuildOptions} options
+ * @returns {EngineChoice}
+ */
+export function engineChoice({ dev, engine }) {
+  const choice = engine ?? (dev ? 'fake' : 'real');
+  if (!ENGINE_CHOICES.includes(choice)) throw new Error(`Moteur inconnu : ${choice} (real, fake ou none)`);
+  if (choice === 'fake' && !dev) throw new Error('Le faux moteur est réservé au développement (--dev) : contrat §9');
+  return choice;
+}
+
 /**
  * @param {readonly string[]} argv
- * @returns {{ dev: boolean, outDir: string }}
+ * @returns {{ dev: boolean, outDir: string, engine: EngineChoice }}
  */
 export function parseArgs(argv) {
   let dev = false;
   /** @type {string | undefined} */
   let out;
+  /** @type {string | undefined} */
+  let engine;
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--dev') dev = true;
     else if (arg === '--out' && argv[i + 1]) out = argv[++i];
+    else if (arg === '--engine' && argv[i + 1]) engine = argv[++i];
     else throw new Error(`Argument inconnu : ${arg}`);
   }
-  return { dev, outDir: path.resolve(ROOT, out ?? (dev ? 'dist-dev' : 'dist')) };
+  const outDir = path.resolve(ROOT, out ?? (dev ? 'dist-dev' : 'dist'));
+  return { dev, outDir, engine: engineChoice({ dev, outDir, engine: /** @type {EngineChoice} */ (engine) }) };
+}
+
+/**
+ * Constantes injectées pour le moteur choisi : avec `real`, les ressources du moteur sérialisées
+ * (`src/content/engine-resources.ts`). Lève une erreur lisible si D7 manque.
+ * @param {EngineChoice} engine
+ * @returns {Promise<Record<string, string>>}
+ */
+async function engineDefines(engine) {
+  const defines = { __FINETHNIC_ENGINE__: JSON.stringify(engine), __FINETHNIC_ENGINE_DATA__: '""', __FINETHNIC_ENGINE_LEXICON__: '""' };
+  if (engine !== 'real') return defines;
+  const load = await tsImport('./scripts/lib/engine-load.ts', import.meta.url);
+  const { serializeResources } = await tsImport('./src/content/engine-resources.ts', import.meta.url);
+  /** @type {unknown} */
+  let resources;
+  try {
+    resources = load.loadContractResources(ROOT);
+  } catch (error) {
+    if (error instanceof Error && error.name === 'MissingDictionaryError') {
+      throw new Error(`${error.message}\nPour construire sans moteur : node build.mjs --engine none`);
+    }
+    throw error;
+  }
+  const lexicon = await readFile(path.join(ROOT, load.LEXICON_PATH), 'utf8');
+  const { data, lexicon: lexiconText } = serializeResources(resources, lexicon);
+  return { ...defines, __FINETHNIC_ENGINE_DATA__: JSON.stringify(data), __FINETHNIC_ENGINE_LEXICON__: JSON.stringify(lexiconText) };
 }
 
 /** Fichier témoin écrit dans chaque construction : seul un dossier qui le contient peut être vidé. */
@@ -101,11 +155,14 @@ async function assertSafeOutDir(outDir) {
 }
 
 /**
- * @param {{ dev: boolean, outDir: string }} options
+ * @param {BuildOptions} options
  * @returns {Promise<string[]>} fichiers écrits, relatifs au dossier de sortie
  */
-export async function buildExtension({ dev, outDir }) {
+export async function buildExtension(options) {
+  const { dev, outDir } = options;
+  const engine = engineChoice(options);
   await assertSafeOutDir(outDir);
+  const engineConstants = await engineDefines(engine);
 
   const result = await build({
     absWorkingDir: ROOT,
@@ -119,10 +176,10 @@ export async function buildExtension({ dev, outDir }) {
     platform: 'browser',
     target: ['chrome110'],
     charset: 'utf8',
-    // Élimine le code mort (journal, faux moteur) sans rendre le code illisible pour la relecture.
+    // Élimine le code mort (journal, moteur non choisi) sans rendre le code illisible pour la relecture.
     minifySyntax: true,
     sourcemap: dev ? 'inline' : false,
-    define: { __FINETHNIC_DEV__: dev ? 'true' : 'false' },
+    define: { __FINETHNIC_DEV__: dev ? 'true' : 'false', ...engineConstants },
     write: false,
     logLevel: 'warning',
   });
@@ -171,7 +228,8 @@ if (isMain) {
     const options = parseArgs(process.argv.slice(2));
     const files = await buildExtension(options);
     const sizes = await Promise.all(files.map(async (f) => (await stat(path.join(options.outDir, f))).size));
-    console.log(`Extension construite (${options.dev ? 'développement' : 'production'}) → ${path.relative(ROOT, options.outDir) || '.'}`);
+    const mode = options.dev ? 'développement' : 'production';
+    console.log(`Extension construite (${mode}, moteur ${options.engine}) → ${path.relative(ROOT, options.outDir) || '.'}`);
     files.forEach((f, i) => console.log(`  ${f} (${sizes[i]} o)`));
   } catch (error) {
     console.error(error instanceof Error ? error.message : error);

@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DIAGNOSTIC_CLASSES, highlightName, MARK_NAMES } from '../../src/content/diagnostic';
-import { acceptEngine, provideEngine } from '../../src/content/engine-provider';
+import { acceptEngine, buildEngine, provideEngine } from '../../src/content/engine-provider';
 import { createFakeEngine } from '../../src/content/fake-engine';
 import { createMessageListener } from '../../src/content/messaging';
 import { CONTRACT_VERSION } from '../../src/language/contract';
@@ -253,8 +253,18 @@ describe('choix du moteur (P2.8)', () => {
     expect(fake.info().contractVersion).toBe(CONTRACT_VERSION);
   });
 
-  it('ne fournit aucun moteur hors construction de développement', () => {
+  it('ne fournit aucun moteur hors bundle (aucun moteur choisi à la construction)', () => {
     expect(provideEngine()).toBeNull();
+  });
+
+  it('remplace un moteur qui ne se construit pas par l’absence de moteur', () => {
+    const fake = createFakeEngine();
+    expect(buildEngine(() => fake)).toBe(fake);
+    expect(
+      buildEngine(() => {
+        throw new Error('ressources illisibles');
+      }),
+    ).toBeNull();
   });
 });
 

@@ -4,7 +4,7 @@
  * - Sorties visiblement factices : `⟦FAKE⟧ ` suivi du texte original, jamais une chaîne qui ressemble à de l'éton.
  * - Les six statuts sont couverts par une table fixe de textes D8 (pages de test) et de textes anglais fictifs.
  * - Pur (I1) : aucune dépendance au DOM, à `chrome.*`, au réseau ni à l'horloge ; déterministe (I8).
- * - Absent du build de production : seul `engine-provider.ts` l'importe, derrière `__FINETHNIC_DEV__`.
+ * - Absent du build de production : seul `engine-provider.ts` l'importe, derrière `__FINETHNIC_ENGINE__`.
  *   La table est construite dans la fabrique pour que esbuild l'élimine ; `build.mjs` le vérifie.
  */
 import {
