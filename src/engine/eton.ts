@@ -69,6 +69,12 @@ export const ETON_RULES = {
     ref: `${ESQUISSE}, §8.4.2 (24), §8.8 (187) ; D7 p. 229 (« í mód àtə́ kwàm »), p. 190 (« ḿmú úꜜtə́ zù »)`,
     description: '« NOM qui VERBE » au présent : augment sur le nom + marque de la classe du nom + tə́ + infinitif, comme hors relative ; « qui » n’est pas traduit. Augment : préfixe voyelle ou nasale syllabique à ton bas → ton haut (ì-lə́ → í-lə́) ; m-òd → í mód (D7). Hors règle : autre préfixe (pont tonal non décrit), nom sans classe sûre ou au pluriel, nom gardé en français, « celui qui », « ce qui », « à qui », nom précédé d’un autre nom, négation, « qui est ». Validé par le responsable (M30).',
   },
+  PURPOSE: {
+    id: 'D7-POUR-SUBJONCTIF',
+    ruleClass: 'A',
+    ref: `D7 p. 77 (lexique n° 105, « àtə́ swàlbɔ̀ ású ádî » Il se cache pour manger) ; ${ESQUISSE}, §8.7.8 (166), (167)`,
+    description: '« pour » + infinitif d’un verbe d’une syllabe : ású + subjonctif, avec « tu » sous-entendu : marque du sujet à ton haut ú, thème à ton descendant quel que soit son ton (dí → ádî, g͡bè → ág͡bê, tál → átâl, jə̀m → újə̂m ; « pour garder » → ású únây). Hors règle : verbe de plusieurs syllabes ou à voyelle longue (un seul exemple), à voyelle initiale, sans ton noté, « être », « avoir », « nom à + verbe ». Validé par le responsable (M32).',
+  },
   PRESENT: rule('D7-PRESENT', 'B', '§3 Temps', 'MS-tə́ + infinitif : marque du sujet inconnue pour « vous » (aucun exemple), un nom sans classe sûre dans D7 ou un sujet non repéré en tête de phrase ; négation d’une classe sans forme attestée, avoir, quasi-auxiliaires et verbe suivi d’un infinitif non couverts ; « être » hors D7-ETRE-PRESENT (« vous », « c’est », relative, forme négative non attestée) ; « qui » hors D7-RELATIVE-SUJET (M19, M28, M29, M30).'),
   SUBJECT_MARKER: rule('D7-MARQUE-SUJET', 'B', '§2 Marques du sujet', '« nous » : ɛ̀ ou bì (seul ɛ̀tə́ est employé au présent) ; classes doubles du lexique (« 9/10, s.g ») non reliées à une marque.'),
   PAST_RECENT_PERFECTIVE: rule('D7-PASSE-RECENT-PERFECTIF', 'C', '§3 Temps', 'MS-H-thème(-H) : tons non documentés.'),
@@ -87,10 +93,10 @@ export const ETON_RULES = {
   OBJECT_PRONOUN: rule('D7-PRONOM-OBJET', 'B', '§3 (exemple « mə̀tə́ wɔ̂ yɛ́n »)', 'Place et forme du pronom complément : un exemple seulement.'),
   AGREEMENT: rule('D7-ACCORD', 'C', 'lexique (radicaux liés « -… »)', 'Radical lié : préfixe d’accord non documenté.'),
   ADJECTIVE: rule('D7-NOM-ADJECTIF', 'B', '§7 (exemple « mə̀bwád mə́ bôd »)', 'Ordre et connectif accordé : un exemple seulement.'),
-  INFINITIVE: rule('D7-INFINITIF-PREPOSITION', 'C', 'lexique n° 685 (exemple « ású ɲcígní ɲâg »)', 'Forme du verbe après une préposition (« pour couper ») : préfixe non documenté.'),
+  INFINITIVE: rule('D7-INFINITIF-PREPOSITION', 'C', 'lexique n° 105, n° 685 (exemple « ású ɲcígní ɲâg ») ; esquisse §8.7.8', 'Verbe après une préposition hors D7-POUR-SUBJONCTIF (M32) : « nom à + verbe » (« argent à envoyer », aucun exemple), verbe de plusieurs syllabes ou à voyelle longue (subjonctif : un seul exemple), « être », « avoir », autre préposition.'),
   NUMERAL: rule('D7-NOMBRE', 'C', '§1-7', 'Place et accord du nombre par rapport au nom : non documentés.'),
   CONNECTIVE: rule('D7-CONNECTIF', 'C', '§7', 'Connectif entre deux noms : premier nom gardé en français ou de classe sans forme sûre dans D7 (2, 3, 4, 3a, 6…), second nom à voyelle ou nasale initiale (fusion non documentée), ou noms juxtaposés sans « de » (M26).'),
-  VERB_FORM: rule('D7-FORME-VERBALE', 'C', '§3', 'Participe ou forme conjuguée : D7 ne donne que l’infinitif.'),
+  VERB_FORM: rule('D7-FORME-VERBALE', 'C', '§3 ; esquisse §8.5, §8.7.3, §8.7.6', 'Participe ou forme conjuguée : D7 ne donne que l’infinitif. Participe passé (« argent envoyé ») : source manquante, l’esquisse n’en décrit aucun (relative au passé avec un sujet que le français ne donne pas, tons du passé récent sur un seul exemple, passif -bàn sur trois exemples de sens différents) (M32).'),
 } as const satisfies Record<string, EtonRule>;
 
 /** Mots ignorés par une règle validée (grammar-rules.json, `ignoredWords`). */
@@ -181,6 +187,8 @@ export interface EtonPiece {
   homograph?: boolean;
   /** Ton bas flottant noté ꜜ devant la forme (présent, M19) ; `eto` reste la forme de D7. */
   downstep?: boolean;
+  /** Forme écrite quand une règle change le mot (subjonctif, M32) ; `eto` reste la forme de D7. */
+  form?: string;
   alternatives?: { eto: string; ref: string }[];
 }
 
@@ -495,6 +503,21 @@ export function finalTone(eto: string): 'HIGH' | 'LOW' | null {
   if (marks === '\u0301' || marks === '\u030C') return 'HIGH';
   if (marks === '\u0300' || marks === '\u0302') return 'LOW';
   return null;
+}
+
+/**
+ * Subjonctif avec « tu » d'un verbe d'une syllabe (M32) : ú + thème à ton descendant (dí → údî).
+ * null pour un verbe de plusieurs syllabes, à voyelle longue ou initiale, ou sans ton noté.
+ */
+export function subjunctiveTu(eto: string): string | null {
+  const d = eto.normalize('NFD');
+  const vowels = [...d.matchAll(/[aeiouɛəɔ]/giu)];
+  const v = vowels[0];
+  if (/\s/u.test(d) || vowels.length !== 1 || v === undefined || !consonantInitial(eto)) return null;
+  const at = v.index + v[0].length;
+  const marks = /^\p{Mn}*/u.exec(d.slice(at))?.[0] ?? '';
+  if (!['\u0301', '\u0300', '\u0302', '\u030C'].includes(marks)) return null;
+  return `ú${d.slice(0, at)}\u0302${d.slice(at + marks.length)}`.normalize('NFC');
 }
 
 /** Verbe au présent rendu par MS-tə́ + infinitif. */
@@ -1003,12 +1026,23 @@ export function buildSentence(s: SentenceAnalysis, d7: D7Index, options: EtonOpt
     const pair = [a.category, b.category];
     if (pair.includes('NOM') && (adjectival(a) || adjectival(b))) continue;
     if (pair.includes('NOM') && pair.includes('NUM')) gap(`${a.fr} ${b.fr}`, ETON_RULES.NUMERAL);
-    else if (PREPOSITIONS.has(a.fr.toLocaleLowerCase('fr')) && b.category === 'VERBE') gap(`${a.fr} ${b.fr}`, ETON_RULES.INFINITIVE);
+    else if (PREPOSITIONS.has(a.fr.toLocaleLowerCase('fr')) && b.category === 'VERBE') {
+      // « pour » + infinitif (M32) : ású + subjonctif avec « tu ».
+      const key = b.fr.toLocaleLowerCase('fr');
+      const form = a.fr.toLocaleLowerCase('fr') === 'pour' && a.eto === 'ású' && b.source === 'D7' && b.eto !== null && !b.downstep
+        && !['être', 'avoir'].includes(key) && (lexicon?.lookup(key) ?? []).some((r) => r.mood === 'INFINITIVE')
+        ? subjunctiveTu(b.eto) : null;
+      if (form === null) gap(`${a.fr} ${b.fr}`, ETON_RULES.INFINITIVE);
+      else {
+        b.form = form;
+        applied.add(ETON_RULES.PURPOSE);
+      }
+    }
     else if (pair[0] === 'NOM' && pair[1] === 'NOM') gap(`${a.fr} ${b.fr}`, ETON_RULES.CONNECTIVE);
   }
   if (lexical.length >= 2) applied.add(ETON_RULES.ORDER);
 
-  const parts = pieces.map((p) => ({ text: p.eto === null ? `[${p.fr}]` : `${p.downstep ? 'ꜜ' : ''}${p.eto}`, punct: p.source === 'PUNCT' }));
+  const parts = pieces.map((p) => ({ text: p.eto === null ? `[${p.fr}]` : `${p.downstep ? 'ꜜ' : ''}${p.form ?? p.eto}`, punct: p.source === 'PUNCT' }));
   return {
     fr: s.text,
     pieces,

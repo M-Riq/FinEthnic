@@ -23,7 +23,7 @@
     {
       "id": "E04",
       "text": "Bonjour",
-      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "partial", "unverifiedOutput": "pwág ì-búg ású kàd [bonjour] á [quelqu'un]." },
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "partial", "unverifiedOutput": "pwág ì-búg ású úkâd [bonjour] á [quelqu'un]." },
       "display": "Brouillon : marqueur « partiel » distinct ; les mots entre crochets sont restés en français."
     },
     {
