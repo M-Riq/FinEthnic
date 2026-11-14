@@ -63,6 +63,132 @@
       "reason": "D7 : pɔ́ « nouvelle, information, message » est un nom : une nouvelle qu’on annonce. Dans « Mise à jour de sécurité », le synonyme de D8 « nouvelle version » emploie « nouvelle » comme adjectif (récente) : « pɔ́ version » se lirait « l’information de la version ».",
       "decidedBy": "responsable du projet",
       "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-020",
+      "fr": "Espèces",
+      "eto": "mbɔ̀ŋ",
+      "ref": "D7 p. 181 (lexique n° 1735)",
+      "reason": "D7 : mbɔ̀ŋ « espèce (êtres vivants), variété » (« une variété de maïs »). « Espèces » veut dire l’argent liquide (D8 : pièces et billets).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-020",
+      "fr": "pièces",
+      "eto": "ì-tùn í ndá",
+      "ref": "D7 p. 141 (lexique n° 1101)",
+      "reason": "D7 : ì-tùn í ndá « chambre, pièce (habitation) », littéralement « partie de la maison ». Dans le synonyme de D8 « pièces et billets », la pièce est de l’argent en métal.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-020",
+      "fr": "billets",
+      "eto": "tíkɛ̂d",
+      "ref": "D7 p. 253 (lexique n° 2957)",
+      "reason": "D7 : tíkɛ̂d « billet » au sens de ticket (« Le billet coûte cher », « billet de convocation »). Dans « pièces et billets », le billet est de l’argent en papier.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-021",
+      "fr": "Pièce",
+      "eto": "ì-tùn í ndá",
+      "ref": "D7 p. 141 (lexique n° 1101)",
+      "reason": "D7 : ì-tùn í ndá « chambre, pièce (habitation) », littéralement « partie de la maison ». « Pièce » veut dire ici un petit morceau d’argent en métal (D8).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-022",
+      "fr": "Billet",
+      "eto": "tíkɛ̂d",
+      "ref": "D7 p. 253 (lexique n° 2957)",
+      "reason": "D7 : tíkɛ̂d « billet » au sens de ticket (« Le billet coûte cher », « billet de convocation »). « Billet » veut dire ici l’argent en papier (D8). Le synonyme de D8 « papier d’argent » donne kálâdà à mɔ̀ní.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-032",
+      "fr": "Commission",
+      "eto": "ù-lóm",
+      "ref": "D7 p. 262 (lexique n° 3105)",
+      "reason": "D7 : ù-lóm « commission, une charge qu’on donne à une personne » : une course confiée à quelqu’un. « Commission » veut dire ici la petite part d’argent gardée par l’agent (D8).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "VOC-033",
+      "fr": "État",
+      "eto": "ì-tə́",
+      "ref": "D7 p. 139 (lexique n° 1069)",
+      "reason": "D7 : ì-tə́ « 1) position 2) étape 3) état » : l’état dans lequel on se trouve (« Il est dans un mauvais état »). Dans « argent pour l’État », l’État est le gouvernement : « mɔ̀ní ású ì-tə́ » se lirait « l’argent pour la position ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-076",
+      "fr": "Langue",
+      "eto": "ù-jə́m",
+      "ref": "D7 p. 259 (lexique n° 3060)",
+      "reason": "D7 : ù-jə́m « 1) langue (organe) 2) caquet, bavardage ». « Langue » veut dire ici la langue des mots à l’écran (D8), pas l’organe.",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "MSG-010",
+      "fr": "actif",
+      "eto": "ŋ̀-káŋá",
+      "ref": "D7 p. 211 (lexique n° 2266)",
+      "reason": "D7 : ŋ̀-káŋá « brave, vaillant, actif », dit des personnes (exemple : « les enfants braves », des bandits). « Votre compte est actif » veut dire que le compte peut être utilisé (D8) : « compte wɔ̀ ànə̀ ŋ̀-káŋá » se lirait « ton compte est courageux ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-013",
+      "fr": "plus",
+      "eto": "pə̂",
+      "ref": "D7 p. 231 (lexique n° 2596)",
+      "reason": "D7 : pə̂ « 1) aussi 2) plus, désormais pas » (« ne … plus »). Dans « envoyer plus tard », « plus » marque le futur, pas « aussi » ni « ne … plus » : « lóm pə̂ mbúmbúâ » se lirait « envoyer aussi en retard ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-014",
+      "fr": "plus",
+      "eto": "pə̂",
+      "ref": "D7 p. 231 (lexique n° 2596)",
+      "reason": "D7 : pə̂ « 1) aussi 2) plus, désormais pas » (« ne … plus »). Dans « payer plus tard », « plus » marque le futur, pas « aussi » ni « ne … plus » : « yágnà pə̂ mbúmbúâ » se lirait « payer aussi en retard ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-033",
+      "fr": "Bloquer",
+      "eto": "bán",
+      "ref": "D7 p. 82 (lexique n° 171)",
+      "reason": "D7 : bán « 1) mettre un poids sur quelque chose, appuyer 2) bloquer, maintenir une personne ou un animal dans une situation inconfortable par des moyens mystiques ». « Bloquer » veut dire ici empêcher d’utiliser un compte ou une carte (D8).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-048",
+      "fr": "Saisir",
+      "eto": "g͡bè",
+      "ref": "D7 p. 116 (lexique n° 682)",
+      "reason": "D7 : g͡bè « saisir, attraper » (« Il a saisi la pirogue »). « Saisir » veut dire ici écrire une information (D8). Le synonyme de D8 « écrire » donne tìl « écrire » (D7 n° 2958).",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
+    },
+    {
+      "entryId": "ACT-060",
+      "fr": "taper",
+      "eto": "bímî",
+      "ref": "D7 p. 89 (lexique n° 257)",
+      "reason": "D7 : bímî « 1) taper (une fois), gifler 2) tirer le ballon » (« Il me frappe »). Dans « taper le code », taper veut dire écrire sur l’écran (D8) : « bímî code » se lirait « gifler le code ».",
+      "decidedBy": "responsable du projet",
+      "date": "2026-11-15"
     }
   ]
 }
