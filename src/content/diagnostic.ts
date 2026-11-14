@@ -1,13 +1,17 @@
 /**
- * Diagnostic (P2.6) : compteurs par statut et surlignage des textes détectés.
+ * Diagnostic (P2.6) et marqueurs (P5.10) : compteurs par statut et surlignage des textes.
  *
  * Le surlignage passe par la CSS Custom Highlight API (`CSS.highlights`) : des plages (`Range`) sont
  * enregistrées sous les noms `finethnic-*`, stylés par `content.css` (`::highlight()`). Aucun nœud,
  * attribut ni style n'est ajouté au DOM de la page. Les styles se distinguent par la forme du trait,
  * pas seulement par la couleur.
+ *
+ * - Diagnostic : chaque texte suivi selon sa catégorie, seulement en mode diagnostic.
+ * - Marqueurs : chaque traduction non vérifiée affichée (tirets) ou brouillon (vagues), toujours (contrat §5.4-2).
  */
-import type { TranslationStatus, UnverifiedKind } from '../language/contract';
-import { COUNT_KEYS, type CountKey } from '../shared/messages';
+import type { TranslationResult, TranslationStatus, UnverifiedKind } from '../language/contract';
+import { COUNT_KEYS, DISPLAY_KEYS, type CountKey, type DisplayKey } from '../shared/messages';
+import type { Display } from './renderer';
 import type { TextKind } from './scanner';
 
 /** État d'un texte suivi. Gardé en mémoire seulement, jamais journalisé ni transmis. */
@@ -16,12 +20,21 @@ export interface Tracked {
   /** `null` : pas encore évalué (aucun moteur, ou en file d'attente). */
   status: TranslationStatus | null;
   unverifiedKind: UnverifiedKind | null;
+  /** Dernier résultat du moteur et texte évalué, pour réafficher sans réévaluer quand une option change (P5). */
+  result?: TranslationResult | null;
+  evaluated?: string | null;
+  /** Ce qui est affiché en éton, `null` si le texte d'origine est conservé (P5). */
+  shown?: Display | null;
+  /** Traduction écartée par le contrôle d'intégrité (P5.8). */
+  refused?: boolean;
 }
 
-export type DiagnosticClass = Exclude<CountKey, 'candidates'>;
+export type DiagnosticClass = Exclude<CountKey, 'candidates' | DisplayKey>;
+
+const isDisplayKey = (key: CountKey): key is DisplayKey => DISPLAY_KEYS.some((display) => display === key);
 
 export const DIAGNOSTIC_CLASSES: readonly DiagnosticClass[] = COUNT_KEYS.filter(
-  (key): key is DiagnosticClass => key !== 'candidates',
+  (key): key is DiagnosticClass => key !== 'candidates' && !isDisplayKey(key),
 );
 
 const BY_STATUS: Record<TranslationStatus, DiagnosticClass> = {
@@ -46,6 +59,9 @@ export function countEntries(entries: Iterable<Tracked>): Record<CountKey, numbe
   for (const entry of entries) {
     counts[classOf(entry)]++;
     if (entry.kind === 'candidate') counts.candidates++;
+    if (entry.shown) counts.displayed++;
+    if (entry.shown === 'unverified' || entry.shown === 'partial') counts.displayedUnverified++;
+    if (entry.refused) counts.refused++;
   }
   return counts;
 }
@@ -75,22 +91,51 @@ export function clearHighlights(api: HighlightApi): void {
   for (const cls of DIAGNOSTIC_CLASSES) api.delete(highlightName(cls));
 }
 
+/** Plage du texte d'un nœud sans ses espaces de bord, ou `null` s'il est vide ou hors de la page. */
+function rangeOf(node: Text): Range | null {
+  if (!node.isConnected) return null;
+  const start = /^\s*/u.exec(node.data)?.[0].length ?? 0;
+  const end = node.data.length - (/\s*$/u.exec(node.data)?.[0].length ?? 0);
+  if (end <= start) return null;
+  const range = node.ownerDocument.createRange();
+  range.setStart(node, start);
+  range.setEnd(node, end);
+  return range;
+}
+
+function paintGroups(api: HighlightApi, groups: ReadonlyMap<string, readonly Range[]>): void {
+  for (const [name, ranges] of groups) {
+    if (ranges.length > 0) api.set(name, ranges);
+    else api.delete(name);
+  }
+}
+
 /** Surligne chaque texte suivi selon sa catégorie, sans les espaces de bord. */
 export function paintHighlights(api: HighlightApi, entries: Iterable<readonly [Text, Tracked]>): void {
-  const groups = new Map<DiagnosticClass, Range[]>(DIAGNOSTIC_CLASSES.map((cls) => [cls, []]));
+  const groups = new Map<string, Range[]>(DIAGNOSTIC_CLASSES.map((cls) => [highlightName(cls), []]));
   for (const [node, entry] of entries) {
-    const doc = node.ownerDocument;
-    if (!node.isConnected) continue;
-    const start = /^\s*/u.exec(node.data)?.[0].length ?? 0;
-    const end = node.data.length - (/\s*$/u.exec(node.data)?.[0].length ?? 0);
-    if (end <= start) continue;
-    const range = doc.createRange();
-    range.setStart(node, start);
-    range.setEnd(node, end);
-    groups.get(classOf(entry))?.push(range);
+    const range = rangeOf(node);
+    if (range) groups.get(highlightName(classOf(entry)))?.push(range);
   }
-  for (const [cls, ranges] of groups) {
-    if (ranges.length > 0) api.set(highlightName(cls), ranges);
-    else api.delete(highlightName(cls));
+  paintGroups(api, groups);
+}
+
+/** Marqueurs des traductions non vérifiées affichées (contrat §5.4-2 et 6), repris par `content.css`. */
+export const MARK_NAMES: Readonly<Record<Exclude<Display, 'approved'>, string>> = {
+  unverified: 'finethnic-mark-unverified',
+  partial: 'finethnic-mark-partial',
+};
+
+export function paintMarks(api: HighlightApi, entries: Iterable<readonly [Text, Tracked]>): void {
+  const groups = new Map<string, Range[]>(Object.values(MARK_NAMES).map((name) => [name, []]));
+  for (const [node, entry] of entries) {
+    if (entry.shown !== 'unverified' && entry.shown !== 'partial') continue;
+    const range = rangeOf(node);
+    if (range) groups.get(MARK_NAMES[entry.shown])?.push(range);
   }
+  paintGroups(api, groups);
+}
+
+export function clearMarks(api: HighlightApi): void {
+  for (const name of Object.values(MARK_NAMES)) api.delete(name);
 }

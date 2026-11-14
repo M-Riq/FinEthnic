@@ -43,6 +43,9 @@ describe('T-PRO-13 — une écriture qui altère une valeur protégée est refus
     expect(checkIntegrity('Bonjour, Amina', '⟦FAKE⟧ Bonjour, Amena', ['Amina'])).toBe('engine-segment-missing');
     expect(checkIntegrity('Amina et Amina', 'Amina', ['Amina', 'Amina'])).toBe('engine-segment-missing');
     expect(checkIntegrity('Amina et Amina', 'Amina, Amina', ['Amina', 'Amina'])).toBeNull();
+    // Segment absent de l'original, ou plus souvent signalé qu'il n'y figure : résultat incohérent (P5.8).
+    expect(checkIntegrity('Bonjour', 'Mbolo, Amina', ['Amina'])).toBe('engine-segment-unknown');
+    expect(checkIntegrity('Bonjour, Amina', 'Mbolo, Amina, Amina', ['Amina', 'Amina'])).toBe('engine-segment-unknown');
     // Segments invalides ignorés (le moteur est vérifié par ailleurs, I5).
     expect(checkIntegrity('Bonjour', 'Mbolo', ['', 42 as unknown as string])).toBeNull();
   });

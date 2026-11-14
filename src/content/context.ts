@@ -7,7 +7,7 @@
  * - `step` : étape SAFINUM, déduite du seul titre visible de l'étape, sinon absente (Q20, jamais de l'URL).
  */
 import type { TextRole, TranslationContext } from '../language/contract';
-import { isInExcludedRegion } from '../protection/dom-guard';
+import { isInExcludedRegion, sourceText, type SourceOf } from '../protection/dom-guard';
 
 export type Step = NonNullable<TranslationContext['step']>;
 
@@ -61,12 +61,15 @@ const STEP_TITLES: ReadonlyMap<string, Step> = new Map([
   ['Transfert effectué', 5],
 ]);
 
-/** Étape affichée, ou `undefined` si aucun titre d'étape n'est visible ou s'ils désignent des étapes différentes. */
-export function detectStep(doc: Document): Step | undefined {
+/**
+ * Étape affichée, ou `undefined` si aucun titre d'étape n'est visible ou s'ils désignent des étapes différentes.
+ * Les titres sont lus en français (`sourceOf`), même s'ils sont affichés en éton.
+ */
+export function detectStep(doc: Document, sourceOf?: SourceOf): Step | undefined {
   const found = new Set<Step>();
   for (const heading of doc.querySelectorAll('h1, [role="heading"][aria-level="1"]')) {
     if (isInExcludedRegion(heading)) continue;
-    const step = STEP_TITLES.get((heading.textContent ?? '').replace(/\s+/gu, ' ').trim());
+    const step = STEP_TITLES.get(sourceText(heading, sourceOf).replace(/\s+/gu, ' ').trim());
     if (step) found.add(step);
   }
   return found.size === 1 ? [...found][0] : undefined;
@@ -77,10 +80,10 @@ export interface PageContext {
   step?: Step;
 }
 
-export function readPageContext(doc: Document): PageContext {
+export function readPageContext(doc: Document, sourceOf?: SourceOf): PageContext {
   const page: PageContext = {};
   const pageLang = pageLangOf(doc);
-  const step = detectStep(doc);
+  const step = detectStep(doc, sourceOf);
   if (pageLang !== undefined) page.pageLang = pageLang;
   if (step !== undefined) page.step = step;
   return page;

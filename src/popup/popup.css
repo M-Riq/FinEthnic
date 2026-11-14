@@ -88,8 +88,11 @@ h1 { margin: 0; font-size: 1.25rem; }
 .state { margin: 4px 8px 0; color: var(--muted); }
 .error { margin: 12px 0 0; color: var(--error); font-weight: 600; }
 
+.summary { padding: 12px 0; }
+.summary h2, .report h2 { margin: 0 0 4px; font-size: 1rem; }
+.summary-status { margin: 0; }
+
 .report { padding: 12px 0 0; }
-.report h2 { margin: 0 0 4px; font-size: 1rem; }
 .report-status { margin: 0 0 8px; color: var(--muted); }
 .counts { margin: 0 0 8px; }
 .counts div { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }

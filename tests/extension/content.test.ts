@@ -2,8 +2,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { startContent, type ContentController, type PageDeps } from '../../src/content/controller';
-import { DIAGNOSTIC_CLASSES, highlightName, type HighlightApi } from '../../src/content/diagnostic';
+import { DIAGNOSTIC_CLASSES, highlightName, MARK_NAMES } from '../../src/content/diagnostic';
 import { acceptEngine, provideEngine } from '../../src/content/engine-provider';
 import { createFakeEngine } from '../../src/content/fake-engine';
 import { createMessageListener } from '../../src/content/messaging';
@@ -11,39 +10,11 @@ import { CONTRACT_VERSION } from '../../src/language/contract';
 import { createLogger } from '../../src/shared/logger';
 import { DIAGNOSTIC_REQUEST, isDiagnosticSnapshot } from '../../src/shared/messages';
 import { createSettingsStore, DEFAULT_SETTINGS, SETTINGS_KEY } from '../../src/shared/settings';
-import { createFakeStorage, flush } from './support/fake-storage';
-import { d8Texts, loadFixture, manualFrames, recorder, showStep } from './support/page';
+import { launch, stopAll } from './support/content';
+import { flush } from './support/fake-storage';
+import { d8Texts, loadFixture, showStep } from './support/page';
 
-const controllers: ContentController[] = [];
-afterEach(() => controllers.splice(0).forEach((controller) => controller.stop()));
-
-/** Faux registre `CSS.highlights` : textes surlignés par nom. */
-function fakeHighlights() {
-  const registry = new Map<string, readonly Range[]>();
-  const api: HighlightApi = { set: (name, ranges) => void registry.set(name, ranges), delete: (name) => void registry.delete(name) };
-  const texts = (name: string) => (registry.get(name) ?? []).map((range) => range.toString());
-  return { registry, api, texts };
-}
-
-async function launch(initial: Record<string, unknown> = {}, page: Partial<PageDeps> = {}) {
-  const fake = createFakeStorage({ [SETTINGS_KEY]: initial });
-  const log = recorder();
-  const frames = manualFrames();
-  const highlights = fakeHighlights();
-  const controller = await startContent(createSettingsStore(fake.storage), log.logger, {
-    doc: document,
-    engine: createFakeEngine(),
-    schedule: frames.schedule,
-    highlights: highlights.api,
-    ...page,
-  });
-  controllers.push(controller);
-  const update = async (patch: Record<string, unknown>) => {
-    await createSettingsStore(fake.storage).update(patch);
-    await frames.frames();
-  };
-  return { controller, fake, frames, highlights, update, ...log };
-}
+afterEach(stopAll);
 
 describe('journal sans données (P1.6)', () => {
   it('n’écrit rien hors construction de développement', () => {
@@ -121,8 +92,14 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
   it('surligne chaque catégorie en mode diagnostic, sans les espaces de bord', async () => {
     loadFixture(document, 4);
     const { highlights, update } = await launch({ diagnostic: true });
-    expect(highlights.texts('finethnic-approved')).toEqual(['Frais']);
-    expect(highlights.texts('finethnic-unverified')).toEqual(['Montant', 'Total débité', 'Bénéficiaire', 'Confirmer le transfert']);
+    // Les textes affichables sont déjà remplacés (P5) : le surlignage porte sur le texte affiché.
+    expect(highlights.texts('finethnic-approved')).toEqual(['⟦FAKE⟧ Frais']);
+    expect(highlights.texts('finethnic-unverified')).toEqual([
+      '⟦FAKE⟧ Montant',
+      '⟦FAKE⟧ Total débité',
+      '⟦FAKE⟧ Bénéficiaire',
+      '⟦FAKE⟧ Confirmer le transfert',
+    ]);
     expect(highlights.texts('finethnic-untranslated')).toEqual(['Récapitulatif', 'Référence']);
     expect(highlights.texts('finethnic-numeric')).toEqual(['+237 6 99 12 34 56']);
     // Cellules valeur (`dd`) : protégées par leur position, jamais soumises au moteur (P3.3).
@@ -137,22 +114,31 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
     expect(highlights.registry.has('finethnic-protected')).toBe(false);
     expect(highlights.registry.has('finethnic-partial')).toBe(false);
 
-    // Le surlignage suit la page monopage, puis disparaît avec le mode diagnostic.
+    // Le surlignage suit la page monopage, puis disparaît avec le mode diagnostic ; les marqueurs restent (P5.10).
     showStep(document, 1);
     await update({});
-    expect(highlights.texts('finethnic-partial')).toEqual(['Consultez votre solde', 'Effectuer un transfert']);
+    expect(highlights.texts('finethnic-partial')).toEqual(['⟦FAKE⟧ Consultez [votre solde]', '⟦FAKE⟧ Effectuer [un transfert]']);
     await update({ diagnostic: false });
-    expect(highlights.registry.size).toBe(0);
+    expect([...highlights.registry.keys()].sort()).toEqual([MARK_NAMES.partial]);
+    expect(highlights.texts(MARK_NAMES.partial)).toEqual(['⟦FAKE⟧ Consultez [votre solde]', '⟦FAKE⟧ Effectuer [un transfert]']);
   });
 
-  it('T-PRO-12 — ne modifie jamais la page (aucune mutation, HTML identique)', async () => {
+  it('retire tout surlignage quand la traduction est désactivée, même en mode diagnostic', async () => {
+    loadFixture(document, 4);
+    const { highlights, update } = await launch({ diagnostic: true });
+    expect(highlights.registry.size).toBeGreaterThan(0);
+    await update({ enabled: false });
+    expect([...highlights.registry.keys()]).toEqual([]);
+  });
+
+  it('T-PRO-12 — sans moteur, ne modifie jamais la page (aucune mutation, HTML identique)', async () => {
     loadFixture(document, 4);
     const before = document.documentElement.outerHTML;
     const records: MutationRecord[] = [];
     const watcher = new MutationObserver((list) => records.push(...list));
     watcher.observe(document, { subtree: true, childList: true, attributes: true, characterData: true });
 
-    const { controller, update } = await launch({ diagnostic: true });
+    const { controller, update } = await launch({ diagnostic: true }, { engine: null });
     await update({ diagnostic: false });
     await update({ diagnostic: true, enabled: false });
     await update({ enabled: true });
@@ -162,6 +148,30 @@ describe('script de contenu : lecture de la page et diagnostic (P2)', () => {
     records.push(...watcher.takeRecords());
     watcher.disconnect();
     expect(records).toEqual([]);
+    expect(document.documentElement.outerHTML).toBe(before);
+  });
+
+  it('T-PRO-12 (P5) — ne réécrit que des textes existants, et rend la page identique à l’arrêt', async () => {
+    loadFixture(document, 4);
+    const before = document.documentElement.outerHTML;
+    const records: MutationRecord[] = [];
+    const watcher = new MutationObserver((list) => records.push(...list));
+    watcher.observe(document, { subtree: true, childList: true, attributes: true, characterData: true });
+
+    const { controller, update } = await launch({ diagnostic: true });
+    expect(document.documentElement.outerHTML).not.toBe(before);
+    await update({ diagnostic: false, displayMode: 'bilingual' });
+    await update({ enabled: false });
+    records.push(...watcher.takeRecords());
+    expect(document.documentElement.outerHTML).toBe(before);
+
+    await update({ enabled: true });
+    controller.stop();
+    await flush();
+    records.push(...watcher.takeRecords());
+    watcher.disconnect();
+    expect(records.length).toBeGreaterThan(0);
+    expect(records.every((record) => record.type === 'characterData')).toBe(true);
     expect(document.documentElement.outerHTML).toBe(before);
   });
 
@@ -259,6 +269,15 @@ describe('styles du diagnostic', () => {
       expect(css).toContain(`::highlight(${name})`);
       expect(legend).toContain(`key-${name.replace('finethnic-', '')}`);
       expect(legend).toContain(`data-count="${cls}"`);
+    }
+  });
+
+  it('chaque marqueur de traduction non vérifiée a un style dans la page et un échantillon dans le popup', () => {
+    const css = read('src/content/content.css');
+    const legend = read('src/popup/popup.html');
+    for (const [display, name] of Object.entries(MARK_NAMES)) {
+      expect(css).toContain(`::highlight(${name})`);
+      expect(legend).toContain(`key-${display}`);
     }
   });
 });

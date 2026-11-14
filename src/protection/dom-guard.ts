@@ -10,6 +10,7 @@
  *      liens `tel:`, `mailto:` et `sms:` ;
  *    - paires libellé/valeur (P3.3) : 2ᵉ cellule d'une ligne de deux cellules (`tr`, `[role=row]`), et
  *      2ᵉ de deux éléments frères quand le 1ᵉʳ finit par « : » (« Bénéficiaire : » / « Jean-Paul Mbarga ») ;
+ *      ce libellé est lu en français (`sourceOf`), même affiché en éton ou en mode bilingue (P5) ;
  *    - attributs ou classes indicatifs (`amount`, `balance`, `name`, `ref`…) : ils ne font qu'ajouter une
  *      exclusion, jamais en retirer une. Ils sont lus sur le parent du texte et ses ancêtres en ligne, jusqu'au
  *      premier bloc compris, pour qu'une classe posée sur une carte entière ne bloque pas son titre.
@@ -69,6 +70,20 @@ export const VALUE_SELECTOR = [
   'a[href^="mailto:" i]',
   'a[href^="sms:" i]',
 ].join(', ');
+
+/** Texte d'origine d'un nœud texte : après traduction (P5), le français gardé par le rendu. */
+export type SourceOf = (node: Text) => string;
+
+const SHOW_TEXT = 0x4;
+
+/** Texte d'un élément ; avec `sourceOf`, lu en français même si certains de ses textes sont affichés en éton. */
+export function sourceText(element: Element, sourceOf?: SourceOf): string {
+  if (!sourceOf) return element.textContent ?? '';
+  let text = '';
+  const walker = element.ownerDocument.createTreeWalker(element, SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) text += sourceOf(node as Text);
+  return text;
+}
 
 const CELL_SELECTOR = 'td, th, [role="cell" i], [role="gridcell" i], [role="rowheader" i]';
 
@@ -134,25 +149,25 @@ function isSecondOfTwoCells(cell: Element): boolean {
 }
 
 /** Vrai si l'élément est le second de deux frères et que le premier finit par « : » (libellé). */
-function isValueAfterColonLabel(element: Element): boolean {
+function isValueAfterColonLabel(element: Element, sourceOf?: SourceOf): boolean {
   const parent = element.parentElement;
   if (!parent || parent.children.length !== 2 || parent.lastElementChild !== element) return false;
-  const label = parent.firstElementChild?.textContent ?? '';
-  return /:\s*$/u.test(label);
+  const label = parent.firstElementChild;
+  return label !== null && /:\s*$/u.test(sourceText(label, sourceOf));
 }
 
 /**
  * Vrai si le texte est en position « valeur » (voir l'en-tête) : il ne doit jamais être soumis au moteur,
- * quelle que soit sa ressemblance avec un libellé de la bibliothèque.
+ * quelle que soit sa ressemblance avec un libellé de la bibliothèque. `sourceOf` lit les libellés en français.
  */
-export function isValuePosition(node: Node): boolean {
+export function isValuePosition(node: Node, sourceOf?: SourceOf): boolean {
   const parent = node.nodeType === 1 ? (node as Element) : node.parentElement;
   if (!parent) return false;
   if (parent.closest(VALUE_SELECTOR)) return true;
   const cell = parent.closest(CELL_SELECTOR);
   if (cell && isSecondOfTwoCells(cell)) return true;
   for (let element: Element | null = parent; element; element = element.parentElement) {
-    if (hasIndicativeHint(element) || isValueAfterColonLabel(element)) return true;
+    if (hasIndicativeHint(element) || isValueAfterColonLabel(element, sourceOf)) return true;
     if (BLOCK_TAGS.has(element.tagName.toUpperCase())) break;
   }
   return false;

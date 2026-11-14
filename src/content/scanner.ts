@@ -5,7 +5,7 @@
  * par `dom-guard`, et classe chaque texte non vide. Rien n'est écrit dans la page.
  * Les racines fantômes (shadow DOM) et les iframes ne sont pas parcourues (à vérifier en Q20).
  */
-import { isExcludedElement, isInExcludedRegion, isValuePosition } from '../protection/dom-guard';
+import { isExcludedElement, isInExcludedRegion, isValuePosition, type SourceOf } from '../protection/dom-guard';
 
 /**
  * - `candidate` : texte avec au moins une lettre, à soumettre au moteur ;
@@ -24,11 +24,14 @@ export function classifyText(text: string): TextKind | null {
   return null;
 }
 
-/** Classe un nœud texte : comme `classifyText`, puis un texte avec des lettres en position « valeur » devient `value`. */
-export function classifyNode(node: Text, isEcho?: EchoCheck): TextKind | null {
+/**
+ * Classe un nœud texte : comme `classifyText`, puis un texte avec des lettres en position « valeur » devient `value`.
+ * `sourceOf` fait lire les libellés voisins en français quand ils sont affichés en éton (P5).
+ */
+export function classifyNode(node: Text, isEcho?: EchoCheck, sourceOf?: SourceOf): TextKind | null {
   const kind = classifyText(node.data);
   if (kind !== 'candidate') return kind;
-  return isValuePosition(node) || isEcho?.(node.data) === true ? 'value' : 'candidate';
+  return isValuePosition(node, sourceOf) || isEcho?.(node.data) === true ? 'value' : 'candidate';
 }
 
 const ELEMENT_NODE = 1;
@@ -43,10 +46,15 @@ const FILTER_SKIP = 3;
  * Appelle `visit` pour chaque nœud texte classé sous `root` (ou pour `root` s'il est un nœud texte),
  * dans l'ordre du document. Une racine située dans une région exclue ne donne rien.
  */
-export function scanTexts(root: Node, visit: (node: Text, kind: TextKind) => void, isEcho?: EchoCheck): void {
+export function scanTexts(
+  root: Node,
+  visit: (node: Text, kind: TextKind) => void,
+  isEcho?: EchoCheck,
+  sourceOf?: SourceOf,
+): void {
   if ((root.nodeType !== ELEMENT_NODE && root.nodeType !== TEXT_NODE) || isInExcludedRegion(root)) return;
   if (root.nodeType === TEXT_NODE) {
-    const kind = classifyNode(root as Text, isEcho);
+    const kind = classifyNode(root as Text, isEcho, sourceOf);
     if (kind) visit(root as Text, kind);
     return;
   }
@@ -57,7 +65,7 @@ export function scanTexts(root: Node, visit: (node: Text, kind: TextKind) => voi
       node.nodeType === ELEMENT_NODE ? (isExcludedElement(node as Element) ? FILTER_REJECT : FILTER_SKIP) : FILTER_ACCEPT,
   });
   for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-    const kind = classifyNode(node as Text, isEcho);
+    const kind = classifyNode(node as Text, isEcho, sourceOf);
     if (kind) visit(node as Text, kind);
   }
 }
