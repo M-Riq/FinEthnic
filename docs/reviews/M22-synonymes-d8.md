@@ -96,7 +96,7 @@ Aucune reformulation attestée n'a été trouvée. Principaux obstacles, mesuré
 
 ## Constats à part (hors de ce rapport, à décider séparément)
 
-1. **« Retourner » (ACT-051) → vyàŋlà**, traduction complète aujourd'hui. Mais D7 donne vyàŋlà = « retourner, renverser » (retourner un objet), et non « revenir en arrière ». Le bouton veut dire « revenir » → dúgnì « revenir, rentrer ». Proposition : marquer vyàŋlà comme sens faux pour ACT-051 (mécanisme M18) et ajouter « revenir » comme synonyme.
+1. **« Retourner » (ACT-051) → vyàŋlà** : D7 donne vyàŋlà = « retourner, renverser » (retourner un objet), et non « revenir en arrière ». ✅ Corrigé le 2026-11-15 (décision du responsable) : vyàŋlà est déclaré sens faux dans `sense-review.json` ; le moteur prend le synonyme de D8 « revenir » → dúgnì « revenir, rentrer ». Seule cette entrée change.
 2. **« caisse » → ì-zímí** veut aussi dire « cercueil » : non proposé pour « Compte ».
 3. **« Fermer un compte » → màn compte** (màn = « finir »), alors que « fermer le compte » donnerait dìb compte (dìb = « trouver ; boucher, fermer »). Les deux sont ambigus : à laisser tel quel.
 
