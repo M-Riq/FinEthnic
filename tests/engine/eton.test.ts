@@ -382,10 +382,15 @@ describe('buildEton — manques signalés, jamais inventés', () => {
     expect(gapIds(r)).toContain(ETON_RULES.VERB_FORM.id);
   });
 
-  it('un auxiliaire de D7 trouvé par le lemme d’une forme non infinitive est un manque (« faux » → faillir ≠ yì)', () => {
+  it('une forme conjuguée de 1re ou 2e personne sans « je » ni « tu » n’est pas un verbe (« faux » ≠ « je faux », faillir → yì)', () => {
     const r = run('faux message');
     expect(r.complete).toBe(false);
-    expect(gapIds(r)).toEqual([ETON_RULES.VERB_FORM.id]);
+    expect(gapIds(r)).toEqual(['WORD:faux']);
+  });
+
+  it('un participe présent est un nom hors de « en … » (« montant » ≠ monter → bɛ́d), un verbe dans un gérondif', () => {
+    expect(gapIds(run('montant'))).toEqual(['WORD:montant']);
+    expect(gapIds(run('en montant'))).toContain(ETON_RULES.VERB_FORM.id);
   });
 
   it('forme liée, nombre devant un nom, préposition devant un infinitif, adverbe de lieu', () => {

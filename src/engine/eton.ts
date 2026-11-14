@@ -17,7 +17,7 @@
 import { classify, negationIndices, questionParticleIndices, restrictionIndices, type SentenceAnalysis } from './classify';
 import { chooseEntry, type D7Entry, type D7Index, isBoundForm, senseOf } from './d7';
 import { DETERMINERS, OBJECT_CLITICS, PREPOSITIONS, SUBJECT_CLITICS } from './french';
-import type { Lexicon, Pos } from './lexicon';
+import { isFinite, isVerbal, type Lexicon, type Pos } from './lexicon';
 import { normalize, type Token } from './normalize';
 
 export type RuleClass = 'A' | 'B' | 'C';
@@ -334,8 +334,19 @@ function roles(s: SentenceAnalysis, lexicon: Lexicon | undefined, ignored: Reado
 function contextPos(tokens: readonly Token[], i: number, lexicon: Lexicon | undefined, role: Role): Set<Pos> {
   if (role.kind === 'VERB') return new Set(['VERB']);
   const t = tokens[i] as Token;
-  const pos = new Set((lexicon?.lookup(t.key) ?? []).map((r) => r.pos));
+  const readings = lexicon?.lookup(t.key) ?? [];
+  // Mot que la classification n'a pas pris pour un verbe et qui a une autre lecture : ses lectures verbales
+  // impossibles ici sont écartées. Une forme conjuguée qui n'existe qu'à la 1re ou 2e personne, hors impératif,
+  // demande « je », « tu », « nous » ou « vous » devant elle, que la classification aurait vu (« puis » ≠ « je puis »,
+  // « faux » ≠ « je faux » de faillir). Un participe présent hors de « en … » est un nom ou un adjectif
+  // (« montant » ≠ monter). Une forme de 3e personne reste possible (« Personne ne vole ») : elle est gardée.
+  const verbal = readings.filter(isVerbal);
+  const other = readings.filter((r) => !isVerbal(r) && r.pos !== 'PROPN');
   const prev = wordAt(tokens, i - 1);
+  const impossible = (r: (typeof readings)[number]): boolean =>
+    (r.mood === 'PRESENT_PARTICIPLE' && prev?.key !== 'en')
+    || (isFinite(r) && r.mood !== 'IMPERATIVE' && r.persons.length > 0 && r.persons.every((p) => p !== 3));
+  const pos = new Set((other.length > 0 && verbal.length > 0 && verbal.every(impossible) ? other : readings).map((r) => r.pos));
   if (prev && (DETERMINERS.has(prev.key) || POSSESSIVES.has(prev.key))) {
     const nominal = [...pos].filter((p) => NOMINAL.has(p));
     if (nominal.length > 0) return new Set(nominal);

@@ -43,6 +43,7 @@ export const D7_ENTRIES: readonly D7Entry[] = [
   e('langue', 'ù-jə́m', 'NOM', '1) langue (organe) 2) caquet, bavardage', 'D7 p. 259 (lexique n° 3060)'),
   e('payer', 'yágnà', 'VERBE', 'payer, récompenser, rémunérer', 'D7 p. 273 (lexique n° 3307)'),
   e('attendre', 'yàŋà', 'VERBE', 'attendre', 'D7 (lexique n° 3312)'),
+  e('monter', 'bɛ́d', 'VERBE', '1) monter, atteindre un niveau supérieur', 'D7 p. 83 (lexique n° 184)'),
   e('faillir', 'yì', 'AUX', '1) vouloir faire quelque chose 2) être probable de se produire 3) faillir', 'D7 p. 274 (lexique n° 3330)'),
 ];
 
