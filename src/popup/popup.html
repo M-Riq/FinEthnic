@@ -24,7 +24,70 @@
         data-off="Désactivée : la page reste en français.">Chargement…</p>
     </section>
 
+    <section class="setting setting-next" aria-labelledby="showUnverified-label">
+      <button type="button" class="switch" id="showUnverified" role="switch" aria-checked="false"
+        aria-describedby="showUnverified-state" data-setting="showUnverified" aria-disabled="true">
+        <span class="switch-label" id="showUnverified-label">Afficher les traductions non vérifiées</span>
+        <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+      </button>
+      <p class="state" id="showUnverified-state" aria-live="polite"
+        data-on="Affichées et soulignées : en tirets, traductions automatiques pas encore vérifiées par une locutrice ; en vagues, brouillons incomplets."
+        data-off="Masquées : ces textes restent en français.">Chargement…</p>
+    </section>
+
+    <section class="setting setting-next" aria-labelledby="bilingual-label">
+      <button type="button" class="switch" id="bilingual" role="switch" aria-checked="false"
+        aria-describedby="bilingual-state" data-setting="bilingual" aria-disabled="true">
+        <span class="switch-label" id="bilingual-label">Mode bilingue</span>
+        <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+      </button>
+      <p class="state" id="bilingual-state" aria-live="polite"
+        data-on="Le français suit l'éton, entre parenthèses."
+        data-off="L'éton remplace le français. Survolez un texte en éton, ou placez-y le focus, pour lire le français.">Chargement…</p>
+    </section>
+
     <p class="error" id="error" role="alert" hidden>Le réglage n'a pas pu être enregistré. Réessayez.</p>
+
+    <section class="summary" id="summary" aria-labelledby="summary-title" hidden>
+      <h2 id="summary-title">Cette page</h2>
+      <p class="summary-status" id="summary-status" role="status"></p>
+    </section>
+
+    <section class="setting" aria-labelledby="diagnostic-label">
+      <button type="button" class="switch" id="diagnostic" role="switch" aria-checked="false"
+        aria-describedby="diagnostic-state" data-setting="diagnostic" aria-disabled="true">
+        <span class="switch-label" id="diagnostic-label">Mode diagnostic</span>
+        <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+      </button>
+      <p class="state" id="diagnostic-state" aria-live="polite"
+        data-on="Activé : les textes détectés sont soulignés dans la page, sans la modifier."
+        data-off="Désactivé : rien n'est souligné.">Chargement…</p>
+    </section>
+
+    <section class="report" id="report" aria-labelledby="report-title" hidden>
+      <h2 id="report-title">Textes de la page</h2>
+      <p class="report-status" id="report-status" role="status"></p>
+      <dl class="counts" id="report-counts" hidden>
+        <div><dt>Étape</dt><dd data-field="step"></dd></div>
+        <div><dt>Moteur</dt><dd data-field="engine"></dd></div>
+        <div><dt>Textes à traduire</dt><dd data-count="candidates">0</dd></div>
+        <div class="sub"><dt><span class="key key-approved" aria-hidden="true"></span>Traduits (approuvés)</dt><dd data-count="approved">0</dd></div>
+        <div class="sub"><dt><span class="key key-unverified" aria-hidden="true"></span>Non vérifiés</dt><dd data-count="unverified">0</dd></div>
+        <div class="sub"><dt><span class="key key-partial" aria-hidden="true"></span>Brouillons incomplets</dt><dd data-count="partial">0</dd></div>
+        <div class="sub"><dt><span class="key key-untranslated" aria-hidden="true"></span>Connus, pas encore traduits</dt><dd data-count="untranslated">0</dd></div>
+        <div class="sub"><dt><span class="key key-no-match" aria-hidden="true"></span>Inconnus</dt><dd data-count="noMatch">0</dd></div>
+        <div class="sub"><dt><span class="key key-ambiguous" aria-hidden="true"></span>Ambigus</dt><dd data-count="ambiguous">0</dd></div>
+        <div class="sub"><dt><span class="key key-protected" aria-hidden="true"></span>Protégés (jamais traduits)</dt><dd data-count="protected">0</dd></div>
+        <div class="sub"><dt><span class="key key-waiting" aria-hidden="true"></span>Non évalués</dt><dd data-count="waiting">0</dd></div>
+        <div><dt><span class="key key-numeric" aria-hidden="true"></span>Valeurs en chiffres</dt><dd data-count="numeric">0</dd></div>
+        <div><dt><span class="key key-values" aria-hidden="true"></span>Valeurs protégées par leur place</dt><dd data-count="values">0</dd></div>
+        <div><dt>Affichés en éton</dt><dd data-count="displayed">0</dd></div>
+        <div class="sub"><dt>dont non vérifiés</dt><dd data-count="displayedUnverified">0</dd></div>
+        <div><dt>Écartés : valeur protégée modifiée</dt><dd data-count="refused">0</dd></div>
+      </dl>
+      <p class="note">« Non vérifiés » et « brouillons » : traductions automatiques, pas encore vérifiées par une locutrice.</p>
+      <button type="button" class="action" id="report-refresh">Actualiser</button>
+    </section>
 
     <footer>
       <p>Fonctionne seulement sur l'environnement de test SAFINUM Pay.</p>

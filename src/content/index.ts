@@ -3,5 +3,16 @@ import { chromeStorage } from '../shared/chrome-storage';
 import { createLogger } from '../shared/logger';
 import { createSettingsStore } from '../shared/settings';
 import { startContent } from './controller';
+import { cssHighlights } from './diagnostic';
+import { provideEngine } from './engine-provider';
+import { createMessageListener } from './messaging';
+import { frameSchedule } from './observer';
 
-void startContent(createSettingsStore(chromeStorage()), createLogger('content'));
+const ready = startContent(createSettingsStore(chromeStorage()), createLogger('content'), {
+  doc: document,
+  engine: provideEngine(),
+  schedule: frameSchedule(window),
+  highlights: cssHighlights(window),
+});
+
+chrome.runtime.onMessage.addListener(createMessageListener(ready, chrome.runtime.id));
