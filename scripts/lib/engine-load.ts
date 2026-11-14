@@ -63,24 +63,35 @@ export function readKeptFrench(root: string): string[] {
 }
 
 /**
- * Synonymes validés ajoutés à D8 (M22), placés après ceux de D8. Lève une erreur lisible si un champ manque,
- * si l'entrée est inconnue, si son texte ne correspond plus à D8 ou si le synonyme est déjà connu.
+ * Synonymes validés ajoutés à D8 (M22), placés après ceux de D8, et synonymes de D8 retirés par le responsable
+ * (`removals`, M30 : sens financier changé). Lève une erreur lisible si un champ manque, si l'entrée est inconnue,
+ * si son texte ne correspond plus à D8, si un ajout est déjà connu ou si un retrait n'est pas un synonyme de D8.
  */
 export function withSynonymAdditions(root: string, corpus: readonly CorpusEntry[]): CorpusEntry[] {
-  const data = JSON.parse(readFileSync(join(root, SYNONYM_ADDITIONS_PATH), 'utf8')) as { additions?: unknown };
+  const data = JSON.parse(readFileSync(join(root, SYNONYM_ADDITIONS_PATH), 'utf8')) as { additions?: unknown; removals?: unknown };
   if (!Array.isArray(data.additions)) throw new Error(`${SYNONYM_ADDITIONS_PATH} : « additions » doit être une liste`);
+  if (data.removals !== undefined && !Array.isArray(data.removals)) throw new Error(`${SYNONYM_ADDITIONS_PATH} : « removals » doit être une liste`);
   const byId = new Map(corpus.map((e) => [e.id, { ...e, synonyms: [...e.synonyms] }]));
   const key = (t: string): string => t.trim().toLocaleLowerCase('fr');
-  data.additions.forEach((a: Record<string, unknown>, i) => {
+  const check = (list: string, a: Record<string, unknown>, i: number): { e: CorpusEntry & { synonyms: string[] }; synonym: string } => {
     for (const field of ['entryId', 'text', 'synonym', 'reason', 'ref', 'decidedBy', 'date'] as const) {
       if (typeof a[field] !== 'string' || (a[field] as string).trim() === '') {
-        throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}].${field} manquant`);
+        throw new Error(`${SYNONYM_ADDITIONS_PATH} : ${list}[${i}].${field} manquant`);
       }
     }
     const e = byId.get(a.entryId as string);
-    if (e === undefined) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : entrée de D8 inconnue ${String(a.entryId)}`);
-    if (e.text !== a.text) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : le texte de ${e.id} est « ${e.text} » dans D8`);
-    const synonym = (a.synonym as string).trim();
+    if (e === undefined) throw new Error(`${SYNONYM_ADDITIONS_PATH} : ${list}[${i}] : entrée de D8 inconnue ${String(a.entryId)}`);
+    if (e.text !== a.text) throw new Error(`${SYNONYM_ADDITIONS_PATH} : ${list}[${i}] : le texte de ${e.id} est « ${e.text} » dans D8`);
+    return { e, synonym: (a.synonym as string).trim() };
+  };
+  ((data.removals ?? []) as Record<string, unknown>[]).forEach((a, i) => {
+    const { e, synonym } = check('removals', a, i);
+    const k = e.synonyms.findIndex((x) => key(x) === key(synonym));
+    if (k < 0) throw new Error(`${SYNONYM_ADDITIONS_PATH} : removals[${i}] : « ${synonym} » n'est pas un synonyme de ${e.id} dans D8`);
+    e.synonyms.splice(k, 1);
+  });
+  (data.additions as Record<string, unknown>[]).forEach((a, i) => {
+    const { e, synonym } = check('additions', a, i);
     if (e.synonyms.some((x) => key(x) === key(synonym))) throw new Error(`${SYNONYM_ADDITIONS_PATH} : additions[${i}] : « ${synonym} » est déjà un synonyme de ${e.id}`);
     e.synonyms.push(synonym);
   });

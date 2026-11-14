@@ -164,7 +164,7 @@ describe('select — contrôle du sens (M18)', () => {
     }
   });
 
-  it('d8-synonym-additions.json : ajoute le synonyme validé après ceux de D8, refuse un texte changé ou un doublon', () => {
+  it('d8-synonym-additions.json : ajoute le synonyme validé après ceux de D8, retire un synonyme de D8, refuse un texte changé, un doublon ou un retrait inconnu', () => {
     const root = mkdtempSync(join(tmpdir(), 'finethnic-syn-'));
     const add = { entryId: 'VOC-039', text: 'Tarif', synonym: 'coût', reason: 'r', ref: 'M22', decidedBy: 'responsable', date: '2026-11-15' };
     const write = (additions: unknown[]): void => {
@@ -182,6 +182,10 @@ describe('select — contrôle du sens (M18)', () => {
       expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/déjà un synonyme de VOC-039/u);
       write([{ ...add, entryId: 'X-9' }]);
       expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/entrée de D8 inconnue X-9/u);
+      writeFileSync(join(root, SYNONYM_ADDITIONS_PATH), JSON.stringify({ additions: [], removals: [{ ...add, synonym: 'Argent' }] }));
+      expect(withSynonymAdditions(root, RESOURCES.corpus).find((e) => e.id === 'VOC-039')?.synonyms).toEqual(['prix']);
+      writeFileSync(join(root, SYNONYM_ADDITIONS_PATH), JSON.stringify({ additions: [], removals: [{ ...add, synonym: 'coût' }] }));
+      expect(() => withSynonymAdditions(root, RESOURCES.corpus)).toThrow(/« coût » n'est pas un synonyme de VOC-039 dans D8/u);
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
