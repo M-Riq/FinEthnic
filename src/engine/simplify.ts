@@ -234,7 +234,10 @@ function exactUnit(text: string, sentences: SentenceAnalysis[], entry: CorpusEnt
   }
   if (entry.definition !== null) {
     // Mission §3.5 : la définition simple est essayée phrase par phrase (3 au plus), dans l'ordre de D8.
-    for (const sentence of definitionSentences(fillVariables(entry.definition, values), options)) {
+    // Un libellé sans ponctuation finale (« Compte Safinum ») ne prend pas le point de sa définition.
+    const bare = !/[.!?…]\s*$/u.test(text);
+    for (const found of definitionSentences(fillVariables(entry.definition, values), options)) {
+      const sentence = bare ? found.replace(/(?<!\.)\.\s*$/u, '') : found;
       if (seen.has(sentence)) continue;
       seen.add(sentence);
       candidates.push(candidate(sentence, 'DEFINITION'));

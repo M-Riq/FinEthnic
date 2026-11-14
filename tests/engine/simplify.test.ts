@@ -52,7 +52,7 @@ describe('simplify — correspondance exacte (EXACT)', () => {
     const [u] = run('Frais : 500 FCFA');
     expect(u?.entryId).toBe('T-1');
     expect(u?.values).toEqual({ '{frais}': '500 FCFA', '{devise}': '' });
-    expect(texts(u)).toEqual(['ORIGINAL:Frais : 500 FCFA', 'SYNONYM:Prix du service : 500 FCFA', 'DEFINITION:Ce que coûte le service : 500 FCFA.']);
+    expect(texts(u)).toEqual(['ORIGINAL:Frais : 500 FCFA', 'SYNONYM:Prix du service : 500 FCFA', 'DEFINITION:Ce que coûte le service : 500 FCFA']);
     const [v] = run('De Jean Mbarga à Marie Atangana');
     expect(v?.values).toEqual({ '{expediteur}': 'Jean Mbarga', '{destinataire}': 'Marie Atangana' });
     expect(v?.candidates[1]?.text).toBe('Envoyé par Jean Mbarga pour Marie Atangana');
