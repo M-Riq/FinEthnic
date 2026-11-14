@@ -73,6 +73,13 @@ describe('classify — avec le lexique de Lefff (moteur, PR 2)', () => {
     expect(withLexicon('Les sommes envoyées').map(summary)).toEqual(['EXPRESSION -']);
   });
 
+  it('une forme aussi nominale est un impératif devant un déterminant de complément ou dans « ne … pas »', () => {
+    expect(withLexicon('Garde ce papier.').map(summary)).toEqual(['SIMPLE_SENTENCE IMPERATIVE']);
+    expect(withLexicon('Ne donne pas ton code.').map(summary)).toEqual(['SIMPLE_SENTENCE IMPERATIVE NEG(ne,pas)']);
+    expect(withLexicon('Code du marchand').map(summary)).toEqual(['EXPRESSION -']);
+    expect(withLexicon('La garde ce soir').map(summary)).toEqual(['EXPRESSION -']);
+  });
+
   it('une forme coordonnée après un verbe à l’indicatif n’est pas un impératif', () => {
     expect(withLexicon('Le système vérifie et envoie le code.').map(summary)).toEqual(['COMPLEX_SENTENCE STATEMENT']);
     expect(withLexicon('Saisissez le montant et confirmez.').map(summary)).toEqual(['COMPLEX_SENTENCE IMPERATIVE']);

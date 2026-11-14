@@ -20,7 +20,7 @@
  */
 import {
   CLAUSE_LINKERS, CLAUSE_PUNCTUATION, DETERMINERS, ENCLITIC_OBJECTS, FINITE_AUXILIARIES,
-  NEGATION_AFTER_NE, NEGATION_STANDALONE, NOT_VERBS_EZ, NOUS_IRREGULAR, OBJECT_CLITICS, PREPOSITIONS,
+  NEGATION_AFTER_NE, NEGATION_STANDALONE, NOT_VERBS_EZ, NOUS_IRREGULAR, OBJECT_CLITICS, OBJECT_DETERMINERS, PREPOSITIONS,
   QUESTION_WORDS, QUESTION_WORDS_IN_SITU, SUBJECT_CLITICS, SUBORDINATORS, VOUS_IRREGULAR,
 } from './french';
 import { isFinite, type Lexicon } from './lexicon';
@@ -157,6 +157,12 @@ function findFiniteVerbs(tokens: Token[], lexicon: Lexicon | undefined): Omit<Fi
     const readings = lexicon?.lookup(t.key) ?? [];
     if (readings.length > 0 && readings.every(isFinite) && !isWord(prev, DETERMINERS)) {
       add(i, imperativeSlot(i) && readings.some((r) => r.mood === 'IMPERATIVE'));
+    }
+    // Forme aussi nom ou autre (« Garde », « Change », « Donne ») : impératif en tête de proposition si
+    // un déterminant de complément suit (« Garde ce papier ») ou dans « ne … pas » (« Ne donne pas »).
+    else if (readings.some((r) => r.pos === 'VERB' && r.mood === 'IMPERATIVE') && !isWord(prev, DETERMINERS) && imperativeSlot(i)
+      && (isWord(next, OBJECT_DETERMINERS) || (isNe(prev) && isWord(next, NEGATION_AFTER_NE)))) {
+      add(i, true);
     }
   });
   return [...found.entries()]

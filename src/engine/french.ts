@@ -50,6 +50,11 @@ export const DETERMINERS = set(`
 `);
 
 /** Mots après lesquels une nouvelle proposition peut commencer. */
+/** Déterminants qui ouvrent un complément d'objet après un impératif (sans « de », « du », « des », ambigus avec la préposition). */
+export const OBJECT_DETERMINERS = set(`
+  le la les l' un une ce cet cette ces mon ma mes ton ta tes son sa ses notre nos votre vos leur leurs
+`);
+
 export const CLAUSE_LINKERS = set(`
   et mais ou donc car puis ensuite alors si s' quand lorsque lorsqu' puisque puisqu' que qu'
   comme quoique quoiqu' sinon
