@@ -24,7 +24,7 @@
           "category": { "$ref": "#/$defs/text", "description": "Catégorie grammaticale, utilisée par les motifs de grammar-rules.json (ex. NOM, VERBE). Vocabulaire fixé avec D7." },
           "gloss": { "$ref": "#/$defs/text", "description": "Glose française donnée par D7." },
           "ref": { "$ref": "#/$defs/text", "description": "Référence dans D7 (page, entrée)." },
-          "nounClass": { "$ref": "#/$defs/text", "description": "Classe nominale donnée par D7 (ex. « 9/10 », « s.g »), pour les noms seulement : accord du connectif (M26)." }
+          "nounClass": { "$ref": "#/$defs/text", "description": "Classe nominale donnée par D7 (ex. « 9/10 », « s.g »), pour les noms et les noms adjectivaux seulement : accord du connectif (M26, M33)." }
         }
       }
     }

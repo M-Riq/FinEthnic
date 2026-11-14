@@ -49,9 +49,9 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 |---|---|---|---|---|---|---|
 | ≈ | ACT-016 | Confirmer | accepter | mə̀m | mə̀m « avouer, accepter » ; même forme que Valider | oui (2026-11-15) |
 | ≈ | ACT-020 | Autoriser | accepter | mə̀m | « permettre » absent de D7 | oui (2026-11-15) |
-| ≈ | ACT-023 | Accepter les conditions | accepter la loi | mə̀m mbɛ́ní | mbɛ́ní « loi, interdiction » ; « règles » absent de D7 | oui (2026-11-15) |
+| ≈ | ACT-023 | Accepter les conditions | accepter la loi | mə̀m mbɛ́ní | mbɛ́ní « loi, interdiction » ; « règles » absent de D7 | oui (2026-11-15), puis retiré (2026-11-15, relecture des synonymes à risque) |
 | ≈ | ACT-025 | Contester | refuser l'opération | bɛ̀n ì-sàlgà | contester ≈ refuser | oui (2026-11-15) |
-| ≈ | ACT-034 | Débloquer | ouvrir le compte | yázî compte | D8 : « rouvrir », « permettre encore d'utiliser un compte » | oui (2026-11-15) |
+| ≈ | ACT-034 | Débloquer | ouvrir le compte | yázî compte | D8 : « rouvrir », « permettre encore d'utiliser un compte » | oui (2026-11-15), puis retiré (2026-11-15, relecture des synonymes à risque) |
 | ≈ | ACT-039 | Réinitialiser | changer le code | cɛ́nî code | D8 : « remettre comme au début (mot de passe, code secret) » | oui (2026-11-15) |
 | ≈ | VOC-008 | Solde disponible | argent dans le compte | mɔ̀ní á compte | perd « disponible » | oui (2026-11-15) |
 | ≈ | VOC-013 | Plafond | limite | ɲ̀-ɲə̀ | ɲ̀-ɲə̀ « limite ; époque » | oui (2026-11-15) |
@@ -63,7 +63,7 @@ Le **type de phrase est conservé** : 4 propositions à l'infinitif pour des imp
 | ≈ | VOC-052 | Référence | numéro | nwàmɔ̀ | D8 : « numéro de l'opération » | oui (2026-11-15) |
 | ≈ | VOC-053 | Statut de la transaction | état | ì-tə́ | perd « de la transaction » | oui (2026-11-15) |
 | ≈ | VOC-080 | Prêt | dette | ì-kòló | point de vue de celui qui emprunte | oui (2026-11-15) |
-| ≈ | VOC-097 | Conditions générales | loi | mbɛ́ní | mbɛ́ní « loi, interdiction » | oui (2026-11-15) |
+| ≈ | VOC-097 | Conditions générales | loi | mbɛ́ní | mbɛ́ní « loi, interdiction » | oui (2026-11-15), puis retiré (2026-11-15, relecture des synonymes à risque) |
 | ≈ | MSG-002 | Votre solde disponible est de {montant} {devise}. | Argent dans le compte : {montant} {devise}. | mɔ̀ní á compte : {montant} {devise}. | perd « disponible » | oui (2026-11-15) |
 | ≈ | MSG-003 | Numéro de compte : {numéro_compte} | Numéro : {numéro_compte} | nwàmɔ̀ : {numéro_compte} | perd « de compte » | oui (2026-11-15) |
 | ≈ | MSG-009 | Voir toutes les transactions | voir les opérations | yɛ́n ì-sàlgà | perd « toutes » | oui (2026-11-15) |
@@ -111,14 +111,14 @@ Les entrées marquées « texte de page » (P1 à P5) sont les textes des pages 
 | 18 | VOC-093 | Date de la transaction | jour | à-mǒz « jour » (p. 75) | « de la transaction » | oui (2026-11-15) |
 | 19 | VOC-067 | Mobile Money | argent dans le téléphone | mɔ̀ní á ŋ̀-kwǎl (p. 192, 71, 214) | — | oui (2026-11-15) |
 | 20 | VOC-069 | Carte prépayée | carte avec argent | carte èè mɔ̀ní (p. 105, 192) | — | oui (2026-11-15) |
-| 21 | VOC-073 | Agence | boutique | ì-pàtìlá « magasin, épicerie, bar, boutique » (p. 135) | — | oui (2026-11-15) |
+| 21 | VOC-073 | Agence | boutique | ì-pàtìlá « magasin, épicerie, bar, boutique » (p. 135) | — | oui (2026-11-15), puis retiré (2026-11-15, relecture des synonymes à risque) |
 | 22 | MSG-058 | Nouveau transfert | envoyer | lóm « envoyer » (p. 174) | « nouveau » ; un verbe remplace le nom | oui (2026-11-15) |
 | 23 | P5-10 | Nouveau transfert | envoyer | lóm | « nouveau » ; un verbe remplace le nom | oui (2026-11-15) |
 | 24 | SEC-013 | Hameçonnage | piège | ù-lám « piège » (p. 261) | — | oui (2026-11-15) |
 | 25 | SEC-033 | Signalement | informer | bɛ́nî « informer, annoncer, publier » (p. 84) | un verbe remplace le nom | oui (2026-11-15) |
 | 26 | VOC-051 | Récapitulatif | liste | líz « liste » (p. 173) | — | oui (2026-11-15) |
 | 27 | P4-1 | Récapitulatif | liste | líz | — | oui (2026-11-15) |
-| 28 | VOC-072 | Application mobile | téléphone | ŋ̀-kwǎl « corde, fil ; téléphone ; liane » (p. 214) | on parle du téléphone, pas de l'application | oui (2026-11-15) |
+| 28 | VOC-072 | Application mobile | téléphone | ŋ̀-kwǎl « corde, fil ; téléphone ; liane » (p. 214) | on parle du téléphone, pas de l'application | oui (2026-11-15), puis retiré (2026-11-15, relecture des synonymes à risque) |
 | 29 | VOC-098 | Service client | aider | kà « aider » (p. 149) | un verbe remplace le nom | oui (2026-11-15) |
 | 30 | ACT-028 | Souscrire | prendre | ɲɔ̀ŋ « prendre, adopter » (p. 226) | — | oui (2026-11-15) |
 
@@ -142,6 +142,22 @@ Ce décompte date du premier lot ; le second lot (M24) en a débloqué 26. Aucun
 1. **« Retourner » (ACT-051) → vyàŋlà** : D7 donne vyàŋlà = « retourner, renverser » (retourner un objet), et non « revenir en arrière ». ✅ Corrigé le 2026-11-15 (décision du responsable) : vyàŋlà est déclaré sens faux dans `sense-review.json` ; le moteur prend le synonyme de D8 « revenir » → dúgnì « revenir, rentrer ». Seule cette entrée change.
 2. **« caisse » → ì-zímí** veut aussi dire « cercueil » : non proposé pour « Compte ».
 3. **« Fermer un compte » → màn compte** (màn = « finir »), alors que « fermer le compte » donnerait dìb compte (dìb = « trouver ; boucher, fermer »). Les deux sont ambigus : à laisser tel quel.
+
+## Relecture des synonymes à risque (2026-11-15)
+
+Le moteur préfère une traduction complète. Un synonyme au sens faux est donc choisi en silence, sur D8 comme sur les nouveaux textes du web (« Débloquer la carte » → « ouvrir le compte »). Les 681 paires terme–synonyme ont été relues ; 7 sont retirées (décision du responsable) :
+
+| Entrée | Terme | Synonyme retiré | Origine | Problème | Après retrait |
+|---|---|---|---|---|---|
+| VOC-023 | Montant | prix | D8 | táŋ = « Frais », « Tarif » : montant et frais confondus | ɛ̀-bím ɛ́ mɔ̀ní « quantité d'argent », complet |
+| ACT-059 | Fermer la fenêtre | cacher | D8 | swàlì = cacher | dìb wúnâ « fermer fenêtre », complet |
+| VOC-073 | Agence | boutique | M24 | ì-pàtìlá = magasin, bar | ì-pàtìlá í service, complet |
+| ACT-034 | Débloquer | ouvrir le compte | M22 | débloquer ≠ ouvrir un compte | repli |
+| VOC-097 | Conditions générales | loi | M22 | mbɛ́ní = loi, interdiction | brouillon |
+| ACT-023 | Accepter les conditions | accepter la loi | M22 | idem | brouillon |
+| VOC-072 | Application mobile | téléphone | M24 | ŋ̀-kwǎl = corde, fil, téléphone | brouillon |
+
+Les synonymes de D8 vont dans la liste `removals` ; les ajouts M22/M24 sont enlevés de `additions`. Sur les 375 textes de D8 : 194 → 190 traduits complètement. Gardés après relecture (sens D7 conforme) : état, preuve, fin, piège, informer, prendre, argent (« Somme »), changer le code. « Prêt » → dette reste une question ouverte.
 
 ## Mise en place
 

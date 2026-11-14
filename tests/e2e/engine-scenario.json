@@ -5,13 +5,13 @@
     {
       "id": "E01",
       "text": "Montant",
-      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "táŋ", "keptFrench": [] },
-      "display": "Traduction non vérifiée : « táŋ » avec le marqueur, « Montant » au survol."
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "ɛ̀-bím ɛ́ mɔ̀ní", "keptFrench": [] },
+      "display": "Traduction non vérifiée : « ɛ̀-bím ɛ́ mɔ̀ní » avec le marqueur, « Montant » au survol."
     },
     {
       "id": "E02",
       "text": "  Montant  ",
-      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "  táŋ  " },
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "complete", "unverifiedOutput": "  ɛ̀-bím ɛ́ mɔ̀ní  " },
       "display": "Comme E01 ; les espaces du nœud sont gardés."
     },
     {
@@ -23,7 +23,7 @@
     {
       "id": "E04",
       "text": "Bonjour",
-      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "partial", "unverifiedOutput": "pwág ì-búg ású kàd [bonjour] á [quelqu'un]." },
+      "expect": { "status": "PENDING_VALIDATION", "matchKind": "exact", "unverifiedKind": "partial", "unverifiedOutput": "pwág ì-búg ású úkâd [bonjour] á [quelqu'un]." },
       "display": "Brouillon : marqueur « partiel » distinct ; les mots entre crochets sont restés en français."
     },
     {
@@ -85,7 +85,7 @@
       "id": "E14",
       "text": "Montant",
       "sourceLang": "auto",
-      "expect": { "status": "PENDING_VALIDATION", "detectedSourceLang": "fr", "unverifiedOutput": "táŋ" },
+      "expect": { "status": "PENDING_VALIDATION", "detectedSourceLang": "fr", "unverifiedOutput": "ɛ̀-bím ɛ́ mɔ̀ní" },
       "display": "Langue « auto » : détectée comme du français."
     },
     {
